@@ -156,10 +156,11 @@ end
     #rescue
   
     begin
-      menu = @driver.find_elements(:class,"menulink").first.click()
-      #action=Selenium::WebDriver::ActionBuilder.new(:move_to,nil)
-      #@driver.action.move_to(menu).perform
-      @driver.find_element(:name, 'Logout').click
+      wait = Selenium::WebDriver::Wait.new(:timeout => 10) 
+    wait.until{
+     menu = @driver.find_elements(:class,"menulink").first.click()
+    submenu=@driver.find_element(:link, 'Logout')
+    submenu.click }
       #submenu.click
       #@driver.action.move_to(menu).click(submenu).perform
     rescue Selenium::WebDriver::Error::NoSuchElementError, Timeout::Error
@@ -194,10 +195,10 @@ end
       puts "EULA has already been accepted."
     end
     begin
-      menu = @driver.find_elements(:class,"menulink").first.click()
-      #action=Selenium::WebDriver::ActionBuilder.new(:move_to,nil)
-      submenu=@driver.find_element(:link, 'Logout').displayed?
-      #@driver.action.move_to(menu).perform
+      wait = Selenium::WebDriver::Wait.new(:timeout => 10) 
+    wait.until{
+    menu = @driver.find_elements(:class,"menulink").first.click()
+    submenu=@driver.find_element(:link, 'Logout').displayed? }
     rescue Selenium::WebDriver::Error::NoSuchElementError, Timeout::Error
       if @driver.page_source.match('SLI Exception')
         ele=false
@@ -235,11 +236,10 @@ end
 
   When /^I mouseover on menu and click submenu "([^\"]*)"$/ do |submenu|
     begin
-      menu = @driver.find_elements(:class,"menulink").first.click()
-      #action=Selenium::WebDriver::ActionBuilder.new(:move_to,nil)
-      #@driver.action.move_to(menu).perform
-      submenu=@driver.find_element(:link, submenu)
-      submenu.click
+      wait = Selenium::WebDriver::Wait.new(:timeout => 10)
+    wait.until{
+    menu = @driver.find_elements(:class,"menulink").first.click()
+    @driver.find_element(:link, submenu).click()}
     rescue Selenium::WebDriver::Error::NoSuchElementError, Timeout::Error
       if @driver.page_source.match('SLI Exception')
         ele=false
