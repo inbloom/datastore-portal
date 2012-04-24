@@ -19,15 +19,7 @@
 		<header-portlet-css>/css/main.css</header-portlet-css>
 		<css-class-wrapper>footerportlet-portlet</css-class-wrapper>
 	</portlet>
-	<portlet>
-		<portlet-name>wsrp</portlet-name>
-		<icon>/icon.png</icon>
-		<instanceable>false</instanceable>
-		<private-request-attributes>false</private-request-attributes>
-		<private-session-attributes>false</private-session-attributes>
-		<css-class-wrapper>wsrp-portlets</css-class-wrapper>
-	</portlet>
-	
+
 	<role-mapper>
 		<role-name>administrator</role-name>
 		<role-link>Administrator</role-link>

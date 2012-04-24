@@ -44,10 +44,19 @@ public interface HeaderFooterService {
 	 * Never modify or reference this interface directly. Always use {@link HeaderFooterServiceUtil} to access the header footer remote service. Add custom service methods to {@link org.slc.sli.headerfooter.service.impl.HeaderFooterServiceImpl} and rerun ServiceBuilder to automatically copy the method declarations to this interface.
 	 */
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public java.lang.String getHeader(java.lang.String token)
+	public java.lang.String getHeader(java.lang.String token,
+		java.lang.String currUrl)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public java.lang.String getFooter(java.lang.String token)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public java.lang.String getHeader(boolean isAdmin)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public java.lang.String getFooter(boolean isAdmin)
 		throws com.liferay.portal.kernel.exception.SystemException;
 }

@@ -65,10 +65,11 @@ import java.rmi.RemoteException;
  * @generated
  */
 public class HeaderFooterServiceSoap {
-	public static java.lang.String getHeader(java.lang.String token)
-		throws RemoteException {
+	public static java.lang.String getHeader(java.lang.String token,
+		java.lang.String currUrl) throws RemoteException {
 		try {
-			java.lang.String returnValue = HeaderFooterServiceUtil.getHeader(token);
+			java.lang.String returnValue = HeaderFooterServiceUtil.getHeader(token,
+					currUrl);
 
 			return returnValue;
 		}
@@ -83,6 +84,34 @@ public class HeaderFooterServiceSoap {
 		throws RemoteException {
 		try {
 			java.lang.String returnValue = HeaderFooterServiceUtil.getFooter(token);
+
+			return returnValue;
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static java.lang.String getHeader(boolean isAdmin)
+		throws RemoteException {
+		try {
+			java.lang.String returnValue = HeaderFooterServiceUtil.getHeader(isAdmin);
+
+			return returnValue;
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static java.lang.String getFooter(boolean isAdmin)
+		throws RemoteException {
+		try {
+			java.lang.String returnValue = HeaderFooterServiceUtil.getFooter(isAdmin);
 
 			return returnValue;
 		}

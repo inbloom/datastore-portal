@@ -248,7 +248,12 @@ public interface HeaderFooterLocalService extends PersistedModelLocalService {
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public java.lang.String getHeader(java.lang.String token)
+	public java.lang.String getHeader(java.lang.String token,
+		java.lang.String currUrl)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public java.lang.String getHeader(boolean isAdmin)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	public org.slc.sli.headerfooter.model.HeaderFooter addFooter(
@@ -263,6 +268,10 @@ public interface HeaderFooterLocalService extends PersistedModelLocalService {
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public org.slc.sli.headerfooter.model.HeaderFooter getCurrentFooter()
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public java.lang.String getFooter(boolean isAdmin)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)

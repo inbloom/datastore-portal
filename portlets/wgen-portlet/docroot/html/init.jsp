@@ -17,6 +17,7 @@
 <%@page import="org.slc.sli.headerfooter.service.HeaderFooterServiceUtil"%>
 <%@page import="org.slc.sli.headerfooter.service.HeaderFooterLocalServiceUtil"%>
 <%@page import="org.slc.sli.headerfooter.model.HeaderFooter"%>
+
 <%@ taglib uri="http://alloy.liferay.com/tld/aui" prefix="aui"%>
 
 <portlet:defineObjects />

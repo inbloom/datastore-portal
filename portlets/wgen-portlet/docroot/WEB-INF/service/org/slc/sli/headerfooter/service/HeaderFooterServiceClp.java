@@ -26,18 +26,26 @@ public class HeaderFooterServiceClp implements HeaderFooterService {
 		_classLoaderProxy = classLoaderProxy;
 
 		_getHeaderMethodKey0 = new MethodKey(_classLoaderProxy.getClassName(),
-				"getHeader", java.lang.String.class);
+				"getHeader", java.lang.String.class, java.lang.String.class);
 
 		_getFooterMethodKey1 = new MethodKey(_classLoaderProxy.getClassName(),
 				"getFooter", java.lang.String.class);
+
+		_getHeaderMethodKey2 = new MethodKey(_classLoaderProxy.getClassName(),
+				"getHeader", boolean.class);
+
+		_getFooterMethodKey3 = new MethodKey(_classLoaderProxy.getClassName(),
+				"getFooter", boolean.class);
 	}
 
-	public java.lang.String getHeader(java.lang.String token)
+	public java.lang.String getHeader(java.lang.String token,
+		java.lang.String currUrl)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;
 
 		MethodHandler methodHandler = new MethodHandler(_getHeaderMethodKey0,
-				ClpSerializer.translateInput(token));
+				ClpSerializer.translateInput(token),
+				ClpSerializer.translateInput(currUrl));
 
 		try {
 			returnObj = _classLoaderProxy.invoke(methodHandler);
@@ -86,6 +94,60 @@ public class HeaderFooterServiceClp implements HeaderFooterService {
 		return (java.lang.String)ClpSerializer.translateOutput(returnObj);
 	}
 
+	public java.lang.String getHeader(boolean isAdmin)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		Object returnObj = null;
+
+		MethodHandler methodHandler = new MethodHandler(_getHeaderMethodKey2,
+				isAdmin);
+
+		try {
+			returnObj = _classLoaderProxy.invoke(methodHandler);
+		}
+		catch (Throwable t) {
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (java.lang.String)ClpSerializer.translateOutput(returnObj);
+	}
+
+	public java.lang.String getFooter(boolean isAdmin)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		Object returnObj = null;
+
+		MethodHandler methodHandler = new MethodHandler(_getFooterMethodKey3,
+				isAdmin);
+
+		try {
+			returnObj = _classLoaderProxy.invoke(methodHandler);
+		}
+		catch (Throwable t) {
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (java.lang.String)ClpSerializer.translateOutput(returnObj);
+	}
+
 	public ClassLoaderProxy getClassLoaderProxy() {
 		return _classLoaderProxy;
 	}
@@ -93,4 +155,6 @@ public class HeaderFooterServiceClp implements HeaderFooterService {
 	private ClassLoaderProxy _classLoaderProxy;
 	private MethodKey _getHeaderMethodKey0;
 	private MethodKey _getFooterMethodKey1;
+	private MethodKey _getHeaderMethodKey2;
+	private MethodKey _getFooterMethodKey3;
 }

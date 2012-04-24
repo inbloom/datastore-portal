@@ -38,14 +38,25 @@ public class HeaderFooterServiceUtil {
 	 *
 	 * Never modify this class directly. Add custom service methods to {@link org.slc.sli.headerfooter.service.impl.HeaderFooterServiceImpl} and rerun ServiceBuilder to regenerate this class.
 	 */
-	public static java.lang.String getHeader(java.lang.String token)
+	public static java.lang.String getHeader(java.lang.String token,
+		java.lang.String currUrl)
 		throws com.liferay.portal.kernel.exception.SystemException {
-		return getService().getHeader(token);
+		return getService().getHeader(token, currUrl);
 	}
 
 	public static java.lang.String getFooter(java.lang.String token)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return getService().getFooter(token);
+	}
+
+	public static java.lang.String getHeader(boolean isAdmin)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().getHeader(isAdmin);
+	}
+
+	public static java.lang.String getFooter(boolean isAdmin)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().getFooter(isAdmin);
 	}
 
 	public static void clearService() {

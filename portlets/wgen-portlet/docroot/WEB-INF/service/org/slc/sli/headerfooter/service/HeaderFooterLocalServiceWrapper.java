@@ -271,9 +271,15 @@ public class HeaderFooterLocalServiceWrapper implements HeaderFooterLocalService
 		return _headerFooterLocalService.getCurrentHeader();
 	}
 
-	public java.lang.String getHeader(java.lang.String token)
+	public java.lang.String getHeader(java.lang.String token,
+		java.lang.String currUrl)
 		throws com.liferay.portal.kernel.exception.SystemException {
-		return _headerFooterLocalService.getHeader(token);
+		return _headerFooterLocalService.getHeader(token, currUrl);
+	}
+
+	public java.lang.String getHeader(boolean isAdmin)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _headerFooterLocalService.getHeader(isAdmin);
 	}
 
 	public org.slc.sli.headerfooter.model.HeaderFooter addFooter(
@@ -293,6 +299,11 @@ public class HeaderFooterLocalServiceWrapper implements HeaderFooterLocalService
 	public org.slc.sli.headerfooter.model.HeaderFooter getCurrentFooter()
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _headerFooterLocalService.getCurrentFooter();
+	}
+
+	public java.lang.String getFooter(boolean isAdmin)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _headerFooterLocalService.getFooter(isAdmin);
 	}
 
 	public java.lang.String getFooter(java.lang.String token)

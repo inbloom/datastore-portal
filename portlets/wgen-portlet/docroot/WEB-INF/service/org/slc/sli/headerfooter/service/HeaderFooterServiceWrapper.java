@@ -31,14 +31,25 @@ public class HeaderFooterServiceWrapper implements HeaderFooterService,
 		_headerFooterService = headerFooterService;
 	}
 
-	public java.lang.String getHeader(java.lang.String token)
+	public java.lang.String getHeader(java.lang.String token,
+		java.lang.String currUrl)
 		throws com.liferay.portal.kernel.exception.SystemException {
-		return _headerFooterService.getHeader(token);
+		return _headerFooterService.getHeader(token, currUrl);
 	}
 
 	public java.lang.String getFooter(java.lang.String token)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _headerFooterService.getFooter(token);
+	}
+
+	public java.lang.String getHeader(boolean isAdmin)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _headerFooterService.getHeader(isAdmin);
+	}
+
+	public java.lang.String getFooter(boolean isAdmin)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _headerFooterService.getFooter(isAdmin);
 	}
 
 	/**

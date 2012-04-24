@@ -6,6 +6,5 @@
 	<category name="Wgen">
 		<portlet id="headerportlet"></portlet>
 		<portlet id="footerportlet"></portlet>
-		<portlet id="wsrp"></portlet>
 	</category>
 </display>

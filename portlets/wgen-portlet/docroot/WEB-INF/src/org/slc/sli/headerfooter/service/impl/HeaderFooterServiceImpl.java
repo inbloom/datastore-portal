@@ -16,6 +16,7 @@ package org.slc.sli.headerfooter.service.impl;
 
 import org.slc.sli.headerfooter.model.HeaderFooter;
 import org.slc.sli.headerfooter.service.base.HeaderFooterServiceBaseImpl;
+import org.slc.sli.util.VelocityUtil;
 
 import com.liferay.portal.kernel.exception.SystemException;
 
@@ -40,13 +41,23 @@ public class HeaderFooterServiceImpl extends HeaderFooterServiceBaseImpl {
 	 * Never reference this interface directly. Always use {@link org.slc.sli.headerfooter.service.HeaderFooterServiceUtil} to access the header footer remote service.
 	 */
 	
-	public String getHeader(String token) throws SystemException {
-	    return headerFooterLocalService.getHeader(token);
+	public String getHeader(String token,String currUrl) throws SystemException {
+	    return headerFooterLocalService.getHeader(token,currUrl);
 	}
 
 	public String getFooter(String token) throws SystemException {
 		return headerFooterLocalService.getFooter(token);
 	}	
+	
+	public String getHeader(boolean isAdmin) throws SystemException {
+	    String header = headerFooterLocalService.getHeader(isAdmin);
+	    return VelocityUtil.velocityHeaderRes(header);
+	}
+	
+	public String getFooter(boolean isAdmin) throws SystemException {
+		String footer=headerFooterLocalService.getFooter(isAdmin);
+		return VelocityUtil.velocityFooterRes(footer);
+	}
 	
 	/*public HeaderFooter getCurrentFooter() throws SystemException {
 		return headerFooterLocalService.getCurrentFooter();

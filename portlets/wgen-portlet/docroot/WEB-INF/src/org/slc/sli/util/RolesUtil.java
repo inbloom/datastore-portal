@@ -26,7 +26,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import javax.servlet.http.HttpServletRequest;
 
 import org.slc.sli.client.RESTClient;
-import org.slc.sli.json.bean.UserData;
+import org.slc.sli.login.json.bean.UserData;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;

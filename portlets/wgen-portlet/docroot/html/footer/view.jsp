@@ -47,18 +47,3 @@
 
 <%=footer!=null ? footer : ""%>
 
-
-<%
-	String jsonText="";
-/*try{
-	        RestTemplate template = new RestTemplate();
-	        URLBuilder url = new URLBuilder("http://svankina.devapp1.slidev.org:8080");
-	        url.addPath("wgen-portlet/api/jsonws/headerfooter/get-header");    
-	        url.addQueryParam("token", "AQIC5wM2LY4SfczZeuafpR2EQWs6jYK4WlTuJmX4clVoD8k.*AAJTSQACMDE.*");
-	        jsonText = template.getForObject(url.toString(), String.class);
-	        JsonParser parser = new JsonParser();
-	       	jsonText =  parser.parse(jsonText).getAsString();
-	}catch(Exception e){
-
-	}*/
-%>

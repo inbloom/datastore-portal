@@ -97,18 +97,24 @@ public class HeaderFooterLocalServiceClp implements HeaderFooterLocalService {
 				"getCurrentHeader");
 
 		_getHeaderMethodKey20 = new MethodKey(_classLoaderProxy.getClassName(),
-				"getHeader", java.lang.String.class);
+				"getHeader", java.lang.String.class, java.lang.String.class);
 
-		_addFooterMethodKey21 = new MethodKey(_classLoaderProxy.getClassName(),
+		_getHeaderMethodKey21 = new MethodKey(_classLoaderProxy.getClassName(),
+				"getHeader", boolean.class);
+
+		_addFooterMethodKey22 = new MethodKey(_classLoaderProxy.getClassName(),
 				"addFooter", java.lang.String.class);
 
-		_editFooterMethodKey22 = new MethodKey(_classLoaderProxy.getClassName(),
+		_editFooterMethodKey23 = new MethodKey(_classLoaderProxy.getClassName(),
 				"editFooter", long.class, java.lang.String.class);
 
-		_getCurrentFooterMethodKey23 = new MethodKey(_classLoaderProxy.getClassName(),
+		_getCurrentFooterMethodKey24 = new MethodKey(_classLoaderProxy.getClassName(),
 				"getCurrentFooter");
 
-		_getFooterMethodKey24 = new MethodKey(_classLoaderProxy.getClassName(),
+		_getFooterMethodKey25 = new MethodKey(_classLoaderProxy.getClassName(),
+				"getFooter", boolean.class);
+
+		_getFooterMethodKey26 = new MethodKey(_classLoaderProxy.getClassName(),
 				"getFooter", java.lang.String.class);
 	}
 
@@ -666,12 +672,41 @@ public class HeaderFooterLocalServiceClp implements HeaderFooterLocalService {
 		return (org.slc.sli.headerfooter.model.HeaderFooter)ClpSerializer.translateOutput(returnObj);
 	}
 
-	public java.lang.String getHeader(java.lang.String token)
+	public java.lang.String getHeader(java.lang.String token,
+		java.lang.String currUrl)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;
 
 		MethodHandler methodHandler = new MethodHandler(_getHeaderMethodKey20,
-				ClpSerializer.translateInput(token));
+				ClpSerializer.translateInput(token),
+				ClpSerializer.translateInput(currUrl));
+
+		try {
+			returnObj = _classLoaderProxy.invoke(methodHandler);
+		}
+		catch (Throwable t) {
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (java.lang.String)ClpSerializer.translateOutput(returnObj);
+	}
+
+	public java.lang.String getHeader(boolean isAdmin)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		Object returnObj = null;
+
+		MethodHandler methodHandler = new MethodHandler(_getHeaderMethodKey21,
+				isAdmin);
 
 		try {
 			returnObj = _classLoaderProxy.invoke(methodHandler);
@@ -699,7 +734,7 @@ public class HeaderFooterLocalServiceClp implements HeaderFooterLocalService {
 			com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;
 
-		MethodHandler methodHandler = new MethodHandler(_addFooterMethodKey21,
+		MethodHandler methodHandler = new MethodHandler(_addFooterMethodKey22,
 				ClpSerializer.translateInput(footerData));
 
 		try {
@@ -732,7 +767,7 @@ public class HeaderFooterLocalServiceClp implements HeaderFooterLocalService {
 			com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;
 
-		MethodHandler methodHandler = new MethodHandler(_editFooterMethodKey22,
+		MethodHandler methodHandler = new MethodHandler(_editFooterMethodKey23,
 				id, ClpSerializer.translateInput(footerData));
 
 		try {
@@ -763,7 +798,7 @@ public class HeaderFooterLocalServiceClp implements HeaderFooterLocalService {
 		throws com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;
 
-		MethodHandler methodHandler = new MethodHandler(_getCurrentFooterMethodKey23);
+		MethodHandler methodHandler = new MethodHandler(_getCurrentFooterMethodKey24);
 
 		try {
 			returnObj = _classLoaderProxy.invoke(methodHandler);
@@ -785,11 +820,38 @@ public class HeaderFooterLocalServiceClp implements HeaderFooterLocalService {
 		return (org.slc.sli.headerfooter.model.HeaderFooter)ClpSerializer.translateOutput(returnObj);
 	}
 
+	public java.lang.String getFooter(boolean isAdmin)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		Object returnObj = null;
+
+		MethodHandler methodHandler = new MethodHandler(_getFooterMethodKey25,
+				isAdmin);
+
+		try {
+			returnObj = _classLoaderProxy.invoke(methodHandler);
+		}
+		catch (Throwable t) {
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (java.lang.String)ClpSerializer.translateOutput(returnObj);
+	}
+
 	public java.lang.String getFooter(java.lang.String token)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;
 
-		MethodHandler methodHandler = new MethodHandler(_getFooterMethodKey24,
+		MethodHandler methodHandler = new MethodHandler(_getFooterMethodKey26,
 				ClpSerializer.translateInput(token));
 
 		try {
@@ -838,8 +900,10 @@ public class HeaderFooterLocalServiceClp implements HeaderFooterLocalService {
 	private MethodKey _editHeaderMethodKey18;
 	private MethodKey _getCurrentHeaderMethodKey19;
 	private MethodKey _getHeaderMethodKey20;
-	private MethodKey _addFooterMethodKey21;
-	private MethodKey _editFooterMethodKey22;
-	private MethodKey _getCurrentFooterMethodKey23;
-	private MethodKey _getFooterMethodKey24;
+	private MethodKey _getHeaderMethodKey21;
+	private MethodKey _addFooterMethodKey22;
+	private MethodKey _editFooterMethodKey23;
+	private MethodKey _getCurrentFooterMethodKey24;
+	private MethodKey _getFooterMethodKey25;
+	private MethodKey _getFooterMethodKey26;
 }

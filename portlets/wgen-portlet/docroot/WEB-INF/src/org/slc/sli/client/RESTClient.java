@@ -17,13 +17,13 @@ import org.slc.sli.util.URLBuilder;
 
 /**
  * 
- * @author pwolf
+ * @author 
  */
 @Component("RESTClient")
 public class RESTClient {
 
     private String securityUrl;
-
+    
     private static Logger logger = LoggerFactory.getLogger(RESTClient.class);
 
     /**
