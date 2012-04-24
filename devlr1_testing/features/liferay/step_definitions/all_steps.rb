@@ -156,9 +156,12 @@ end
     #rescue
   
     begin
-      menu = @driver.find_elements(:class,"menulink").first
-      action=Selenium::WebDriver::ActionBuilder.new(:move_to,nil)
-      @driver.action.move_to(menu).perform
+      menu = @driver.find_elements(:class,"menulink").first.click()
+      #action=Selenium::WebDriver::ActionBuilder.new(:move_to,nil)
+      #@driver.action.move_to(menu).perform
+      @driver.find_element(:name, 'Logout').click
+      #submenu.click
+      #@driver.action.move_to(menu).click(submenu).perform
     rescue Selenium::WebDriver::Error::NoSuchElementError, Timeout::Error
       if @driver.page_source.match('SLI Exception')
         ele=false
@@ -191,9 +194,10 @@ end
       puts "EULA has already been accepted."
     end
     begin
-      menu = @driver.find_elements(:class,"menulink").first
+      menu = @driver.find_elements(:class,"menulink").first.click()
       #action=Selenium::WebDriver::ActionBuilder.new(:move_to,nil)
-      @driver.action.move_to(menu).perform
+      submenu=@driver.find_element(:link, 'Logout').displayed?
+      #@driver.action.move_to(menu).perform
     rescue Selenium::WebDriver::Error::NoSuchElementError, Timeout::Error
       if @driver.page_source.match('SLI Exception')
         ele=false
@@ -231,9 +235,11 @@ end
 
   When /^I mouseover on menu and click submenu "([^\"]*)"$/ do |submenu|
     begin
-      menu = @driver.find_elements(:class,"menulink").first
-      action=Selenium::WebDriver::ActionBuilder.new(:move_to,nil)
-      @driver.action.move_to(menu).perform
+      menu = @driver.find_elements(:class,"menulink").first.click()
+      #action=Selenium::WebDriver::ActionBuilder.new(:move_to,nil)
+      #@driver.action.move_to(menu).perform
+      submenu=@driver.find_element(:link, submenu)
+      submenu.click
     rescue Selenium::WebDriver::Error::NoSuchElementError, Timeout::Error
       if @driver.page_source.match('SLI Exception')
         ele=false
