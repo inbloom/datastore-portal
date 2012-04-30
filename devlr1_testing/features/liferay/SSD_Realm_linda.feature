@@ -5,7 +5,7 @@ Navigate to dashboard link successfully using New York Realm under 'Select an Ap
  Scenario:-User Login through SSD Realm with wrong username and password
     Given I have an open web browser
     Then I am on the Realm selection page
-    Then I select "4cb03fa0-83ad-46e2-a936-09ab31af377e"
+    Then I select "Illinois Sunset School District 4526"
     #Then I click "Go"
     When I login with "linda" and "linda.kim"
     Then I should be on the authentication failed page
@@ -26,7 +26,7 @@ Navigate to dashboard link successfully using New York Realm under 'Select an Ap
     #Then I should see "             Select an application         "
     #Then I should see "Learning Map"
     #Then I should see "Dashboard"
-   # Then I follow "Dashboard"
+    #Then I follow "Dashboard"
     Then I select "Daybreak School District 4529" from "edOrgSelect"
     Then I select "East Daybreak Junior High" from "schoolSelect"
     #Then I select "7th Grade English" from "courseSelect"
@@ -166,7 +166,7 @@ Navigate to dashboard link successfully using New York Realm under 'Select an Ap
     #Then I should not see "Salmon Burger"
     #Then I should not see "Fabio De Silva"
     #Then I should not see "Raphael De Sliva"
-   # Then I should not see "Student Fake" 
+    #Then I should not see "Student Fake" 
     
    Scenario:-User Login through SSD Realm and choose IEP (former)
     Given I have an open web browser
@@ -182,7 +182,7 @@ Navigate to dashboard link successfully using New York Realm under 'Select an Ap
     #Then I should see "             Select an application         "
     Then I should see "Learning Map"
     Then I should see "Dashboard"
-   # Then I follow "Dashboard"
+    #Then I follow "Dashboard"
     Then I select "Daybreak School District 4529" from "edOrgSelect"
     Then I select "East Daybreak Junior High" from "schoolSelect"
     #Then I select "7th Grade English" from "courseSelect"
@@ -207,9 +207,9 @@ Navigate to dashboard link successfully using New York Realm under 'Select an Ap
     Then I select "4cb03fa0-83ad-46e2-a936-09ab31af377e"
     #Then I click "Go"
     #Then I should see "             Select an application         "
-   # Then I should see "Learning Map"
-   # Then I should see "Dashboard"
-  #  Then I follow "Dashboard"
+    #Then I should see "Learning Map"
+    #Then I should see "Dashboard"
+    #Then I follow "Dashboard"
     Then I select "Daybreak School District 4529" from "edOrgSelect"
     Then I select "East Daybreak Junior High" from "schoolSelect"
     #Then I select "7th Grade English" from "courseSelect"
@@ -233,9 +233,9 @@ Navigate to dashboard link successfully using New York Realm under 'Select an Ap
     Then I select "4cb03fa0-83ad-46e2-a936-09ab31af377e"
     #Then I click "Go"
     #Then I should see "             Select an application         "
-   # Then I should see "Learning Map"
+    #Then I should see "Learning Map"
     #Then I should see "Dashboard"
-  #  Then I follow "Dashboard"
+    #Then I follow "Dashboard"
     Then I select "Daybreak School District 4529" from "edOrgSelect"
     Then I select "East Daybreak Junior High" from "schoolSelect"
     #Then I select "7th Grade English" from "courseSelect"
@@ -247,7 +247,7 @@ Navigate to dashboard link successfully using New York Realm under 'Select an Ap
     #Then I should not see "Raphael De Sliva"
     #Then I should not see "Student Fake"  
     
-  Scenario:-User Login through SSD Realm and choose Reduced Lunch
+    Scenario:-User Login through SSD Realm and choose Reduced Lunch
     Given I have an open web browser
     Then I am on the Realm selection page
     Then I select "4cb03fa0-83ad-46e2-a936-09ab31af377e"
@@ -259,9 +259,9 @@ Navigate to dashboard link successfully using New York Realm under 'Select an Ap
     Then I select "4cb03fa0-83ad-46e2-a936-09ab31af377e"
     #Then I click "Go"
     #Then I should see "             Select an application         "
-  #  Then I should see "Learning Map"
-   # Then I should see "Dashboard"
-  #  Then I follow "Dashboard"
+    #Then I should see "Learning Map"
+    #Then I should see "Dashboard"
+    #Then I follow "Dashboard"
     Then I select "Daybreak School District 4529" from "edOrgSelect"
     Then I select "East Daybreak Junior High" from "schoolSelect"
     #Then I select "7th Grade English" from "courseSelect"
@@ -273,7 +273,7 @@ Navigate to dashboard link successfully using New York Realm under 'Select an Ap
     ##Then I should not see "Student Fake"   
     
     
-     Scenario:-User Login through SSD Realm and choose Free Lunch
+    Scenario:-User Login through SSD Realm and choose Free Lunch
     Given I have an open web browser
     Then I am on the Realm selection page
     Then I select "4cb03fa0-83ad-46e2-a936-09ab31af377e"
@@ -285,13 +285,13 @@ Navigate to dashboard link successfully using New York Realm under 'Select an Ap
     Then I select "4cb03fa0-83ad-46e2-a936-09ab31af377e"
     #Then I click "Go"
     #Then I should see "             Select an application         "
-   # Then I should see "Learning Map"
-  #  Then I should see "Dashboard"
- #   Then I follow "Dashboard"
+    #Then I should see "Learning Map"
+    #Then I should see "Dashboard"
+    #Then I follow "Dashboard"
     Then I select "Daybreak School District 4529" from "edOrgSelect"
     Then I select "East Daybreak Junior High" from "schoolSelect"
     #Then I select "7th Grade English" from "courseSelect"
-   # Then I select "7th Grade English - Sec. 3" from "sectionSelect"
+    #Then I select "7th Grade English - Sec. 3" from "sectionSelect"
     #Then I should see "ISAT Reading"
     #Then I select "Free Lunch" from "studentFilterSelector"
     #Then I should see "Salmon Burger"
