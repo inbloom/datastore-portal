@@ -3,8 +3,8 @@
 #git clone git@git.slidev.org:sli/liferay.git
 #this script needs elevated privilidges
 #MAKE SURE TOMCAT_HOME is set correctly
-mkdir tomcat@devlr1.slidev.org:/opt/sli
-cd tomcat@devlr1.slidev.org:/opt/sli
+mkdir /opt/sli
+cd /opt/sli
 #export TOMCAT_HOME=/opt/test 
 
 wget http://downloads.sourceforge.net/project/lportal/Liferay%20Portal/6.1.0%20GA1/liferay-portal-6.1.0-ce-ga1-20120106155615760.war
