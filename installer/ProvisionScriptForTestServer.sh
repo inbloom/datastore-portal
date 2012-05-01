@@ -15,7 +15,7 @@ scp /opt/sli/portal.war tomcat@devlr1.slidev.org:/opt/test/webapps
 #cd tomcat@devlr1.slidev.org:/opt/test/webapps/
 ls tomcat@devlr1.slidev.org:/opt/test/webapps
  
-sh tomcat@devlr1.slidev.org:/opt/test/bin/catalina.sh start
+ssh -t devlr1.slidev.org sudo /etc/init.d/test start
 sleep 3
 rm -rf tomcat@devlr1.slidev.org:/opt/test/webapps/portal.war
 sh tomcat@devlr1.slidev.org:/opt/test/bin/catalina.sh stop
@@ -43,7 +43,7 @@ sh tomcat@devlr1.slidev.org:/opt/test/bin/catalina.sh stop
  #mkdir tomcat@devlr1.slidev.org:/opt/test/conf/Catalina/localhost
   scp -r /jenkins/workspace/ProvisionScript/installer/conf/localhost tomcat@devlr1.slidev.org:/opt/test/conf/Catalina/
  # chown tomcat:tomcat tomcat@devlr1.slidev.org:/opt/test/conf/Catalina/localhost/portal.xml
-  chmod 600 tomcat@devlr1.slidev.org:/opt/test/conf/Catalina/localhost/portal.xml
+  chmod 600 tomcat@devlr1.slidev.org:/opt/test/conf/Catalina/localhost/ROOT.xml
 
 
 # Copy the portal-ext.properties file into tomcat
