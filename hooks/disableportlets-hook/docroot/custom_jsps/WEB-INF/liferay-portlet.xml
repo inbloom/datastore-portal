@@ -169,7 +169,7 @@
 		<header-portlet-javascript>/html/portlet/journal/js/main.js</header-portlet-javascript>
 		<css-class-wrapper>portlet-journal</css-class-wrapper>
 		<add-default-resource>true</add-default-resource>
-		<include>false</include>
+		<include>true</include>
 	</portlet>
 	<portlet>
 		<portlet-name>16</portlet-name>
@@ -575,7 +575,7 @@
 		<header-portlet-css>/html/portlet/journal_content/css/main.css</header-portlet-css>
 		<css-class-wrapper>portlet-journal-content</css-class-wrapper>
 		<add-default-resource>true</add-default-resource>
-		<include>false</include>
+		<include>true</include>
 	</portlet>
 	<portlet>
 		<portlet-name>58</portlet-name>
@@ -629,7 +629,7 @@
 		<private-session-attributes>false</private-session-attributes>
 		<render-weight>50</render-weight>
 		<css-class-wrapper>portlet-journal-articles</css-class-wrapper>
-		<include>false</include>
+		<include>true</include>
 	</portlet>
 	<portlet>
 		<portlet-name>64</portlet-name>
@@ -733,7 +733,7 @@
 		<render-weight>50</render-weight>
 		<css-class-wrapper>portlet-journal-content-search</css-class-wrapper>
 		<add-default-resource>true</add-default-resource>
-		<include>false</include>
+		<include>true</include>
 	</portlet>
 	<portlet>
 		<portlet-name>82</portlet-name>
