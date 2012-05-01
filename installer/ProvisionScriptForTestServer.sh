@@ -3,6 +3,7 @@
 #git clone git@git.slidev.org:sli/liferay.git
 #this script needs elevated privilidges
 #MAKE SURE TOMCAT_HOME is set correctly
+chown root:root /opt/
 mkdir /opt/sli
 cd /opt/sli
 #export TOMCAT_HOME=/opt/test 
