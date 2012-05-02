@@ -41,7 +41,7 @@ if (referer.equals(themeDisplay.getPathMain() + "/portal/update_terms_of_use")) 
     <div class="sli_home_title">HOME</div>
 	</div>
     
-<div class="sli_d_popup">
+<div class="d_popup">
 <span class="aui-legend" style="font-weight:bold;font-size: 18px; color:#333333; width:700px;">License Agreement</span>
 <br /><br /><br /><br />
 <aui:form action='<%= themeDisplay.getPathMain() + "/portal/update_terms_of_use" %>' name="fm">
@@ -113,7 +113,7 @@ Quisque luctus, magna in aliquam fermentum, nibh augue pretium turpis, sed conse
     </footer>
  
 <style type="text/css">
-.sli_d_popup{
+.d_popup{
 	width:700px;
 	height:450px;
 	padding:20px;
