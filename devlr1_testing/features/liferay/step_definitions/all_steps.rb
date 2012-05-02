@@ -8,7 +8,7 @@ require_relative '../../utils/selenium_common.rb'
 
 
 Then /^I am on the Realm selection page$/ do
-  @driver.navigate.to "https://testlr1.slidev.org/"
+  @driver.navigate.to "https://testlr1.slidev.org/portal"
 end
 
 Then /^I select "([^\"]*)"$/ do |text|
@@ -144,7 +144,7 @@ Given /^EULA has been accepted$/ do
 end
 
 When /^I go to the login page$/ do
-  @driver.navigate.to "https://testlr1.slidev.org/"
+  @driver.navigate.to "https://testlr1.slidev.org/portal"
   begin
     a=@driver.find_element(:name,'realmId') #realmId should be the html tag name of select tag
     ele=true
@@ -200,7 +200,6 @@ Then /^I should logged out$/ do
   #rescue
   begin
   
-<<<<<<< HEAD
     
     #action=Selenium::WebDriver::ActionBuilder.new(:move_to,nil)
     wait = Selenium::WebDriver::Wait.new(:timeout => 10) 
@@ -210,27 +209,6 @@ Then /^I should logged out$/ do
       submenu.click }
     #@driver.action.move_to(menu).perform
   rescue
-=======
-    begin
-      wait = Selenium::WebDriver::Wait.new(:timeout => 10) 
-    wait.until{
-     menu = @driver.find_elements(:class,"menulink").first.click()
-    submenu=@driver.find_element(:link, 'Logout')
-    submenu.click }
-      #submenu.click
-      #@driver.action.move_to(menu).click(submenu).perform
-    rescue Selenium::WebDriver::Error::NoSuchElementError, Timeout::Error
-      if @driver.page_source.match('SLI Exception')
-        ele=false
-        puts "SLI Exception"
-      elsif Timeout::Error
-        puts "TimeOut error"
-      
-      else
-        raise   Selenium::WebDriver::Error::NoSuchElementError
-      end
-      #submenu=@driver.find_element(:link, 'Logout')
->>>>>>> master
    
     if @driver.page_source.match('SLI Exception')
       ele=false
@@ -280,28 +258,7 @@ Then /^I should be on the home page$/ do
     elsif NoMethodError
       puts ""
     else
-<<<<<<< HEAD
       raise   Selenium::WebDriver::Error::NoSuchElementError
-=======
-      puts "EULA has already been accepted."
-    end
-    begin
-      wait = Selenium::WebDriver::Wait.new(:timeout => 10) 
-    wait.until{
-    menu = @driver.find_elements(:class,"menulink").first.click()
-    submenu=@driver.find_element(:link, 'Logout').displayed? }
-    rescue Selenium::WebDriver::Error::NoSuchElementError, Timeout::Error
-      if @driver.page_source.match('SLI Exception')
-        ele=false
-        puts "SLI Exception"
-      elsif Timeout::Error
-        puts "TimeOut error"
-      
-      else
-        raise   Selenium::WebDriver::Error::NoSuchElementError
-      end
-      #submenu=@driver.find_element(:link, 'Logout').displayed?
->>>>>>> master
     end
   end
   #submenu=@driver.find_element(:link, 'Logout').displayed?
@@ -329,7 +286,6 @@ end
 
 
 
-<<<<<<< HEAD
 When /^I mouseover on menu and click submenu "([^\"]*)"$/ do |submenu|
   begin
     
@@ -348,24 +304,6 @@ When /^I mouseover on menu and click submenu "([^\"]*)"$/ do |submenu|
 
     else
       raise   Selenium::WebDriver::Error::NoSuchElementError
-=======
-  When /^I mouseover on menu and click submenu "([^\"]*)"$/ do |submenu|
-    begin
-      wait = Selenium::WebDriver::Wait.new(:timeout => 10)
-    wait.until{
-    menu = @driver.find_elements(:class,"menulink").first.click()
-    @driver.find_element(:link, submenu).click()}
-    rescue Selenium::WebDriver::Error::NoSuchElementError, Timeout::Error
-      if @driver.page_source.match('SLI Exception')
-        ele=false
-        puts "SLI Exception"
-      elsif Timeout::Error
-        puts "TimeOut error"
-      
-      else
-        raise   Selenium::WebDriver::Error::NoSuchElementError
-      end
->>>>>>> master
     end
   end
   #submenu=@driver.find_element(:link, 'Logout')
@@ -495,13 +433,17 @@ And /^I click "([^\"]*)"$/ do |btn|
 end
 
 Then /^It open a popup$/ do
+ begin
   wait = Selenium::WebDriver::Wait.new(:timeout => 10)
   wait.until{
     frame=@driver.find_element(:tag_name, "iframe")
     @driver.switch_to.frame(frame)
   
   }
- 
+
+  rescue
+    puts "Iframe is not detected"
+  end
 end
 
 
