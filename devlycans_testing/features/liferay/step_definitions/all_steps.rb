@@ -200,7 +200,6 @@ Then /^I should logged out$/ do
   #rescue
   begin
   
-<<<<<<< HEAD
     
     #action=Selenium::WebDriver::ActionBuilder.new(:move_to,nil)
     wait = Selenium::WebDriver::Wait.new(:timeout => 10) 
@@ -208,14 +207,6 @@ Then /^I should logged out$/ do
       menu = @driver.find_elements(:class,"menulink").first.click()
       submenu=@driver.find_element(:link, 'Logout')
       submenu.click }
-=======
-    menu = @driver.find_elements(:class,"menulink").first.click()
-    #action=Selenium::WebDriver::ActionBuilder.new(:move_to,nil)
-    wait = Selenium::WebDriver::Wait.new(:timeout => 10) 
-    wait.until{
-    submenu=@driver.find_element(:link, 'Logout')
-    submenu.click }
->>>>>>> master
     #@driver.action.move_to(menu).perform
   rescue
    
@@ -251,25 +242,15 @@ Then /^I should be on the home page$/ do
     puts "EULA has already been accepted"
   end
   begin
-<<<<<<< HEAD
     
-=======
-    menu = @driver.find_elements(:class,"menulink").first.click()
->>>>>>> master
     #action=Selenium::WebDriver::ActionBuilder.new(:move_to,nil)
     #@driver.action.move_to(menu).perform
     wait = Selenium::WebDriver::Wait.new(:timeout => 10) 
     wait.until{
-<<<<<<< HEAD
       menu = @driver.find_elements(:class,"menulink").first.click()
       submenu=@driver.find_element(:link, 'Logout').displayed? }
   rescue Selenium::WebDriver::Error::NoSuchElementError, Timeout::Error, NoMethodError
     if @driver.page_source.match('SLI Exception')
-=======
-    submenu=@driver.find_element(:link, 'Logout').displayed? }
-  rescue Selenium::WebDriver::Error::NoSuchElementError, Timeout::Error
-    if @driver.find_element(:tag_name, 'title').text().match('SLI Exception')
->>>>>>> master
       ele=false
       puts "SLI Exception"
     elsif Timeout::Error
@@ -307,21 +288,13 @@ end
 
 When /^I mouseover on menu and click submenu "([^\"]*)"$/ do |submenu|
   begin
-<<<<<<< HEAD
     
-=======
-    menu = @driver.find_elements(:class,"menulink").first.click()
->>>>>>> master
     #action=Selenium::WebDriver::ActionBuilder.new(:move_to,nil)
     #@driver.action.move_to(menu).perform
     wait = Selenium::WebDriver::Wait.new(:timeout => 10)
     wait.until{
-<<<<<<< HEAD
       menu = @driver.find_elements(:class,"menulink").first.click()
       @driver.find_element(:link, submenu).click()}
-=======
-    @driver.find_element(:link, submenu).click()}
->>>>>>> master
   rescue
     if @driver.page_source.match('SLI Exception')
       ele=false
