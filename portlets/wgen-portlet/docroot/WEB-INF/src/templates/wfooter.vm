@@ -1,1 +1,30 @@
-<div style="border-top:2px solid #E5E5E5">$footer</div>
+
+<style type="text/css">
+#sli_footer {
+	text-align: left;
+/*	background:#444545;
+	color:#FFFFFF;*/
+	padding-top:5px;
+	padding-bottom:0px;
+	position:fixed;
+	width:100%;
+	bottom:0;
+}
+#sli_footer .sli_footer_wrap{
+	width:96%;
+	margin:0 auto;
+	border-top:#E5E5E5 solid 2px;
+	background:#FFFFFF;
+}
+
+#sli_footer .sli_footer_wrap p{
+	margin:0;
+}
+
+#sli_footer a{
+	color:#CCCCCC;
+}
+</style>
+<footer id="sli_footer">
+ <div class="sli_footer_wrap"> $footer</div>
+</footer>

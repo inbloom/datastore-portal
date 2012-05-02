@@ -53,7 +53,7 @@ System.out.println("Success URL:->"+successURL+".....>>>>>"+currentURL);
 	<aui:fieldset label="Report a Problem">
 		<em class="description"><%= HtmlUtil.escape(description) %></em>
 
-		<liferay-ui:success key="success" message="the-form-information-was-sent-successfully" />
+		<!--<liferay-ui:success key="success" message="the-form-information-was-sent-successfully" />-->
 
 		<liferay-ui:error exception="<%= CaptchaMaxChallengesException.class %>" message="maximum-number-of-captcha-attempts-exceeded" />
 		<liferay-ui:error exception="<%= CaptchaTextException.class %>" message="text-verification-failed" />
@@ -102,6 +102,9 @@ System.out.println("Success URL:->"+successURL+".....>>>>>"+currentURL);
 				</c:when>
 				
 				<c:when test='<%= fieldType.equals("textarea") %>'>
+					<div style="margin-left:151px;margin-top:10px;">
+						Please describe your problem in as much detail as possible in the space below.  We already have logged the time and page location of this problem.<strong>  Do not include private student data or passwords in this field.</strong>
+					</div>
 					<aui:input cssClass='<%= fieldOptional ? "optional" : StringPool.BLANK %>' label="<%= HtmlUtil.escape(fieldLabel) %>" name="<%= fieldName %>" type="textarea" value="<%= HtmlUtil.escape(fieldValue) %>" wrap="soft" />
 				</c:when>
 				<c:when test='<%= fieldType.equals("checkbox") %>'>
@@ -131,8 +134,9 @@ System.out.println("Success URL:->"+successURL+".....>>>>>"+currentURL);
 					options = WebFormUtil.split(fieldOptions);
 					%>
 
+					 
 					<aui:select cssClass='<%= fieldOptional ? "optional" : StringPool.BLANK %>' label="<%= HtmlUtil.escape(fieldLabel) %>" name="<%= fieldName %>">
-
+							<aui:option selected="true" value="">Choose One...</aui:option>
 						<%
 						for (int j = 0; j < options.length; j++) {
 							String optionValue = options[j];
@@ -147,6 +151,7 @@ System.out.println("Success URL:->"+successURL+".....>>>>>"+currentURL);
 					</aui:select>
 				</c:when>
 			</c:choose>
+			
 
 		<%
 			i++;
@@ -167,8 +172,8 @@ System.out.println("Success URL:->"+successURL+".....>>>>>"+currentURL);
 		</c:if>
 
 		<div class="pop_btn_pnl">
-		<aui:button type="submit" value="Submit" />
-		<aui:button type="button" onClick="javascript: closePopup(300);" value="Cancel" />
+		<aui:button type="submit" value="Report a Problem" />
+		<aui:button type="button" onClick="parent.closePop()" value="Cancel" />
         </div>
 	</aui:fieldset>
 </aui:form>

@@ -8,7 +8,10 @@
 	<title>$the_title - $company_name</title>
 
 	$theme.include($top_head_include)
-
+	#js ("$javascript_folder/script.js")
+	#js ("$javascript_folder/jquery.js")
+	#js ("$javascript_folder/modal.popup.js")
+	#js ("$javascript_folder/scroll.js")
 
 
 	
@@ -61,11 +64,11 @@ $theme.include($body_top_include)
 
 
 
-<div id="wrapper">
+<div id="sli_wrapper">
 	<a href="#main-content" id="skip-to-content">#language("skip-to-content")</a>
 
 
-	<div id="content">
+	<div id="sli_content">
 
 		#if ($selectable)
 			$theme.include($content_include)

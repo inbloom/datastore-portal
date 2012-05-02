@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite errors="0" failures="0" name="title" skipped="0" tests="2" time="70.206789">
+<testcase classname="title.check admin user and go to admin page" name="check admin user and go to admin page" time="37.004841">
+</testcase>
+<testcase classname="title.check Non admin user and check admin page" name="check Non admin user and check admin page" time="33.201948">
+</testcase>
+</testsuite>

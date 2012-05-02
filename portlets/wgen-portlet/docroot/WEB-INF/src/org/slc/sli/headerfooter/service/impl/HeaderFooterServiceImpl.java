@@ -17,19 +17,27 @@ package org.slc.sli.headerfooter.service.impl;
 import org.slc.sli.headerfooter.model.HeaderFooter;
 import org.slc.sli.headerfooter.service.base.HeaderFooterServiceBaseImpl;
 import org.slc.sli.util.VelocityUtil;
-
 import com.liferay.portal.kernel.exception.SystemException;
+import java.io.IOException;
+import java.net.URISyntaxException;
+import com.liferay.portal.kernel.util.GetterUtil;
+import com.liferay.portal.kernel.util.PropsUtil;
+import org.slc.sli.util.PropsKeys;
 
 /**
  * The implementation of the header footer remote service.
- *
+ * 
  * <p>
- * All custom service methods should be put in this class. Whenever methods are added, rerun ServiceBuilder to copy their definitions into the {@link org.slc.sli.headerfooter.service.HeaderFooterService} interface.
- *
+ * All custom service methods should be put in this class. Whenever methods are
+ * added, rerun ServiceBuilder to copy their definitions into the
+ * {@link org.slc.sli.headerfooter.service.HeaderFooterService} interface.
+ * 
  * <p>
- * This is a remote service. Methods of this service are expected to have security checks based on the propagated JAAS credentials because this service can be accessed remotely.
+ * This is a remote service. Methods of this service are expected to have
+ * security checks based on the propagated JAAS credentials because this service
+ * can be accessed remotely.
  * </p>
- *
+ * 
  * @author manoj
  * @see org.slc.sli.headerfooter.service.base.HeaderFooterServiceBaseImpl
  * @see org.slc.sli.headerfooter.service.HeaderFooterServiceUtil
@@ -37,30 +45,45 @@ import com.liferay.portal.kernel.exception.SystemException;
 public class HeaderFooterServiceImpl extends HeaderFooterServiceBaseImpl {
 	/*
 	 * NOTE FOR DEVELOPERS:
-	 *
-	 * Never reference this interface directly. Always use {@link org.slc.sli.headerfooter.service.HeaderFooterServiceUtil} to access the header footer remote service.
+	 * 
+	 * Never reference this interface directly. Always use {@link
+	 * org.slc.sli.headerfooter.service.HeaderFooterServiceUtil} to access the
+	 * header footer remote service.
 	 */
-	
-	public String getHeader(String token,String currUrl) throws SystemException {
-	    return headerFooterLocalService.getHeader(token,currUrl);
+
+	public String getHeader(String token, String currUrl)
+			throws SystemException {
+		return headerFooterLocalService.getHeader(token, currUrl);
 	}
 
 	public String getFooter(String token) throws SystemException {
 		return headerFooterLocalService.getFooter(token);
-	}	
-	
-	public String getHeader(boolean isAdmin) throws SystemException {
-	    String header = headerFooterLocalService.getHeader(isAdmin);
-	    return VelocityUtil.velocityHeaderRes(header);
 	}
-	
+
+	public String getHeader(boolean isAdmin) throws SystemException {
+
+		String header = headerFooterLocalService.getHeader(isAdmin);
+		String headerWithLogo = "";
+		try {
+			headerWithLogo = header.replace("[$SLI_LOGO$]","<img alt=\"sli_logo\" src=\"data:image/png;base64,"+VelocityUtil.getEncodedImg(GetterUtil.getString(PropsUtil.get(PropsKeys.SLI_LOGO)))+"\"/>");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (URISyntaxException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return VelocityUtil.velocityHeaderRes(headerWithLogo);
+	}
+
 	public String getFooter(boolean isAdmin) throws SystemException {
-		String footer=headerFooterLocalService.getFooter(isAdmin);
+		String footer = headerFooterLocalService.getFooter(isAdmin);
 		return VelocityUtil.velocityFooterRes(footer);
 	}
-	
-	/*public HeaderFooter getCurrentFooter() throws SystemException {
-		return headerFooterLocalService.getCurrentFooter();
-	}*/	
-	
+
+	/*
+	 * public HeaderFooter getCurrentFooter() throws SystemException { return
+	 * headerFooterLocalService.getCurrentFooter(); }
+	 */
+
 }
