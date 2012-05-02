@@ -433,12 +433,17 @@ And /^I click "([^\"]*)"$/ do |btn|
 end
 
 Then /^It open a popup$/ do
+begin
   wait = Selenium::WebDriver::Wait.new(:timeout => 10)
   wait.until{
     frame=@driver.find_element(:tag_name, "iframe")
     @driver.switch_to.frame(frame)
   
   }
+rescue
+  puts "Iframe is not detected"
+
+end
  
 end
 
