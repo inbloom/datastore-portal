@@ -25,11 +25,11 @@ if (referer.equals(themeDisplay.getPathMain() + "/portal/update_terms_of_use")) 
 	referer = themeDisplay.getPathMain() + "?doAsUserId=" + themeDisplay.getDoAsUserId();
 }
 %>
-     <div id="banner">
-         <div id="heading">
+     <div id="sli_banner">
+         <div id="sli_heading">
               <div class="portlet-layout">
                    <div class="portlet-column portlet-column-only" id="column-1">
-                         <div class="logo_main"> <a href="<%= themeDisplay.getURLHome() %>"> <img class="company-logo" src="<%= themeDisplay.getCompanyLogo() %>" width="<%= themeDisplay.getCompanyLogoWidth() %>" height="<%= themeDisplay.getCompanyLogoHeight() %>"/> </a> 
+                         <div class="sli_logo_main"> <a href="<%= themeDisplay.getURLHome() %>"> <img class="company-logo" src="<%= themeDisplay.getCompanyLogo() %>" width="<%= themeDisplay.getCompanyLogoWidth() %>" height="<%= themeDisplay.getCompanyLogoHeight() %>"/> </a> 
  <a href="<%= themeDisplay.getURLHome() %>"><span>SLI Portal</span></a>
 </div>
                    </div>
@@ -37,11 +37,11 @@ if (referer.equals(themeDisplay.getPathMain() + "/portal/update_terms_of_use")) 
         </div>
         
     </div>
-    <div id="content_main">
-    <div class="home_title">HOME</div>
+    <div id="sli_content_main">
+    <div class="sli_home_title">HOME</div>
 	</div>
     
-<div class="d_popup">
+<div class="sli_d_popup">
 <span class="aui-legend" style="font-weight:bold;font-size: 18px; color:#333333; width:700px;">License Agreement</span>
 <br /><br /><br /><br />
 <aui:form action='<%= themeDisplay.getPathMain() + "/portal/update_terms_of_use" %>' name="fm">
@@ -106,14 +106,14 @@ Quisque luctus, magna in aliquam fermentum, nibh augue pretium turpis, sed conse
 </div>
 <br /><br /><br /><br /><br /><br />
  
-    <footer id="footer">
-      <div class="footer_wrap">
+    <footer id="sli_footer">
+      <div class="sli_footer_wrap">
         <p>Proprietary information © 2012 SLC, LLC</p>
       </div>
     </footer>
  
 <style type="text/css">
-.d_popup{
+.sli_d_popup{
 	width:700px;
 	height:450px;
 	padding:20px;
