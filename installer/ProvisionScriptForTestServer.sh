@@ -1,53 +1,53 @@
-#!/bin/sh
+#!/bin/bash
+#Usage
+#ProvisionScriptForTestServer.sh <remote IP address>
+
 #Before running this script,
 #git clone git@git.slidev.org:sli/liferay.git
-#this script needs elevated privilidges
-#MAKE SURE TOMCAT_HOME is set correctly
-#chown root:root /opt/
-#mkdir /opt/sli
-#cd /opt/sli
-#export TOMCAT_HOME=/opt/test 
 
-#wget http://downloads.sourceforge.net/project/lportal/Liferay%20Portal/6.1.0%20GA1/liferay-portal-6.1.0-ce-ga1-20120106155615760.war
-#mv liferay-portal-6.1.0-ce-ga1-20120106155615760.war portal.war
+#Your liferay git repository dir
+LIFERAY=${HOME}/liferay
 
-#scp /opt/sli/portal.war tomcat@devlr1.slidev.org:/opt/test/webapps
-#cd tomcat@devlr1.slidev.org:/opt/test/webapps/
-#ls tomcat@devlr1.slidev.org:/opt/test/webapps
- 
-#sh tomcat@devlr1.slidev.org:/opt/test/bin/catalina.sh start
-#sleep 3
-#rm -rf tomcat@devlr1.slidev.org:/opt/test/webapps/portal.war
-#sh tomcat@devlr1.slidev.org:/opt/test/bin/catalina.sh stop
+DESTINATION_DIR=/tmp/opt/boot
 
+
+SERVER=$1
+if [ ! $SERVER ]; then
+   echo "USAGE: ProvisionScriptForTestServer.sh <remote IP address>"
+   exit
+fi
+DESTINATION_URL=${SERVER:="devlr1.slidev.org"}
+
+ssh ${DESTINATION_URL} rm -rf ${DESTINATION_DIR}
+ssh ${DESTINATION_URL} mkdir -p ${DESTINATION_DIR}{/bin,/conf/Catalina/localhost}
 
 #The setenv.sh has settings for the JVM that are used when tomcat starts
-  scp /jenkins/workspace/ProvisionScript/installer/conf/setenv.sh tomcat@devlr1.slidev.org:/opt/boot/
-  #chown tomcat:tomcat tomcat@devlr1.slidev.org:/opt/test/bin/setenv.sh
+scp ${LIFERAY}/installer/conf/setenv.sh ${DESTINATION_URL}:${DESTINATION_DIR}/bin/
 
 # Adding jars that liferay depends on to lib/ext
-  #mkdir -p tomcat@devlr1.slidev.org:/opt/test/lib/ext
- # chown tomcat:tomcat tomcat@devlr1.slidev.org:/opt/test/lib/ext
-  scp -r /jenkins/workspace/ProvisionScript/installer/conf/ext tomcat@devlr1.slidev.org:/opt/boot/
-  #chown tomcat:tomcat tomcat@devlr1.slidev.org:/opt/test/lib/ext
- # chown tomcat:tomcat tomcat@devlr1.slidev.org:/opt/test/lib/ext/*.jar
- # chmod 755 tomcat@devlr1.slidev.org:/opt/test/lib/ext
- # chmod 755 tomcat@devlr1.slidev.org:/opt/test/lib/ext/*.jar
+scp -r ${LIFERAY}/installer/conf/ext ${DESTINATION_URL}:${DESTINATION_DIR}
 
 # Update catalina.properties to look for jars in the directory created above (lib/ext)
-  scp /jenkins/workspace/ProvisionScript/installer/conf/catalina.properties tomcat@devlr1.slidev.org:/opt/boot/
-  #chown tomcat:tomcat tomcat@devlr1.slidev.org:/opt/test/conf/catalina.properties
-  #chmod 600 tomcat@devlr1.slidev.org:/opt/test/conf/catalina.properties
+scp ${LIFERAY}/installer/conf/catalina.properties ${DESTINATION_URL}:${DESTINATION_DIR}/conf
 
 # Copy the portal.xml file into tomcat 
- #mkdir tomcat@devlr1.slidev.org:/opt/test/conf/Catalina/localhost
-  scp -r /jenkins/workspace/ProvisionScript/installer/conf/localhost tomcat@devlr1.slidev.org:/opt/boot/
- # chown tomcat:tomcat tomcat@devlr1.slidev.org:/opt/test/conf/Catalina/localhost/portal.xml
- # chmod 600 tomcat@devlr1.slidev.org:/opt/test/conf/Catalina/localhost/ROOT.xml
+scp -r ${LIFERAY}/installer/conf/localhost ${DESTINATION_URL}:${DESTINATION_DIR}/conf/Catalina/localhost
 
 
 # Copy the portal-ext.properties file into tomcat
-  scp /jenkins/workspace/ProvisionScript/installer/conf/portal-ext.properties tomcat@devlr1.slidev.org:/opt/boot/
+scp ${LIFERAY}/installer/conf/portal-ext.properties ${DESTINATION_URL}:${DESTINATION_DIR}
 
-#sh tomcat@devlr1.slidev.org:/opt/test/bin/catalina.sh start
-#tail -f tomcat@devlr1.slidev.org:/opt/test/logs/catalina.out
+#Copy installation script
+scp ${LIFERAY}/installer/ProvisionScript.sh ${DESTINATION_URL}:${DESTINATION_DIR}
+
+#Copy lar file
+scp ${LIFERAY}/installer/layout.lar ${DESTINATION_URL}:${DESTINATION_DIR}
+
+#Copy Environment properties
+scp ${LIFERAY}/devjuggernauts.properties ${DESTINATION_URL}:${DESTINATION_DIR}/environment.properties
+
+#mysql for portal
+scp ${LIFERAY}/installer/mysql/lr_mysql_init.sql ${DESTINATION_URL}:${DESTINATION_DIR}/r_mysql_init.sql
+
+
+echo "Next step. ssh ${DESTINATION_URL} then execute ${DESTINATION_DIR}/ProvisionScript.sh"
