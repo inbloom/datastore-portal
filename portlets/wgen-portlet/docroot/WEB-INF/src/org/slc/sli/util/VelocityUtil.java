@@ -63,9 +63,7 @@ public class VelocityUtil {
 
 	public static String getEncodedImg(String imageName) throws IOException, URISyntaxException{
 		
-	//	URL ImgUrl = new URL(url);
-		
-	//	BufferedImage img = ImageIO.read(ImgUrl);
+	
 		InputStream imageIs = VelocityUtil.class.getResourceAsStream(imageName);
 		System.out.println(imageIs);
 		BufferedImage img = ImageIO.read(imageIs);
