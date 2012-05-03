@@ -29,7 +29,9 @@ echo "#############################"
 
 #download portal war files
 wget -O ${DESTINATION_DIR}/webapps/portal.war http://downloads.sourceforge.net/project/lportal/Liferay%20Portal/6.1.0%20GA1/liferay-portal-6.1.0-ce-ga1-20120106155615760.war
-scp nxslave4.slidev.org:/jenkins/workspace/Portal/dist/*.war ${DESTINATION_DIR}/deploy/
+
+#disabled because Jenkins should install war file to target server
+#scp nxslave4.slidev.org:/jenkins/workspace/Portal/dist/*.war ${DESTINATION_DIR}/deploy/
 
 
 #The setenv.sh has settings for the JVM that are used when tomcat starts
@@ -47,6 +49,7 @@ cp -r ${LIFERAY}/installer/conf/localhost ${DESTINATION_DIR}/conf/Catalina/local
 
 # Copy the portal-ext.properties file into tomcat
 cp ${LIFERAY}/installer/conf/portal-ext.properties ${DESTINATION_DIR}
+cp ${LIFERAY}/installer/conf/portal-setup-wizard.properties ${DESTINATION_DIR}
 
 #Copy installation script
 cp ${LIFERAY}/installer/ProvisionScript.sh ${DESTINATION_DIR}
@@ -54,14 +57,15 @@ cp ${LIFERAY}/installer/ProvisionScript.sh ${DESTINATION_DIR}
 #Copy lar file
 cp ${LIFERAY}/installer/layout.lar ${DESTINATION_DIR}
 
+#disabled because Jenkins should install war file to target server
 #Copy Environment properties
-echo "api.client=apiClient
-api.server.url=https://devjuggernauts.slidev.org/
-security.server.url=https://devjuggernauts.slidev.org/
-oauth.client.id=X583c5HXTh
-oauth.client.secret=AAAearFawozhl63jofnhCp1ms4VeKGFPQUmP2UalJgbK4g6C
-oauth.redirect=https://${DESTINATION_URL}/portal/c/portal/login
-">${DESTINATION_DIR}/environment.properties
+#echo "api.client=apiClient
+#api.server.url=https://devjuggernauts.slidev.org/
+#security.server.url=https://devjuggernauts.slidev.org/
+#oauth.client.id=X583c5HXTh
+#oauth.client.secret=AAAearFawozhl63jofnhCp1ms4VeKGFPQUmP2UalJgbK4g6C
+#oauth.redirect=https://${DESTINATION_URL}/portal/c/portal/login
+#">${DESTINATION_DIR}/environment.properties
 
 #mysql for portal
 cp ${LIFERAY}/installer/mysql/lr_mysql_init.sql ${DESTINATION_DIR}/r_mysql_init.sql

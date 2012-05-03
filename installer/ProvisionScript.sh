@@ -22,14 +22,8 @@ fi
 
 sudo mysql < ${DESTINATION_DIR}/r_mysql_init.sql
 
-sudo cp ${DESTINATION_DIR}/webapps/portal.war ${TOMCAT_HOME}/webapps/portal.war
-
-
-sudo /etc/rc.d/init.d/tomcat start
-
-sleep 3 
-
-#sudo /etc/rc.d/init.d/tomcat stop
+#disabled because Jenkins should install war
+#sudo cp ${DESTINATION_DIR}/webapps/portal.war ${TOMCAT_HOME}/webapps/portal.war
 
 
 #The setenv.sh has settings for the JVM that are used when tomcat starts
@@ -48,6 +42,10 @@ sudo cp -r ${DESTINATION_DIR}/conf/Catalina/localhost/ ${TOMCAT_HOME}/conf/Catal
 
 # Copy the portal-ext.properties and environment.properties file into tomcat
 sudo cp ${DESTINATION_DIR}/portal-ext.properties /opt/tomcat
-sudo cp ${DESTINATION_DIR}/environment.properties /opt/tomcat
+sudo cp ${DESTINATION_DIR}/portal-setup-wizard.properties /opt/tomcat
+
+#disabled because Jenkins should install
+#sudo cp ${DESTINATION_DIR}/environment.properties /opt/tomcat
 
 
+sudo /etc/rc.d/init.d/tomcat start
