@@ -2,7 +2,7 @@ Feature: title
   In order to keep control of website information the expectation of the results 
   for admin uses should see admin page
 
-@wip
+
   Scenario:check admin user and go to admin page
     Given I have an open web browser
     When I go to the login page
@@ -10,7 +10,7 @@ Feature: title
     Then I should see "Admin"
     Then I follow "Admin"
     Then I should be on the admin page
- @wip   
+    
   Scenario:check Non admin user and check admin page
     Given I have an open web browser
     Then I am on the Realm selection page
