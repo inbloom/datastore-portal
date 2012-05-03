@@ -19,3 +19,14 @@ Feature: title
     When I login with "linda.kim" and "linda.kim1234"
     Then I should be on the home page
     Then I should not see "Admin" 
+
+  Scenario:check admin user on admin page check  SLC administration to check Default SLI Roles
+   Given I have an open web browser
+    When I go to the login page
+    When I login with "demo" and "changeit"
+    Then I should see "Admin"
+    Then I follow "Admin"
+    Then I should be on the admin page
+    When I follow "SLC Administration"
+    Then I should see "Default SLI Roles"
+ 
