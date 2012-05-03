@@ -60,7 +60,7 @@ public class MyServlet extends HttpServlet {
 		String jsonText2="";
 
 		String serverPath= "https://"+request.getServerName();
-
+		System.out.println("SERVER PATH >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"+serverPath);
 	try{
 				RestTemplate template = new RestTemplate();
 				URLBuilder url = new URLBuilder(serverPath);
