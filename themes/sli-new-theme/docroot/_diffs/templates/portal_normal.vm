@@ -8,7 +8,7 @@
 	<title>$the_title - $company_name</title>
 
 	$theme.include($top_head_include)
-
+#js ("$javascript_folder/scroll.js")
 
 
 	
