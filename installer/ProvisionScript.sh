@@ -9,10 +9,11 @@ TOMCAT_HOME=${TOMCAT_ROOT}/apache-tomcat-7.0.27
 sudo /etc/rc.d/init.d/tomcat stop
 sleep 3
 
-mkdir -p ${DESTINATION_DIR}/deploy/
-scp nxslave4.slidev.org:/jenkins/workspace/Portal/dist/*.war ${DESTINATION_DIR}/deploy/
+sudo mkdir -p /opt/deploy
+sudo chown tomcat.tomcat /opt/deploy
 sudo chown tomcat.tomcat ${DESTINATION_DIR}/deploy/*
 sudo mv ${DESTINATION_DIR}/deploy/* /opt/deploy/
+sudo su - tomcat -c "cp -f ${DESTINATION_DIR}/layout.lar /opt/deploy/"
 
 
 if [ -f ${TOMCAT_HOME}/webapps/portal.war ]; then
@@ -21,11 +22,8 @@ fi
 
 sudo mysql < ${DESTINATION_DIR}/r_mysql_init.sql
 
-sudo wget -O ${TOMCAT_HOME}/webapps/portal.war http://downloads.sourceforge.net/project/lportal/Liferay%20Portal/6.1.0%20GA1/liferay-portal-6.1.0-ce-ga1-20120106155615760.war
+sudo cp ${DESTINATION_DIR}/webapps/portal.war ${TOMCAT_HOME}/webapps/portal.war
 
-sudo mkdir -p /opt/deploy
-sudo chown tomcat.tomcat /opt/deploy
-sudo su - tomcat -c "cp -f ${DESTINATION_DIR}/layout.lar /opt/deploy/"
 
 sudo /etc/rc.d/init.d/tomcat start
 
