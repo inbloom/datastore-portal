@@ -22,8 +22,10 @@ import org.slc.sli.headerfooter.model.HeaderFooter;
 import org.slc.sli.headerfooter.model.impl.HeaderFooterImpl;
 import org.slc.sli.headerfooter.service.base.HeaderFooterLocalServiceBaseImpl;
 import org.slc.sli.login.json.bean.UserData;
+import org.slc.sli.util.Constants;
 import org.slc.sli.util.RolesUtil;
 import org.slc.sli.util.PropsKeys;
+import org.slc.sli.util.ServerUtil;
 
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
@@ -62,7 +64,6 @@ public class HeaderFooterLocalServiceImpl extends
 	 * the header footer local service.
 	 */
 
-	
 	protected boolean isAdmin(UserData userdata) {
 		boolean isAdmin = false;
 		if (Validator.isNotNull(userdata)) {
@@ -132,19 +133,26 @@ public class HeaderFooterLocalServiceImpl extends
 				UserData userdata = RolesUtil.getUserData(token);
 				String fullName = getFullName(userdata);
 				boolean isAdmin = isAdmin(userdata);
-				
-				headerData = headerData.replace("[$SLI_LOGO$]","<img alt=\"\" class=\"company-logo\" height=\"17\" src=\"/sli-new-theme/images/custom/sli_logo_icn.png\" width=\"21\" />");
 
-				/*if (currUrl.contains("web/guest/admin")) {
-					headerData = headerData.replace("[$IS_ADMIN_PAGE$]",
-							"<li><a href=\"/portal/web/guest/home\">Home</a></li>");
-					// headerData =
-					// headerData.replace("[$SLI_TEXT$]","<a href=\"/portal/web/guest/home\" style=\"font-weight:normal;\"><span>State Department of Education</span></a>");
-				} else {
-					headerData = headerData.replace("[$IS_ADMIN_PAGE$]", "");
-					// headerData =
-					// headerData.replace("[$SLI_TEXT$]","<a href=\"/portal/web/guest/home\" style=\"font-weight:normal;\"><span>SLI Portal</span></a>");
-				}*/
+				headerData = headerData.replace("[$PORTAL_URL$]", "");
+
+				headerData = headerData
+						.replace(
+								"[$SLI_LOGO$]",
+								"<img alt=\"\" class=\"company-logo\" height=\"17\" src=\"/sli-new-theme/images/custom/sli_logo_icn.png\" width=\"21\" />");
+
+				/*
+				 * if (currUrl.contains("web/guest/admin")) { headerData =
+				 * headerData.replace("[$IS_ADMIN_PAGE$]",
+				 * "<li><a href=\"/portal/web/guest/home\">Home</a></li>"); //
+				 * headerData = // headerData.replace("[$SLI_TEXT$]",
+				 * "<a href=\"/portal/web/guest/home\" style=\"font-weight:normal;\"><span>State Department of Education</span></a>"
+				 * ); } else { headerData =
+				 * headerData.replace("[$IS_ADMIN_PAGE$]", ""); // headerData =
+				 * // headerData.replace("[$SLI_TEXT$]",
+				 * "<a href=\"/portal/web/guest/home\" style=\"font-weight:normal;\"><span>SLI Portal</span></a>"
+				 * ); }
+				 */
 
 				if (isAdmin) {
 					headerData = headerData
@@ -171,6 +179,7 @@ public class HeaderFooterLocalServiceImpl extends
 				headerData = headerData.replace("[$ADMIN_PAGE$]", "");
 				headerData = headerData.replace("[$ADMIN_PAGES$]", "");
 				headerData = headerData.replace("[$USER_NAME$]", "");
+				headerData = headerData.replace("[$PORTAL_URL$]", "");
 			}
 
 			// header.setData(headerData);
@@ -191,15 +200,20 @@ public class HeaderFooterLocalServiceImpl extends
 
 				headerData = headerData.replace("[$IS_ADMIN_PAGE$]", "");
 
+				String serverUrl = Constants.HTTP_PREFIX
+						+ ServerUtil.getServerURL();
+
+				headerData = headerData.replace("[$PORTAL_URL$]", serverUrl);
+
 				if (isAdmin) {
 					headerData = headerData
 							.replace(
 									"[$ADMIN_PAGE$]",
-									"<li class=\"last_item\"><a href=\"/portal/web/guest/admin\">Admin</a></li></li>");
+									"<li class=\"last_item\"><a href=\""+serverUrl+"/portal/web/guest/admin\">Admin</a></li></li>");
 					headerData = headerData
 							.replace(
 									"[$ADMIN_PAGES$]",
-									"<li class=\"last_item\"><a href=\"/portal/web/guest/admin\" class=\"menulink\">Admin</a></li>");
+									"<li class=\"last_item\"><a href=\""+serverUrl+"/portal/web/guest/admin\" class=\"menulink\">Admin</a></li>");
 				} else {
 					headerData = headerData.replace("[$ADMIN_PAGE$]", "");
 					headerData = headerData.replace("[$ADMIN_PAGES$]", "");
@@ -210,6 +224,7 @@ public class HeaderFooterLocalServiceImpl extends
 				headerData = headerData.replace("[$ADMIN_PAGE$]", "");
 				headerData = headerData.replace("[$ADMIN_PAGES$]", "");
 				headerData = headerData.replace("[$USER_NAME$]", "");
+				headerData = headerData.replace("[$PORTAL_URL$]", "");
 			}
 
 			// header.setData(headerData);
@@ -266,16 +281,22 @@ public class HeaderFooterLocalServiceImpl extends
 				// String fullName = getFullName(userdata);
 				// boolean isAdmin=isAdmin(userdata);
 
+				String serverUrl = Constants.HTTP_PREFIX
+						+ ServerUtil.getServerURL();
+
+				footerData = footerData.replace("[$PORTAL_URL$]", serverUrl);
+
 				if (isAdmin) {
 					footerData = footerData
 							.replace("[$ADMIN_PAGE$]",
-									"<li><a href=\"/web/guest/admin\">Admin</a></li></li>");
+									"<li><a href=\""+serverUrl+"/portal/web/guest/admin\">Admin</a></li></li>");
 				} else {
 					footerData = footerData.replace("[$ADMIN_PAGE$]", "");
 				}
 			} catch (Exception e) {
 				footerData = footerData.replace("[$ADMIN_PAGE$]", "");
 				footerData = footerData.replace("[$USER_NAME$]", "");
+				footerData = footerData.replace("[$PORTAL_URL$]", "");
 			}
 			// footer.setData(footerData);
 		}
@@ -289,15 +310,18 @@ public class HeaderFooterLocalServiceImpl extends
 
 		if (Validator.isNotNull(footer)) {
 			footerData = footer.getData();
+
 			try {
 				UserData userdata = RolesUtil.getUserData(token);
 				String fullName = getFullName(userdata);
 				boolean isAdmin = isAdmin(userdata);
 
+				footerData = footerData.replace("[$PORTAL_URL$]", "");
+
 				if (isAdmin) {
 					footerData = footerData
 							.replace("[$ADMIN_PAGE$]",
-									"<li><a href=\"/web/guest/admin\">Admin</a></li></li>");
+									"<li><a href=\"/portal/web/guest/admin\">Admin</a></li></li>");
 				} else {
 					footerData = footerData.replace("[$ADMIN_PAGE$]", "");
 				}
@@ -310,6 +334,7 @@ public class HeaderFooterLocalServiceImpl extends
 			} catch (IOException ioe) {
 				footerData = footerData.replace("[$ADMIN_PAGE$]", "");
 				footerData = footerData.replace("[$USER_NAME$]", "");
+				footerData = footerData.replace("[$PORTAL_URL$]", "");
 			}
 			// footer.setData(footerData);
 		}

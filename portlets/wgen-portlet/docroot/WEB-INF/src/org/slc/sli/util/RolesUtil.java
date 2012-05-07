@@ -42,13 +42,12 @@ import com.liferay.portal.kernel.util.CharPool;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * <p>
- * See http://issues.liferay.com/browse/LEP-5943.
- * </p>
- *
- * @author Prashant Dighe
- * @author Brian Wing Shun Chan
- * @author Wesley Gong
+ * RolesUtil.java
+ * 
+ * Purpose: Utility class to find roles of the logged in user.
+ * 
+ * @author
+ * @version 1.0
  */
 
 public class RolesUtil {
@@ -66,18 +65,22 @@ public class RolesUtil {
 	public RolesUtil() {
 		this.instance = this;
 	}
-	
-	public static UserData getUserData(String token)
-	throws IOException {
-	return instance._getUserData(token);
+
+	public static UserData getUserData(String token) throws IOException {
+		return instance._getUserData(token);
 	}
 
-	private UserData _getUserData(String token){
-		JsonObject json  = getRestClient().sessionCheck(token);
+	/**
+	 * Convert the json object returned from the session check api to userdata
+	 * object
+	 * 
+	 */
+	private UserData _getUserData(String token) {
+		JsonObject json = getRestClient().sessionCheck(token);
 		UserData userData = new Gson().fromJson(json, UserData.class);
 		return userData;
 	}
-	
+
 	private static Log _log = LogFactoryUtil.getLog(RolesUtil.class);
 
 	private static RolesUtil instance;

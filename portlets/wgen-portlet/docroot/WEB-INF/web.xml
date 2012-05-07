@@ -35,7 +35,21 @@
         <url-pattern>/api/secure/jsonws/*</url-pattern>
     </servlet-mapping>  
 
-  
+	<filter>
+		<filter-name>HTTPRequestFilter</filter-name>
+		<filter-class>
+			org.slc.sli.context.HTTPRequestFilter
+		</filter-class>
+		<init-param>
+			<param-name>test-param</param-name>
+			<param-value></param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>HTTPRequestFilter</filter-name>
+		<url-pattern>/api/secure/jsonws/*</url-pattern>
+	</filter-mapping>
+
   <jsp-config>
   	<taglib>
   		<taglib-uri>http://java.sun.com/portlet_2_0</taglib-uri>
