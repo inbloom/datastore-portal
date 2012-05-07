@@ -15,6 +15,16 @@ public class AppsData implements Serializable {
 		private String behaviour;
 		private String image_url;
 		private String application_url;
+		
+		private List<InnerApps> endpoints;
+		
+		public List<InnerApps> getEndpoints() {
+			return endpoints;
+		}
+
+		public void setEndpoints(List<InnerApps> endpoints) {
+			this.endpoints = endpoints;
+		}
 
 		public String getName() {
 			return name;
@@ -54,6 +64,34 @@ public class AppsData implements Serializable {
 
 		public void setApplication_url(String application_url) {
 			this.application_url = application_url;
+		}
+		
+		
+		public static class InnerApps{
+			private String name;
+			private String description;
+			private String url;
+		
+			public String getName() {
+				return name;
+			}
+			public void setName(String name) {
+				this.name = name;
+			}
+			public String getDescription() {
+				return description;
+			}
+			public void setDescription(String description) {
+				this.description = description;
+			}
+			public String getUrl() {
+				return url;
+			}
+			public void setUrl(String url) {
+				this.url = url;
+			}
+			
+			
 		}
 
 	}

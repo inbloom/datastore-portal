@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.slc.sli.client.RESTClient;
 import org.slc.sli.json.bean.AppsData;
+import org.slc.sli.json.bean.AppsData.InnerApps;
 import org.slc.sli.json.bean.UserData;
 
 import com.google.gson.Gson;
@@ -16,6 +17,7 @@ import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.PropsUtil;
+import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.Validator;
 
 /**
@@ -111,17 +113,50 @@ public class AppsUtil {
 			
 			AppsData apps = new AppsData();
 
-			String name = jsonEle.getAsJsonObject().get("name").toString().replaceAll("\"", "");
-			String description = jsonEle.getAsJsonObject().get("description").toString().replaceAll("\"", "");
-			String behaviour = jsonEle.getAsJsonObject().get("behavior").toString().replaceAll("\"", "");
-			String imageUrl = jsonEle.getAsJsonObject().get("image_url").toString().replaceAll("\"", "");
+			String name = jsonEle.getAsJsonObject().get("name").toString().replaceAll(StringPool.QUOTE,StringPool.BLANK);
+			String description = jsonEle.getAsJsonObject().get("description").toString().replaceAll(StringPool.QUOTE,StringPool.BLANK);
+			String behaviour = jsonEle.getAsJsonObject().get("behavior").toString().replaceAll(StringPool.QUOTE,StringPool.BLANK);
+			String imageUrl = jsonEle.getAsJsonObject().get("image_url").toString().replaceAll(StringPool.QUOTE,StringPool.BLANK);
 			String applicationUrl = jsonEle.getAsJsonObject().get("application_url").toString();
-
 			
-
+			
 			// Map Name,Description,Image url and app Url to bean
 			if(!applicationUrl.equalsIgnoreCase("\"\"")){
-				applicationUrl = applicationUrl.replaceAll("\"","");
+				applicationUrl = applicationUrl.replaceAll(StringPool.QUOTE,StringPool.BLANK);
+				
+				JsonArray endPoints=null;
+				if(Validator.isNotNull(jsonEle.getAsJsonObject().get("endpoints"))){
+				
+				endPoints = jsonEle.getAsJsonObject().get("endpoints").getAsJsonArray();
+				
+				ArrayList<InnerApps> innerAppsList = new ArrayList<InnerApps>();
+				for(JsonElement innerJsonEle : endPoints){
+					
+					InnerApps inApps = new InnerApps();
+					
+					String innerAppName = innerJsonEle.getAsJsonObject().get("name").toString().replaceAll(StringPool.QUOTE,StringPool.BLANK);
+					String innerAppDescription = innerJsonEle.getAsJsonObject().get("description").toString().replaceAll(StringPool.QUOTE,StringPool.BLANK);
+					String innerAppUrl = innerJsonEle.getAsJsonObject().get("url").toString().replaceAll(StringPool.QUOTE,StringPool.BLANK);
+					
+					_log.info("inner app name---" + innerAppName);
+					_log.info("inner app description---"+innerAppDescription);
+					_log.info("inner app url---"+innerAppUrl);
+					
+					
+					inApps.setName(innerAppName);
+					inApps.setDescription(innerAppDescription);
+					inApps.setUrl(innerAppUrl);
+					
+					innerAppsList.add(inApps);
+					
+				}
+				
+				apps.setEndpoints(innerAppsList);
+				}else{
+					apps.setEndpoints(null);
+				}
+				
+				
 				
 				_log.info("name---" + name);
 				_log.info("description---"+description);
@@ -146,4 +181,9 @@ public class AppsUtil {
 	private static Log _log = LogFactoryUtil.getLog(AppsUtil.class);
 
 	private static AppsUtil instance;
+	
+	
+	public static void main(String[] args) throws IOException {
+		getUserApps("e88cb6d1-771d-46ac-a207-2e58d7f12196");
+	}
 }
