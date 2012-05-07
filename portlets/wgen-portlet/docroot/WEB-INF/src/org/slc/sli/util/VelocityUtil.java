@@ -22,6 +22,7 @@ import java.net.URISyntaxException;
 import java.net.URL;
 
 import javax.imageio.ImageIO;
+import javax.imageio.stream.ImageInputStream;
 
 import org.apache.commons.codec.binary.Base64;
 
@@ -60,12 +61,12 @@ public class VelocityUtil {
 		return writer.toString();
 	}
 
-	public static String getEncodedImg(String url) throws IOException, URISyntaxException{
-		
-		URL ImgUrl = new URL(url);
-		
-		BufferedImage img = ImageIO.read(ImgUrl);
-		
+	public static String getEncodedImg(String imageName) throws IOException, URISyntaxException{
+	
+		InputStream imageIs = VelocityUtil.class.getResourceAsStream(imageName);
+		System.out.println(imageIs);
+		BufferedImage img = ImageIO.read(imageIs);
+				
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		ImageIO.write(img, "png", baos);    
 		baos.flush();
@@ -111,5 +112,5 @@ public class VelocityUtil {
 		}
 		return writer.toString();
 	}
-
+	
 }

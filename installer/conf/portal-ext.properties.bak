@@ -121,10 +121,6 @@ image.sli_logo=sli_logo_icn.png
 # IMPORT LAR APPROACH
 layout.lar.file.name=layout.lar
 
-<<<<<<< HEAD
-auto.deploy.deploy.dir=/opt/deploy
-=======
 # Set path for error page
 
 layout.friendly.url.page.not.found=/portal/web/guest/error
->>>>>>> 887295180f14400846ae41490a9af385f3f56c2a
