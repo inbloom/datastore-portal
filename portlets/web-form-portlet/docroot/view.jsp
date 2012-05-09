@@ -103,7 +103,7 @@ System.out.println("Success URL:->"+successURL+".....>>>>>"+currentURL);
 				
 				<c:when test='<%= fieldType.equals("textarea") %>'>
 					<div style="margin-left:151px;margin-top:10px;">
-						Please describe your problem in as much detail as possible in the space below.  We already have logged the time and page location of this problem.<strong>  Do not include private student data or passwords in this field.</strong>
+						Please describe your problem in as much detail as possible in the space below.  We already have logged the time and page location of this problem.<strong>  Do not include private student data or passwords in this field....</strong>
 					</div>
 					<aui:input cssClass='<%= fieldOptional ? "optional" : StringPool.BLANK %>' label="<%= HtmlUtil.escape(fieldLabel) %>" name="<%= fieldName %>" type="textarea" value="<%= HtmlUtil.escape(fieldValue) %>" wrap="soft" />
 				</c:when>
