@@ -14,12 +14,12 @@ Feature: title
   Scenario:check Non admin user and check admin page
     Given I have an open web browser
     Then I am on the Realm selection page
-    Then I select "4cb03fa0-83ad-46e2-a936-09ab31af377e"
+    Then I select "4cb026a0-73be-4296-ad36-d9abf11e3757"
     #Then I click "Go"
-    When I login with "linda.kim" and "linda.kim1234"
+    When I login with "mario.sanchez" and "mario.sanchez1234"
     Then I should be on the home page
     Then I should not see "Admin" 
-
+ @wip
   Scenario:check admin user on admin page check  SLC administration to check Default SLI Roles
    Given I have an open web browser
     When I go to the login page
