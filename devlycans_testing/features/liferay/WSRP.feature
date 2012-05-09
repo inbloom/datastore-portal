@@ -4,7 +4,7 @@ Feature: title
 
 
  
-  
+  @wip
   Scenario:-SSD Realm with wsrp link click
     Given I have an open web browser
     Then I am on the Realm selection page
