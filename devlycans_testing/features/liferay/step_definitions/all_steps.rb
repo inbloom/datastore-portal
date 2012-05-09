@@ -494,12 +494,16 @@ Then /^I close the browser$/ do
   @driver.quit
 end
 
+
+
+
 Then /^(?:|I )should see "([^\"]*)"$/ do |text|
   begin
-    link=@driver.find_element(:link, text).displayed? || @driver.find_element(:name, text).displayed?
+  
+    link=@driver.page_source.match(text)
     link=true
   rescue
-    link=false
+    puts "No Such Text"
   end
   link 
  
