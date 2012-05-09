@@ -39,7 +39,7 @@ Feature: title
     And I select the "Incorrect Data" 
     Then I fill "Some test Problems" from "_1_WAR_webformportlet_INSTANCE_kxDp6zzr4xIr_field2"
     Then I click button "Report a Problem"
-    Then I should see "Thankyou for submitting"
+    Then I should see message "Thank you!"
   
   
   Scenario:Report a problem submission for SLI admin User for non Happy submission or blank submission
@@ -95,7 +95,7 @@ Feature: title
     And I select the "Incorrect Data" 
     Then I fill "Some test Problems" from "_1_WAR_webformportlet_INSTANCE_kxDp6zzr4xIr_field2"
     Then I click button "Report a Problem"
-    Then I should see "Thankyou for submitting"
+    Then I should see message "Thank you!"
      
     
     Scenario: Report a problem non happy submission for New York Realm User

@@ -497,15 +497,36 @@ end
 
 
 
-Then /^(?:|I )should see "([^\"]*)"$/ do |text|
+Then /^(?:|I )should see message "([^\"]*)"$/ do |text|
   begin
-  
-    link=@driver.page_source.match(text)
-    link=true
+   
+    links=@driver.find_elements(:tag_name, 'p')
+  links.each do |link|
+    if link.text == text
+      puts "OK"
+      break
+    else
+     puts "No Such Text is present"
+     break 
+   end
+  end
   rescue
     puts "No Such Text"
   end
-  link 
+ # link 
+ 
+end
+
+
+Then /^(?:|I )should see "([^\"]*)"$/ do |text|
+  begin
+    link=@driver.find_element(:link, text).displayed? || @driver.find_element(:name, text).displayed?
+    link=true
+  rescue
+    puts "No Such Text"
+  end 
+  link
+
  
 end
 
