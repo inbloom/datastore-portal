@@ -29,9 +29,16 @@
 --%>
 <%! private static final String NOT_FOUND_LAYOUT_FRIENDLY_URL = "/web/guest/error"; %>
 <%
+LayoutSet layoutSet = (LayoutSet)request.getAttribute(WebKeys.VIRTUAL_HOST_LAYOUT_SET);
+
 boolean notFoundPageExists = true;
-String serverUrl = "https://testlr1.slidev.org";
+try {
+    LayoutLocalServiceUtil.getFriendlyURLLayout(layoutSet.getGroupId(), layoutSet.isPrivateLayout(),
+            NOT_FOUND_LAYOUT_FRIENDLY_URL);
+} catch (NoSuchLayoutException e) {
+    notFoundPageExists = false;
+}
 %>
 <c:if test="<%= notFoundPageExists %>">
-    <c:import url="<%= serverUrl + NOT_FOUND_LAYOUT_FRIENDLY_URL + ";jsessionid=" + session.getId() %>"/>
+    <c:import url="<%= PortalUtil.getPortalURL(request) + NOT_FOUND_LAYOUT_FRIENDLY_URL + ";jsessionid=" + session.getId() %>"/>
 </c:if>
