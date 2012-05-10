@@ -21,7 +21,7 @@ Navigate to dashboard link successfully using New York Realm under 'Select an Ap
     Then I should be on the home page
     Then I should see " Dashboard"
     Then I follow the home page Dashboard
-    #Then I select "4cb03fa0-83ad-46e2-a936-09ab31af377e"
+    Then I select "4cb03fa0-83ad-46e2-a936-09ab31af377e"
     #Then I click "Go"
     #Then I should see "             Select an application         "
     #Then I should see "Learning Map"
@@ -47,7 +47,7 @@ Navigate to dashboard link successfully using New York Realm under 'Select an Ap
     Then I should be on the home page
     Then I should see " Dashboard"
     Then I follow the home page Dashboard
-    #Then I select "4cb03fa0-83ad-46e2-a936-09ab31af377e"
+    Then I select "4cb03fa0-83ad-46e2-a936-09ab31af377e"
     #Then I click "Go"
     #Then I should see "             Select an application         "
     #Then I should see "Learning Map"
@@ -63,7 +63,7 @@ Navigate to dashboard link successfully using New York Realm under 'Select an Ap
     #Then I should see "Fabio De Silva"
     #Then I should not see "Raphael De Sliva"
     #Then I should not see "Student Fake"
-   
+    
   Scenario:-User Login through SSD Realm and choose English Language Learner (former)
     Given I have an open web browser
     Then I am on the Realm selection page
@@ -73,7 +73,7 @@ Navigate to dashboard link successfully using New York Realm under 'Select an Ap
     Then I should be on the home page
     Then I should see " Dashboard"
     Then I follow the home page Dashboard
-    #Then I select "4cb03fa0-83ad-46e2-a936-09ab31af377e"
+    Then I select "4cb03fa0-83ad-46e2-a936-09ab31af377e"
     #Then I click "Go"
     #Then I should see "             Select an application         "
     #Then I should see "Learning Map"
@@ -89,8 +89,7 @@ Navigate to dashboard link successfully using New York Realm under 'Select an Ap
     #Then I should not see "Fabio De Silva"
     #Then I should not see "Raphael De Sliva"
     #Then I should not see "Student Fake"
-
-  
+    
   Scenario:-User Login through SSD Realm and choose Section 504
     Given I have an open web browser
     Then I am on the Realm selection page
@@ -100,7 +99,7 @@ Navigate to dashboard link successfully using New York Realm under 'Select an Ap
     Then I should be on the home page
     Then I should see " Dashboard"
     Then I follow the home page Dashboard
-   # Then I select "4cb03fa0-83ad-46e2-a936-09ab31af377e"
+    Then I select "4cb03fa0-83ad-46e2-a936-09ab31af377e"
     #Then I click "Go"
     #Then I should see "             Select an application         "
     #Then I should see "Learning Map"
@@ -126,7 +125,7 @@ Navigate to dashboard link successfully using New York Realm under 'Select an Ap
     Then I should be on the home page
     Then I should see " Dashboard"
     Then I follow the home page Dashboard
-    #Then I select "4cb03fa0-83ad-46e2-a936-09ab31af377e"
+    Then I select "4cb03fa0-83ad-46e2-a936-09ab31af377e"
     #Then I click "Go"
     #Then I should see "             Select an application         "
     #Then I should see "Learning Map"
@@ -152,7 +151,7 @@ Navigate to dashboard link successfully using New York Realm under 'Select an Ap
     Then I should be on the home page
     Then I should see " Dashboard"
     Then I follow the home page Dashboard
-    #Then I select "4cb03fa0-83ad-46e2-a936-09ab31af377e"
+    Then I select "4cb03fa0-83ad-46e2-a936-09ab31af377e"
     #Then I click "Go"
     #Then I should see "             Select an application         "
     #Then I should see "Learning Map"
@@ -178,7 +177,7 @@ Navigate to dashboard link successfully using New York Realm under 'Select an Ap
     Then I should be on the home page
     Then I should see " Dashboard"
     Then I follow the home page Dashboard
-    #Then I select "4cb03fa0-83ad-46e2-a936-09ab31af377e"
+    Then I select "4cb03fa0-83ad-46e2-a936-09ab31af377e"
     #Then I click "Go"
     #Then I should see "             Select an application         "
     Then I should see "Learning Map"
@@ -205,7 +204,7 @@ Navigate to dashboard link successfully using New York Realm under 'Select an Ap
     Then I should be on the home page
     Then I should see " Dashboard"
     Then I follow the home page Dashboard
-    #Then I select "4cb03fa0-83ad-46e2-a936-09ab31af377e"
+    Then I select "4cb03fa0-83ad-46e2-a936-09ab31af377e"
     #Then I click "Go"
     #Then I should see "             Select an application         "
     #Then I should see "Learning Map"
@@ -231,7 +230,7 @@ Navigate to dashboard link successfully using New York Realm under 'Select an Ap
     Then I should be on the home page
     Then I should see " Dashboard"
     Then I follow the home page Dashboard
-    #Then I select "4cb03fa0-83ad-46e2-a936-09ab31af377e"
+    Then I select "4cb03fa0-83ad-46e2-a936-09ab31af377e"
     #Then I click "Go"
     #Then I should see "             Select an application         "
     #Then I should see "Learning Map"
@@ -257,7 +256,7 @@ Navigate to dashboard link successfully using New York Realm under 'Select an Ap
     Then I should be on the home page
     Then I should see " Dashboard"
     Then I follow the home page Dashboard
-    #Then I select "4cb03fa0-83ad-46e2-a936-09ab31af377e"
+    Then I select "4cb03fa0-83ad-46e2-a936-09ab31af377e"
     #Then I click "Go"
     #Then I should see "             Select an application         "
     #Then I should see "Learning Map"
@@ -283,7 +282,7 @@ Navigate to dashboard link successfully using New York Realm under 'Select an Ap
     Then I should be on the home page
     Then I should see " Dashboard"
     Then I follow the home page Dashboard
-    #Then I select "4cb03fa0-83ad-46e2-a936-09ab31af377e"
+    Then I select "4cb03fa0-83ad-46e2-a936-09ab31af377e"
     #Then I click "Go"
     #Then I should see "             Select an application         "
     #Then I should see "Learning Map"

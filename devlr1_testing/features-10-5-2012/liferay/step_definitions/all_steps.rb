@@ -179,8 +179,7 @@ end
 
 Then  /^I follow the home page Dashboard$/ do 
   begin
-    #element= @driver.find_element(:xpath, "//td/a/div[text()=' Dashboard (Integration)']")
-    element= @driver.find_element(:xpath, "//td/a/div[text()=' Dashboard']")
+    element= @driver.find_element(:xpath, "//td/a/div[text()=' Dashboard (Integration)']")
     element.click
   rescue
     if @driver.page_source.match('SLI Exception')
@@ -347,8 +346,7 @@ When /^I login with "([^\"]*)" and "([^\"]*)"$/ do |username, password|
 end
 Then /^I should be on the authentication failed page$/ do
   begin
-   @driver.page_source.match('Authentication failed.')
-   # @driver.navigate.to "https://devapp1.slidev.org/sp/UI/Login"
+    @driver.navigate.to "https://devopenam1.slidev.org:80/idp2/UI/Login"
   rescue
  
     if @driver.page_source.match('SLI Exception')
@@ -435,18 +433,17 @@ And /^I click "([^\"]*)"$/ do |btn|
 end
 
 Then /^It open a popup$/ do
-begin
+ begin
   wait = Selenium::WebDriver::Wait.new(:timeout => 10)
   wait.until{
     frame=@driver.find_element(:tag_name, "iframe")
     @driver.switch_to.frame(frame)
   
   }
-rescue
-  puts "Iframe is not detected"
 
-end
- 
+  rescue
+    puts "Iframe is not detected"
+  end
 end
 
 
@@ -496,36 +493,16 @@ Then /^I close the browser$/ do
   @driver.quit
 end
 
-
-
-
 Then /^(?:|I )should see "([^\"]*)"$/ do |text|
- # begin
-   links=[]
-    links << @driver.find_elements(:tag_name, 'p')  
-    links << @driver.find_elements(:tag_name, 'span')
-    links << @driver.find_elements(:tag_name, 'div')
-  links.flatten!
-  ele=false
-  links.each do |link|
-    if link.text.match(text)
-      ele=true
-      puts "OK"
-      break
-    
-   end
+  begin
+    link=@driver.find_element(:link, text).displayed? || @driver.find_element(:name, text).displayed?
+    link=true
+  rescue
+    link=false
   end
- if ele == true
-  puts "OK"
- else
-  puts ""
- end
- 
+  link 
  
 end
-
-
-
 
 Then /^(?:|I )should not see "([^\"]*)"$/ do |text|
   begin
@@ -535,9 +512,9 @@ Then /^(?:|I )should not see "([^\"]*)"$/ do |text|
     link=false
   end 
   link
+
+ 
 end
-
-
 When /^(?:|I )follow "([^\"]*)"$/ do |link|
   begin
     @driver.find_element(:link, link).click
