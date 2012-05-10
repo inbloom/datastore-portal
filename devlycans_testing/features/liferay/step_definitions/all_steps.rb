@@ -497,17 +497,15 @@ end
 
 
 
-Then /^(?:|I )should see message "([^\"]*)"$/ do |text|
+Then /^(?:|I )should see "([^\"]*)"$/ do |text|
   begin
    
-    links=@driver.find_elements(:tag_name, 'p')
+    links=@driver.find_elements(:tag_name, 'p') || @driver.find_elements(:tag_name, 'span')
   links.each do |link|
     if link.text == text
       puts "OK"
       break
-    else
-     puts "No Such Text is present"
-     break 
+    
    end
   end
   rescue
@@ -518,17 +516,7 @@ Then /^(?:|I )should see message "([^\"]*)"$/ do |text|
 end
 
 
-Then /^(?:|I )should see "([^\"]*)"$/ do |text|
-  begin
-    link=@driver.find_element(:link, text).displayed? || @driver.find_element(:name, text).displayed?
-    link=true
-  rescue
-    puts "No Such Text"
-  end 
-  link
 
- 
-end
 
 Then /^(?:|I )should not see "([^\"]*)"$/ do |text|
   begin
