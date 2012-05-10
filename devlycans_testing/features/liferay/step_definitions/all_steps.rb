@@ -179,7 +179,8 @@ end
 
 Then  /^I follow the home page Dashboard$/ do 
   begin
-    element= @driver.find_element(:xpath, "//td/a/div[text()=' Dashboard (Integration)']")
+    #element= @driver.find_element(:xpath, "//td/a/div[text()=' Dashboard (Integration)']")
+    element= @driver.find_element(:xpath, "//td/a/div[text()=' Dashboard']")
     element.click
   rescue
     if @driver.page_source.match('SLI Exception')
@@ -346,7 +347,8 @@ When /^I login with "([^\"]*)" and "([^\"]*)"$/ do |username, password|
 end
 Then /^I should be on the authentication failed page$/ do
   begin
-    @driver.navigate.to "https://devopenam1.slidev.org:80/idp2/UI/Login"
+   @driver.page_source.match('Authentication failed.')
+   # @driver.navigate.to "https://devapp1.slidev.org/sp/UI/Login"
   rescue
  
     if @driver.page_source.match('SLI Exception')
@@ -498,20 +500,27 @@ end
 
 
 Then /^(?:|I )should see "([^\"]*)"$/ do |text|
-  begin
-   
-    links=@driver.find_elements(:tag_name, 'p') || @driver.find_elements(:tag_name, 'span')
+ # begin
+   links=[]
+    links << @driver.find_elements(:tag_name, 'p')  
+    links << @driver.find_elements(:tag_name, 'span')
+    links << @driver.find_elements(:tag_name, 'div')
+  links.flatten!
+  ele=false
   links.each do |link|
-    if link.text == text
+    if link.text.match(text)
+      ele=true
       puts "OK"
       break
     
    end
   end
-  rescue
-    puts "No Such Text"
-  end
- # link 
+ if ele == true
+  puts "OK"
+ else
+  puts ""
+ end
+ 
  
 end
 
@@ -526,9 +535,9 @@ Then /^(?:|I )should not see "([^\"]*)"$/ do |text|
     link=false
   end 
   link
-
- 
 end
+
+
 When /^(?:|I )follow "([^\"]*)"$/ do |link|
   begin
     @driver.find_element(:link, link).click
