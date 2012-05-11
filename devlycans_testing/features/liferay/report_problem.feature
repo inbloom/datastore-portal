@@ -36,7 +36,7 @@ Feature: title
     When I mouseover on menu and click submenu "Report a problem"
     #When I follow "Report a Problem"
     Then It open a popup
-    And I select the "Incorrect Data" 
+    And I select the " Excellent" 
     Then I fill "Some test Problems" from "_1_WAR_webformportlet_INSTANCE_kxDp6zzr4xIr_field2"
     Then I click button "Report a Problem"
     Then I should see "Thank you!"
@@ -92,7 +92,7 @@ Feature: title
      When I mouseover on menu and click submenu "Report a problem"
     #When I follow "Report a Problem"
     Then It open a popup
-    And I select the "Incorrect Data" 
+    And I select the " Excellent" 
     Then I fill "Some test Problems" from "_1_WAR_webformportlet_INSTANCE_kxDp6zzr4xIr_field2"
     Then I click button "Report a Problem"
     Then I should see "Thank you!"
