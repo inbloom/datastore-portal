@@ -59,7 +59,7 @@ rm -rf /opt/cluster/test1/webapps/portal.war
 
 # Copy the portal-ext.properties file into tomcat
   #scp /jenkins/workspace/ProvisionScript/installer/conf/portal-ext.properties tomcat@devlr1.slidev.org:/opt/boot/
-    cp /opt/cluster/boot1/portal-ext.properties /opt/
+    cp /opt/cluster/boot1/portal-ext.properties /opt/cluster
 # Copy the server.xml file into tomcat
 cp -r /opt/cluster/boot1/server.xml /opt/cluster/test1/conf/	
 # Copy the web.xml file into tomcat
