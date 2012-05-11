@@ -6,7 +6,11 @@ function T$$$(){return document.all?1:0}
 TINY.scroller=function(){
 	return{
 		init:function(a,c,b,s,d){
+		var a='';
 		var c='';
+		var b='';
+		var s='';
+		var d='';
 			a=T$(a); a.c=c; a.s=s; c=T$(c); b=T$(b); s=T$(s); a.n=d||0;
 			b.style.display='block'; a.style.overflow='hidden';
 			var h=a.offsetHeight, t=c.offsetHeight;
