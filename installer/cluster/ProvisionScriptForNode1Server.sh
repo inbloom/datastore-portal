@@ -17,7 +17,7 @@
 # Copy the portal-ext.properties file into tomcat
   scp /jenkins/workspace/ProvisionScriptNode1/installer/cluster/node1/portal-ext.properties tomcat@devlr1.slidev.org:/opt/cluster/boot/
   
-# Copy the portal-ext.properties file into tomcat
+# Copy the portal-ext.properties file into tomcat      
   scp /jenkins/workspace/ProvisionScriptNode1/installer/cluster/node1/web.xml tomcat@devlr1.slidev.org:/opt/cluster/boot/
   
 # Copy the portal-ext.properties file into tomcat
