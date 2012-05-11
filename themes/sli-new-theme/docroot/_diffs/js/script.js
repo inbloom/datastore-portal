@@ -8,7 +8,6 @@ TINY.scroller=function(){
 		init:function(a,c,b,s,d){
 			a=T$(a); a.c=c; a.s=s; c=T$(c); b=T$(b); s=T$(s); a.n=d||0;
 			b.style.display='block'; a.style.overflow='hidden';
-			var c=c;
 			var h=a.offsetHeight, t=c.offsetHeight;
 			if(t<h){
 				b.style.display='none'
