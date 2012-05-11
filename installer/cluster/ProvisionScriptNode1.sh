@@ -10,7 +10,7 @@ export TOMCAT_HOME=/opt/test
 wget http://downloads.sourceforge.net/project/lportal/Liferay%20Portal/6.1.0%20GA1/liferay-portal-6.1.0-ce-ga1-20120106155615760.war
 mv liferay-portal-6.1.0-ce-ga1-20120106155615760.war portal.war
 
-cp /opt/boot/portal.war /opt/cluster/test/webapps
+cp /opt/boot/portal.war /opt/test/webapps
 cd /opt/test/webapps/
 ls /opt/test/webapps
  
