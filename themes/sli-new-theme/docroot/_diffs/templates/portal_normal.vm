@@ -8,7 +8,7 @@
 	<title>$the_title - $company_name</title>
 
 	$theme.include($top_head_include)
-	 #js ("$javascript_folder/script.js")
+
 
 
 
@@ -62,10 +62,7 @@ $theme.include($body_bottom_include)
 
 
 
-<script type="text/javascript"> 
-TINY.scroller.init('scroll','scrollcontent','scrollbar','scroller','buttonclick');
-</script>
-	
+ 
 	
 </body>
 
