@@ -9,8 +9,7 @@
 
 	$theme.include($top_head_include)
  
-	
-	#js ("$javascript_folder/script.js")
+
 
 
 </head>
@@ -66,7 +65,8 @@ $theme.include($body_bottom_include)
 <script type="text/javascript"> 
 TINY.scroller.init('scroll','scrollcontent','scrollbar','scroller','buttonclick');
 </script>
-
+	
+	#js ("$javascript_folder/script.js")
 </body>
 
 $theme.include($bottom_include)
