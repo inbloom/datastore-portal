@@ -5,7 +5,7 @@ Navigate to dashboard link successfully using New York Realm under 'Select an Ap
  Scenario:-User Login through SSD Realm with wrong username and password
     Given I have an open web browser
     Then I am on the Realm selection page
-    Then I select "Illinois Sunset School District 4526"
+    Then I select "4cb03fa0-83ad-46e2-a936-09ab31af377e"
     #Then I click "Go"
     When I login with "linda" and "linda.kim"
     Then I should be on the authentication failed page
