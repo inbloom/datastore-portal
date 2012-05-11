@@ -68,6 +68,7 @@ System.out.println("Success URL:->"+successURL+".....>>>>>"+currentURL);
 
 		String fieldName = "field" + i;
 		String fieldLabel = LocalizationUtil.getPreferencesValue(preferences, "fieldLabel" + i, themeDisplay.getLanguageId());
+		System.out.println("fieldLabel URL:->"+fieldLabel);
 		boolean fieldOptional = PrefsParamUtil.getBoolean(preferences, request, "fieldOptional" + i, false);
 		System.out.println("fieldOptional URL:->"+fieldOptional+".....>>>>>"+fieldOptional);
 		
