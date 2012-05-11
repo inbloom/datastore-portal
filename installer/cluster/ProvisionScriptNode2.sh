@@ -44,12 +44,17 @@ rm -rf /opt/cluster/test1/webapps/portal.war
   #chown tomcat:tomcat tomcat@devlr1.slidev.org:/opt/test/conf/catalina.properties
   #chmod 600 tomcat@devlr1.slidev.org:/opt/test/conf/catalina.properties
 
-# Copy the portal.xml file into tomcat 
+# Copy the localhost directory into tomcat 
  #mkdir tomcat@devlr1.slidev.org:/opt/test/conf/Catalina/localhost
   #scp -r /jenkins/workspace/ProvisionScript/installer/conf/localhost tomcat@devlr1.slidev.org:/opt/boot/
   cp -r /opt/cluster/boot1/localhost /opt/cluster/test1/conf/Catalina/
  # chown tomcat:tomcat tomcat@devlr1.slidev.org:/opt/test/conf/Catalina/localhost/portal.xml
  # chmod 600 tomcat@devlr1.slidev.org:/opt/test/conf/Catalina/localhost/ROOT.xml
+
+ # Copy the ehcache directory into tomcat 
+  
+  cp -r /opt/cluster/boot1/ehcache /opt/cluster/test1/webapps/portal/WEB-INF/classes
+  
 
 
 # Copy the portal-ext.properties file into tomcat
