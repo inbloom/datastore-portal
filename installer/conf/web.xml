@@ -800,15 +800,15 @@
 	</welcome-file-list>
 	<error-page>
 		<error-code>404</error-code>
-		<location>/portal/web/guest/error</location>
+		<location>/web/guest/error</location>
 	</error-page>
 	<error-page>
 		<error-code>500</error-code>
-		<location>/portal/web/guest/error</location>
+		<location>/web/guest/error</location>
 	</error-page>
 	<error-page>
 		<error-code>403</error-code>
-		<location>/portal/web/guest/error</location>
+		<location>/web/guest/error</location>
 	</error-page>
 	<jsp-config>
 		<taglib>
