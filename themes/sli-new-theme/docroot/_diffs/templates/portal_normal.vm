@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+
+#parse ($init)
+
+<html class="#language("lang.dir")" dir="#language("lang.dir")" lang="$w3c_language_id">
+
+<head>
+	<title>$the_title - $company_name</title>
+
+	$theme.include($top_head_include)
+	 
+	
+</head>
+
+<body class="$css_class">
+
+#if ( $is_signed_in )    
+#set ($rService = $serviceLocator.findService("com.liferay.portal.service.RoleService"))
+#set ($usrRoles = $rService.getUserRoles( $user_id ))
+    
+#set ($hasPermission = false)
+
+#foreach( $usrRole in $usrRoles )
+        #if ( $usrRole.getName() == "Administrator" || $usrRole.getName() == "Content-Admin" || $usrRole.getName() == "Content-Editor")
+           #set ($hasPermission = true)
+        #end
+     #end
+#end
+
+#if($hasPermission == true)
+  #dockbar()
+#end
+
+$theme.include($body_top_include)
+
+
+
+<div id="sli_wrapper">
+	<a href="#main-content" id="skip-to-content">#language("skip-to-content")</a>
+
+
+	<div id="sli_content">
+
+		#if ($selectable)
+			$theme.include($content_include)
+		#else
+			$portletDisplay.recycle()
+
+			$portletDisplay.setTitle($the_title)
+
+			$theme.wrapPortlet("portlet.vm", $content_include)
+		#end
+	</div>
+
+</div>
+
+$theme.include($body_bottom_include)
+
+
+
+
+
+ 
+	
+</body>
+
+$theme.include($bottom_include)
+
+</html>
+
