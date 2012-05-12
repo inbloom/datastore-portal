@@ -500,7 +500,7 @@ end
 
 
 Then /^(?:|I )should see "([^\"]*)"$/ do |text|
- # begin
+ begin
    links=[]
     links << @driver.find_elements(:tag_name, 'p')  
     links << @driver.find_elements(:tag_name, 'span')
@@ -512,12 +512,14 @@ Then /^(?:|I )should see "([^\"]*)"$/ do |text|
       ele=true
       puts "OK"
       break
-    
-   end
+    end
   end
  if ele == true
   puts "OK"
  else
+  puts ""
+ end
+ rescue Selenium::WebDriver::Error::StaleElementReferenceError
   puts ""
  end
  
