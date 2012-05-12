@@ -1,0 +1,133 @@
+#
+# MySQL
+#
+jdbc.default.driverClassName=com.mysql.jdbc.Driver
+jdbc.default.url=jdbc:mysql://localhost/lportal?emulateLocators=true&useUnicode=true&characterEncoding=UTF-8&useFastDateParsing=false&createDatabaseIfNotExists=true
+jdbc.default.username=liferay
+jdbc.default.password=liferaywgen
+
+session.timeout=15
+
+# Context Path
+
+portal.ctx=/portal
+
+users.reminder.queries.enabled=false
+
+users.reminder.queries.custom.question.enabled=false
+users.reminder.queries.required=false
+
+system.roles=SLI Administrator, Educator
+
+# To disable the Wizard
+ setup.wizard.enabled=false
+
+
+
+# for ipc across pages used in wsrp portlet
+portlet.event.distribution=layout-set
+
+portlet.public.render.parameter.distribution=ALL_PORTLETS
+
+
+
+# LOGIN MODULE SETTINGS
+
+##
+## Enable this property to make liferay to use sli authentication for lifeary login
+##
+
+org.slc.sli.login.servlet.filter.sso.wgensso.WgenSSOFilter=true
+
+##
+## Auto Login
+##
+
+#auto.login.hooks= org.slc.sli.login.security.auth.WgenAutoLogin
+
+
+#
+# Input a class name that implements
+# com.liferay.portal.security.auth.ScreenNameValidator. This class will be
+# called to validate user screen names.
+#
+
+#users.screen.name.validator=com.liferay.portal.security.auth.DefaultScreenNameValidator
+users.screen.name.validator=com.liferay.portal.security.auth.LiberalScreenNameValidator
+
+#
+# Set this to false if you want to be able to create users without an email
+# address. An email address will be automatically assigned to a user based
+# on the property "users.email.address.auto.suffix".
+#
+
+users.email.address.required=false
+
+#
+# Set this to true if all users are required to agree to the terms of use.
+#
+terms.of.use.required=true
+
+#
+# Logout event
+#
+#logout.events.pre = org.slc.sli.login.events.WgenLogoutAction
+
+#
+# Login event
+#
+#login.events.post=org.slc.sli.login.events.WgenLoginPostAction
+
+#
+# enable to activate session expiration
+#
+wgen.sso.logout.on.session.expiration=true
+
+#
+# SLI roles
+#
+wgen.role.itadmin=IT Administrator
+wgen.role.sliadmin=SLI Administrator
+wgen.role.educator=Educator
+
+
+
+###admin selection interface portlet
+
+#
+# Set the url of wsrp page.
+#
+wsrp.page=/portal/web/guest/wsrp
+
+
+#
+# Set the url of wsrp page.
+#
+iframe.page=/portal/web/guest/iframe
+
+
+# WSRP portlet
+
+#
+# Set this to true to restrict access on resource URLs to authenticated users.
+#
+template.processing.enabled=false
+
+image.menu_arrow=menu_arrow1.png
+
+image.arrow=arrow.png
+
+image.arrow_w=arrow_w.png
+
+image.sli_logo=sli_logo_icn.png
+
+# IMPORT LAR APPROACH
+layout.lar.file.name=layout.lar
+
+
+auto.deploy.deploy.dir=/opt/deploy
+
+# Set path for error page
+
+layout.friendly.url.page.not.found=/web/guest/error
+
