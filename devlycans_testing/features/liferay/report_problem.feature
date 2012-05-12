@@ -41,7 +41,7 @@ Feature: title
     Then I click button "Report a Problem"
     Then I should see "Thank you!"
   
-  @wip
+  
   Scenario:Report a problem submission for SLI admin User for non Happy submission or blank submission
     Given I have an open web browser
     When I go to the login page
@@ -51,7 +51,7 @@ Feature: title
     #When I follow "Report a Problem"
     Then It open a popup
     
-    Then I fill "Some test Problems" from "_1_WAR_webformportlet_INSTANCE_kxDp6zzr4xIr_field2"
+    Then I fill "Some test Problems" from "_1_WAR_webformportlet_INSTANCE_W6Fvabb0rTf2_field2"
     Then I click button "Report a Problem"
     Then I should see "This field is mandatory." 
    
@@ -97,7 +97,7 @@ Feature: title
     Then I click button "Report a Problem"
     Then I should see "Thank you!"
      
-    @wip
+    
     Scenario: Report a problem non happy submission for New York Realm User
      Given I have an open web browser
      Then I am on the Realm selection page
@@ -108,7 +108,7 @@ Feature: title
     #When I follow "Report a Problem"
     Then It open a popup
     
-    Then I fill "Some test Problems" from "_1_WAR_webformportlet_INSTANCE_kxDp6zzr4xIr_field2"
+    Then I fill "Some test Problems" from "_1_WAR_webformportlet_INSTANCE_W6Fvabb0rTf2_field2"
     Then I click button "Report a Problem"
     Then I should see "This field is mandatory." 
      

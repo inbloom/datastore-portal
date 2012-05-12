@@ -41,7 +41,7 @@ Feature: title
     Then I click button "Report a Problem"
     Then I should see "Thank you!"
   
-  @wip
+  
   Scenario:Report a problem submission for SLI admin User for non Happy submission or blank submission
     Given I have an open web browser
     When I go to the login page
@@ -97,7 +97,7 @@ Feature: title
     Then I click button "Report a Problem"
     Then I should see "Thank you!"
      
-    @wip
+    
     Scenario: Report a problem non happy submission for New York Realm User
      Given I have an open web browser
      Then I am on the Realm selection page
