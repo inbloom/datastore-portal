@@ -12,7 +12,7 @@
                         <a class="modal" href="javascript: showpop();">Report a problem</a> <script language="javascript" type="text/javascript">
 
                 </script></li>
-                    <li>
+                    <li class="last">
                         <a href="[$PORTAL_URL$]/portal/c/portal/logout">Logout</a></li>
                 </ul>
             </li>
