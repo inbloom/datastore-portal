@@ -51,7 +51,8 @@ if(usrname=="demo"){
 
                  document.onclick = function(e){
 
-                 var ele = document.elementFromPoint(e.clientX, e.clientY);
+				var evt = e || window.event;
+                var ele = document.elementFromPoint(evt.clientX,evt.clientY);
 
                  if(ele == document.getElementById("menulink")){
 
