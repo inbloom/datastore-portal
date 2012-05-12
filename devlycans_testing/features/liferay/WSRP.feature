@@ -25,3 +25,12 @@ Feature: title
     Then I should see " Dashboard"
     Then I follow all the wsrp links
    
+  Scenario:check  wsrp of admin user and go to admin page
+    Given I have an open web browser
+    When I go to the login page
+    When I login with "demo" and "changeit"
+    Then I should see "Admin"
+    Then I follow "Admin"
+    Then I should be on the admin page
+    Then I follow all the wsrp links
+
