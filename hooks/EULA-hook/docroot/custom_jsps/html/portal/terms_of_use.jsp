@@ -15,7 +15,7 @@
 --%>
 
 <%@ include file="/html/portal/init.jsp" %>
-
+<script type="text/javascript" src="/sli-new-theme/js/scroll.js"></script>
 <%
 String currentURL = PortalUtil.getCurrentURL(request);
 
@@ -142,3 +142,6 @@ Quisque luctus, magna in aliquam fermentum, nibh augue pretium turpis, sed conse
 	margin-left:10px;
 }
 </style>
+<script type="text/javascript"> 
+TINY.scroller.init('scroll','scrollcontent','scrollbar','scroller','buttonclick');
+</script>
