@@ -40,18 +40,12 @@ if(usrname=="demo"){
 </script><script type="text/javascript">
 
             function showDropDown(e){
-				var stopPropagation ;
+				 
                  document.getElementById('menulink').onclick = function(){};
 
-                 if(e.stopPropagation)
-
-                 e.stopPropagation();   // W3C model
-
-                 else
-
-                 e.cancelBubble = true; // IE model
-
- 
+                     if (!e) var e = window.event;
+						e.cancelBubble = true;
+						if (e.stopPropagation) e.stopPropagation();
 
                  document.getElementById("menu_sub").style.display = "block";
 
