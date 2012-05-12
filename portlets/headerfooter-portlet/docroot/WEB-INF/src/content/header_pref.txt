@@ -128,6 +128,6 @@ hideDropDown();
  <style type="text/css">
 .simplemodal-container{
 padding:20px!important;
-height:auto!important;
+ 
 }
  </style>
