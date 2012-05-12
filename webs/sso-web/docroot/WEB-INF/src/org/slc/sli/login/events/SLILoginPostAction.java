@@ -5,6 +5,7 @@ import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.service.RoleLocalServiceUtil;
 import com.liferay.portal.model.Role;
+import com.liferay.portal.model.RoleConstants;
 import com.liferay.portal.util.PortalUtil;
 import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.model.User;
@@ -48,18 +49,23 @@ public class SLILoginPostAction extends Action {
 			long companyId = PortalUtil.getCompanyId(request);
 
 			Role sliAdminRole = RoleLocalServiceUtil.getRole(companyId,
-					GetterUtil.getString(PropsUtil.get(PropsKeys.ROLE_SLI_ADMINISTRATOR)));
+					GetterUtil.getString(PropsUtil
+							.get(PropsKeys.ROLE_SLI_ADMINISTRATOR)));
 
-			Role sliEducatorRole = RoleLocalServiceUtil.getRole(companyId,
-					GetterUtil.getString(PropsUtil.get(PropsKeys.ROLE_EDUCATOR)));
+			Role sliEducatorRole = RoleLocalServiceUtil
+					.getRole(companyId, GetterUtil.getString(PropsUtil
+							.get(PropsKeys.ROLE_EDUCATOR)));
 
-			long[] adminRoleIds = { sliAdminRole.getRoleId() };
-
-			long[] educatorRoleIds = { sliEducatorRole.getRoleId() };
+			Role adminRole = RoleLocalServiceUtil.getRole(companyId,
+					RoleConstants.ADMINISTRATOR);
 
 			if (isAdmin) {
 				if (!RoleLocalServiceUtil.hasUserRole(user.getUserId(),
 						sliAdminRole.getRoleId())) {
+
+					long[] adminRoleIds = { sliAdminRole.getRoleId(),
+							adminRole.getRoleId() };
+
 					RoleLocalServiceUtil.addUserRoles(user.getUserId(),
 							adminRoleIds);
 					if (_log.isDebugEnabled()) {
@@ -69,6 +75,8 @@ public class SLILoginPostAction extends Action {
 			} else {
 				if (!RoleLocalServiceUtil.hasUserRole(user.getUserId(),
 						sliEducatorRole.getRoleId())) {
+
+					long[] educatorRoleIds = { sliEducatorRole.getRoleId() };
 					RoleLocalServiceUtil.addUserRoles(user.getUserId(),
 							educatorRoleIds);
 					if (_log.isDebugEnabled()) {

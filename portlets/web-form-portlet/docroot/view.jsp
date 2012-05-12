@@ -69,8 +69,6 @@ System.out.println("Success URL:->"+successURL+".....>>>>>"+currentURL);
 		String fieldName = "field" + i;
 		String fieldLabel = LocalizationUtil.getPreferencesValue(preferences, "fieldLabel" + i, themeDisplay.getLanguageId());
 		boolean fieldOptional = PrefsParamUtil.getBoolean(preferences, request, "fieldOptional" + i, false);
-		System.out.println("fieldOptional URL:->"+fieldOptional+".....>>>>>"+fieldOptional);
-		
 		String fieldValue = ParamUtil.getString(request, fieldName);
 		String[] options = null;
 
@@ -84,13 +82,13 @@ System.out.println("Success URL:->"+successURL+".....>>>>>"+currentURL);
 			<liferay-ui:error key='<%= "error" + fieldLabel %>' message="<%= fieldValidationErrorMessage %>" />
 
 			<c:if test='<%= Validator.isNotNull(fieldValidationScript) %>'>
-				<div class="aui-helper-hidden" id="<portlet:namespace/>validationError<%= fieldLabel %>">
+				<div class="aui-helper-hidden" id="<portlet:namespace/>validationError<%= fieldLabel.replace(" ","") %>">
 					<span class="portlet-msg-error"><%= fieldValidationErrorMessage %></span>
 				</div>
 			</c:if>
 
 			<c:if test="<%= !fieldOptional %>">
-				<div class="aui-helper-hidden" id="<portlet:namespace/>fieldOptionalError<%= fieldLabel %>">
+				<div class="aui-helper-hidden" id="<portlet:namespace/>fieldOptionalError<%= fieldLabel.replace(" ","") %>">
 					<span class="portlet-msg-error"><liferay-ui:message key="this-field-is-mandatory" /></span>
 				</div>
 			</c:if>
@@ -197,7 +195,7 @@ System.out.println("Success URL:->"+successURL+".....>>>>>"+currentURL);
 				<%
 				int fieldIndex = 1;
 				String fieldLabel = preferences.getValue("fieldLabel" + fieldIndex, StringPool.BLANK);
-
+				fieldLabel = fieldLabel.replace(" ","");
 				while ((fieldIndex == 1) || Validator.isNotNull(fieldLabel)) {
 					boolean fieldOptional = PrefsParamUtil.getBoolean(preferences, request, "fieldOptional" + fieldIndex, false);
 					String fieldType = preferences.getValue("fieldType" + fieldIndex, "text");
@@ -246,6 +244,7 @@ System.out.println("Success URL:->"+successURL+".....>>>>>"+currentURL);
 				<%
 					fieldIndex++;
 					fieldLabel = preferences.getValue("fieldLabel" + fieldIndex, "");
+					fieldLabel = fieldLabel.replace(" ","");
 				}
 				%>
 
