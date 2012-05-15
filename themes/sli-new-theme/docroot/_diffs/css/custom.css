@@ -203,6 +203,9 @@ body #sli_banner .logo a {
 	height: 1%;
 }
 
+.innerModalPopupDiv .aui-fieldset-legend{
+ height:25px;
+}
 /* ---------- Main navigation ---------- */
 
 #navigation {
