@@ -203,9 +203,7 @@ body #sli_banner .logo a {
 	height: 1%;
 }
 
-.innerModalPopupDiv .aui-fieldset-legend{
- height:25px;
-}
+
 /* ---------- Main navigation ---------- */
 
 #navigation {
@@ -813,6 +811,10 @@ ul.menu_n ul li.last, ul.menu_n ul li.last_item{
 
 }
 
+.innerModalPopupDiv .aui-fieldset-legend{
+	height:25px;
+ 
+}
 .innerModalPopupDiv .aui-field{
 	margin-top:25px;
 	display:block;
