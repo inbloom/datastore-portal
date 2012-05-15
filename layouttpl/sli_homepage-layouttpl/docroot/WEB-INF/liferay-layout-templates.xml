@@ -3,7 +3,7 @@
 
 <layout-templates>
 	<custom>
-		<layout-template id="sli_homepage" name="W-Gen Homepage">
+		<layout-template id="sli_homepage" name="SLI Home">
 			<template-path>/sli_homepage.tpl</template-path>
 			<wap-template-path>/sli_homepage.wap.tpl</wap-template-path>
 			<thumbnail-path>/sli_homepage.png</thumbnail-path>
