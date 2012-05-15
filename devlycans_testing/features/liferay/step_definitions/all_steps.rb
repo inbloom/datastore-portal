@@ -8,7 +8,7 @@ require_relative '../../utils/selenium_common.rb'
 
 
 Then /^I am on the Realm selection page$/ do
-  @driver.navigate.to "https://devlycans.slidev.org/portal"
+  @driver.navigate.to ENV['api_server_url']
 end
 
 Then /^I select "([^\"]*)"$/ do |text|
@@ -144,7 +144,7 @@ Given /^EULA has been accepted$/ do
 end
 
 When /^I go to the login page$/ do
-  @driver.navigate.to "https://devlycans.slidev.org/portal"
+  @driver.navigate.to ENV['api_server_url']
   begin
     a=@driver.find_element(:name,'realmId') #realmId should be the html tag name of select tag
     ele=true
@@ -557,4 +557,10 @@ When /^(?:|I )follow "([^\"]*)"$/ do |link|
 end
 
 
+
+Then /^I am selecting the first value from "([^\"]*)"$/ do |field|
+    a=@driver.find_element(:id,field) #realmId should be the html tag name of select tag
+    options=a.find_elements(:tag_name=>"option")[1].click
+    
+end
 
