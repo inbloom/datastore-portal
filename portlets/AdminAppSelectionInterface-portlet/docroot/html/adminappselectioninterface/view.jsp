@@ -35,6 +35,7 @@
 <table border ="0">
  <c:forEach items="${appList}" var="app">
 
+<c:if test="${app.endpoints eq null }">
 <tr>
 
 <td><img src="<%=request.getContextPath() %>/images/cogwheel.png" alt="settings_logo" style="height: 10px;width: 10px"/></td>
@@ -64,7 +65,7 @@
 </c:choose>    
 </td>
 </tr>
-
+</c:if>
 
 <c:forEach items="${app.endpoints}" var="innerApp">
 

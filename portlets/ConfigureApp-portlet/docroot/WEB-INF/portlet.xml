@@ -34,5 +34,21 @@
 		<security-role-ref>
 			<role-name>user</role-name>
 		</security-role-ref>
+	
+	<supported-publishing-event>
+			<qname xmlns:x="http:sli.com/events">x:iframeurl</qname>
+		</supported-publishing-event>
+		<supported-publishing-event>
+			<qname xmlns:x="http:sli.com/events">x:wsrpurl</qname>
+		</supported-publishing-event>					
 	</portlet>
+	<default-namespace>sli.applicationsportlet</default-namespace>
+	<event-definition>
+		<qname xmlns:x="http:sli.com/events">x:wsrpurl</qname>
+		<value-type>java.lang.String</value-type>
+	</event-definition>
+		<event-definition>
+		<qname xmlns:x="http:sli.com/events">x:iframeurl</qname>
+		<value-type>java.lang.String</value-type>
+	</event-definition>	
 </portlet-app>

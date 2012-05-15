@@ -14,39 +14,79 @@
 */
 --%>
 
-<%@ taglib uri="http://alloy.liferay.com/tld/aui" prefix="aui"%>
+<%@ taglib uri="http://alloy.liferay.com/tld/aui" prefix="aui" %>
 
 
-<%@ taglib uri="http://java.sun.com/portlet_2_0" prefix="portlet"%>
-
+<%@page import="java.util.List"%>
+<%@page import="org.slc.sli.json.bean.AppsData"%>
+<%@ taglib uri="http://java.sun.com/portlet_2_0" prefix="portlet" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <portlet:defineObjects />
 
 
-<table border="0">
-
-	<tr>
-
-		<td><img src="<%=request.getContextPath()%>/images/cogwheel.png"
-			alt="settings_logo" style="height: 10px; width: 10px" /></td>
-		<td>&nbsp;</td>
-		<td><a href='#' style="color: #000000;font-size: 14px;">Dashboards</a></td>
-	</tr>
-
-	<tr>
-		<td><img src="<%=request.getContextPath()%>/images/cogwheel.png"
-			alt="settings_logo" style="height: 10px; width: 10px" /></td>
-		<td>&nbsp;</td>
-		<td><a href='#' style="color: #000000;font-size: 14px;">App Title</a></td>
-	</tr>
-
-	<tr>
-
-		<td><img src="<%=request.getContextPath()%>/images/cogwheel.png"
-			alt="settings_logo" style="height: 10px; width: 10px" /></td>
-		<td>&nbsp;</td>
-		<td><a href='#' style="color: #000000;font-size: 14px;">App Title</a></td>
-	</tr>
 
 
+<%
+	List<AppsData> appList = (List<AppsData>)renderRequest.getAttribute("appList");
+	
+%>
+
+
+
+<table border ="0">
+ <c:forEach items="${appList}" var="app">
+
+<tr>
+
+<td><img src="<%=request.getContextPath() %>/images/cogwheel.png" alt="settings_logo" style="height: 10px;width: 10px"/></td>
+<td>&nbsp;</td>
+<td> 
+
+<c:choose>
+	
+	<c:when test='${app.behaviour eq "Iframe App" }'>
+		<a onClick="callIframeOfConfApp('<c:out value="${app.admin_url}"></c:out>')" href='#' style="color: #000000;font-size: 14px;">
+			<c:out value="${app.name}"></c:out>
+		</a>
+	</c:when>
+	
+	<c:when test='${app.behaviour eq "Wsrp App" }'>
+		<a onClick="callWsrpOfConfApp('<c:out value="${app.admin_url}"></c:out>')"  href='#' style="color: #000000;font-size: 14px;">
+			<c:out value="${app.name}"></c:out>
+		</a>
+	</c:when>
+	
+	<c:when test='${app.behaviour eq "Full Window App" }'>
+	
+	<a href='<c:out value="${app.admin_url}"></c:out>' style="color: #000000;font-size: 14px;">
+		<c:out value="${app.name}"></c:out>
+	</a>
+	</c:when>		
+</c:choose>    
+</td>
+</tr>
+
+</c:forEach>
 </table>
+
+
+
+
+<aui:form method="post" name="fm">
+	<aui:input name="url" type="hidden" />
+</aui:form>
+
+<script>
+function callIframeOfConfApp(arg1){
+	document.<portlet:namespace />fm.action='<portlet:actionURL><portlet:param name="javax.portlet.action" value="openiframepageofconfapp" /></portlet:actionURL>';
+	document.<portlet:namespace />fm.<portlet:namespace />url.value = arg1;
+	submitForm(document.<portlet:namespace />fm);
+}
+
+function callWsrpOfConfApp(arg1){
+	document.<portlet:namespace />fm.action='<portlet:actionURL><portlet:param name="javax.portlet.action" value="openwsrppageofconfapp" /></portlet:actionURL>';
+	document.<portlet:namespace />fm.<portlet:namespace />url.value = arg1;
+	submitForm(document.<portlet:namespace />fm);
+}
+</script>

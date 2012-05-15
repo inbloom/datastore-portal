@@ -119,15 +119,23 @@ public class AppsUtil {
 			String imageUrl = jsonEle.getAsJsonObject().get("image_url").toString().replaceAll(StringPool.QUOTE,StringPool.BLANK);
 			String applicationUrl = jsonEle.getAsJsonObject().get("application_url").toString();
 			
-			
+			//end point size is set to check if thr is any empty endpoint.
+			int endPointSize=1;
 			// Map Name,Description,Image url and app Url to bean
-			if(!applicationUrl.equalsIgnoreCase("\"\"")){
+			if(!applicationUrl.equalsIgnoreCase(StringPool.DOUBLE_QUOTE)){
 				applicationUrl = applicationUrl.replaceAll(StringPool.QUOTE,StringPool.BLANK);
 				
 				JsonArray endPoints=null;
 				if(Validator.isNotNull(jsonEle.getAsJsonObject().get("endpoints"))){
 				
 				endPoints = jsonEle.getAsJsonObject().get("endpoints").getAsJsonArray();
+				
+				_log.info("end points--"+endPoints);
+				_log.info("is json empty---"+endPoints.size());
+				
+				if(endPoints.size()==0){
+				endPointSize = 0;	
+				}
 				
 				ArrayList<InnerApps> innerAppsList = new ArrayList<InnerApps>();
 				for(JsonElement innerJsonEle : endPoints){
@@ -155,24 +163,23 @@ public class AppsUtil {
 				}else{
 					apps.setEndpoints(null);
 				}
-				
-				
-				
+			
 				_log.info("name---" + name);
 				_log.info("description---"+description);
 				_log.info("behaviour---"+behaviour);
 				_log.info("image url---"+imageUrl);
 				_log.info("app url---"+applicationUrl);
+			
+			if(endPointSize == 1){	
 			apps.setName(name);
 			apps.setDescription(description);
 			apps.setBehaviour(behaviour);
 			apps.setImage_url(imageUrl);
 			apps.setApplication_url(applicationUrl);
-			
-			// add apps data bean to list
 			listApps.add(apps);
 			}
 		}
+	}
 
 		return listApps;
 
@@ -181,9 +188,4 @@ public class AppsUtil {
 	private static Log _log = LogFactoryUtil.getLog(AppsUtil.class);
 
 	private static AppsUtil instance;
-	
-	
-	public static void main(String[] args) throws IOException {
-		getUserApps("e88cb6d1-771d-46ac-a207-2e58d7f12196");
-	}
 }

@@ -1,6 +1,8 @@
 package com.sli.portlet.action;
 
 import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.List;
 
 import javax.portlet.ActionRequest;
@@ -100,7 +102,24 @@ public class AdminAppSelectionInterfacePortlet extends MVCPortlet {
 	public void processIframeAction(ActionRequest actionRequest,
 			ActionResponse actionResponse) throws IOException, PortletException {
 
+		
 		String url = actionRequest.getParameter("url");
+		
+		URL appUrl = new URL(url);
+		HttpURLConnection connection = (HttpURLConnection)appUrl.openConnection();
+		connection.setRequestMethod("GET");
+		connection.connect();
+
+		int code = connection.getResponseCode();
+		_log.info("code============"+code);
+		
+		// Hide default success Message
+				PortletConfig portletConfig = (PortletConfig) actionRequest
+						.getAttribute(JavaConstants.JAVAX_PORTLET_CONFIG);
+				SessionMessages.add(actionRequest, portletConfig.getPortletName()
+						+ SessionMessages.KEY_SUFFIX_HIDE_DEFAULT_ERROR_MESSAGE);
+		
+		if(code == 200){
 
 		actionResponse.setEvent(new QName("http:sli.com/events", "iframeurl"),
 				url);
@@ -108,13 +127,10 @@ public class AdminAppSelectionInterfacePortlet extends MVCPortlet {
 		String iframePage = GetterUtil.getString(PropsUtil
 				.get(PropsKeys.IFRAME_PAGE));
 
-		// Hide default success Message
-		PortletConfig portletConfig = (PortletConfig) actionRequest
-				.getAttribute(JavaConstants.JAVAX_PORTLET_CONFIG);
-		SessionMessages.add(actionRequest, portletConfig.getPortletName()
-				+ SessionMessages.KEY_SUFFIX_HIDE_DEFAULT_ERROR_MESSAGE);
-
 		actionResponse.sendRedirect(iframePage + "#" + url);
+		}else{
+			actionResponse.sendRedirect("/portal/web/guest/error");
+		}
 	}
 
 	private static Log _log = LogFactoryUtil

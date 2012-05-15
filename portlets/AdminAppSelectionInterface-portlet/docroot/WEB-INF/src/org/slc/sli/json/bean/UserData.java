@@ -55,7 +55,7 @@ public class UserData implements Serializable{
 		this.user_id = user_id;
 	}
 
-	 public static class Role implements Serializable {
+	public static class Role {
 		private String name;
 		private String id;
 		private String[] rights;

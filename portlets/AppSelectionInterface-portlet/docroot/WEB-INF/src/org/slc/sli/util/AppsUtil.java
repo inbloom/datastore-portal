@@ -11,6 +11,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.util.StringPool;
 
 /**
  * <b>This Class is utility class to retrieve list of user accessible applications.</b>
@@ -70,17 +71,17 @@ public class AppsUtil {
 			
 			AppsData apps = new AppsData();
 
-			String name = jsonEle.getAsJsonObject().get("name").toString().replaceAll("\"", "");
-			String description = jsonEle.getAsJsonObject().get("description").toString().replaceAll("\"", "");
-			String behaviour = jsonEle.getAsJsonObject().get("behavior").toString().replaceAll("\"", "");
-			String imageUrl = jsonEle.getAsJsonObject().get("image_url").toString().replaceAll("\"", "");
+			String name = jsonEle.getAsJsonObject().get("name").toString().replaceAll(StringPool.QUOTE,StringPool.BLANK);
+			String description = jsonEle.getAsJsonObject().get("description").toString().replaceAll(StringPool.QUOTE,StringPool.BLANK);
+			String behaviour = jsonEle.getAsJsonObject().get("behavior").toString().replaceAll(StringPool.QUOTE,StringPool.BLANK);
+			String imageUrl = jsonEle.getAsJsonObject().get("image_url").toString().replaceAll(StringPool.QUOTE,StringPool.BLANK);
 			String applicationUrl = jsonEle.getAsJsonObject().get("application_url").toString();
 
 			
 
 			// Map Name,Description,Image url and app Url to bean
-			if(!applicationUrl.equalsIgnoreCase("\"\"")){
-				applicationUrl = applicationUrl.replaceAll("\"","");
+			if(!applicationUrl.equalsIgnoreCase(StringPool.DOUBLE_QUOTE)){
+				applicationUrl = applicationUrl.replaceAll(StringPool.QUOTE,StringPool.BLANK);
 				
 				_log.info("name---" + name);
 				_log.info("description---"+description);
