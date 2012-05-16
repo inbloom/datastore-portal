@@ -43,7 +43,7 @@ public class ConfigureAppPortlet extends MVCPortlet {
 
 		_log.info(tokenFromReq);
 		// String token = "e88cb6d1-771d-46ac-a207-2e58d7f12196";
-<<<<<<< HEAD
+ 
 try{
 		List<AppsData> appsData = AppsUtil.getUserApps(tokenFromReq);
 
@@ -51,13 +51,13 @@ try{
 }catch (Exception e) {
 	_log.info("json response is null");
 }
-=======
+ 
 
 		List<AppsData> appsData = AppsUtil.getUserApps(tokenFromReq);
 
 		renderRequest.setAttribute("appList", appsData);
 
->>>>>>> 22a21a2baeb4c149f26bfca7741be1b9172bd238
+ 
 		super.render(renderRequest, renderResponse);
 	}
 
