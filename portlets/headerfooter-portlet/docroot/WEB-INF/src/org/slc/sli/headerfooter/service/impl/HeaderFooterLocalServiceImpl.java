@@ -64,7 +64,7 @@ public class HeaderFooterLocalServiceImpl extends
 	 * the header footer local service.
 	 */
 
-	public static boolean isAdmin(UserData userdata) {
+	protected boolean isAdmin(UserData userdata) {
 		boolean isAdmin = false;
 		String[] SLI_ROLE_ADMINISTRATOR = PropsUtil
 				.getArray(PropsKeys.SLI_ROLE_ADMINISTRATOR);
