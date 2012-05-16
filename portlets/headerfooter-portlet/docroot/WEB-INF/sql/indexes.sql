@@ -1,1 +1,0 @@
-create index IX_770137D8 on sli_HeaderFooter (type_);
