@@ -45,7 +45,7 @@ public class AppsUtil {
 	 * @throws IOException
 	 */
 	
-	public static List<AppsData> getUserApps(String token) throws IOException {
+	public static List<AppsData> getUserApps(String token) throws IOException,NullPointerException {
 
 				return instance._getUserApps(token);
 	}
@@ -58,7 +58,7 @@ public class AppsUtil {
 	 * @return List of AppsData
 	 * @throws IOException
 	 */
-	private List<AppsData> _getUserApps(String token) throws IOException{
+	private List<AppsData> _getUserApps(String token) throws IOException,NullPointerException{
 		
 		List<AppsData> listApps = new ArrayList<AppsData>();
 		

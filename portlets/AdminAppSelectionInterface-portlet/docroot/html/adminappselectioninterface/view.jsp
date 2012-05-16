@@ -26,8 +26,10 @@
 
 
 <%
-	List<AppsData> appList = (List<AppsData>)renderRequest.getAttribute("appList");
-	
+List<AppsData> appList = null;
+if(renderRequest.getAttribute("appList") != null){
+	 appList = (List<AppsData>)renderRequest.getAttribute("appList");
+}
 %>
 
 

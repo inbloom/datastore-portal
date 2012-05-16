@@ -19,6 +19,10 @@ body{
     width: 50%;
     margin:5px 0 0
 }
+.sli_logo_main a, .sli_logo_main a img{
+	border:none;
+	text-decoration:none;
+}
 .sli_header_right ul {
     color: #FFFFFF;
     float: right;

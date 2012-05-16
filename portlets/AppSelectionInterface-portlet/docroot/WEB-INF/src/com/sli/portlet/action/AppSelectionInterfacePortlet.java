@@ -45,10 +45,13 @@ public class AppSelectionInterfacePortlet extends MVCPortlet {
 		_log.info(tokenFromReq);
 		// String token = "e88cb6d1-771d-46ac-a207-2e58d7f12196";
 
+		try{
 		List<AppsData> appsData = AppsUtil.getUserApps(tokenFromReq);
 
 		renderRequest.setAttribute("appList", appsData);
-
+		}catch (NullPointerException e) {
+			_log.info("json response is null");
+		}
 		super.render(renderRequest, renderResponse);
 	}
 

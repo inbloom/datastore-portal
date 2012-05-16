@@ -52,8 +52,13 @@ public class AdminAppSelectionInterfacePortlet extends MVCPortlet {
 		_log.info("is admin  " + isAdmin);
 
 		if (isAdmin) {
+			
+			try{
 			List<AppsData> appsData = AppsUtil.getUserApps(tokenFromReq);
 			renderRequest.setAttribute("appList", appsData);
+			}catch (Exception e) {
+				_log.info("json response is null");
+			}
 		}
 
 		super.render(renderRequest, renderResponse);
