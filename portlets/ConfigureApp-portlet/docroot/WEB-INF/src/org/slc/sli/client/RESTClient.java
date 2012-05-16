@@ -35,7 +35,11 @@ public class RESTClient {
      * @return JsonOject as described by API documentation
      * @throws NoSessionException
      */
+<<<<<<< HEAD:portlets/ConfigureApp-portlet/docroot/WEB-INF/src/org/slc/sli/client/RESTClient.java
     public JsonArray sessionCheck(String token) throws NullPointerException{
+=======
+    public JsonArray sessionCheck(String token) {
+>>>>>>> 22a21a2baeb4c149f26bfca7741be1b9172bd238:portlets/ConfigureApp-portlet/docroot/WEB-INF/src/org/slc/sli/client/RESTClient.java
         logger.info("Session check URL = " + Constants.USER_APPS_PREFIX);
         // String jsonText = makeJsonRequest(Constants.SESSION_CHECK_PREFIX, token);
         String jsonText = makeJsonRequestWHeaders(Constants.USER_APPS_PREFIX, token, false);
