@@ -8,7 +8,7 @@ require_relative '../../utils/selenium_common.rb'
 
 
 Then /^I am on the Realm selection page$/ do
-  @driver.navigate.to "https://testlr1.slidev.org/portal"
+  @driver.navigate.to 'https://testlr1.slidev.org/portal'
 end
 
 Then /^I select "([^\"]*)"$/ do |text|
@@ -144,7 +144,7 @@ Given /^EULA has been accepted$/ do
 end
 
 When /^I go to the login page$/ do
-  @driver.navigate.to "https://testlr1.slidev.org/portal"
+  @driver.navigate.to 'https://testlr1.slidev.org/portal'
   begin
     a=@driver.find_element(:name,'realmId') #realmId should be the html tag name of select tag
     ele=true
@@ -324,12 +324,25 @@ end
 When /^I login with "([^\"]*)" and "([^\"]*)"$/ do |username, password|
   begin
     @driver.manage.delete_all_cookies
-    element = @driver.find_element(:id, 'IDToken1') #the username field id is IDToken1
+    begin
+    element = @driver.find_element(:id, 'user_id') 
+    rescue
+     element= @driver.find_element(:name, 'IDToken1')
+    end
+ #the username field id is IDToken1
     element.send_keys username
+    begin
+     element = @driver.find_element(:id, 'password') #the username field id is IDToken2 
+    rescue 
+     element= @driver.find_element(:name, 'IDToken2')
+    end     
 
-    element = @driver.find_element(:id, 'IDToken2') #the username field id is IDToken2
     element.send_keys password
-    element=@driver.find_element(:class, "Btn1Def")
+    begin
+     element=@driver.find_element(:id, "login_button")
+    rescue
+      element=@driver.find_element(:class, "Btn1Def") 
+    end
     element.click
   rescue
     if @driver.page_source.match('SLI Exception')
@@ -500,7 +513,7 @@ end
 
 
 Then /^(?:|I )should see "([^\"]*)"$/ do |text|
- begin
+  begin
    links=[]
     links << @driver.find_elements(:tag_name, 'p')  
     links << @driver.find_elements(:tag_name, 'span')
@@ -522,7 +535,6 @@ Then /^(?:|I )should see "([^\"]*)"$/ do |text|
  rescue Selenium::WebDriver::Error::StaleElementReferenceError
   puts ""
  end
- 
  
 end
 
@@ -558,4 +570,10 @@ When /^(?:|I )follow "([^\"]*)"$/ do |link|
 end
 
 
+
+Then /^I am selecting the first value from "([^\"]*)"$/ do |field|
+    a=@driver.find_element(:id,field) #realmId should be the html tag name of select tag
+    options=a.find_elements(:tag_name=>"option")[1].click
+    
+end
 
