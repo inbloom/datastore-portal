@@ -324,12 +324,25 @@ end
 When /^I login with "([^\"]*)" and "([^\"]*)"$/ do |username, password|
   begin
     @driver.manage.delete_all_cookies
-    element = @driver.find_element(:id, 'IDToken1') #the username field id is IDToken1
+    begin
+    element = @driver.find_element(:id, 'user_id') 
+    rescue
+     element= @driver.find_element(:name, 'IDToken1')
+    end
+ #the username field id is IDToken1
     element.send_keys username
+    begin
+     element = @driver.find_element(:id, 'password') #the username field id is IDToken2 
+    rescue 
+     element= @driver.find_element(:name, 'IDToken2')
+    end     
 
-    element = @driver.find_element(:id, 'IDToken2') #the username field id is IDToken2
     element.send_keys password
-    element=@driver.find_element(:class, "Btn1Def")
+    begin
+     element=@driver.find_element(:id, "login_button")
+    rescue
+      element=@driver.find_element(:class, "Btn1Def") 
+    end
     element.click
   rescue
     if @driver.page_source.match('SLI Exception')
