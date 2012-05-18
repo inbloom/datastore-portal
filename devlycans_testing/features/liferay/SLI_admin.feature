@@ -49,6 +49,7 @@ Feature: title
     Then I select "4cb03fa0-83ad-46e2-a936-09ab31af377e"
     #Given I should remove all cookies
     When I login with "rrogers" and "rrogers1234"
+    #This is admin user
     Then I should be on the home page
     Then I should see "Admin"
     Then I should logged out
