@@ -67,10 +67,35 @@ Feature: title
     Then I click button "Report a Problem"
     Then I should see "This field is mandatory." 
    
-   
+
+  Scenario:Report a problem happy cancelation for SLI admin User
+    Given I have an open web browser
+    When I go to the login page
+    When I login with "slcoperator" and "slcoperator1234"
+    Then I should be on the home page
+    When I mouseover on menu and click submenu "Report a problem"
+    #When I follow "Report a Problem"
+    Then It open a popup
+    Then I select "Incorrect Data" from "_1_WAR_webformportlet_INSTANCE_W6Fvabb0rTf2_field1" 
+    Then I fill "Some test Problems" from "_1_WAR_webformportlet_INSTANCE_W6Fvabb0rTf2_field2"
+    Then I click button "Report a Problem"
+    Then I should see "Thank you!"
+
+Scenario:Report a problem happy cancelation for SLI admin User
+    Given I have an open web browser
+    When I go to the login page
+    When I login with "slcoperator" and "slcoperator1234"
+    Then I should be on the home page
+    When I mouseover on menu and click submenu "Report a problem"
+    #When I follow "Report a Problem"
+    Then It open a popup
+    
+    Then I fill "Some test Problems" from "_1_WAR_webformportlet_INSTANCE_W6Fvabb0rTf2_field2"
+    Then I click button "Report a Problem"
+    Then I should see "This field is mandatory." 
    
     #Then I should see "_1_WAR_webformportlet_INSTANCE_5SN4WTq6xBVJ_field2" as ""
-  @wip 
+  @wip
    Scenario:Report a problem happy cancelation for SLI admin User
     Given I have an open web browser
     When I go to the login page

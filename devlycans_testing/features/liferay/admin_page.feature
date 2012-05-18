@@ -8,6 +8,15 @@ Feature: title
     Then I am on the Realm selection page
     Then I select "4cb03fa0-83ad-46e2-a936-09ab31af377e"
     When I login with "rrogers" and "rrogers1234"
+   
+    Then I should see "Admin"
+    Then I follow "Admin"
+    Then I should be on the admin page
+
+  Scenario:check admin user on admin page check  
+   Given I have an open web browser
+    When I go to the login page
+    When I login with "slcoperator" and "slcoperator1234"
     Then I should see "Admin"
     Then I follow "Admin"
     Then I should be on the admin page
@@ -18,6 +27,7 @@ Feature: title
     Then I select "4cb03fa0-83ad-46e2-a936-09ab31af377e"
     #Then I click "Go"
     When I login with "linda.kim" and "linda.kim1234"
+     
     Then I should be on the home page
     Then I should not see "Admin" 
  @wip
