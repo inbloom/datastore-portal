@@ -27,8 +27,7 @@ Then /^I select "([^\"]*)"$/ do |text|
     if @driver.page_source.match('SLI Exception')
       ele=false
       puts "SLI Exception"
-    elsif Timeout::Error
-      puts "TimeOut error"
+    
 
     else
       raise   Selenium::WebDriver::Error::NoSuchElementError
@@ -63,9 +62,7 @@ Then /^I follow all the wsrp links$/ do
     if @driver.page_source.match('SLI Exception')
       ele=false
       puts "SLI Exception"
-    elsif Timeout::Error
-      puts "TimeOut error"
-
+   
     else
       raise   Selenium::WebDriver::Error::NoSuchElementError
     end
@@ -81,9 +78,7 @@ Then /^I am on the wsrp page$/ do
     if @driver.page_source.match('SLI Exception')
       ele=false
       puts "SLI Exception"
-    elsif Timeout::Error
-      puts "TimeOut error"
-
+   
     else
       raise   Selenium::WebDriver::Error::NoSuchElementError
     end
@@ -109,9 +104,7 @@ Then /^I select "([^\"]*)" from "([^\"]*)"$/ do |text,field|
     if @driver.page_source.match('SLI Exception')
       ele=false
       puts "SLI Exception"
-    elsif Timeout::Error
-      puts "TimeOut error"
-
+   
     else
       raise   Selenium::WebDriver::Error::NoSuchElementError
     end
@@ -129,9 +122,7 @@ Then /^I click "([^\"]*)"$/ do |btn_text|
     if @driver.page_source.match('SLI Exception')
       ele=false
       puts "SLI Exception"
-    elsif Timeout::Error
-      puts "TimeOut error"
-
+  
     else
       raise   Selenium::WebDriver::Error::NoSuchElementError
     end
@@ -165,9 +156,7 @@ When /^I go to the login page$/ do
     if @driver.page_source.match('SLI Exception')
       ele=false
       puts "SLI Exception"
-    elsif Timeout::Error
-      puts "TimeOut error"
-
+   
     else
       raise   Selenium::WebDriver::Error::NoSuchElementError
     end
@@ -187,9 +176,7 @@ Then  /^I follow the home page Dashboard$/ do
     if @driver.page_source.match('SLI Exception')
       ele=false
       puts "SLI Exception"
-    elsif Timeout::Error
-      puts "TimeOut error"
-
+   
     else
       raise   Selenium::WebDriver::Error::NoSuchElementError
     end
@@ -215,9 +202,7 @@ Then /^I should logged out$/ do
     if @driver.page_source.match('SLI Exception')
       ele=false
       puts "SLI Exception"
-    elsif Timeout::Error
-      puts "TimeOut error"
-
+   
     else
       raise   Selenium::WebDriver::Error::NoSuchElementError
     end
@@ -255,8 +240,7 @@ Then /^I should be on the home page$/ do
     if @driver.page_source.match('SLI Exception')
       ele=false
       puts "SLI Exception"
-    elsif Timeout::Error
-      puts "TimeOut error"
+   
     elsif NoMethodError
       puts ""
     else
@@ -301,9 +285,7 @@ When /^I mouseover on menu and click submenu "([^\"]*)"$/ do |submenu|
     if @driver.page_source.match('SLI Exception')
       ele=false
       puts "SLI Exception"
-    elsif Timeout::Error
-      puts "TimeOut error"
-
+  
     else
       raise   Selenium::WebDriver::Error::NoSuchElementError
     end
@@ -349,9 +331,7 @@ When /^I login with "([^\"]*)" and "([^\"]*)"$/ do |username, password|
     if @driver.page_source.match('SLI Exception')
       ele=false
       puts "SLI Exception"
-    elsif Timeout::Error
-      puts "TimeOut error"
-
+   
     else
       raise   Selenium::WebDriver::Error::NoSuchElementError
     end
@@ -368,9 +348,7 @@ Then /^I should be on the authentication failed page$/ do
     if @driver.page_source.match('SLI Exception')
       ele=false
       puts "SLI Exception"
-    elsif Timeout::Error
-      puts "TimeOut error"
-
+  
     else
       raise   Selenium::WebDriver::Error::NoSuchElementError
     end
@@ -478,8 +456,8 @@ Then /^I should see "([^"]*)" as "([^"]*)"$/ do |field,text|
     if @driver.page_source.match('SLI Exception')
       ele=false
       puts "SLI Exception"
-    elsif Timeout::Error
-      puts "TimeOut error"
+    #elsif Timeout::Error
+  #    puts "TimeOut error"
 
     else
       raise   Selenium::WebDriver::Error::NoSuchElementError
@@ -495,8 +473,8 @@ Then /^I fill "([^"]*)" from "([^"]*)"$/ do |arg1, arg2|
     if @driver.page_source.match('SLI Exception')
       ele=false
       puts "SLI Exception"
-    elsif Timeout::Error
-      puts "TimeOut error"
+    #elsif Timeout::Error
+      #puts "TimeOut error"
     elsif Selenium::WebDriver::Error::NoSuchElementError
       puts ""
     else
@@ -560,9 +538,7 @@ When /^(?:|I )follow "([^\"]*)"$/ do |link|
     if @driver.page_source.match('SLI Exception')
       ele=false
       puts "SLI Exception"
-    elsif Timeout::Error
-      puts "TimeOut error"
-
+   
     else
       raise   Selenium::WebDriver::Error::NoSuchElementError
     end
