@@ -502,12 +502,12 @@ Then /^(?:|I )should see "([^\"]*)"$/ do |text|
   links.each do |link|
     if link.text.match(text)
       ele=true
-      puts "OK"
+      puts "Message has been displayed successfully"
       break
     end
   end
  if ele == true
-  puts "OK"
+  puts "Message has been displayed successfully"
  else
   puts ""
  end
