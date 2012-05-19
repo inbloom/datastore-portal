@@ -547,6 +547,33 @@ When /^(?:|I )follow "([^\"]*)"$/ do |link|
 end
 
 
+And /^I should see SLI LOGO$/ do 
+ begin
+  @driver.find_element(:xpath, "//div[@class='menu_n']/h1[@class='sli_logo_main']")
+  puts "SLI LOGO is found"
+ rescue
+  puts "No Such Element"
+ end
+end
+
+And /^I should see footer$/ do
+  begin
+   element=@driver.find_element(:xpath, "//div[@id='p_p_id_footerportlet_WAR_headerfooterportlet_']/div[@class='portlet-body']")
+   puts element.text()
+  rescue
+   puts "No Such Element"
+  end
+end
+
+And /^I should see username$/ do
+  begin
+   element=@driver.find_element(:xpath, "//ul[@class='menu_n']/li[@class='first_item']/a")
+   puts element.text()
+  rescue
+    puts "No such Elements"
+  end
+end
+
 
 Then /^I am selecting the first value from "([^\"]*)"$/ do |field|
     a=@driver.find_element(:id,field) #realmId should be the html tag name of select tag
