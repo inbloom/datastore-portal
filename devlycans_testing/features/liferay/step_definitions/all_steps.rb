@@ -228,7 +228,7 @@ Then /^I should be on the home page$/ do
   if element
     ele.click
   else
-    puts "Ref-130 As a user logging in for the first time, I must click through a EULA acceptance."
+    puts "EULA has been accepted."
   end
   begin
     
@@ -308,6 +308,7 @@ Given /^I should remove all cookies$/ do
 end
 
 When /^I login with "([^\"]*)" and "([^\"]*)"$/ do |username, password|
+puts "Ref-130 As a user logging in for the first time, I must click through a EULA acceptance."
   begin
     @driver.manage.delete_all_cookies
     begin
