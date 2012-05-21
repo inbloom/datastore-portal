@@ -216,6 +216,7 @@ Then /^I should logged out$/ do
 end
 
 Then /^I should be on the home page$/ do
+ puts "As a user logging in for the first time, I must click through a EULA acceptance."
   begin
     ele=@driver.find_element(:xpath, "//input[@value='Agree']")
     element=true
@@ -427,6 +428,7 @@ And /^I click "([^\"]*)"$/ do |btn|
 end
 
 Then /^It open a popup$/ do
+puts "As a user, I want to be able to report application and/or data problems so that they can be fixed and/or provide feedback on an application."
 begin
   wait = Selenium::WebDriver::Wait.new(:timeout => 10)
   wait.until{
@@ -557,6 +559,7 @@ And /^I should see SLI LOGO$/ do
 end
 
 And /^I should see footer$/ do
+ puts "As a user, I see a common legal notice about data privacy across apps."
   begin
    element=@driver.find_element(:xpath, "//div[@id='p_p_id_footerportlet_WAR_headerfooterportlet_']/div[@class='portlet-body']")
    puts element.text()
