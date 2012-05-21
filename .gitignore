@@ -1,1 +1,14 @@
 devlr1_testing/target/*
+hooks/deploylar-hook/docroot/WEB-INF/classes/*
+hooks/Error-hook/docroot/WEB-INF/classes/*
+hooks/EULA-hook/docroot/WEB-INF/classes/*
+hooks/log4j-hook/docroot/custom_jsps/WEB-INF/classes/*
+portlets/AdminAppSelectionInterface-portlet/docroot/WEB-INF/classes/*
+portlets/AppSelectionInterface-portlet/docroot/WEB-INF/classes/*
+portlets/ConfigureApp-portlet/docroot/WEB-INF/classes/*
+portlets/headerfooter-portlet/build/classes/*
+portlets/headerfooter-portlet/docroot/WEB-INF/classes/*
+portlets/web-form-portlet/docroot/WEB-INF/classes/*
+portlets/wsrp-portlet/docroot/WEB-INF/classes/*
+webs/SLIWSClient-2/docroot/WEB-INF/classes/*
+
