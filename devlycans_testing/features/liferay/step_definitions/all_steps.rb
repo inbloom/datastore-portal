@@ -53,7 +53,8 @@ Then /^I follow all the wsrp links$/ do
    
     wsrp_ele.each do |el|
       @driver.navigate.to el
-      puts "successfully open all the #{el} WSRP Page"
+      puts "Ref-141-As an IT admin, I want SLI Portal to include existing applications/components that exist in my state/district."
+      puts "successfully open #{el}"
     end
    
    
@@ -136,7 +137,7 @@ end
 
 When /^I go to the login page$/ do
   @driver.navigate.to ENV['api_server_url']
-   puts "ref 127 - As a user, I see a login screen that brings me to the SLI home page."
+   puts "Ref 127 - As a user, I see a login screen that brings me to the SLI home page."
   begin
     a=@driver.find_element(:name,'realmId') #realmId should be the html tag name of select tag
     ele=true
@@ -216,6 +217,7 @@ Then /^I should logged out$/ do
 end
 
 Then /^I should be on the home page$/ do
+ puts "Ref-128- As any user I see a portal home page with a listing of applications available to me."
   begin
     ele=@driver.find_element(:xpath, "//input[@value='Agree']")
     element=true
@@ -226,7 +228,7 @@ Then /^I should be on the home page$/ do
   if element
     ele.click
   else
-    puts "EULA has already been accepted"
+    puts "EULA has been accepted."
   end
   begin
     
@@ -256,6 +258,7 @@ end
 
 
 And /^I see the EULA Page$/ do
+ puts "Ref-130 As a user logging in for the first time, I must click through a EULA acceptance."
   begin
     ele=@driver.find_element(:xpath, "//input[@value='Agree']")
     ele2=@driver.find_element(:xpath, "//input[@value='Logout']")
@@ -305,6 +308,7 @@ Given /^I should remove all cookies$/ do
 end
 
 When /^I login with "([^\"]*)" and "([^\"]*)"$/ do |username, password|
+puts "Ref-130 As a user logging in for the first time, I must click through a EULA acceptance."
   begin
     @driver.manage.delete_all_cookies
     begin
@@ -427,6 +431,7 @@ And /^I click "([^\"]*)"$/ do |btn|
 end
 
 Then /^It open a popup$/ do
+puts "Ref-136- As a user, I want to be able to report application and/or data problems so that they can be fixed and/or provide feedback on an application."
 begin
   wait = Selenium::WebDriver::Wait.new(:timeout => 10)
   wait.until{
@@ -502,12 +507,12 @@ Then /^(?:|I )should see "([^\"]*)"$/ do |text|
   links.each do |link|
     if link.text.match(text)
       ele=true
-      puts "OK"
+      puts "Message has been displayed successfully"
       break
     end
   end
  if ele == true
-  puts "OK"
+  puts "Message has been displayed successfully"
  else
   puts ""
  end
@@ -546,6 +551,35 @@ When /^(?:|I )follow "([^\"]*)"$/ do |link|
  
 end
 
+
+And /^I should see SLI LOGO$/ do 
+puts "Ref-134-I want to be able to see a common header & footer UI that conforms to SLI standards. "
+ begin
+  @driver.find_element(:xpath, "//div[@class='menu_n']/h1[@class='sli_logo_main']")
+  puts "SLI LOGO is found"
+ rescue
+  puts "No Such Element"
+ end
+end
+
+And /^I should see footer$/ do
+ puts "Ref-145 As a user, I see a common legal notice about data privacy across apps."
+  begin
+   element=@driver.find_element(:xpath, "//div[@id='p_p_id_footerportlet_WAR_headerfooterportlet_']/div[@class='portlet-body']")
+   puts element.text()
+  rescue
+   puts "No Such Element"
+  end
+end
+
+And /^I should see username$/ do
+  begin
+   element=@driver.find_element(:xpath, "//ul[@class='menu_n']/li[@class='first_item']/a")
+   puts element.text()
+  rescue
+    puts "No such Elements"
+  end
+end
 
 
 Then /^I am selecting the first value from "([^\"]*)"$/ do |field|
