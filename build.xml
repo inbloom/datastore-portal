@@ -75,13 +75,14 @@
 	</target>
 
 	<!-- added depends moveenv target  -->
-	<target name="deploy" depends="moveenv">
+	<target name="deploy">
 		<ant dir="encryptfiles" target="execute"/>
 		<ant dir="hooks" target="deploy" inheritAll="false" />
 		<ant dir="layouttpl" target="deploy" inheritAll="false" />
 		<ant dir="portlets" target="deploy" inheritAll="false" />
 		<ant dir="themes" target="deploy" inheritAll="false" />
 		<ant dir="webs" target="deploy" inheritAll="false" />
+		<antcall target="moveenv" />
 	</target>
 
 	<target name="direct-deploy">
