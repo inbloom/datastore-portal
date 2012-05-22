@@ -34,8 +34,10 @@ public class VelocityUtil {
 
 		try {
 			VelocityEngine ve = new VelocityEngine();
+			
 			ve.setProperty("file.resource.loader.class",
 					ClasspathResourceLoader.class.getName());
+			ve.setProperty( RuntimeConstants.RUNTIME_LOG_LOGSYSTEM_CLASS,"org.apache.velocity.runtime.log.Log4JLogChute" );
 			ve.init();
 			/* next, get the Template */
 			Template t = ve.getTemplate("templates/wheader.vm");
