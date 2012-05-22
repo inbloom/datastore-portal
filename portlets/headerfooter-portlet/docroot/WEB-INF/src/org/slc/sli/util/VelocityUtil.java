@@ -9,7 +9,7 @@ import org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.PropsUtil;
 import org.slc.sli.util.PropsKeys;
-
+import org.apache.velocity.runtime.RuntimeConstants;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
