@@ -403,7 +403,7 @@ body #sli_banner .logo a {
 	color:#FFFFFF;*/
 	padding-top:5px;
 	padding-bottom:0px;
-	position:fixed;
+	position:relative;
 	width:100%;
 	bottom:0;
 }

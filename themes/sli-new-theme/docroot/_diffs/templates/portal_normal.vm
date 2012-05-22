@@ -5,7 +5,7 @@
 <html class="#language("lang.dir")" dir="#language("lang.dir")" lang="$w3c_language_id">
 
 <head>
-	<title>$the_title - $company_name</title>
+	<title>$the_title </title>
 
 	$theme.include($top_head_include)
 	 
@@ -28,7 +28,7 @@
 #end
 
 #if($hasPermission == true)
-  #dockbar()
+  
 #end
 
 $theme.include($body_top_include)
