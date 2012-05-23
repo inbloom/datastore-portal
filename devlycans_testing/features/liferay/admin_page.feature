@@ -2,7 +2,7 @@ Feature: title
   In order to keep control of website information the expectation of the results 
   for admin uses should see admin page
 
-
+  @wip
   Scenario:check admin user and go to admin page
     Given I have an open web browser
     Then I am on the Realm selection page
@@ -31,6 +31,17 @@ Feature: title
      #this is normal user
     Then I should be on the home page
     Then I should not see "Admin" 
+
+ Scenario:check admin user on admin page check  
+   Given I have an open web browser
+    When I go to the login page
+    When I login with "sunsetrealmadmin" and "sunsetrealmadmin1234"
+    #this is admin user
+    Then I should see "Admin"
+    Then I follow "Admin"
+    Then I should be on the admin page
+
+
  @wip
   Scenario:check admin user on admin page check  SLC administration to check Default SLI Roles
    Given I have an open web browser
