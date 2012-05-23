@@ -69,6 +69,7 @@ hr, .separator {
 #sli_banner #sli_heading{
 	margin: 0 auto;
 	width:980px;
+	background: #333333;
 }
 
 #sli_banner .company-title {
@@ -403,7 +404,7 @@ body #sli_banner .logo a {
 	color:#FFFFFF;*/
 	padding-top:5px;
 	padding-bottom:0px;
-	position:fixed;
+	position:relative;
 	width:100%;
 	bottom:0;
 }

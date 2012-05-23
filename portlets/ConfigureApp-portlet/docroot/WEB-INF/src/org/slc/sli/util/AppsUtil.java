@@ -6,12 +6,17 @@ import java.util.List;
 
 import org.slc.sli.client.RESTClient;
 import org.slc.sli.json.bean.AppsData;
+import org.slc.sli.json.bean.UserData;
 
+import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.util.PropsUtil;
 import com.liferay.portal.kernel.util.StringPool;
+import com.liferay.portal.kernel.util.Validator;
 
 /**
  * <b>This Class is utility class to retrieve list of user accessible applications.</b>
@@ -36,6 +41,35 @@ public class AppsUtil {
 		this.instance = this;
 	}
 
+	public static boolean isAdmin(UserData userdata) {
+		boolean isAdmin = false;
+		String[] SLI_ROLE_ADMINISTRATOR = PropsUtil
+				.getArray(PropsKeys.SLI_ROLE_ADMINISTRATOR);
+
+		if (Validator.isNotNull(userdata)) {
+			String[] granted_authorities = userdata.getGranted_authorities();
+			for (String role : granted_authorities) {
+				for (String admin : SLI_ROLE_ADMINISTRATOR) {
+					if(role.equalsIgnoreCase(admin)){
+						isAdmin = true;
+						break;
+					}
+				}
+			}
+		}
+		return isAdmin;
+	}
+
+	
+	public static UserData getUserData(String token) throws IOException {
+		return instance._getUserData(token);
+	}
+
+	private UserData _getUserData(String token) {
+		JsonObject json = getRestClient().sessionCheck(token);
+		UserData userData = new Gson().fromJson(json, UserData.class);
+		return userData;
+	}
 	/**
 	 * <b>This Method returns List of App accessible to user.</b>
 	 * 
@@ -65,7 +99,7 @@ public class AppsUtil {
 		_log.info("calling restclient");
 			
 		//call rest client and retrieve json array
-		JsonArray jsonArray = getRestClient().sessionCheck(token);
+		JsonArray jsonArray = getRestClient().callUserApps(token);
 
 		for (JsonElement jsonEle : jsonArray) {
 			

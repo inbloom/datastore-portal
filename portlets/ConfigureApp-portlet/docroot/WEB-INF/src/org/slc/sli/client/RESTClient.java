@@ -13,6 +13,7 @@ import org.springframework.web.client.RestTemplate;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 /**
@@ -27,6 +28,16 @@ public class RESTClient {
 
     private static Logger logger = LoggerFactory.getLogger(RESTClient.class);
 
+  
+    public JsonArray callUserApps(String token) throws NullPointerException {
+        logger.info("Session check URL = " + Constants.USER_APPS_PREFIX);
+        // String jsonText = makeJsonRequest(Constants.SESSION_CHECK_PREFIX, token);
+        String jsonText = makeJsonRequestWHeaders(Constants.USER_APPS_PREFIX, token, false);
+        logger.info("jsonText = " + jsonText);
+        JsonParser parser = new JsonParser();
+        return parser.parse(jsonText).getAsJsonArray();
+    }
+    
     /**
      * Call the session/check API
      * 
@@ -35,13 +46,13 @@ public class RESTClient {
      * @return JsonOject as described by API documentation
      * @throws NoSessionException
      */
-    public JsonArray sessionCheck(String token) throws NullPointerException{
-        logger.info("Session check URL = " + Constants.USER_APPS_PREFIX);
+    public JsonObject sessionCheck(String token) throws NullPointerException{
+        logger.info("Session check URL = " + Constants.SESSION_CHECK_PREFIX);
         // String jsonText = makeJsonRequest(Constants.SESSION_CHECK_PREFIX, token);
-        String jsonText = makeJsonRequestWHeaders(Constants.USER_APPS_PREFIX, token, false);
+        String jsonText = makeJsonRequestWHeaders(Constants.SESSION_CHECK_PREFIX, token, true);
         logger.info("jsonText = " + jsonText);
         JsonParser parser = new JsonParser();
-        return parser.parse(jsonText).getAsJsonArray();
+        return parser.parse(jsonText).getAsJsonObject();
     }
 
     /**
