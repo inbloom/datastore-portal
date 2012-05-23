@@ -15,7 +15,7 @@ Feature: title
     When I mouseover on menu and click submenu "Report a problem"
     #When I follow "Report a Problem"
     Then It open a popup
-    Then I select "Incorrect Data" from "_1_WAR_webformportlet_INSTANCE_W6Fvabb0rTf2_field1" 
+    Then I am selecting the first value from "_1_WAR_webformportlet_INSTANCE_W6Fvabb0rTf2_field1" 
     Then I fill "Some test Problems" from "_1_WAR_webformportlet_INSTANCE_W6Fvabb0rTf2_field2"
     Then I click button "Report a Problem"
     Then I should see "Thank you!"
@@ -39,14 +39,14 @@ Feature: title
   Scenario:Report a problem cancelation for SSD admin User for Happy submission
     Given I have an open web browser
     Then I am on the Realm selection page
-    Then I select "4cb03fa0-83ad-46e2-a936-09ab31af377e"
+    Then I select "5a4bfe96-1724-4565-9db1-35b3796e3ce1"
     #Given I should remove all cookies
-    When I login with "rrogers" and "rrogers1234"
+    When I login with "sunsetrealmadmin" and "sunsetrealmadmin1234"
     Then I should be on the home page
     When I mouseover on menu and click submenu "Report a problem"
     #When I follow "Report a Problem"
     Then It open a popup
-    Then I select "Incorrect Data" from "_1_WAR_webformportlet_INSTANCE_W6Fvabb0rTf2_field1" 
+    Then I am selecting the first value from "_1_WAR_webformportlet_INSTANCE_W6Fvabb0rTf2_field1" 
     Then I fill "Some test Problems" from "_1_WAR_webformportlet_INSTANCE_W6Fvabb0rTf2_field2"
     Then I click button "Report a Problem"
     Then I should see "Thank you!"
@@ -55,9 +55,9 @@ Feature: title
   Scenario:Report a problem submission for SSD admin User for non Happy submission or blank submission
     Given I have an open web browser
     Then I am on the Realm selection page
-    Then I select "4cb03fa0-83ad-46e2-a936-09ab31af377e"
+    Then I select "5a4bfe96-1724-4565-9db1-35b3796e3ce1"
     #Given I should remove all cookies
-    When I login with "rrogers" and "rrogers1234"
+    When I login with "sunsetrealmadmin" and "sunsetrealmadmin1234"
     Then I should be on the home page
     When I mouseover on menu and click submenu "Report a problem"
     #When I follow "Report a Problem"
@@ -76,7 +76,7 @@ Feature: title
     When I mouseover on menu and click submenu "Report a problem"
     #When I follow "Report a Problem"
     Then It open a popup
-    Then I select "Incorrect Data" from "_1_WAR_webformportlet_INSTANCE_W6Fvabb0rTf2_field1" 
+    Then I am selecting the first value from "_1_WAR_webformportlet_INSTANCE_W6Fvabb0rTf2_field1" 
     Then I fill "Some test Problems" from "_1_WAR_webformportlet_INSTANCE_W6Fvabb0rTf2_field2"
     Then I click button "Report a Problem"
     Then I should see "Thank you!"

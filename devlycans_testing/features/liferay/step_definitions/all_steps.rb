@@ -27,7 +27,8 @@ Then /^I select "([^\"]*)"$/ do |text|
     if @driver.page_source.match('SLI Exception')
       ele=false
       puts "SLI Exception"
-    
+#     elsif Timeout::Error
+#      puts "TimeOut error"
 
     else
       raise   Selenium::WebDriver::Error::NoSuchElementError
@@ -63,6 +64,8 @@ Then /^I follow all the wsrp links$/ do
     if @driver.page_source.match('SLI Exception')
       ele=false
       puts "SLI Exception"
+#   elsif Timeout::Error
+#      puts "TimeOut error"
    
     else
       raise   Selenium::WebDriver::Error::NoSuchElementError
@@ -79,7 +82,8 @@ Then /^I am on the wsrp page$/ do
     if @driver.page_source.match('SLI Exception')
       ele=false
       puts "SLI Exception"
-   
+#    elsif Timeout::Error
+#      puts "TimeOut error"
     else
       raise   Selenium::WebDriver::Error::NoSuchElementError
     end
@@ -105,7 +109,8 @@ Then /^I select "([^\"]*)" from "([^\"]*)"$/ do |text,field|
     if @driver.page_source.match('SLI Exception')
       ele=false
       puts "SLI Exception"
-   
+#    elsif Timeout::Error
+#      puts "TimeOut error"
     else
       raise   Selenium::WebDriver::Error::NoSuchElementError
     end
@@ -123,7 +128,8 @@ Then /^I click "([^\"]*)"$/ do |btn_text|
     if @driver.page_source.match('SLI Exception')
       ele=false
       puts "SLI Exception"
-  
+#     elsif Timeout::Error
+#      puts "TimeOut error"
     else
       raise   Selenium::WebDriver::Error::NoSuchElementError
     end
@@ -157,7 +163,8 @@ When /^I go to the login page$/ do
     if @driver.page_source.match('SLI Exception')
       ele=false
       puts "SLI Exception"
-   
+#    elsif Timeout::Error
+#      puts "TimeOut error"
     else
       raise   Selenium::WebDriver::Error::NoSuchElementError
     end
@@ -170,14 +177,17 @@ end
 
 Then  /^I follow the home page Dashboard$/ do 
   begin
+    
     #element= @driver.find_element(:xpath, "//td/a/div[text()=' Dashboard (Integration)']")
     element= @driver.find_element(:xpath, "//td/a/div[text()=' Dashboard']")
     element.click
+    puts "--@RALLYUS184-I would like the ability to see all administrative/operator functions that are available to me."
   rescue
     if @driver.page_source.match('SLI Exception')
       ele=false
       puts "SLI Exception"
-   
+#    elsif Timeout::Error
+#      puts "TimeOut error"
     else
       raise   Selenium::WebDriver::Error::NoSuchElementError
     end
@@ -203,7 +213,8 @@ Then /^I should logged out$/ do
     if @driver.page_source.match('SLI Exception')
       ele=false
       puts "SLI Exception"
-   
+#    elsif Timeout::Error
+#      puts "TimeOut error"
     else
       raise   Selenium::WebDriver::Error::NoSuchElementError
     end
@@ -217,10 +228,12 @@ Then /^I should logged out$/ do
 end
 
 Then /^I should be on the home page$/ do
- puts "Ref-128- As any user I see a portal home page with a listing of applications available to me."
+ puts "@RALLY_US576--Ref-128- As any user I see a portal home page with a listing of applications available to me."
+ puts "@RALLYUS575----I want a common UI element to return to SLI home page that I may place in my app as I please"
   begin
     ele=@driver.find_element(:xpath, "//input[@value='Agree']")
     element=true
+     
   rescue
     element=false
   end
@@ -242,7 +255,8 @@ Then /^I should be on the home page$/ do
     if @driver.page_source.match('SLI Exception')
       ele=false
       puts "SLI Exception"
-   
+#    elsif Timeout::Error
+#      puts "TimeOut error"
     elsif NoMethodError
       puts ""
     else
@@ -258,7 +272,7 @@ end
 
 
 And /^I see the EULA Page$/ do
- puts "Ref-130 As a user logging in for the first time, I must click through a EULA acceptance."
+ puts "--@RALLYUS1200---Ref-130 As a user logging in for the first time, I must click through a EULA acceptance."
   begin
     ele=@driver.find_element(:xpath, "//input[@value='Agree']")
     ele2=@driver.find_element(:xpath, "//input[@value='Logout']")
@@ -288,7 +302,8 @@ When /^I mouseover on menu and click submenu "([^\"]*)"$/ do |submenu|
     if @driver.page_source.match('SLI Exception')
       ele=false
       puts "SLI Exception"
-  
+#   elsif Timeout::Error
+#      puts "TimeOut error"
     else
       raise   Selenium::WebDriver::Error::NoSuchElementError
     end
@@ -335,7 +350,8 @@ puts "Ref-130 As a user logging in for the first time, I must click through a EU
     if @driver.page_source.match('SLI Exception')
       ele=false
       puts "SLI Exception"
-   
+#    elsif Timeout::Error
+#      puts "TimeOut error"
     else
       raise   Selenium::WebDriver::Error::NoSuchElementError
     end
@@ -352,7 +368,8 @@ Then /^I should be on the authentication failed page$/ do
     if @driver.page_source.match('SLI Exception')
       ele=false
       puts "SLI Exception"
-  
+#   elsif Timeout::Error
+#      puts "TimeOut error"
     else
       raise   Selenium::WebDriver::Error::NoSuchElementError
     end
@@ -372,8 +389,8 @@ Then /^I click button "([^\"]*)"$/ do |text|
     if @driver.page_source.match('SLI Exception')
       ele=false
       puts "SLI Exception"
-    elsif Timeout::Error
-      puts "TimeOut error"
+#    elsif Timeout::Error
+#      puts "TimeOut error"
 
     else
       raise   Selenium::WebDriver::Error::NoSuchElementError
@@ -431,7 +448,7 @@ And /^I click "([^\"]*)"$/ do |btn|
 end
 
 Then /^It open a popup$/ do
-puts "Ref-136- As a user, I want to be able to report application and/or data problems so that they can be fixed and/or provide feedback on an application."
+puts "---@RALLYUS578--Ref-136- As a user, I want to be able to report application and/or data problems so that they can be fixed and/or provide feedback on an application."
 begin
   wait = Selenium::WebDriver::Wait.new(:timeout => 10)
   wait.until{
@@ -463,7 +480,8 @@ Then /^I should see "([^"]*)" as "([^"]*)"$/ do |field,text|
       puts "SLI Exception"
     #elsif Timeout::Error
   #    puts "TimeOut error"
-
+#     elsif Timeout::Error
+#      puts "TimeOut error"
     else
       raise   Selenium::WebDriver::Error::NoSuchElementError
     end
@@ -480,6 +498,8 @@ Then /^I fill "([^"]*)" from "([^"]*)"$/ do |arg1, arg2|
       puts "SLI Exception"
     #elsif Timeout::Error
       #puts "TimeOut error"
+#    elsif Timeout::Error
+#      puts "TimeOut error"
     elsif Selenium::WebDriver::Error::NoSuchElementError
       puts ""
     else
@@ -516,7 +536,7 @@ Then /^(?:|I )should see "([^\"]*)"$/ do |text|
  else
   puts ""
  end
- rescue Selenium::WebDriver::Error::StaleElementReferenceError
+ rescue Selenium::WebDriver::Error::StaleElementReferenceError,Timeout::Error
   puts ""
  end
  
@@ -543,7 +563,8 @@ When /^(?:|I )follow "([^\"]*)"$/ do |link|
     if @driver.page_source.match('SLI Exception')
       ele=false
       puts "SLI Exception"
-   
+#    elsif Timeout::Error
+#      puts "TimeOut error"
     else
       raise   Selenium::WebDriver::Error::NoSuchElementError
     end
@@ -553,7 +574,7 @@ end
 
 
 And /^I should see SLI LOGO$/ do 
-puts "Ref-134-I want to be able to see a common header & footer UI that conforms to SLI standards. "
+puts "--@RALLYUS581-Ref-134-I want to be able to see a common header & footer UI that conforms to SLI standards. "
  begin
   @driver.find_element(:xpath, "//div[@class='menu_n']/h1[@class='sli_logo_main']")
   puts "SLI LOGO is found"

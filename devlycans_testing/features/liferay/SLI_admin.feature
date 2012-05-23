@@ -24,14 +24,14 @@ Feature: title
     #Then I should be on the authentication failed page
     #Then I should see "Authentication failed."  
     
-@wip
+
  Scenario: Admin User Login
     Given I have an open web browser
     When I go to the login page
     #Given I should remove all cookies
     When I login with "sunsetrealmadmin" and "sunsetrealmadmin1234"
     Then I should be on the home page
-    #Then I should see "Admin"
+    Then I should see "Admin"
     Then I should logged out
 
  Scenario: Admin User Login
@@ -40,9 +40,9 @@ Feature: title
     #Given I should remove all cookies
     When I login with "slcoperator" and "slcoperator1234"
     Then I should be on the home page
-    #Then I should see "Admin"
+    Then I should see "Admin"
     Then I should logged out
-
+ @wip
  Scenario: Admin User Login for SSD
     Given I have an open web browser
     Then I am on the Realm selection page
