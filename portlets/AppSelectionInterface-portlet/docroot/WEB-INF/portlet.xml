@@ -19,8 +19,8 @@
 		</supports>
 		<resource-bundle>content/Language</resource-bundle>
 		<portlet-info>
-			<title>AppSelectionInterfacePortlet</title>
-			<short-title>AppSelectionInterfacePortlet</short-title>
+			<title>Applications</title>
+			<short-title>Applications</short-title>
 			<keywords></keywords>
 		</portlet-info>
 		<security-role-ref>
