@@ -19,8 +19,8 @@
 		</supports>
 		<resource-bundle>content/Language</resource-bundle>
 		<portlet-info>
-			<title>AdminAppSelectionInterfacePortlet</title>
-			<short-title>AdminAppSelectionInterfacePortlet</short-title>
+			<title>Configure System</title>
+			<short-title>Configure System</short-title>
 			<keywords></keywords>
 		</portlet-info>
 		<security-role-ref>
