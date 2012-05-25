@@ -196,10 +196,10 @@
 		<load-on-startup>1</load-on-startup>
 	</servlet>
 	<servlet>
-		<servlet-name>JSON Web Service Servlet</servlet-name>
+	<!--	<servlet-name>JSON Web Service Servlet</servlet-name>
 		<servlet-class>com.liferay.portal.jsonwebservice.JSONWebServiceServlet</servlet-class>
 		<load-on-startup>1</load-on-startup>
-	</servlet>
+	</servlet> -->
 	<servlet>
 		<servlet-name>Language Servlet</servlet-name>
 		<servlet-class>com.liferay.portal.servlet.LanguageServlet</servlet-class>
@@ -763,14 +763,14 @@
 		<servlet-name>JSON Servlet</servlet-name>
 		<url-pattern>/api/secure/json/*</url-pattern>
 	</servlet-mapping>
-	<servlet-mapping>
+<!--	<servlet-mapping>
 		<servlet-name>JSON Web Service Servlet</servlet-name>
 		<url-pattern>/api/jsonws/*</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>JSON Web Service Servlet</servlet-name>
 		<url-pattern>/api/secure/jsonws/*</url-pattern>
-	</servlet-mapping>
+	</servlet-mapping> -->
 	<servlet-mapping>
 		<servlet-name>Remoting Servlet</servlet-name>
 		<url-pattern>/api/spring/*</url-pattern>
