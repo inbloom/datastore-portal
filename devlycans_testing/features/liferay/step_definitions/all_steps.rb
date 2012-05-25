@@ -54,7 +54,7 @@ Then /^I follow all the wsrp links$/ do
    
     wsrp_ele.each do |el|
       @driver.navigate.to el
-      puts "Ref-141-As an IT admin, I want SLI Portal to include existing applications/components that exist in my state/district."
+      puts "@RALLY-US1193---Ref-141-As an IT admin, I want SLI Portal to include existing applications/components that exist in my state/district."
       puts "successfully open #{el}"
     end
    
@@ -143,7 +143,7 @@ end
 
 When /^I go to the login page$/ do
   @driver.navigate.to ENV['api_server_url']
-   puts "Ref 127 - As a user, I see a login screen that brings me to the SLI home page."
+   puts "@RALLYUS570-- Ref 127 - As a user, I see a login screen that brings me to the SLI home page."
   begin
     a=@driver.find_element(:name,'realmId') #realmId should be the html tag name of select tag
     ele=true
@@ -323,7 +323,7 @@ Given /^I should remove all cookies$/ do
 end
 
 When /^I login with "([^\"]*)" and "([^\"]*)"$/ do |username, password|
-puts "Ref-130 As a user logging in for the first time, I must click through a EULA acceptance."
+puts "@RALLYUS1200--Ref-130 As a user logging in for the first time, I must click through a EULA acceptance."
   begin
     @driver.manage.delete_all_cookies
     begin
@@ -584,7 +584,7 @@ puts "--@RALLYUS581-Ref-134-I want to be able to see a common header & footer UI
 end
 
 And /^I should see footer$/ do
- puts "Ref-145 As a user, I see a common legal notice about data privacy across apps."
+ puts "@RALLYUS581--Ref-145 As a user, I see a common legal notice about data privacy across apps."
   begin
    element=@driver.find_element(:xpath, "//div[@id='p_p_id_footerportlet_WAR_headerfooterportlet_']/div[@class='portlet-body']")
    puts element.text()
