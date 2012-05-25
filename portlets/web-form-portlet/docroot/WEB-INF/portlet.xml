@@ -37,6 +37,10 @@
 			</preference>
 			<preference>
 				<name>saveToDatabase</name>
+				<value>false</value>
+			</preference>
+			<preference>
+				<name>sendAsEmail</name>
 				<value>true</value>
 			</preference>
 			<preference>

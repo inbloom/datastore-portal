@@ -18,8 +18,8 @@
 			<portlet-mode>view</portlet-mode>
 		</supports>
 		<portlet-info>
-			<title>ConfigureAppPortlet</title>
-			<short-title>ConfigureAppPortlet</short-title>
+			<title>Configure Applications</title>
+			<short-title>Configure Applications</short-title>
 			<keywords></keywords>
 		</portlet-info>
 		<security-role-ref>

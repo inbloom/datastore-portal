@@ -28,7 +28,7 @@
 #end
 
 #if($hasPermission == true)
-  
+  #dockbar()
 #end
 
 $theme.include($body_top_include)

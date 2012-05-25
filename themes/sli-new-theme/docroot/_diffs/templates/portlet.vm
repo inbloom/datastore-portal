@@ -14,10 +14,12 @@
 			#if ($portlet_display.isShowBackIcon())
 				<a href="$portlet_back_url" class="portlet-icon-back">#language("return-to-full-page")</a>
 			#else
+				#*
 				$theme.iconOptions()
 				$theme.iconMinimize()
 				$theme.iconMaximize()
 				$theme.iconClose()
+				*#
 			#end
 		</menu>
 	</header>
