@@ -69,6 +69,7 @@ hr, .separator {
 #sli_banner #sli_heading{
 	margin: 0 auto;
 	width:980px;
+	background: #333333;
 }
 
 #sli_banner .company-title {
