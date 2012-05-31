@@ -24,16 +24,46 @@ Feature: title
     Then I should be on the home page
     Then I should see " Dashboard"
     Then I follow all the wsrp links
-   
+  @wip 
   Scenario:check  wsrp of admin user and go to admin page
     Given I have an open web browser
     Then I am on the Realm selection page
     Then I select "4cb03fa0-83ad-46e2-a936-09ab31af377e"
     #Then I click "Go"
     When I login with "rrogers" and "rrogers1234"
+    #this is normal user 
     Then I should be on the home page
     Then I should see "Admin"
     Then I follow "Admin"
     Then I should be on the admin page
     Then I follow all the wsrp links
+
+
+Scenario:check  wsrp of admin user and go to admin page
+    Given I have an open web browser
+    Then I am on the Realm selection page
+    Then I select "5a4bfe96-1724-4565-9db1-35b3796e3ce1"
+    #Then I click "Go"
+    When I login with "slcoperator" and "slcoperator1234"
+    #this is normal user 
+    Then I should be on the home page
+    Then I should see "Admin"
+    Then I follow "Admin"
+    Then I should be on the admin page
+    Then I follow all the wsrp links
+
+
+Scenario:check  wsrp of admin user and go to admin page
+    Given I have an open web browser
+    Then I am on the Realm selection page
+    Then I select "5a4bfe96-1724-4565-9db1-35b3796e3ce1"
+    #Then I click "Go"
+    When I login with "sunsetrealmadmin" and "sunsetrealmadmin1234"
+    #this is normal user 
+    Then I should be on the home page
+    Then I should see "Admin"
+    Then I follow "Admin"
+    Then I should be on the admin page
+    Then I follow all the wsrp links
+
 
