@@ -140,13 +140,20 @@ public class AdminAppSelectionInterfacePortlet extends MVCPortlet {
 		
 		if(code == 200){
 
-		actionResponse.setEvent(new QName("http:sli.com/events", "iframeurl"),
-				url);
+			String encodedUrl = "";
+			//DE 660 - Encoded url in iframe page.
+			
+				encodedUrl = HttpUtil.encodeURL(url);
+			//encodedUrl = URLEncoder.encode(url.toString(),"UTF-8"); 
+			   _log.info("encoded url===== "+encodedUrl);
+			
+
+		actionResponse.setEvent(new QName("http:sli.com/events", "iframeurl"),encodedUrl);
 
 		String iframePage = GetterUtil.getString(PropsUtil
 				.get(PropsKeys.IFRAME_PAGE));
 
-		actionResponse.sendRedirect(iframePage + "#" + url);
+		actionResponse.sendRedirect(iframePage + "#" + encodedUrl);
 		}else{
 			actionResponse.sendRedirect("/portal/web/guest/error");
 		}
