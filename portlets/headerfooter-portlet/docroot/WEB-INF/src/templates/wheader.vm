@@ -149,7 +149,10 @@ ul.menu_n ul li a:hover { background:#CCCCCC; color:#000035;}
 ul.menu_n ul ul {left:148px; top:-1px}
 ul.menu_n .menulink { color: #999999;}
 
-ul.menu_n .show { color: #FFFFFF;}
+ul.menu_n .show {
+ color: #FFFFFF;
+ 
+ }
 
 ul.menu_n .menulink:hover, ul.menu_n .menuhover {}
 
