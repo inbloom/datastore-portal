@@ -21,21 +21,42 @@ public class SLIUtil {
 	/**
 	 * this method is used to check if the user is a sli admin user
 	 */
-	
-	public static boolean isAdmin(UserData userdata){
-		boolean isAdmin=false;
-		if(Validator.isNotNull(userdata)){
+
+	public static boolean isAdmin(UserData userdata) {
+		boolean isAdmin = false;
+		String[] SLI_ROLE_ADMINISTRATOR = PropsUtil
+				.getArray(PropsKeys.SLI_ROLE_ADMINISTRATOR);
+		if (Validator.isNotNull(userdata)) {
 			String[] granted_authorities = userdata.getGranted_authorities();
-			for(String role : granted_authorities){
-				if(role.equalsIgnoreCase(GetterUtil.getString(PropsUtil.get(PropsKeys.ROLE_IT_ADMINISTRATOR))) || 
-						role.equalsIgnoreCase( GetterUtil.getString(PropsUtil.get(PropsKeys.ROLE_SLI_ADMINISTRATOR))))
-				{
-					isAdmin=true;
-					break;
+			for (String role : granted_authorities) {
+				for (String admin : SLI_ROLE_ADMINISTRATOR) {
+					if (role.equalsIgnoreCase(admin)) {
+						isAdmin = true;
+						break;
+					}
 				}
 			}
 		}
 		return isAdmin;
 	}
-	
+
+	public static boolean isLiferayAdmin(UserData userdata) {
+		boolean isLiferayAdmin = false;
+		String[] SLI_ROLE_LIFERAY_ADMINISTRATOR = PropsUtil
+				.getArray(PropsKeys.SLI_ROLE_LIFERAY_ADMINISTRATOR);
+
+		if (Validator.isNotNull(userdata)) {
+			String[] granted_authorities = userdata.getGranted_authorities();
+			for (String role : granted_authorities) {
+				for (String liferayAdmin : SLI_ROLE_LIFERAY_ADMINISTRATOR) {
+					if (role.equalsIgnoreCase(liferayAdmin)) {
+						isLiferayAdmin = true;
+						break;
+					}
+				}
+			}
+		}
+		return isLiferayAdmin;
+	}
+
 }

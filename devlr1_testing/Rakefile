@@ -82,9 +82,9 @@ task :liferayTest do
   # runTests("features/liferay/NY_Realm_EULA_agree.feature")
    runTests("features/liferay/report_problem.feature")
    runTests("features/liferay/admin_page.feature")
-   #runTests("features/liferay/SSD_Realm_linda.feature")
+   runTests("features/liferay/SSD_Realm_linda.feature")
    runTests("features/liferay/WSRP.feature")
-  
+   runTests("features/liferay/Header_footer.feature")
 # runTests("test/features/liferay/IL_Realm_EULA_agree.feature")
   
 end

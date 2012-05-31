@@ -3,6 +3,7 @@ package com.sli.portlet.action;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.portlet.ActionRequest;
@@ -55,6 +56,19 @@ public class AdminAppSelectionInterfacePortlet extends MVCPortlet {
 			
 			try{
 			List<AppsData> appsData = AppsUtil.getUserApps(tokenFromReq);
+			
+			List<AppsData> tempAppsData = new ArrayList<AppsData>(appsData);
+			
+			//DE505- checked current url and removed from list
+			String currUrl = "https://"+renderRequest.getServerName()+"/portal";
+				
+			_log.info("current url---"+currUrl);
+			
+			for(AppsData apps : tempAppsData){
+				if(apps.getApplication_url().contains(currUrl)){
+					appsData.remove(apps);
+				}
+			}
 			renderRequest.setAttribute("appList", appsData);
 			}catch (Exception e) {
 				_log.info("json response is null");

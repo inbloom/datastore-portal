@@ -46,11 +46,9 @@ public class SLILoginPostAction extends Action {
 
 			boolean isAdmin = SLIUtil.isAdmin(userData);
 
-			long companyId = PortalUtil.getCompanyId(request);
+			boolean isLiferayAdmin = SLIUtil.isLiferayAdmin(userData);
 
-			Role sliAdminRole = RoleLocalServiceUtil.getRole(companyId,
-					GetterUtil.getString(PropsUtil
-							.get(PropsKeys.ROLE_SLI_ADMINISTRATOR)));
+			long companyId = PortalUtil.getCompanyId(request);
 
 			Role sliEducatorRole = RoleLocalServiceUtil
 					.getRole(companyId, GetterUtil.getString(PropsUtil
@@ -58,18 +56,18 @@ public class SLILoginPostAction extends Action {
 
 			Role adminRole = RoleLocalServiceUtil.getRole(companyId,
 					RoleConstants.ADMINISTRATOR);
-
-			if (isAdmin) {
+			
+			System.out.println("inside login post action...."+isLiferayAdmin);
+			if (isLiferayAdmin) {
 				if (!RoleLocalServiceUtil.hasUserRole(user.getUserId(),
-						sliAdminRole.getRoleId())) {
+						adminRole.getRoleId())) {
 
-					long[] adminRoleIds = { sliAdminRole.getRoleId(),
-							adminRole.getRoleId() };
+					long[] adminRoleIds = { adminRole.getRoleId() };
 
 					RoleLocalServiceUtil.addUserRoles(user.getUserId(),
 							adminRoleIds);
 					if (_log.isDebugEnabled()) {
-						_log.debug("Adding SLI Admin role ");
+						_log.debug("Adding Liferay Admin role ");
 					}
 				}
 			} else {

@@ -30,6 +30,12 @@ public interface PropsKeys {
 
 	public static final String OAUTH_CLIENT_SECRET = "oauth.client.secret";
 
-	public static final String OAUTH_REDIRECT = "oauth.redirect";	
+	public static final String OAUTH_REDIRECT = "oauth.redirect";
+	
+	public static final String SLI_ROLE_ADMINISTRATOR = "sli.role.admin";
+	
+	public static final String SLI_ROLE_LIFERAY_ADMINISTRATOR = "sli.role.liferayadmin";
+	
+	
 
 }
