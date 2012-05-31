@@ -31,9 +31,10 @@ Feature: title
     Then I select "4cb03fa0-83ad-46e2-a936-09ab31af377e"
     #Then I click "Go"
     When I login with "rrogers" and "rrogers1234"
- 
+<<<<<<< HEAD
+=======
     #this is normal user 
- 
+>>>>>>> b4dc0c874c89002ad4f7713fb636bf79bb49e489
     Then I should be on the home page
     Then I should see "Admin"
     Then I follow "Admin"

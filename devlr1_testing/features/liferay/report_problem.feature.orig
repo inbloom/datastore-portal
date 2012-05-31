@@ -31,7 +31,7 @@ Feature: title
     When I mouseover on menu and click submenu "Report a problem"
     #When I follow "Report a Problem"
     Then It open a popup
- 
+<<<<<<< HEAD
     
     Then I fill "Some test Problems" from "_1_WAR_webformportlet_INSTANCE_W6Fvabb0rTf2_field2"
     Then I click button "Report a Problem"
@@ -43,7 +43,7 @@ Feature: title
     Then I select "4cb03fa0-83ad-46e2-a936-09ab31af377e"
     #Given I should remove all cookies
     When I login with "rrogers" and "rrogers1234"
- 
+=======
     
     Then I fill "Some test Problems" from "_1_WAR_webformportlet_INSTANCE_W6Fvabb0rTf2_field2"
     Then I click button "Report a Problem"
@@ -55,7 +55,7 @@ Feature: title
     Then I select "5a4bfe96-1724-4565-9db1-35b3796e3ce1"
     #Given I should remove all cookies
     When I login with "sunsetrealmadmin" and "sunsetrealmadmin1234"
- 
+>>>>>>> b4dc0c874c89002ad4f7713fb636bf79bb49e489
     Then I should be on the home page
     When I mouseover on menu and click submenu "Report a problem"
     #When I follow "Report a Problem"
@@ -69,15 +69,15 @@ Feature: title
   Scenario:Report a problem submission for SSD admin User for non Happy submission or blank submission
     Given I have an open web browser
     Then I am on the Realm selection page
- 
+<<<<<<< HEAD
     Then I select "4cb03fa0-83ad-46e2-a936-09ab31af377e"
     #Given I should remove all cookies
     When I login with "rrogers" and "rrogers1234"
- 
+=======
     Then I select "5a4bfe96-1724-4565-9db1-35b3796e3ce1"
     #Given I should remove all cookies
     When I login with "sunsetrealmadmin" and "sunsetrealmadmin1234"
- 
+>>>>>>> b4dc0c874c89002ad4f7713fb636bf79bb49e489
     Then I should be on the home page
     When I mouseover on menu and click submenu "Report a problem"
     #When I follow "Report a Problem"
