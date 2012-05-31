@@ -15,7 +15,7 @@ import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
 import javax.servlet.http.HttpSession;
 import javax.xml.namespace.QName;
-
+import com.liferay.portal.kernel.util.HttpUtil;
 import org.slc.sli.json.bean.AppsData;
 import org.slc.sli.json.bean.UserData;
 import org.slc.sli.util.AppsUtil;
