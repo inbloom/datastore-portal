@@ -149,7 +149,7 @@ import oasis.names.tc.wsrp.v2.types.UserProfile;
 
 import org.apache.axis.client.Stub;
 import org.apache.axis.message.MessageElement;
-import org.slc.sli.util.WgenPropsKeys;
+import org.slc.sli.util.SLIPropsKeys;
 /**
  * @author Brian Wing Shun Chan
  * @author Michael Young
@@ -1219,7 +1219,7 @@ public class ConsumerPortlet extends GenericPortlet {
 			portletDescription.getDoesUrlTemplateProcessing();
 		
 		boolean enableTemplateProcessing = 	
-				GetterUtil.getBoolean(PropsUtil.get(WgenPropsKeys.TEMPLATE_PROCESSING_ENABLED));
+				GetterUtil.getBoolean(PropsUtil.get(SLIPropsKeys.TEMPLATE_PROCESSING_ENABLED));
 		
 		if ((doesUrlTemplateProcessing != null) && doesUrlTemplateProcessing && enableTemplateProcessing ) {
 			Templates templates = new Templates();

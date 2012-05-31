@@ -82,13 +82,13 @@ System.out.println("Success URL:->"+successURL+".....>>>>>"+currentURL);
 			<liferay-ui:error key='<%= "error" + fieldLabel %>' message="<%= fieldValidationErrorMessage %>" />
 
 			<c:if test='<%= Validator.isNotNull(fieldValidationScript) %>'>
-				<div class="aui-helper-hidden" id="<portlet:namespace/>validationError<%= fieldLabel %>">
+				<div class="aui-helper-hidden" id="<portlet:namespace/>validationError<%= fieldLabel.replace(" ","") %>">
 					<span class="portlet-msg-error"><%= fieldValidationErrorMessage %></span>
 				</div>
 			</c:if>
 
 			<c:if test="<%= !fieldOptional %>">
-				<div class="aui-helper-hidden" id="<portlet:namespace/>fieldOptionalError<%= fieldLabel %>">
+				<div class="aui-helper-hidden" id="<portlet:namespace/>fieldOptionalError<%= fieldLabel.replace(" ","") %>">
 					<span class="portlet-msg-error"><liferay-ui:message key="this-field-is-mandatory" /></span>
 				</div>
 			</c:if>
@@ -103,7 +103,7 @@ System.out.println("Success URL:->"+successURL+".....>>>>>"+currentURL);
 				
 				<c:when test='<%= fieldType.equals("textarea") %>'>
 					<div style="margin-left:151px;margin-top:10px;">
-						Please describe your problem in as much detail as possible in the space below.  We already have logged the time and page location of this problem.<strong>  Do not include private student data or passwords in this field.</strong>
+						Please describe your problem in as much detail as possible in the space below.  We already have logged the time and page location of this problem.<strong>  Do not include private student data or passwords in this field....</strong>
 					</div>
 					<aui:input cssClass='<%= fieldOptional ? "optional" : StringPool.BLANK %>' label="<%= HtmlUtil.escape(fieldLabel) %>" name="<%= fieldName %>" type="textarea" value="<%= HtmlUtil.escape(fieldValue) %>" wrap="soft" />
 				</c:when>
@@ -195,7 +195,7 @@ System.out.println("Success URL:->"+successURL+".....>>>>>"+currentURL);
 				<%
 				int fieldIndex = 1;
 				String fieldLabel = preferences.getValue("fieldLabel" + fieldIndex, StringPool.BLANK);
-
+				fieldLabel = fieldLabel.replace(" ","");
 				while ((fieldIndex == 1) || Validator.isNotNull(fieldLabel)) {
 					boolean fieldOptional = PrefsParamUtil.getBoolean(preferences, request, "fieldOptional" + fieldIndex, false);
 					String fieldType = preferences.getValue("fieldType" + fieldIndex, "text");
@@ -244,6 +244,7 @@ System.out.println("Success URL:->"+successURL+".....>>>>>"+currentURL);
 				<%
 					fieldIndex++;
 					fieldLabel = preferences.getValue("fieldLabel" + fieldIndex, "");
+					fieldLabel = fieldLabel.replace(" ","");
 				}
 				%>
 

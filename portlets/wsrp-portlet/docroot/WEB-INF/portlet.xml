@@ -84,12 +84,12 @@
 		</security-role-ref>
 
 		<supported-processing-event>
-			<qname xmlns:x="http:wgen.com/events">x:wsrpurl</qname>
+			<qname xmlns:x="http:sli.com/events">x:wsrpurl</qname>
 		</supported-processing-event>				
 	</portlet>
-	<default-namespace>wgen.wsrpportlet</default-namespace>
+	<default-namespace>sli.wsrpportlet</default-namespace>
 	<event-definition>
-		<qname xmlns:x="http:wgen.com/events">x:wsrpurl</qname>
+		<qname xmlns:x="http:sli.com/events">x:wsrpurl</qname>
 		<value-type>java.lang.String</value-type>
 	</event-definition>	
 </portlet-app>

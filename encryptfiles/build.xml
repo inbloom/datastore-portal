@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="check" basedir="." default="execute">
+	<property name="build_dir" value="build/classes" />
+	<property name="src_dir" value="src" />
+
+	<target name="init">
+		<echo> Build folder crateing .......... </echo>
+		<mkdir dir="${build_dir}" />
+	</target>
+
+	<target name="build" depends="init">
+		<echo> Compilation going on .......... </echo>
+		<javac destdir="${build_dir}" srcdir="${src_dir}" />
+	</target>
+
+	<target name="execute" depends="init,build">
+		<echo> Running java class ......... </echo>
+		<java classname="EncryptFiles" classpath="${build_dir}">
+			<arg value="${encryption.keystore}" />
+			<!--<arg value="D:\\wgen\\liferay-plugins-sdk-6.1.0-ce-ga1\\keystore\\keystore.properties" />-->
+		</java>
+	</target>
+</project>

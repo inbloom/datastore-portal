@@ -120,7 +120,7 @@ public class WSRPPortlet extends GenericPortlet {
 	/**
 	 * This method processes received events with the following QName
 	 */
-	@ProcessEvent(qname = "{http:wgen.com/events}wsrpurl")
+	@ProcessEvent(qname = "{http:sli.com/events}wsrpurl")
 	public void processEvent1(EventRequest request, EventResponse response)
 			throws PortletException, IOException, Exception {
 

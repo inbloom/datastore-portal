@@ -14,7 +14,7 @@ Feature: title
     #Given I should remove all cookies
     When I login with "dem" and "change"
     Then I should be on the authentication failed page
-    Then I should see "Authentication failed."
+    Then I should see "Invalid User Name or password"
   
  # Scenario: Admin User Login with blank username and password
     #Given I have an open web browser
@@ -29,10 +29,32 @@ Feature: title
     Given I have an open web browser
     When I go to the login page
     #Given I should remove all cookies
-    When I login with "demo" and "changeit"
+    When I login with "sunsetrealmadmin" and "sunsetrealmadmin1234"
     Then I should be on the home page
-    #Then I should see "Admin"
+    Then I should see "Admin"
     Then I should logged out
+
+ Scenario: Admin User Login
+    Given I have an open web browser
+    When I go to the login page
+    #Given I should remove all cookies
+    When I login with "slcoperator" and "slcoperator1234"
+    Then I should be on the home page
+    Then I should see "Admin"
+    Then I should logged out
+ @wip
+ Scenario: Admin User Login for SSD
+    Given I have an open web browser
+    Then I am on the Realm selection page
+    Then I select "4cb03fa0-83ad-46e2-a936-09ab31af377e"
+    #Given I should remove all cookies
+    When I login with "rrogers" and "rrogers1234"
+    #This is admin user
+    Then I should be on the home page
+    Then I should see "Admin"
+    Then I should logged out
+ 
+
 
  
   

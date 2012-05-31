@@ -6,7 +6,7 @@
 		<portlet id="1" />
 		<portlet id="2" />
 	</category>
-	<category name="Wgen">
+	<category name="SLI">
 		<portlet id="wsrpportlet"></portlet>
 	</category>
 </display>

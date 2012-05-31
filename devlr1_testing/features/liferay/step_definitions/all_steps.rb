@@ -8,7 +8,7 @@ require_relative '../../utils/selenium_common.rb'
 
 
 Then /^I am on the Realm selection page$/ do
-  @driver.navigate.to "https://testlr1.slidev.org/portal"
+  @driver.navigate.to 'https://testlr1.slidev.org/portal'
 end
 
 Then /^I select "([^\"]*)"$/ do |text|
@@ -144,7 +144,7 @@ Given /^EULA has been accepted$/ do
 end
 
 When /^I go to the login page$/ do
-  @driver.navigate.to "https://testlr1.slidev.org/portal"
+  @driver.navigate.to 'https://testlr1.slidev.org/portal'
   begin
     a=@driver.find_element(:name,'realmId') #realmId should be the html tag name of select tag
     ele=true
@@ -179,7 +179,8 @@ end
 
 Then  /^I follow the home page Dashboard$/ do 
   begin
-    element= @driver.find_element(:xpath, "//td/a/div[text()=' Dashboard (Integration)']")
+    #element= @driver.find_element(:xpath, "//td/a/div[text()=' Dashboard (Integration)']")
+    element= @driver.find_element(:xpath, "//td/a/div[text()=' Dashboard']")
     element.click
   rescue
     if @driver.page_source.match('SLI Exception')
@@ -323,12 +324,25 @@ end
 When /^I login with "([^\"]*)" and "([^\"]*)"$/ do |username, password|
   begin
     @driver.manage.delete_all_cookies
-    element = @driver.find_element(:id, 'IDToken1') #the username field id is IDToken1
+    begin
+    element = @driver.find_element(:id, 'user_id') 
+    rescue
+     element= @driver.find_element(:name, 'IDToken1')
+    end
+ #the username field id is IDToken1
     element.send_keys username
+    begin
+     element = @driver.find_element(:id, 'password') #the username field id is IDToken2 
+    rescue 
+     element= @driver.find_element(:name, 'IDToken2')
+    end     
 
-    element = @driver.find_element(:id, 'IDToken2') #the username field id is IDToken2
     element.send_keys password
-    element=@driver.find_element(:class, "Btn1Def")
+    begin
+     element=@driver.find_element(:id, "login_button")
+    rescue
+      element=@driver.find_element(:class, "Btn1Def") 
+    end
     element.click
   rescue
     if @driver.page_source.match('SLI Exception')
@@ -346,7 +360,8 @@ When /^I login with "([^\"]*)" and "([^\"]*)"$/ do |username, password|
 end
 Then /^I should be on the authentication failed page$/ do
   begin
-    @driver.navigate.to "https://devopenam1.slidev.org:80/idp2/UI/Login"
+   @driver.page_source.match('Authentication failed.')
+   # @driver.navigate.to "https://devapp1.slidev.org/sp/UI/Login"
   rescue
  
     if @driver.page_source.match('SLI Exception')
@@ -433,12 +448,17 @@ And /^I click "([^\"]*)"$/ do |btn|
 end
 
 Then /^It open a popup$/ do
+begin
   wait = Selenium::WebDriver::Wait.new(:timeout => 10)
   wait.until{
     frame=@driver.find_element(:tag_name, "iframe")
     @driver.switch_to.frame(frame)
   
   }
+rescue
+  puts "Iframe is not detected"
+
+end
  
 end
 
@@ -489,16 +509,37 @@ Then /^I close the browser$/ do
   @driver.quit
 end
 
+
+
+
 Then /^(?:|I )should see "([^\"]*)"$/ do |text|
   begin
-    link=@driver.find_element(:link, text).displayed? || @driver.find_element(:name, text).displayed?
-    link=true
-  rescue
-    link=false
+   links=[]
+    links << @driver.find_elements(:tag_name, 'p')  
+    links << @driver.find_elements(:tag_name, 'span')
+    links << @driver.find_elements(:tag_name, 'div')
+  links.flatten!
+  ele=false
+  links.each do |link|
+    if link.text.match(text)
+      ele=true
+      puts "OK"
+      break
+    end
   end
-  link 
+ if ele == true
+  puts "OK"
+ else
+  puts ""
+ end
+ rescue Selenium::WebDriver::Error::StaleElementReferenceError
+  puts ""
+ end
  
 end
+
+
+
 
 Then /^(?:|I )should not see "([^\"]*)"$/ do |text|
   begin
@@ -508,9 +549,9 @@ Then /^(?:|I )should not see "([^\"]*)"$/ do |text|
     link=false
   end 
   link
-
- 
 end
+
+
 When /^(?:|I )follow "([^\"]*)"$/ do |link|
   begin
     @driver.find_element(:link, link).click
@@ -529,4 +570,10 @@ When /^(?:|I )follow "([^\"]*)"$/ do |link|
 end
 
 
+
+Then /^I am selecting the first value from "([^\"]*)"$/ do |field|
+    a=@driver.find_element(:id,field) #realmId should be the html tag name of select tag
+    options=a.find_elements(:tag_name=>"option")[1].click
+    
+end
 

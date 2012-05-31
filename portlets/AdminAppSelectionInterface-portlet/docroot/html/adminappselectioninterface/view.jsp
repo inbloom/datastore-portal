@@ -24,21 +24,12 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <portlet:defineObjects />
 
-<!-- <style>
-a {
-	text-decoration: none;
-}
-
-a:hover {
-	color: #000000;
-	text-decoration: underline;
-}
-</style> -->
-
 
 <%
-	List<AppsData> appList = (List<AppsData>)renderRequest.getAttribute("appList");
-	
+List<AppsData> appList = null;
+if(renderRequest.getAttribute("appList") != null){
+	 appList = (List<AppsData>)renderRequest.getAttribute("appList");
+}
 %>
 
 
@@ -46,6 +37,7 @@ a:hover {
 <table border ="0">
  <c:forEach items="${appList}" var="app">
 
+<c:if test="${app.endpoints eq null }">
 <tr>
 
 <td><img src="<%=request.getContextPath() %>/images/cogwheel.png" alt="settings_logo" style="height: 10px;width: 10px"/></td>
@@ -75,6 +67,45 @@ a:hover {
 </c:choose>    
 </td>
 </tr>
+</c:if>
+
+<c:forEach items="${app.endpoints}" var="innerApp">
+
+<tr>
+
+<td><img src="<%=request.getContextPath() %>/images/cogwheel.png" alt="settings_logo" style="height: 10px;width: 10px"/></td>
+<td>&nbsp;</td>
+<td> 
+
+<c:choose>
+	
+	<c:when test='${app.behaviour eq "Iframe App" }'>
+		<a onClick="callIframe('<c:out value="${innerApp.url}"></c:out>')" href='#' style="color: #000000;font-size: 14px;">
+			<c:out value="${innerApp.name}"></c:out>
+		</a>
+	</c:when>
+	
+	<c:when test='${app.behaviour eq "Wsrp App" }'>
+		<a onClick="callWsrp('<c:out value="${innerApp.url}"></c:out>')"  href='#' style="color: #000000;font-size: 14px;">
+			<c:out value="${innerApp.name}"></c:out>
+		</a>
+	</c:when>
+	
+	<c:when test='${app.behaviour eq "Full Window App" }'>
+	
+	<a href='<c:out value="${innerApp.url}"></c:out>' style="color: #000000;font-size: 14px;">
+		<c:out value="${innerApp.name}"></c:out>
+	</a>
+	</c:when>		
+</c:choose>    
+</td>
+</tr>
+
+
+
+</c:forEach>
+
+
 
 </c:forEach>
 </table>

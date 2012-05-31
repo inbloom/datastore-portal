@@ -6,7 +6,7 @@
 		<portlet-name>adminappselectioninterfaceportlet</portlet-name>
 		<display-name>AdminAppSelectionInterfacePortlet</display-name>
 		<portlet-class>
-			com.wgen.portlet.action.AdminAppSelectionInterfacePortlet
+			com.sli.portlet.action.AdminAppSelectionInterfacePortlet
 		</portlet-class>
 		<init-param>
 			<name>view-jsp</name>
@@ -19,8 +19,8 @@
 		</supports>
 		<resource-bundle>content/Language</resource-bundle>
 		<portlet-info>
-			<title>AdminAppSelectionInterfacePortlet</title>
-			<short-title>AdminAppSelectionInterfacePortlet</short-title>
+			<title>Configure System</title>
+			<short-title>Configure System</short-title>
 			<keywords></keywords>
 		</portlet-info>
 		<security-role-ref>
@@ -37,19 +37,19 @@
 		</security-role-ref>
 	
 	<supported-publishing-event>
-			<qname xmlns:x="http:wgen.com/events">x:iframeurl</qname>
+			<qname xmlns:x="http:sli.com/events">x:iframeurl</qname>
 		</supported-publishing-event>
 		<supported-publishing-event>
-			<qname xmlns:x="http:wgen.com/events">x:wsrpurl</qname>
+			<qname xmlns:x="http:sli.com/events">x:wsrpurl</qname>
 		</supported-publishing-event>					
 	</portlet>
-	<default-namespace>wgen.applicationsportlet</default-namespace>
+	<default-namespace>sli.applicationsportlet</default-namespace>
 	<event-definition>
-		<qname xmlns:x="http:wgen.com/events">x:wsrpurl</qname>
+		<qname xmlns:x="http:sli.com/events">x:wsrpurl</qname>
 		<value-type>java.lang.String</value-type>
 	</event-definition>
 		<event-definition>
-		<qname xmlns:x="http:wgen.com/events">x:iframeurl</qname>
+		<qname xmlns:x="http:sli.com/events">x:iframeurl</qname>
 		<value-type>java.lang.String</value-type>
 	</event-definition>	
 </portlet-app>

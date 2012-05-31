@@ -36,7 +36,7 @@ public class RESTClient {
      * @return JsonOject as described by API documentation
      * @throws NoSessionException
      */
-    public JsonArray callUserApps(String token) {
+    public JsonArray callUserApps(String token) throws NullPointerException {
         logger.info("Session check URL = " + Constants.USER_APPS_PREFIX);
         // String jsonText = makeJsonRequest(Constants.SESSION_CHECK_PREFIX, token);
         String jsonText = makeJsonRequestWHeaders(Constants.USER_APPS_PREFIX, token, false);
@@ -46,7 +46,7 @@ public class RESTClient {
     }
     
     
-    public JsonObject sessionCheck(String token) {
+    public JsonObject sessionCheck(String token) throws NullPointerException{
         logger.info("Session check URL = " + Constants.SESSION_CHECK_PREFIX);
         // String jsonText = makeJsonRequest(Constants.SESSION_CHECK_PREFIX, token);
         String jsonText = makeJsonRequestWHeaders(Constants.SESSION_CHECK_PREFIX, token, true);

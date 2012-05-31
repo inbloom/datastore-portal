@@ -75,7 +75,7 @@ public class RuntimePortletEmbedUtil {
 		// Render the portlet as a runtime portlet
 		String result;
 		try {
-			PortletBag implPortletBag = PortletBagPool.get(PortletKeys.JOURNAL);
+			PortletBag implPortletBag = PortletBagPool.get(PortletKeys.IFRAME);
 			com.liferay.portal.model.Portlet portlet = PortletLocalServiceUtil
 					.getPortletById(PortalUtil.getCompanyId(request), portletId);
 			servletRequest.setAttribute(WebKeys.RENDER_PORTLET_RESOURCE,
