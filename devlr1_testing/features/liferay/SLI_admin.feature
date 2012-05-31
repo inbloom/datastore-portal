@@ -33,7 +33,17 @@ Feature: title
     Then I should be on the home page
     Then I should see "Admin"
     Then I should logged out
-
+ 
+ Scenario: Admin User Login
+    Given I have an open web browser
+    When I go to the login page
+    #Given I should remove all cookies
+    When I login with "slcoperator" and "slcoperator1234"
+    Then I should be on the home page
+    Then I should see "Admin"
+    Then I should logged out
+ @wip
+ 
  Scenario: Admin User Login
     Given I have an open web browser
     When I go to the login page
@@ -49,7 +59,7 @@ Feature: title
     Then I select "4cb03fa0-83ad-46e2-a936-09ab31af377e"
     #Given I should remove all cookies
     When I login with "rrogers" and "rrogers1234"
-    #This is admin user
+
     Then I should be on the home page
     Then I should see "Admin"
     Then I should logged out

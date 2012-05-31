@@ -1,26 +1,49 @@
 #
 # MySQL
 #
-jdbc.default.driverClassName=com.mysql.jdbc.Driver
-jdbc.default.url=jdbc:mysql://localhost/lportal?emulateLocators=true&useUnicode=true&characterEncoding=UTF-8&useFastDateParsing=false&createDatabaseIfNotExists=true
+jdbc.default.driverClassName=com.mysql.jdbc.Driver 
+jdbc.default.url=jdbc:mysql://devlycans.slidev.org/cluster?emulateLocators=true&useUnicode=true&characterEncoding=UTF-8&useFastDateParsing=false&createDatabaseIfNotExists=true
 jdbc.default.username=liferay
 jdbc.default.password=liferaywgen
 
+ 
 session.timeout=10
-
 # Context Path
 
 portal.ctx=/portal
+#
+# JackRabbit Clustering
+#
+dl.store.impl=com.liferay.portlet.documentlibrary.store.JCRStore
+
+#
+# Enabled Clustering 
+#
+
+cluster.link.enabled=true
+
+#
+# set the Hibernate cache provider. Ehcache is recommended in a clustered environment.
+#
+net.sf.ehcache.configurationResourceName=/ehcache/hibernate-clustered.xml
+ehcache.multi.vm.config.location=/ehcache/liferay-multi-vm-clustered.xml
+
+#
+# set this to true if you want the portal to replicate an index write across all members of the cluster. 
+#
+lucene.replicate.write=true
+lucene.dir=${liferay.home}/data/lucene/ 
+lucene.store.type=jdbc
+
 
 users.reminder.queries.enabled=false
-
 users.reminder.queries.custom.question.enabled=false
-users.reminder.queries.required=false
+users.reminder.queries.required=true
 
 system.roles=SLI Administrator, Educator
 
 # To disable the Wizard
- setup.wizard.enabled=false
+ #setup.wizard.enabled=false
 
 
 
@@ -73,17 +96,15 @@ terms.of.use.required=true
 #
 #logout.events.pre = org.slc.sli.login.events.WgenLogoutAction
 
- 
+#
+# Login event
+#
+#login.events.post=org.slc.sli.login.events.WgenLoginPostAction
+
 #
 # enable to activate session expiration
 #
-sli.sso.logout.on.session.expiration=true
-
-
-#
-# redirect to error page on login error
-#
-sso.login.error.page=/portal/web/guest/error
+wgen.sso.logout.on.session.expiration=true
 
 #
 # SLI roles
@@ -92,10 +113,10 @@ sli.role.itadmin=IT Administrator
 sli.role.sliadmin=SLI Administrator
 sli.role.educator=Educator
 
+
 sli.role.admin=LEA Administrator,Realm Administrator,IT Administrator,SEA Administrator,SLC Operator,Application Developer,Ingestion User,SEA Super Administrator,LEA Super Administrator,Realm Admin,App Developer
 
 sli.role.liferayadmin=SLC Operator
-
 ###admin selection interface portlet
 
 #
@@ -125,6 +146,7 @@ image.arrow_w=arrow_w.png
 
 image.sli_logo=sli_logo_icn.png
 
+
 # IMPORT LAR APPROACH
 layout.lar.file.name=layout.lar
 
@@ -133,14 +155,23 @@ auto.deploy.deploy.dir=/opt/deploy
 
 # Set path for error page
 
-layout.friendly.url.page.not.found=/web/guest/error
- 
- 
-#smtp details
- 
+layout.friendly.url.page.not.found=/portal/web/guest/error
  
  #smtp details
+
+    mail.session.mail.smtp.host=smtp.gmail.com
+	mail.session.mail.smtp.port=465
+	mail.session.mail.smtp.auth=true
+	mail.session.mail.smtp.user=portal.wgen@gmail.com
+	mail.session.mail.smtp.password=liferaywgen
+	mail.session.mail.transport.protocol=smtp
  
+# DE 508 CLEAR SLI COOKIE
+
+<<<<<<< HEAD
+ 
+#smtp details
+
     mail.session.mail.smtp.host=smtp.gmail.com
 	mail.session.mail.smtp.port=465
 	mail.session.mail.smtp.auth=true
@@ -152,3 +183,6 @@ layout.friendly.url.page.not.found=/web/guest/error
 
 sli.cookie.domain = .slidev.org
  
+=======
+sli.cookie.domain = .slidev.org
+>>>>>>> b4dc0c874c89002ad4f7713fb636bf79bb49e489
