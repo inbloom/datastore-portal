@@ -8,8 +8,7 @@ require_relative '../../utils/selenium_common.rb'
 
 
 Then /^I am on the Realm selection page$/ do
- 
-  @driver.navigate.to 'https://testlr1.slidev.org/portal'
+
  
   @driver.navigate.to ENV['api_server_url']
  
@@ -58,8 +57,7 @@ Then /^I follow all the wsrp links$/ do
    
     wsrp_ele.each do |el|
       @driver.navigate.to el
-      puts "Ref-141-As an IT admin, I want SLI Portal to include existing applications/components that exist in my state/district."
-      puts "successfully open #{el}"
+
     end
    
    
@@ -146,8 +144,7 @@ Given /^EULA has been accepted$/ do
 end
 
 When /^I go to the login page$/ do
- 
-  @driver.navigate.to 'https://testlr1.slidev.org/portal'
+
  
   @driver.navigate.to ENV['api_server_url']
    puts "Ref 127 - As a user, I see a login screen that brings me to the SLI home page."
@@ -185,9 +182,11 @@ end
 
 Then  /^I follow the home page Dashboard$/ do 
   begin
+    
     #element= @driver.find_element(:xpath, "//td/a/div[text()=' Dashboard (Integration)']")
     element= @driver.find_element(:xpath, "//td/a/div[text()=' Dashboard']")
     element.click
+    puts "--@RALLYUS184-I would like the ability to see all administrative/operator functions that are available to me."
   rescue
     if @driver.page_source.match('SLI Exception')
       ele=false
@@ -234,10 +233,11 @@ Then /^I should logged out$/ do
 end
 
 Then /^I should be on the home page$/ do
- puts "Ref-128- As any user I see a portal home page with a listing of applications available to me."
+
   begin
     ele=@driver.find_element(:xpath, "//input[@value='Agree']")
     element=true
+     
   rescue
     element=false
   end
@@ -276,7 +276,6 @@ end
 
 
 And /^I see the EULA Page$/ do
- puts "Ref-130 As a user logging in for the first time, I must click through a EULA acceptance."
   begin
     ele=@driver.find_element(:xpath, "//input[@value='Agree']")
     ele2=@driver.find_element(:xpath, "//input[@value='Logout']")
@@ -327,7 +326,6 @@ Given /^I should remove all cookies$/ do
 end
 
 When /^I login with "([^\"]*)" and "([^\"]*)"$/ do |username, password|
-puts "Ref-130 As a user logging in for the first time, I must click through a EULA acceptance."
   begin
     @driver.manage.delete_all_cookies
     begin
@@ -452,7 +450,6 @@ And /^I click "([^\"]*)"$/ do |btn|
 end
 
 Then /^It open a popup$/ do
-puts "Ref-136- As a user, I want to be able to report application and/or data problems so that they can be fixed and/or provide feedback on an application."
 begin
   wait = Selenium::WebDriver::Wait.new(:timeout => 10)
   wait.until{
@@ -577,34 +574,7 @@ When /^(?:|I )follow "([^\"]*)"$/ do |link|
 end
 
 
-And /^I should see SLI LOGO$/ do 
-puts "Ref-134-I want to be able to see a common header & footer UI that conforms to SLI standards. "
- begin
-  @driver.find_element(:xpath, "//div[@class='menu_n']/h1[@class='sli_logo_main']")
-  puts "SLI LOGO is found"
- rescue
-  puts "No Such Element"
- end
-end
 
-And /^I should see footer$/ do
- puts "Ref-145 As a user, I see a common legal notice about data privacy across apps."
-  begin
-   element=@driver.find_element(:xpath, "//div[@id='p_p_id_footerportlet_WAR_headerfooterportlet_']/div[@class='portlet-body']")
-   puts element.text()
-  rescue
-   puts "No Such Element"
-  end
-end
-
-And /^I should see username$/ do
-  begin
-   element=@driver.find_element(:xpath, "//ul[@class='menu_n']/li[@class='first_item']/a")
-   puts element.text()
-  rescue
-    puts "No such Elements"
-  end
-end
 
 
 Then /^I am selecting the first value from "([^\"]*)"$/ do |field|
