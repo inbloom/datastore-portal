@@ -162,7 +162,12 @@ if (windowState.equals(WindowState.MAXIMIZED)) {
 			var A = AUI();
 
 			var hash = document.location.hash;
-
+		//DE 633 -Added condition to check whether hash is present or not
+			if(hash ==''){
+				var errorPage = '/portal/web/guest/error';
+				window.location = errorPage;
+				return;
+			}
 			if ((hash != '#') && (hash != '')) {
 				var src = '';
 
