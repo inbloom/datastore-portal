@@ -132,7 +132,7 @@ public class EncryptFiles {
 		if (propertyFiles.length >= 1 && propertyFiles[0] != null
 				&& !"".equals(propertyFiles[0])) {
 			for (int i = 0; i < propertyFiles.length; i++) {
-
+				try{
 				FileReader propertyFile = new FileReader(
 						getPropertyFileLocation() + "\\" + propertyFiles[i]);
 				FileWriter encryptedPropertyFile = new FileWriter(
@@ -170,6 +170,9 @@ public class EncryptFiles {
 				p2.store(encryptedPropertyFile, "");
 				System.out.println("Encrypted [" + propertyFiles[i] + "] to ["
 						+ propertyFiles[i] + ".encrypted" + "]");
+				}catch(Exception e){
+					e.printStackTrace();
+				}
 			}
 			return true;
 		} else {

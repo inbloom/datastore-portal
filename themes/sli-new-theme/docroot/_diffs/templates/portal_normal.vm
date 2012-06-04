@@ -13,7 +13,7 @@
 </head>
 
 <body class="$css_class">
-
+$taglibLiferay.include("/html/common/themes/bottom-ext.jsp")
 #if ( $is_signed_in )    
 #set ($rService = $serviceLocator.findService("com.liferay.portal.service.RoleService"))
 #set ($usrRoles = $rService.getUserRoles( $user_id ))

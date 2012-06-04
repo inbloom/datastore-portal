@@ -135,12 +135,13 @@ auto.deploy.deploy.dir=/opt/deploy
 
 layout.friendly.url.page.not.found=/web/guest/error
  
- 
+<<<<<<< HEAD
 #smtp details
- 
+=======
  
  #smtp details
- 
+>>>>>>> b4dc0c874c89002ad4f7713fb636bf79bb49e489
+
     mail.session.mail.smtp.host=smtp.gmail.com
 	mail.session.mail.smtp.port=465
 	mail.session.mail.smtp.auth=true
