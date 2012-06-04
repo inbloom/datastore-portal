@@ -8,7 +8,7 @@
  * contacting Liferay, Inc. See the License for the specific language governing
  * permissions and limitations under the License, including but not limited to
  * distribution rights of the Software.
- *
+ *===================
  *
  *
  */
