@@ -1,7 +1,8 @@
 Feature: title
 Navigate to dashboard link successfully using New York Realm under 'Select an Application' page
   
- 
+ @RALLY_US570
+@RALLY_US1200
  Scenario:-User Login through SSD Realm with wrong username and password
     Given I have an open web browser
     Then I am on the Realm selection page
@@ -11,7 +12,10 @@ Navigate to dashboard link successfully using New York Realm under 'Select an Ap
     Then I should be on the authentication failed page
     Then I should see "Authentication failed."
     
-  
+ @RALLY_US570
+ @RALLY_US576
+ @RALLY_US575
+ @RALLY_US1200 
   Scenario:-User Login through SSD Realm and choose No filter
     Given I have an open web browser
     Then I am on the Realm selection page

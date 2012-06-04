@@ -41,7 +41,11 @@ Feature: title
     Then I should be on the admin page
     Then I follow all the wsrp links
     #@RALLY-US1193---Ref-141-As an IT admin, I want SLI Portal to include existing applications/components that exist in my state/district.
-
+@RALLY_US570
+@RALLY_US576
+@RALLY_US575
+@RALLY_US1193
+@RALLY_US1200
 Scenario:check  wsrp of admin user and go to admin page
     Given I have an open web browser
     Then I am on the Realm selection page
@@ -56,7 +60,11 @@ Scenario:check  wsrp of admin user and go to admin page
     Then I follow all the wsrp links
     #@RALLY-US1193---Ref-141-As an IT admin, I want SLI Portal to include existing applications/components that exist in my state/district.
 
-
+@RALLY_US570
+@RALLY_US576
+@RALLY_US575
+@RALLY_US1193
+@RALLY_US1200
 Scenario:check  wsrp of admin user and go to admin page
     Given I have an open web browser
     Then I am on the Realm selection page

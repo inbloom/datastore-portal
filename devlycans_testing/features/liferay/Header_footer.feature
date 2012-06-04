@@ -13,7 +13,11 @@ Scenario:check sli logo and user name in header and footer for admin user
     And I should see username
     And I should see footer  
 
-
+@RALLY_US570
+@RALLY_US576
+@RALLY_US575
+@RALLY_US1200
+@RALLY_US581
 Scenario: check sli logo and user name in header and footer for admin user 
     Given I have an open web browser
     When I go to the login page
@@ -26,6 +30,11 @@ Scenario: check sli logo and user name in header and footer for admin user
     And I should see username
     And I should see footer 
 
+@RALLY_US570
+@RALLY_US576
+@RALLY_US575
+@RALLY_US1200
+@RALLY_US581
 Scenario:check sli logo and user name in header and footer for normal user 
     Given I have an open web browser
     Then I am on the Realm selection page

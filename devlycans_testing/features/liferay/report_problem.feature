@@ -4,7 +4,11 @@ Feature: title
 
   #Background:
     #Given a normal user exists with "educator" and "educator1234"
-    
+ @RALLY_US570
+ @RALLY_US576
+ @RALLY_US575
+ @RALLY_US1200
+ @RALLY_US578  
   Scenario:Report a problem submission for SSD normal User
     Given I have an open web browser
     Then I am on the Realm selection page
@@ -19,7 +23,12 @@ Feature: title
     Then I fill "Some test Problems" from "_1_WAR_webformportlet_INSTANCE_W6Fvabb0rTf2_field2"
     Then I click button "Report a Problem"
     Then I should see "Thank you!"
-   
+ 
+ @RALLY_US570
+ @RALLY_US576
+ @RALLY_US575
+ @RALLY_US1200
+ @RALLYUS578   
   
    Scenario:Report a problem non happy submission for SSD normal User
     Given I have an open web browser
@@ -67,7 +76,11 @@ Feature: title
     Then I click button "Report a Problem"
     Then I should see "This field is mandatory." 
    
-
+ @RALLY_US570
+ @RALLY_US576
+ @RALLY_US575
+ @RALLYUS1200
+ @RALLYUS578 
   Scenario:Report a problem happy cancelation for SLI admin User
     Given I have an open web browser
     When I go to the login page
@@ -82,6 +95,11 @@ Feature: title
     Then I click button "Report a Problem"
     Then I should see "Thank you!"
 
+ @RALLY_US570
+ @RALLY_US576
+ @RALLY_US575
+ @RALLYUS1200
+ @RALLYUS578 
 Scenario:Report a problem happy cancelation for SLI admin User
     Given I have an open web browser
     When I go to the login page

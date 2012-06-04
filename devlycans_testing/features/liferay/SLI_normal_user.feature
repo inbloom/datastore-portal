@@ -5,7 +5,8 @@ Feature: title
   #Background:
     #Given a normal user exists with "educator" and "educator1234"
    
-  
+ @RALLY_US570
+ @RALLY_US1200
  Scenario: Normal User Login with wrong username and password
     Given I have an open web browser
     When I go to the login page
@@ -29,7 +30,10 @@ Feature: title
     Then I should be on the home page
     Then I should not see "Admin"
     Then I should logged out
-
+@RALLY_US570
+@RALLY_US576
+@RALLY_US575
+@RALLY_US1200
   Scenario: Normal User Login for SSD
    Given I have an open web browser
     Then I am on the Realm selection page
