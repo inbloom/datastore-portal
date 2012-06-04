@@ -134,9 +134,9 @@ public class EncryptFiles {
 			for (int i = 0; i < propertyFiles.length; i++) {
 				try{
 				FileReader propertyFile = new FileReader(
-						getPropertyFileLocation() + "\\" + propertyFiles[i]);
+						getPropertyFileLocation() + "/" + propertyFiles[i]);
 				FileWriter encryptedPropertyFile = new FileWriter(
-						getPropertyFileLocation() + "\\" + propertyFiles[i]
+						getPropertyFileLocation() + "/" + propertyFiles[i]
 								+ ".encrypted");
 
 				Properties p1 = new Properties();

@@ -6,7 +6,7 @@ import ch.qos.logback.classic.PatternLayout;
  * Provides custom patterns for including additional values in our log
  * statements.
  *
- * @author smelody
+ * @author 
  *
  */
 public class CommonPatternLayout extends PatternLayout {
