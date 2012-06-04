@@ -16,6 +16,7 @@ Feature: title
   Scenario:check admin user on admin page check  
    Given I have an open web browser
     When I go to the login page
+    #@RALLYUS570-- Ref 127 - As a user, I see a login screen that brings me to the SLI home page.
     When I login with "slcoperator" and "slcoperator1234"
     #this is admin user
     Then I should see "Admin"
@@ -35,6 +36,7 @@ Feature: title
  Scenario:check admin user on admin page check  
    Given I have an open web browser
     When I go to the login page
+    #@RALLYUS570-- Ref 127 - As a user, I see a login screen that brings me to the SLI home page.
     When I login with "sunsetrealmadmin" and "sunsetrealmadmin1234"
     #this is admin user
     Then I should see "Admin"
@@ -46,6 +48,7 @@ Feature: title
   Scenario:check admin user on admin page check  SLC administration to check Default SLI Roles
    Given I have an open web browser
     When I go to the login page
+    #@RALLYUS570-- Ref 127 - As a user, I see a login screen that brings me to the SLI home page.
     When I login with "demo" and "changeit"
     Then I should see "Admin"
     Then I follow "Admin"

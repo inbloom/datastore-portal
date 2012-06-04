@@ -9,6 +9,7 @@ Feature: title
  Scenario: Normal User Login with wrong username and password
     Given I have an open web browser
     When I go to the login page
+    #@RALLYUS570-- Ref 127 - As a user, I see a login screen that brings me to the SLI home page.
     When I login with "lkim" and "lkim"
     Then I should be on the authentication failed page
     Then I should see "Authentication failed."
@@ -22,6 +23,7 @@ Feature: title
  Scenario: Normal User Login for SLI
     Given I have an open web browser
     When I go to the login page
+    #@RALLYUS570-- Ref 127 - As a user, I see a login screen that brings me to the SLI home page.
     #Given I should remove all cookies
     When I login with "slcoperator" and "slcoperator1234"
     Then I should be on the home page

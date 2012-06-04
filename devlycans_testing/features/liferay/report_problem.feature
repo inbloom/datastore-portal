@@ -35,7 +35,7 @@ Feature: title
     Then I fill "Some test Problems" from "_1_WAR_webformportlet_INSTANCE_W6Fvabb0rTf2_field2"
     Then I click button "Report a Problem"
     Then I should see "This field is mandatory." 
-    
+  @wip  
   Scenario:Report a problem cancelation for SSD admin User for Happy submission
     Given I have an open web browser
     Then I am on the Realm selection page
@@ -51,7 +51,7 @@ Feature: title
     Then I click button "Report a Problem"
     Then I should see "Thank you!"
   
-  
+  @wip
   Scenario:Report a problem submission for SSD admin User for non Happy submission or blank submission
     Given I have an open web browser
     Then I am on the Realm selection page
@@ -71,6 +71,7 @@ Feature: title
   Scenario:Report a problem happy cancelation for SLI admin User
     Given I have an open web browser
     When I go to the login page
+    #@RALLYUS570-- Ref 127 - As a user, I see a login screen that brings me to the SLI home page.
     When I login with "slcoperator" and "slcoperator1234"
     Then I should be on the home page
     When I mouseover on menu and click submenu "Report a problem"
@@ -84,6 +85,7 @@ Feature: title
 Scenario:Report a problem happy cancelation for SLI admin User
     Given I have an open web browser
     When I go to the login page
+    #@RALLYUS570-- Ref 127 - As a user, I see a login screen that brings me to the SLI home page.
     When I login with "slcoperator" and "slcoperator1234"
     Then I should be on the home page
     When I mouseover on menu and click submenu "Report a problem"
@@ -99,6 +101,7 @@ Scenario:Report a problem happy cancelation for SLI admin User
    Scenario:Report a problem happy cancelation for SLI admin User
     Given I have an open web browser
     When I go to the login page
+    #@RALLYUS570-- Ref 127 - As a user, I see a login screen that brings me to the SLI home page.
     When I login with "demo" and "changeit"
     Then I should be on the home page
     When I mouseover on menu and click submenu "Report a problem"
@@ -112,6 +115,7 @@ Scenario:Report a problem happy cancelation for SLI admin User
    Scenario:Report a problem non happy submission for SLI admin User
     Given I have an open web browser
     When I go to the login page
+    #@RALLYUS570-- Ref 127 - As a user, I see a login screen that brings me to the SLI home page.
     When I login with "demo" and "changeit"
     Then I should be on the home page
     When I mouseover on menu and click submenu "Report a problem"

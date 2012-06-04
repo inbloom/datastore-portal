@@ -143,7 +143,7 @@ end
 
 When /^I go to the login page$/ do
   @driver.navigate.to ENV['api_server_url']
-   puts "@RALLYUS570-- Ref 127 - As a user, I see a login screen that brings me to the SLI home page."
+   puts ""
   begin
     a=@driver.find_element(:name,'realmId') #realmId should be the html tag name of select tag
     ele=true

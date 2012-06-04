@@ -11,6 +11,7 @@ Feature: title
  Scenario: Admin User Login with wrong username and password
     Given I have an open web browser
     When I go to the login page
+    #@RALLYUS570-- Ref 127 - As a user, I see a login screen that brings me to the SLI home page.
     #Given I should remove all cookies
     When I login with "dem" and "change"
     Then I should be on the authentication failed page
@@ -28,6 +29,7 @@ Feature: title
  Scenario: Admin User Login
     Given I have an open web browser
     When I go to the login page
+    #@RALLYUS570-- Ref 127 - As a user, I see a login screen that brings me to the SLI home page.
     #Given I should remove all cookies
     When I login with "sunsetrealmadmin" and "sunsetrealmadmin1234"
     Then I should be on the home page
@@ -37,6 +39,7 @@ Feature: title
  Scenario: Admin User Login
     Given I have an open web browser
     When I go to the login page
+    #@RALLYUS570-- Ref 127 - As a user, I see a login screen that brings me to the SLI home page.
     #Given I should remove all cookies
     When I login with "slcoperator" and "slcoperator1234"
     Then I should be on the home page
