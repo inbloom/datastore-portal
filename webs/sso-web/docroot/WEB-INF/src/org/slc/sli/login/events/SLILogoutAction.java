@@ -9,6 +9,7 @@ import com.liferay.portal.kernel.util.PropsUtil;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.slc.sli.api.client.impl.BasicClient;
 import org.slc.sli.login.servlet.filter.sso.SLISSOUtil;
 import org.slc.sli.util.PropsKeys;
 
@@ -34,8 +35,9 @@ public class SLILogoutAction extends Action {
 			if (!filterEnabled) {
 				return;
 			}
-
-			SLISSOUtil.logout(request);
+			_log.info("inside sli logout aciton ^^^^^^^^^^^^^^^^^");
+			BasicClient client = (BasicClient)request.getSession().getAttribute("client");
+			SLISSOUtil.logout(client);
 
 		} catch (Exception e) {
 			_log.error(e, e);

@@ -11,7 +11,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
-
+import com.google.gson.Gson;
 import org.slc.sli.util.Constants;
 import org.slc.sli.util.URLBuilder;
 
@@ -139,5 +139,139 @@ public class RESTClient {
     public void setSecurityUrl(String securityUrl) {
     	logger.info("inside rest client.."+securityUrl);
         this.securityUrl = securityUrl;
+    }
+    
+    
+    /**
+     * Make a PUT request to a REST service
+     * 
+     * @param path
+     *            the unique portion of the requested REST service URL
+     * @param token
+     *            not used yet
+     * 
+     * @param entity
+     *            entity used for update
+     * 
+     * @throws NoSessionException
+     */
+    public void putJsonRequestWHeaders(String path, String token, Object entity) {
+    	RestTemplate template = new RestTemplate();
+        if (token != null) {
+            URLBuilder url = null;
+            if (!path.startsWith("http")) {
+                url = new URLBuilder(getSecurityUrl());
+                url.addPath(path);
+            } else {
+                url = new URLBuilder(path);
+            }
+            System.out.println("inside put json request with headers 1..."+path);
+            System.out.println("inside put json request with headers 2..."+token);
+            System.out.println("inside put json request with headers 3..."+entity);
+            HttpHeaders headers = new HttpHeaders();
+            headers.add("Authorization", "Bearer " + token);
+            headers.add("Content-Type", "application/json");
+            HttpEntity requestEntity = new HttpEntity(entity, headers);
+            System.out.println("inside put json request with headers 4..."+requestEntity);
+            logger.info("Updating API at: {}", url);
+            try {
+                template.put(url.toString(), requestEntity);
+                
+            } catch (HttpClientErrorException e) {
+            	e.printStackTrace();
+            	System.out.println("inside put json request with headers 5...");
+                logger.info("Catch HttpClientException: {}", e.getStatusCode());
+            }
+        }
+    }
+    
+    public HttpEntity<String> exchange(String url, HttpMethod method, HttpEntity entity, Class cl) {
+    	RestTemplate template = new RestTemplate();
+        return template.exchange(url, method, entity, cl);
+    }
+    
+    
+    /**
+     * Make a request to a REST service and convert the result to JSON
+     * 
+     * @param path
+     *            the unique portion of the requested REST service URL
+     * @param token
+     *            not used yet
+     *
+     * @param fullEntities 
+     *             flag for returning expanded entities from the API
+     *            
+     * @return a {@link JsonElement} if the request is successful and returns valid JSON, otherwise
+     *         null.
+     * @throws NoSessionException
+     */
+     public String makeJsonRequestWHeaders(String path, String token) {
+
+        if (token != null) {
+
+            URLBuilder url = null;
+            if (!path.startsWith("http")) {
+                url = new URLBuilder(getSecurityUrl());
+                url.addPath(path);
+            } else {
+                url = new URLBuilder(path);
+            }
+
+            HttpHeaders headers = new HttpHeaders();
+            headers.add("Authorization", "Bearer " + token);
+            HttpEntity entity = new HttpEntity(headers);
+            logger.debug("Accessing API at: {}", url);
+            HttpEntity<String> response = null;
+            try {
+                response = exchange(url.toString(), HttpMethod.GET, entity, String.class);
+            } catch (HttpClientErrorException e) {
+                logger.debug("Catch HttpClientException: {}",  e.getStatusCode());
+            }
+            if (response == null) {
+                return null;
+            }
+            return response.getBody();
+        }
+        logger.debug("Token is null in call to RESTClient for path {}", path);
+
+        return null;
+    }
+
+    /**
+     * Creates a generic entity from an API call
+     *
+     * @param url
+     * @param token
+     * @param entityClass
+     * @return the entity
+     */
+    public Object createEntityFromAPI(String url, String token, Class entityClass) {
+//        DE260 - Logging of possibly sensitive data
+//        LOGGER.info("Querying API: {}", url);
+        String response = makeJsonRequestWHeaders(url, token);
+        if (response == null) {
+            return null;
+        }
+        Gson gson=new Gson();
+        Object e = gson.fromJson(response, entityClass);
+        return e;
+    }
+
+    public GenericEntity createEntityFromAPI(String url, String token) {
+//      DE260 - Logging of possibly sensitive data
+//      LOGGER.info("Querying API: {}", url);
+      String response = makeJsonRequestWHeaders(url, token);
+      if (response == null) {
+          return null;
+      }
+      Gson gson=new Gson();
+      GenericEntity e = gson.fromJson(response, GenericEntity.class);
+      return e;
+  }
+    
+    public <T> void putEntityToAPI(String url, String token, T entity) {
+    	 Gson gson=new Gson();
+        putJsonRequestWHeaders(url, token, gson.toJson(entity));
     }
 }

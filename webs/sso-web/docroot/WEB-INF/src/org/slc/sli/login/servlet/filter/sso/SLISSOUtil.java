@@ -18,8 +18,25 @@ import org.slc.sli.client.RESTClient;
 import org.slc.sli.util.Constants;
 import org.slc.sli.login.json.bean.UserData;
 import org.slc.sli.util.CookieKeys;
+import org.slc.sli.encrypt.EncryptUtils;
 
+import org.slc.sli.api.client.Entity;
+import org.slc.sli.api.client.EntityCollection;
+import org.slc.sli.api.client.impl.BasicClient;
+import org.slc.sli.api.client.impl.BasicQuery;
+import org.slc.sli.api.client.impl.GenericEntity;
+import org.slc.sli.common.constants.ResourceNames;
+import org.slc.sli.common.constants.v1.PathConstants;
 
+import javax.ws.rs.core.Response;
+
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * SLISSOUtil.java
@@ -32,26 +49,44 @@ import org.slc.sli.util.CookieKeys;
 
 public class SLISSOUtil {
 
-	private RESTClient restClient;
+	private EncryptUtils aesDecrypt;
 
-	public RESTClient getRestClient() {
+	//private RESTClient restClient;
+
+	public void setAesDecrypt(EncryptUtils aesDecrypt) {
+		this.aesDecrypt = aesDecrypt;
+	}
+
+	public EncryptUtils _getAesDecrypt() {
+		return aesDecrypt;
+	}
+
+	public static EncryptUtils getAesDecrypt() {
+		return instance._getAesDecrypt();
+	}
+
+	/*public RESTClient getRestClient() {
 		return restClient;
 	}
 
 	public void setRestClient(RESTClient restClient) {
 		this.restClient = restClient;
-	}
+	}*/
 
 	public SLISSOUtil() {
 		this.instance = this;
 	}
 
+	/*public static RESTClient getRestClientRC() {
+		return instance.getRestClient();
+	}*/
+	
 	public static boolean isAuthenticated(HttpServletRequest request,
 			HttpServletResponse response) {
 		return instance._isAuthenticated(request, response);
 	}
 
-	public static UserData getUserDetails(HttpServletRequest request) {
+	public static UserData getUserDetails(HttpServletRequest request)throws IOException {
 		return instance._getUserDetails(request);
 	}
 
@@ -71,21 +106,136 @@ public class SLISSOUtil {
 		return instance._getApiUrl();
 	}
 
-	public static boolean logout(HttpServletRequest request) {
-		return instance._logout(request);
+	public static boolean logout(BasicClient client)throws IOException {
+		return instance._logout(client);
 	}
+
+ private List<String> getRoles(BasicClient client) throws IOException {
+        List<String> roles = new ArrayList<String>();
+        EntityCollection collection = new EntityCollection();
+        try {
+        	 Response response2 = client.read(collection, PathConstants.SECURITY_SESSION_CHECK, BasicQuery.EMPTY_QUERY);
+        	 _log.info("response2-------"+response2.getStatus());
+        } catch (URISyntaxException e) {
+        	e.printStackTrace();
+            //LOG.error("Exception occurred", e);
+        }
+
+        if (collection != null && collection.size() >= 1) {
+        	roles= (List<String>)collection.get(0).getData().get("granted_authorities");
+        }
+        return roles;
+    }
+    
+    private boolean isAuthenticated(BasicClient client) throws IOException {
+        boolean authenticated = false;
+        EntityCollection collection = new EntityCollection();
+        try {
+        	 Response response2 = client.read(collection, PathConstants.SECURITY_SESSION_CHECK, BasicQuery.EMPTY_QUERY);
+        	 _log.info("response2-------"+response2.getStatus());
+        } catch (URISyntaxException e) {
+        	e.printStackTrace();
+            //LOG.error("Exception occurred", e);
+        }
+
+        if (collection != null && collection.size() >= 1) {
+        	authenticated= Boolean.valueOf((Boolean)collection.get(0).getData().get("authenticated"));
+        }
+        return authenticated;
+    }
+    
+    private String getUserId(BasicClient client) throws IOException {
+        String userId = "";
+        EntityCollection collection = new EntityCollection();
+        try {
+        	 Response response2 = client.read(collection, PathConstants.SECURITY_SESSION_CHECK, BasicQuery.EMPTY_QUERY);
+        	 _log.info("response2-------"+response2.getStatus());
+        } catch (URISyntaxException e) {
+        	e.printStackTrace();
+            //LOG.error("Exception occurred", e);
+        }
+
+        if (collection != null && collection.size() >= 1) {
+        	userId= (String)collection.get(0).getData().get("user_id");
+        }
+        return userId;
+    }
+    
+    private static String getFullName(BasicClient client) throws IOException {
+        String fullName = "";
+        EntityCollection collection = new EntityCollection();
+        try {
+        	 Response response2 = client.read(collection, PathConstants.SECURITY_SESSION_CHECK, BasicQuery.EMPTY_QUERY);
+        	 //_log.info("response2-------"+response2.getStatus());
+        } catch (URISyntaxException e) {
+        	e.printStackTrace();
+            //LOG.error("Exception occurred", e);
+        }
+
+        if (collection != null && collection.size() >= 1) {
+        	fullName= (String)collection.get(0).getData().get("full_name");
+        }
+        return fullName;
+    }
+
+    private boolean _logout(BasicClient client) throws IOException {
+        boolean logout = false;
+        EntityCollection collection = new EntityCollection();
+        try {
+        	 Response response2 = client.read(collection, PathConstants.SECURITY_SESSION_LOGOUT, BasicQuery.EMPTY_QUERY);
+        	 System.out.println("logout called...."+response2.getStatus());
+        	 //_log.info("response2-------"+response2.getStatus());
+        } catch (URISyntaxException e) {
+        	e.printStackTrace();
+            //LOG.error("Exception occurred", e);
+        }
+
+        if (collection != null && collection.size() >= 1) {
+        	logout= Boolean.valueOf((Boolean)collection.get(0).getData().get("logout"));
+        	System.out.println("value of logout is ***###"+logout);
+        }
+        return logout;
+    }
 
 	/**
 	 * Converts the jsonobject returned from the session check api to UserData
 	 * bean
 	 * 
 	 */
-	private UserData _getUserDetails(HttpServletRequest request) {
+	private UserData _getUserDetails(HttpServletRequest request)throws IOException {
 
-		String token = getToken(request).toString();
+		/*String token = getToken(request).toString();
 		JsonObject json = this.restClient.sessionCheck(token);
 		// store UserData object in session for futrhur ref
 		UserData userData = new Gson().fromJson(json, UserData.class);
+		HttpSession session = request.getSession();
+		session.setAttribute(Constants.USER_DATA, userData);*/
+		BasicClient client = (BasicClient)request.getSession().getAttribute("client");
+		boolean authenticated = false;
+        String fullName = "";
+        String userId = "";
+        List<String> roles = new ArrayList<String>();
+        EntityCollection collection = new EntityCollection();
+        try {
+        	 Response response2 = client.read(collection, PathConstants.SECURITY_SESSION_CHECK, BasicQuery.EMPTY_QUERY);
+        	 //_log.info("response2-------"+response2.getStatus());
+        } catch (URISyntaxException e) {
+        	e.printStackTrace();
+            //LOG.error("Exception occurred", e);
+        }
+
+        if (collection != null && collection.size() >= 1) {
+        	fullName= (String)collection.get(0).getData().get("full_name");
+        	userId= (String)collection.get(0).getData().get("user_id");
+        	authenticated= Boolean.valueOf((Boolean)collection.get(0).getData().get("authenticated"));
+        	roles= (List<String>)collection.get(0).getData().get("granted_authorities");
+        }
+        
+		UserData userData = new UserData();
+		userData.setAuthenticated(authenticated);
+		userData.setUser_id(userId);
+		userData.setFull_name(fullName);
+		userData.setGranted_authorities(roles);
 		HttpSession session = request.getSession();
 		session.setAttribute(Constants.USER_DATA, userData);
 		return userData;
@@ -96,7 +246,7 @@ public class SLISSOUtil {
 	 * httpse
 	 * 
 	 */
-	private boolean _logout(HttpServletRequest request) {
+	/*private boolean _logout(HttpServletRequest request) {
 
 		String token = getToken(request).toString();
 		JsonObject json = this.restClient.logout(token);
@@ -105,24 +255,34 @@ public class SLISSOUtil {
 		session.setAttribute(Constants.USER_DATA, null);
 		session.setAttribute(Constants.OAUTH_TOKEN, null);
 		return logout;
-	}
+	}*/
 
 	/**
 	 * Checks whether a user is authenticated
 	 * 
 	 */
-	private boolean _isAuthenticated(HttpServletRequest request,
+		private boolean _isAuthenticated(HttpServletRequest request,
 			HttpServletResponse response) {
 		boolean authenticated = false;
 		HttpSession session = request.getSession();
 		String token = (String) session.getAttribute(Constants.OAUTH_TOKEN);
+		
+		BasicClient client = (BasicClient)request.getSession().getAttribute("client");
+
+		_log.info("inside is authenticated ..."+token);
 
 		boolean sessionCheckAuthenticated = true;
 
-		if (Validator.isNotNull(token)) {
-			JsonObject json = this.restClient.sessionCheck(token);
+		if (Validator.isNotNull(token) && client!=null) {
+			/*JsonObject json = this.restClient.sessionCheck(token);
+
 			sessionCheckAuthenticated = json.get("authenticated")
-					.getAsBoolean();
+					.getAsBoolean();*/
+			try{
+				sessionCheckAuthenticated = isAuthenticated(client);
+			}catch(Exception e){
+				
+			}
 		}
 
 		// Check if token exists
