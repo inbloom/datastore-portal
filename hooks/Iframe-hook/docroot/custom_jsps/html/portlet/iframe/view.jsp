@@ -172,12 +172,14 @@ if (windowState.equals(WindowState.MAXIMIZED)) {
 				var src = '';
 
 				var path = hash.substring(1);
-
-				if (path.indexOf('https://') != 0) {
+				
+				// DE 660 Browser compatibiltily in iframe
+				var pathDecoded = decodeURIComponent(path);
+				if (pathDecoded.indexOf('https://') != 0) {
 					src = '<%= baseSrc %>';
 				}
 				
-				src += path;
+				src += pathDecoded;
 
 				var iframe = A.one('#<portlet:namespace />iframe');
 

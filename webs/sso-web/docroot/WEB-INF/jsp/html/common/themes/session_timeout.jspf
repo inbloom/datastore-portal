@@ -45,11 +45,11 @@
 		else if (GetterUtil.getBoolean(PropsUtil.get("org.slc.sli.login.servlet.filter.sso.SLIFilter")) && GetterUtil.getBoolean(PropsUtil.get("sli.sso.logout.on.session.expiration"))) {
 			sessionRedirectOnExpire = true;
 			String portalCtx = GetterUtil.getString(PropsUtil.get("portal.ctx"));
-			if(portalCtx!=null && portalCtx.equals("/")){
+			/*if(portalCtx!=null && portalCtx.equals("/")){
 				portalCtx = portalCtx + "c/portal/logout";
 			}else{
 				portalCtx = portalCtx + "/c/portal/logout";
-			}
+			}*/
 			sessionRedirectUrl = themeDisplay.getPortalURL()+portalCtx;
 		}
 
@@ -58,7 +58,7 @@
 		sessionTimeoutCal.add(Calendar.MILLISECOND, sessionTimeoutMinute);
 		%>
 
-		<c:if test="<%= sessionTimeoutWarning > 0 %>">
+		<c:if test="<%= sessionTimeoutWarning >= 0 %>">
 			<aui:script use="liferay-session">
 				Liferay.Session = new Liferay.SessionBase(
 					{
