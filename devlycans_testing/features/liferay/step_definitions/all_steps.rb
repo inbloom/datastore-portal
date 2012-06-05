@@ -573,11 +573,15 @@ When /^(?:|I )follow "([^\"]*)"$/ do |link|
 end
 
 
-And /^I should see SLI LOGO$/ do 
+And /^I should see LOGO$/ do 
 #puts "--@RALLYUS581-Ref-134-I want to be able to see a common header & footer UI that conforms to SLI standards. "
  begin
-  @driver.find_element(:xpath, "//div[@class='menu_n']/h1[@class='sli_logo_main']")
-  puts "SLI LOGO is found"
+  text=@driver.find_element(:xpath, "//div[@class='menu_n']/h1[@class='sli_logo_main']/a/span").text()
+  if text.match("SLC")
+   puts text 
+  else
+   puts "SLC text not found"
+  end
  rescue
   puts "No Such Element"
  end
