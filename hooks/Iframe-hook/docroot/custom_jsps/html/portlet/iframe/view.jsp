@@ -8,14 +8,13 @@
  * contacting Liferay, Inc. See the License for the specific language governing
  * permissions and limitations under the License, including but not limited to
  * distribution rights of the Software.
- *===================
+ *
  *
  *
  */
 --%>
 
 <%@ include file="/html/portlet/iframe/init.jsp" %>
-
 <%
  
 String iframeSrc = StringPool.BLANK;
@@ -34,18 +33,27 @@ if (Validator.isNotNull(iframeVariables)) {
 		iframeSrc = iframeSrc.concat(StringPool.QUESTION).concat(StringUtil.merge(iframeVariables, StringPool.AMPERSAND));
 	}
 }
+%>
+<script type="text/javascript">
 
-String baseSrc = iframeSrc;
-int lastSlashPos;
-if(iframeSrc.contains("https")){
-	lastSlashPos = iframeSrc.substring(8).lastIndexOf(StringPool.SLASH);
-}else{
-	lastSlashPos = iframeSrc.substring(7).lastIndexOf(StringPool.SLASH);
-}
+ var hash1 = document.location.hash;
 
-if (lastSlashPos != -1) {
-	baseSrc = iframeSrc.substring(0, lastSlashPos + 8);
-}
+if(hash1 == ''){
+	var errorPage = '/portal/web/guest/error';
+	window.location = errorPage;
+} 
+
+</script>
+<%
+
+iframeSrc = (String)session.getAttribute("iframeSrc"); 
+
+if(Validator.isNull(iframeSrc)){%>
+<script type="text/javascript">
+var error = '/portal/web/guest/error';
+window.location = error;
+</script>
+<%}
 
 String iframeHeight = heightNormal;
 
@@ -54,21 +62,11 @@ if (windowState.equals(WindowState.MAXIMIZED)) {
 }
 %>
 
-<c:choose>
-	<c:when test="<%= auth && Validator.isNull(userName) && !themeDisplay.isSignedIn() %>">
-		<div class="portlet-msg-info">
-			<a href="<%= themeDisplay.getURLSignIn() %>" target="_top"><liferay-ui:message key="please-sign-in-to-access-this-application" /></a>
-		</div>
-	</c:when>
-	<c:otherwise>
-		<div>
-			<iframe alt="<%= alt %>" border="<%= border %>" bordercolor="<%= bordercolor %>" frameborder="<%= frameborder %>" height="<%= iframeHeight %>" hspace="<%= hspace %>" id="<portlet:namespace />iframe" longdesc="<%= longdesc%>" name="<portlet:namespace />iframe" onload="<portlet:namespace />monitorIframe(); <%= resizeAutomatically ?  renderResponse.getNamespace() + "resizeIframe();" : StringPool.BLANK %>" scrolling="<%= scrolling %>" src="<%= iframeSrc %>" vspace="<%= vspace %>" width="<%= width %>">
+	<div>
+		<iframe alt="<%= alt %>" border="<%= border %>" bordercolor="<%= bordercolor %>" frameborder="<%= frameborder %>" height="<%= iframeHeight %>" hspace="<%= hspace %>" id="<portlet:namespace />iframe" longdesc="<%= longdesc%>" name="<portlet:namespace />iframe" onload="<%= resizeAutomatically ?  renderResponse.getNamespace() + "resizeIframe();" : StringPool.BLANK %>" scrolling="<%= scrolling %>" src="<%= iframeSrc %>" vspace="<%= vspace %>" width="<%= width %>">
 				<%= LanguageUtil.format(pageContext, "your-browser-does-not-support-inline-frames-or-is-currently-configured-not-to-display-inline-frames.-content-can-be-viewed-at-actual-source-page-x", iframeSrc) %>
 			</iframe>
-		</div>
-	</c:otherwise>
-</c:choose>
-
+	</div>
 <aui:script>
 	function <portlet:namespace />maximizeIframe(iframe) {
 		var winHeight = 0;
@@ -101,35 +99,6 @@ if (windowState.equals(WindowState.MAXIMIZED)) {
 		iframe.height = (winHeight - 139);
 	}
 
-	function <portlet:namespace />monitorIframe() {
-		var url = null;
-
-		try {
-			var iframe = document.getElementById('<portlet:namespace />iframe');
-
-			url = iframe.contentWindow.document.location.href;
-
-		}
-		catch (e) {
-			return true;
-		}
-
-		var baseSrc = '<%= baseSrc %>';
-		var iframeSrc = '<%= iframeSrc %>';
-
-		if ((url == iframeSrc) || (url == iframeSrc + '/')) {
-		}
-		else if (Liferay.Util.startsWith(url, baseSrc)) {
-			url = url.substring(baseSrc.length);
-
-			<portlet:namespace />updateHash(url);
-		}
-		else {
-			<portlet:namespace />updateHash(url);
-		}
-
-		return true;
-	}
 
 	function <portlet:namespace />resizeIframe() {
 		var iframe = document.getElementById('<portlet:namespace />iframe');
@@ -154,77 +123,4 @@ if (windowState.equals(WindowState.MAXIMIZED)) {
 
 		return true;
 	}
-
-	Liferay.provide(
-		window,
-		'<portlet:namespace />init',
-		function() {
-			var A = AUI();
-
-			var hash = document.location.hash;
-		//DE 633 -Added condition to check whether hash is present or not
-			if(hash ==''){
-				var errorPage = '/portal/web/guest/error';
-				window.location = errorPage;
-				return;
-			}
-			if ((hash != '#') && (hash != '')) {
-				var src = '';
-
-				var path = hash.substring(1);
-				
-				// DE 660 Browser compatibiltily in iframe
-				var pathDecoded = decodeURIComponent(path);
-				if (pathDecoded.indexOf('https://') != 0) {
-					src = '<%= baseSrc %>';
-				}
-				
-				src += pathDecoded;
-
-				var iframe = A.one('#<portlet:namespace />iframe');
-
-				if (iframe) {
-					iframe.attr('src', src);
-				}
-			}
-		},
-		['aui-base']
-	);
-
-	Liferay.provide(
-		window,
-		'<portlet:namespace />updateHash',
-		function(url) {
-			var A = AUI();
-
-			document.location.hash = url;
-
-			var maximize = A.one('#p_p_id<portlet:namespace /> .portlet-maximize-icon a');
-
-			if (maximize) {
-				var href = maximize.attr('href');
-
-				if (href.indexOf('#') != -1) {
-					href = href.substring(0, href.indexOf('#'));
-				}
-
-				maximize.attr('href', href + '#' + url);
-			}
-
-			var restore = A.one('#p_p_id<portlet:namespace /> a.portlet-icon-back');
-
-			if (restore) {
-				var href = restore.attr('href');
-
-				if (href.indexOf('#') != -1) {
-					href = href.substring(0, href.indexOf('#'));
-				}
-
-				restore.attr('href', href + '#' + url);
-			}
-		},
-		['aui-base']
-	);
-
-	<portlet:namespace />init();
 </aui:script>
