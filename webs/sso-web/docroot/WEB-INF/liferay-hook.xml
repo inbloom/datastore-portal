@@ -17,5 +17,8 @@
 		<dispatcher>REQUEST</dispatcher>
 		<dispatcher>FORWARD</dispatcher>
 	</servlet-filter-mapping>
-
+	 <!-- <struts-action>
+		<struts-action-path>/portal/update_terms_of_use</struts-action-path>
+		<struts-action-impl>org.slc.sli.portal.action.UpdateTermsOfUseAction</struts-action-impl>
+	</struts-action> --> 
 </hook>

@@ -7,10 +7,12 @@ Feature: title
 
     #Given an admin user exists with "demo" and "changeit"
     
- 
+@RALLY_US570 
+@RALLY_US1200
  Scenario: Admin User Login with wrong username and password
     Given I have an open web browser
     When I go to the login page
+    #@RALLYUS570-- Ref 127 - As a user, I see a login screen that brings me to the SLI home page.
     #Given I should remove all cookies
     When I login with "dem" and "change"
     Then I should be on the authentication failed page
@@ -24,19 +26,27 @@ Feature: title
     #Then I should be on the authentication failed page
     #Then I should see "Authentication failed."  
     
-
+@RALLY_US570 
+@RALLY_US575
+@RALLY_US576
+@RALLY_US1200
  Scenario: Admin User Login
     Given I have an open web browser
     When I go to the login page
+    #@RALLYUS570-- Ref 127 - As a user, I see a login screen that brings me to the SLI home page.
     #Given I should remove all cookies
     When I login with "sunsetrealmadmin" and "sunsetrealmadmin1234"
     Then I should be on the home page
     Then I should see "Admin"
     Then I should logged out
-
+@RALLY_US570 
+@RALLY_US575
+@RALLY_US576
+@RALLY_US1200
  Scenario: Admin User Login
     Given I have an open web browser
     When I go to the login page
+    #@RALLYUS570-- Ref 127 - As a user, I see a login screen that brings me to the SLI home page.
     #Given I should remove all cookies
     When I login with "slcoperator" and "slcoperator1234"
     Then I should be on the home page

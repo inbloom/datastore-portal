@@ -19,8 +19,9 @@
 		</supports>
 		<resource-bundle>content/Language</resource-bundle>
 		<portlet-info>
-			<title>Configure System</title>
-			<short-title>Configure System</short-title>
+			<!-- US 2435 portlet title renamed-->
+			<title>System Configuration</title>
+			<short-title>System Configuration</short-title>
 			<keywords></keywords>
 		</portlet-info>
 		<security-role-ref>

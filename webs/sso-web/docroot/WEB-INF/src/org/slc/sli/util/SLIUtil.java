@@ -1,11 +1,21 @@
 package org.slc.sli.util;
 
+import java.util.List;
+
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.PropsUtil;
 
 import org.slc.sli.login.json.bean.UserData;
 import org.slc.sli.util.PropsKeys;
+
+import org.slc.sli.api.client.Entity;
+import org.slc.sli.api.client.EntityCollection;
+import org.slc.sli.api.client.impl.BasicClient;
+import org.slc.sli.api.client.impl.BasicQuery;
+import org.slc.sli.api.client.impl.GenericEntity;
+import org.slc.sli.common.constants.ResourceNames;
+import org.slc.sli.common.constants.v1.PathConstants;
 
 /**
  * SLIUtil.java
@@ -27,7 +37,7 @@ public class SLIUtil {
 		String[] SLI_ROLE_ADMINISTRATOR = PropsUtil
 				.getArray(PropsKeys.SLI_ROLE_ADMINISTRATOR);
 		if (Validator.isNotNull(userdata)) {
-			String[] granted_authorities = userdata.getGranted_authorities();
+			List<String> granted_authorities = userdata.getGranted_authorities();
 			for (String role : granted_authorities) {
 				for (String admin : SLI_ROLE_ADMINISTRATOR) {
 					if (role.equalsIgnoreCase(admin)) {
@@ -46,7 +56,7 @@ public class SLIUtil {
 				.getArray(PropsKeys.SLI_ROLE_LIFERAY_ADMINISTRATOR);
 
 		if (Validator.isNotNull(userdata)) {
-			String[] granted_authorities = userdata.getGranted_authorities();
+			List<String> granted_authorities = userdata.getGranted_authorities();
 			for (String role : granted_authorities) {
 				for (String liferayAdmin : SLI_ROLE_LIFERAY_ADMINISTRATOR) {
 					if (role.equalsIgnoreCase(liferayAdmin)) {

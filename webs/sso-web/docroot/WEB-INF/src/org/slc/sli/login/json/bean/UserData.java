@@ -47,15 +47,15 @@ public class UserData implements Serializable {
 
 	private String user_id;
 
-	private String[] granted_authorities;
-
-	public String[] getGranted_authorities() {
+	public List<String> getGranted_authorities() {
 		return granted_authorities;
 	}
 
-	public void setGranted_authorities(String[] granted_authorities) {
+	public void setGranted_authorities(List<String> granted_authorities) {
 		this.granted_authorities = granted_authorities;
 	}
+
+	private List<String> granted_authorities;
 
 	public String getUser_id() {
 		return user_id;

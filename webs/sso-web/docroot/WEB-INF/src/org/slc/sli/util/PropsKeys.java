@@ -36,6 +36,6 @@ public interface PropsKeys {
 	
 	public static final String SLI_ROLE_LIFERAY_ADMINISTRATOR = "sli.role.liferayadmin";
 	
-	
+	public static final String SLI_COOKE_DOMAIN = "sli.cookie.domain";
 
 }

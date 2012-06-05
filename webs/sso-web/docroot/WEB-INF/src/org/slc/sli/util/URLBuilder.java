@@ -1,4 +1,3 @@
-
 package org.slc.sli.util;
 
 import java.io.UnsupportedEncodingException;
