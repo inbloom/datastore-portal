@@ -26,9 +26,11 @@ Scenario: check sli logo and user name in header and footer for admin user
     When I login with "slcoperator" and "slcoperator1234"
     Then I should be on the home page
     Then I should see "Admin"
-    And I should see SLI LOGO
+    And I should see LOGO
     And I should see username
-    And I should see footer 
+    And I should see footer
+    Then I follow "Admin"
+    And I should see LOGO
 
 @RALLY_US570
 @RALLY_US576
@@ -42,6 +44,6 @@ Scenario:check sli logo and user name in header and footer for normal user
     When I login with "linda.kim" and "linda.kim1234"
    #this is admin user
     
-    And I should see SLI LOGO
+    And I should see LOGO
     And I should see username
     And I should see footer      
