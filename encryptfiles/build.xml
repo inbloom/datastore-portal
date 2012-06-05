@@ -17,7 +17,7 @@
 		<echo> Running java class ......... </echo>
 		<java classname="EncryptFiles" classpath="${build_dir}">
 			<!--<arg value="${encryption.keystore}" />-->
-			<arg value="/jenkins/workspace/Portal_Devlycans/keystore/keystore.properties" />
+			<arg value="/storage/jenkins/workspace/Portal/keystore/keystore.properties" />
 			<!--<arg value="D:\\wgen\\liferay-plugins-sdk-6.1.0-ce-ga1\\keystore\\keystore.properties" />-->
 		</java>
 	</target>
