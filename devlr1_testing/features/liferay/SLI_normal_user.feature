@@ -19,8 +19,6 @@ Feature: title
    # Then I should be on the authentication failed page
    # Then I should see "Invalid User Name or password"   
  @wip
- @wip
- 
  Scenario: Normal User Login for SLI
     Given I have an open web browser
     When I go to the login page
@@ -36,7 +34,7 @@ Feature: title
     Then I select "4cb03fa0-83ad-46e2-a936-09ab31af377e"
     #Then I click "Go"
     When I login with "linda.kim" and "linda.kim1234"
-
+    #this is normal user
     Then I should be on the home page
     Then I should not see "Admin"
     Then I should logged out
