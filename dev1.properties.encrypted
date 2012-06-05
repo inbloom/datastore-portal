@@ -1,0 +1,8 @@
+#
+#Tue Jun 05 06:57:15 EDT 2012
+oauth.client.id=3A45CA67ED9EF660A4ED77DEC77A1709
+api.server.url=https\://devlycans.slidev.org/
+oauth.redirect=https\://devlr1.slidev.org/portal/c/portal/login
+api.client=apiClient
+security.server.url=https\://devlycans.slidev.org/
+oauth.client.secret=7BC42E6726BD443031F2DE12E9EC0078CFBBD781C37C1D1BEFEA144AB4BB17C048C7D40BDA5939771A299AFA65BB037757A2D2D65D536975E960723B26A2E6B1
