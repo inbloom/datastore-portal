@@ -19,8 +19,9 @@
 		</supports>
 		<resource-bundle>content/Language</resource-bundle>
 		<portlet-info>
-			<title>Applications</title>
-			<short-title>Applications</short-title>
+			<!-- US 2435 portlet title renamed-->
+			<title>My Applications</title>
+			<short-title>My Applications</short-title>
 			<keywords></keywords>
 		</portlet-info>
 		<security-role-ref>
