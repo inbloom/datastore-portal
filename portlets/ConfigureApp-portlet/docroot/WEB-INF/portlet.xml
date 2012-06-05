@@ -18,8 +18,9 @@
 			<portlet-mode>view</portlet-mode>
 		</supports>
 		<portlet-info>
-			<title>Configure Applications</title>
-			<short-title>Configure Applications</short-title>
+		<!-- US 2435 portlet title renamed-->
+			<title>Application Configuration</title>
+			<short-title>Application Configuration</short-title>
 			<keywords></keywords>
 		</portlet-info>
 		<security-role-ref>

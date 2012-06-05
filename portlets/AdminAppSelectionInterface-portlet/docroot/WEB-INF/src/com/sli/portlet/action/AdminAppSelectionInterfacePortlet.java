@@ -19,7 +19,7 @@ import com.liferay.portal.kernel.util.HttpUtil;
 import org.slc.sli.json.bean.AppsData;
 import org.slc.sli.json.bean.UserData;
 import org.slc.sli.util.AppsUtil;
-
+import javax.servlet.http.HttpServletRequest;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.servlet.SessionMessages;
@@ -152,7 +152,9 @@ public class AdminAppSelectionInterfacePortlet extends MVCPortlet {
 
 		String iframePage = GetterUtil.getString(PropsUtil
 				.get(PropsKeys.IFRAME_PAGE));
-
+		HttpServletRequest request = PortalUtil.getHttpServletRequest(actionRequest);
+		HttpSession session = request.getSession(false);
+		session.setAttribute("iframeSrc",url);
 		actionResponse.sendRedirect(iframePage + "#" + encodedUrl);
 		}else{
 			actionResponse.sendRedirect("/portal/web/guest/error");
