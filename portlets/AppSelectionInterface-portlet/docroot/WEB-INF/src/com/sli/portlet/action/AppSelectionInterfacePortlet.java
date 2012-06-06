@@ -30,6 +30,8 @@ import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.PropsUtil;
 import com.liferay.portal.kernel.util.WebKeys;
 import com.sli.util.PropsKeys;
+import com.liferay.portal.kernel.util.HttpUtil;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * Portlet implementation class AppSelectionInterfacePortlet
@@ -132,13 +134,21 @@ public class AppSelectionInterfacePortlet extends MVCPortlet {
 						+ SessionMessages.KEY_SUFFIX_HIDE_DEFAULT_ERROR_MESSAGE);
 		
 		if(code == 200){
-		actionResponse.setEvent(new QName("http:sli.com/events", "iframeurl"),
-				url);
+		String encodedUrl = "";
+
+			//DE 660 - Encoded url in iframe page.
+			encodedUrl = HttpUtil.encodeURL(url);
+			_log.info("encoded url===== "+encodedUrl);
+		//actionResponse.setEvent(new QName("http:sli.com/events", "iframeurl"),url);
 
 		String iframePage = GetterUtil.getString(PropsUtil
 				.get(PropsKeys.IFRAME_PAGE));
+		
+		HttpServletRequest request = PortalUtil.getHttpServletRequest(actionRequest);
+		HttpSession session = request.getSession(false);
+		session.setAttribute("iframeSrc",url);
 
-				actionResponse.sendRedirect(iframePage + "#" + url);
+				actionResponse.sendRedirect(iframePage + "#" + encodedUrl);
 	}else{
 		actionResponse.sendRedirect("/portal/web/guest/error");
 	}
