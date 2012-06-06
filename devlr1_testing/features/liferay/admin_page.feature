@@ -8,25 +8,47 @@ Feature: title
     Then I am on the Realm selection page
     Then I select "4cb03fa0-83ad-46e2-a936-09ab31af377e"
     When I login with "rrogers" and "rrogers1234"
-
+   #this is admin user
     Then I should see "Admin"
     Then I follow "Admin"
     Then I should be on the admin page
+@RALLY_US570
+ @RALLY_US576
+ @RALLY_US575
+@RALLY_US1200
 
-    
+  Scenario:check admin user on admin page check  
+   Given I have an open web browser
+    When I go to the login page
+    #@RALLYUS570-- Ref 127 - As a user, I see a login screen that brings me to the SLI home page.
+    When I login with "slcoperator" and "slcoperator1234"
+    #this is admin user
+    Then I should see "Admin"
+    Then I follow "Admin"
+    Then I should be on the admin page
+ @RALLY_US570
+ @RALLY_US576
+ @RALLY_US575
+@RALLY_US1200
+   
   Scenario:check Non admin user and check admin page
     Given I have an open web browser
     Then I am on the Realm selection page
     Then I select "4cb03fa0-83ad-46e2-a936-09ab31af377e"
     #Then I click "Go"
     When I login with "linda.kim" and "linda.kim1234"
-
+     #this is normal user
     Then I should be on the home page
     Then I should not see "Admin" 
-
+@RALLY_US570
+ @RALLY_US576
+ @RALLY_US575
+@RALLY_US1200
+@RALLY_US184
  Scenario:check admin user on admin page check  
    Given I have an open web browser
     When I go to the login page
+    #@RALLYUS570-- Ref 127 - As a user, I see a login screen that brings me to the SLI home page.
     When I login with "sunsetrealmadmin" and "sunsetrealmadmin1234"
     #this is admin user
     Then I should see "Admin"
@@ -38,6 +60,7 @@ Feature: title
   Scenario:check admin user on admin page check  SLC administration to check Default SLI Roles
    Given I have an open web browser
     When I go to the login page
+    #@RALLYUS570-- Ref 127 - As a user, I see a login screen that brings me to the SLI home page.
     When I login with "demo" and "changeit"
     Then I should see "Admin"
     Then I follow "Admin"

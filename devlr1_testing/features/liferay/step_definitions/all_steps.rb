@@ -8,10 +8,7 @@ require_relative '../../utils/selenium_common.rb'
 
 
 Then /^I am on the Realm selection page$/ do
-
- 
   @driver.navigate.to ENV['api_server_url']
- 
 end
 
 Then /^I select "([^\"]*)"$/ do |text|
@@ -57,7 +54,8 @@ Then /^I follow all the wsrp links$/ do
    
     wsrp_ele.each do |el|
       @driver.navigate.to el
-
+      #puts "@RALLY-US1193---Ref-141-As an IT admin, I want SLI Portal to include existing applications/components that exist in my state/district."
+      puts "successfully open #{el}"
     end
    
    
@@ -144,11 +142,8 @@ Given /^EULA has been accepted$/ do
 end
 
 When /^I go to the login page$/ do
-
- 
   @driver.navigate.to ENV['api_server_url']
-   puts "Ref 127 - As a user, I see a login screen that brings me to the SLI home page."
- 
+   puts ""
   begin
     a=@driver.find_element(:name,'realmId') #realmId should be the html tag name of select tag
     ele=true
@@ -186,7 +181,7 @@ Then  /^I follow the home page Dashboard$/ do
     #element= @driver.find_element(:xpath, "//td/a/div[text()=' Dashboard (Integration)']")
     element= @driver.find_element(:xpath, "//td/a/div[text()=' Dashboard']")
     element.click
-    puts "--@RALLYUS184-I would like the ability to see all administrative/operator functions that are available to me."
+   # puts "--@RALLYUS184-I would like the ability to see all administrative/operator functions that are available to me."
   rescue
     if @driver.page_source.match('SLI Exception')
       ele=false
@@ -233,7 +228,8 @@ Then /^I should logged out$/ do
 end
 
 Then /^I should be on the home page$/ do
-
+# puts "@RALLY_US576--Ref-128- As any user I see a portal home page with a listing of applications available to me."
+# puts "@RALLYUS575----I want a common UI element to return to SLI home page that I may place in my app as I please"
   begin
     ele=@driver.find_element(:xpath, "//input[@value='Agree']")
     element=true
@@ -276,6 +272,7 @@ end
 
 
 And /^I see the EULA Page$/ do
+# puts "--@RALLYUS1200---Ref-130 As a user logging in for the first time, I must click through a EULA acceptance."
   begin
     ele=@driver.find_element(:xpath, "//input[@value='Agree']")
     ele2=@driver.find_element(:xpath, "//input[@value='Logout']")
@@ -326,6 +323,7 @@ Given /^I should remove all cookies$/ do
 end
 
 When /^I login with "([^\"]*)" and "([^\"]*)"$/ do |username, password|
+#puts "@RALLYUS1200--Ref-130 As a user logging in for the first time, I must click through a EULA acceptance."
   begin
     @driver.manage.delete_all_cookies
     begin
@@ -450,6 +448,7 @@ And /^I click "([^\"]*)"$/ do |btn|
 end
 
 Then /^It open a popup$/ do
+#puts "---@RALLYUS578--Ref-136- As a user, I want to be able to report application and/or data problems so that they can be fixed and/or provide feedback on an application."
 begin
   wait = Selenium::WebDriver::Wait.new(:timeout => 10)
   wait.until{
@@ -574,14 +573,39 @@ When /^(?:|I )follow "([^\"]*)"$/ do |link|
 end
 
 
-
-
-
-Then /^I am selecting the first value from "([^\"]*)"$/ do |field|
-    a=@driver.find_element(:id,field) #realmId should be the html tag name of select tag
-    options=a.find_elements(:tag_name=>"option")[1].click
-    
+And /^I should see LOGO$/ do 
+#puts "--@RALLYUS581-Ref-134-I want to be able to see a common header & footer UI that conforms to SLI standards. "
+ begin
+  text=@driver.find_element(:xpath, "//div[@class='menu_n']/h1[@class='sli_logo_main']/a/span").text()
+  if text.match("SLC")
+   puts text 
+  else
+   puts "SLC text not found"
+  end
+ rescue
+  puts "No Such Element"
+ end
 end
+
+And /^I should see footer$/ do
+ #puts "@RALLYUS581--Ref-145 As a user, I see a common legal notice about data privacy across apps."
+  begin
+   element=@driver.find_element(:xpath, "//div[@id='p_p_id_footerportlet_WAR_headerfooterportlet_']/div[@class='portlet-body']")
+   puts element.text()
+  rescue
+   puts "No Such Element"
+  end
+end
+
+And /^I should see username$/ do
+  begin
+   element=@driver.find_element(:xpath, "//ul[@class='menu_n']/li[@class='first_item']/a")
+   puts element.text()
+  rescue
+    puts "No such Elements"
+  end
+end
+
 
 Then /^I am selecting the first value from "([^\"]*)"$/ do |field|
     a=@driver.find_element(:id,field) #realmId should be the html tag name of select tag
