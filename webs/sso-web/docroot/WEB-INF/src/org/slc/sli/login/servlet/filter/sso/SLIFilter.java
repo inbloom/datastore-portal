@@ -115,6 +115,7 @@ public class SLIFilter extends BasePortalFilter {
 					response.sendRedirect(request.getRequestURI());
 				}
 			}catch(Exception e){
+				e.printStackTrace();
 				//redirect to realm selection in case of token extractor error.
 				response = clearSliCookie(request,response);
 				String authUrl = service.getAuthorizationUrl(null);
