@@ -14,6 +14,8 @@
 */
 --%>
 
+<%@page import="com.liferay.portal.kernel.util.HttpUtil"%>
+
 <%@ taglib uri="http://alloy.liferay.com/tld/aui" prefix="aui" %>
 
 
@@ -38,8 +40,11 @@ if(renderRequest.getAttribute("appList") != null){
 
 <table border ="0">
  <c:forEach items="${appList}" var="app">
+ <%AppsData apps = (AppsData)pageContext.getAttribute("app");
+ String img = apps.getImage_url();
+ %>
 <tr>
-<td><img src="${app.image_url }" alt="app_logo" width="46" height="45"></img><br><br></td>
+<td><img src='<%=HttpUtil.decodeURL(img)%>' alt="app_logo" width="46" height="45"></img><br><br></td>
 <td>&nbsp;&nbsp;&nbsp;</td>
 <td style="vertical-align: top"> 
 

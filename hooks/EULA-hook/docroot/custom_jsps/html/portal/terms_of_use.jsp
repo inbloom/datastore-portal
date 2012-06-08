@@ -56,11 +56,11 @@ if (referer.equals(themeDisplay.getPathMain() + "/portal/update_terms_of_use")) 
 		</c:when>
 
 		<c:otherwise>
-			AGREEMENT NOT AVAILABLE<br/>
-<br/>
-Your district or organization has not made a liscening agreement available at this time.  In future, you may be asked to read and agree to terms of service for this platform, once one is made available.<br/>
-<br/>
-For now, please click "Agree" to continue.  You should not see this message again.<br/><br/>
+			AGREEMENT NOT AVAILABLE<br>
+<br>
+Your district or organization has not made a licensing agreement available at this time.  In future, you may be asked to read and agree to terms of service for this platform, once one is made available.<br>
+<br>
+For now, please click "Agree" to continue.  You should not see this message again.<br><br>
 		</c:otherwise>
 
 	</c:choose>
@@ -89,7 +89,7 @@ For now, please click "Agree" to continue.  You should not see this message agai
  
     <footer id="sli_footer">
       <div class="sli_footer_wrap">
-        <p>CONFIDENTIAL: This page may contain private student data; do not share with unauthorized persons.</p>
+        <p>CONFIDENTIAL: This page may contain private student data; do not share with unauthorized persons. </p>
       </div>
     </footer>
  

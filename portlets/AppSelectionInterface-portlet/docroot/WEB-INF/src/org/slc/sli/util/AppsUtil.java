@@ -3,7 +3,6 @@ package org.slc.sli.util;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
 import org.slc.sli.client.RESTClient;
 import org.slc.sli.json.bean.AppsData;
 
@@ -11,6 +10,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.util.HttpUtil;
 import com.liferay.portal.kernel.util.StringPool;
 
 /**
@@ -42,7 +42,7 @@ public class AppsUtil {
 	 * @author Manoj Mali
 	 * @param token - OAuth token retrieved from liferay session
 	 * @return List of AppsData
-	 * @throws IOException
+	 * @throws IOException 
 	 */
 	
 	public static List<AppsData> getUserApps(String token) throws IOException,NullPointerException {
@@ -92,11 +92,14 @@ public class AppsUtil {
 				_log.info("behaviour---"+behaviour);
 				_log.info("image url---"+imageUrl);
 				_log.info("app url---"+applicationUrl);
-				
+			
+			//DE 763 - http encoded image url	
+			String encodedImage = HttpUtil.encodeURL(imageUrl);
+			
 			apps.setName(name);
 			apps.setDescription(description);
 			apps.setBehaviour(behaviour);
-			apps.setImage_url(imageUrl);
+			apps.setImage_url(encodedImage);
 			apps.setApplication_url(applicationUrl);
 			
 			// add apps data bean to list
