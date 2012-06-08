@@ -21,7 +21,7 @@
 <%@page import="org.slc.sli.json.bean.AppsData"%>
 <%@ taglib uri="http://java.sun.com/portlet_2_0" prefix="portlet" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
+<%@page import="com.liferay.portal.kernel.util.HttpUtil"%>
 <portlet:defineObjects />
 
 
@@ -38,8 +38,11 @@ if(renderRequest.getAttribute("appList") != null){
 
 <table border ="0">
  <c:forEach items="${appList}" var="app">
+ <%AppsData apps = (AppsData)pageContext.getAttribute("app");
+ String img = apps.getImage_url();
+ %>
 <tr>
-<td><img src="${app.image_url }" alt="app_logo" width="46" height="45"></img><br><br></td>
+<td><img src='<%=HttpUtil.decodeURL(img)%>' alt="app_logo" width="46" height="45"></img><br><br></td>
 <td>&nbsp;&nbsp;&nbsp;</td>
 <td style="vertical-align: top"> 
 

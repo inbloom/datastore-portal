@@ -12,7 +12,7 @@ import com.google.gson.JsonElement;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.util.StringPool;
-
+import com.liferay.portal.kernel.util.HttpUtil;
 /**
  * <b>This Class is utility class to retrieve list of user accessible applications.</b>
  * @author Manoj Mali
@@ -93,10 +93,13 @@ public class AppsUtil {
 				_log.info("image url---"+imageUrl);
 				_log.info("app url---"+applicationUrl);
 				
+				//DE 763 - http encoded image url	
+			String encodedImage = HttpUtil.encodeURL(imageUrl);
+
 			apps.setName(name);
 			apps.setDescription(description);
 			apps.setBehaviour(behaviour);
-			apps.setImage_url(imageUrl);
+			apps.setImage_url(encodedImage);
 			apps.setApplication_url(applicationUrl);
 			
 			// add apps data bean to list
