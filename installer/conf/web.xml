@@ -195,11 +195,11 @@
 		<servlet-class>com.liferay.portal.servlet.JSONServlet</servlet-class>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
-	<servlet>
-	<!--	<servlet-name>JSON Web Service Servlet</servlet-name>
+<!--	<servlet>
+		<servlet-name>JSON Web Service Servlet</servlet-name>
 		<servlet-class>com.liferay.portal.jsonwebservice.JSONWebServiceServlet</servlet-class>
 		<load-on-startup>1</load-on-startup>
-	</servlet> -->
+	</servlet>-->
 	<servlet>
 		<servlet-name>Language Servlet</servlet-name>
 		<servlet-class>com.liferay.portal.servlet.LanguageServlet</servlet-class>
@@ -791,8 +791,8 @@
 		<servlet-name>WebDAV Servlet</servlet-name>
 		<url-pattern>/api/secure/webdav/*</url-pattern>
 	</servlet-mapping>
-	<!--<session-config>
-		<session-timeout>10</session-timeout>
+<!--	<session-config>
+		<session-timeout>30</session-timeout>
 	</session-config>-->
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>
