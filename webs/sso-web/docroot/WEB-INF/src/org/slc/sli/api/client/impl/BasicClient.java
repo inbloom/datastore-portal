@@ -71,13 +71,6 @@ public final class BasicClient implements SLIClient {
     public Response create(final Entity e) throws MalformedURLException, URISyntaxException {
         URL url = URLBuilder.create(restClient.getBaseURL()).entityType(e.getEntityType()).build();
         
-        try{
-        System.out.println("inside Basic client create method called ......................."+url);
-        System.out.println("inside Basic client chk1......................."+url.getAuthority());
-        System.out.println("inside Basic client chk2......................."+url.getContent());
-        }catch(Exception e1){
-        	e1.printStackTrace();
-        }
         return restClient.postRequest(url, gson.toJson(e.getData()));
     }
 
@@ -85,7 +78,6 @@ public final class BasicClient implements SLIClient {
     public Response read(EntityCollection entities, final String type, final Query query)
             throws MalformedURLException,
             URISyntaxException {
-    	System.out.println("inside read............."+type+"%%%"+query);
         return read(entities, type, null, query);
     }
 
@@ -97,7 +89,6 @@ public final class BasicClient implements SLIClient {
 
         URLBuilder builder = URLBuilder.create(restClient.getBaseURL()).entityType(type);
         
-        System.out.println("inside read builder............."+builder);
         
         if (id != null) {
             builder.id(id);
@@ -123,15 +114,12 @@ public final class BasicClient implements SLIClient {
     public Response getResource(EntityCollection entities, URL resourceURL, Query query)
             throws MalformedURLException, URISyntaxException {
         entities.clear();
-        System.out.println("inside getresource............."+resourceURL);
         
         URLBuilder urlBuilder = URLBuilder.create(resourceURL.toString());
         urlBuilder.query(query);
-        System.out.println("inside getresource1............."+urlBuilder);
         
         Response response = restClient.getRequest(urlBuilder.build());
-        System.out.println("inside  response2 ............."+response.getStatus());
-        if (response.getStatus() == Response.Status.OK.getStatusCode()) {
+        if (response != null && response.getStatus() == Response.Status.OK.getStatusCode()) {
 
             try {
                 JsonElement element = gson.fromJson(response.readEntity(String.class), JsonElement.class);

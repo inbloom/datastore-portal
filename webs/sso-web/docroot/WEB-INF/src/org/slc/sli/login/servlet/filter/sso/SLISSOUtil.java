@@ -183,7 +183,6 @@ public class SLISSOUtil {
         EntityCollection collection = new EntityCollection();
         try {
         	 Response response2 = client.read(collection, PathConstants.SECURITY_SESSION_LOGOUT, BasicQuery.EMPTY_QUERY);
-        	 System.out.println("logout called...."+response2.getStatus());
         	 //_log.info("response2-------"+response2.getStatus());
         } catch (URISyntaxException e) {
         	e.printStackTrace();
@@ -192,7 +191,6 @@ public class SLISSOUtil {
 
         if (collection != null && collection.size() >= 1) {
         	logout= Boolean.valueOf((Boolean)collection.get(0).getData().get("logout"));
-        	System.out.println("value of logout is ***###"+logout);
         }
         return logout;
     }
