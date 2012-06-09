@@ -83,7 +83,9 @@ public class SLIFilter extends BasePortalFilter {
 		if (request.getRequestURL().toString().endsWith("/c/portal/logout")) {
 			BasicClient client = (BasicClient) request.getSession()
 					.getAttribute("client");
-			SLISSOUtil.logout(client);
+			if(client != null) {
+				SLISSOUtil.logout(client);
+			}
 			processFilter(SLIFilter.class, request, response, filterChain);
 			return;
 		}
@@ -92,7 +94,9 @@ public class SLIFilter extends BasePortalFilter {
 				.endsWith("/c/portal/expire_session")) {
 			BasicClient client = (BasicClient) request.getSession()
 					.getAttribute("client");
-			SLISSOUtil.logout(client);
+			if(client != null) {
+				SLISSOUtil.logout(client);
+			}
 			return;
 		}
 
