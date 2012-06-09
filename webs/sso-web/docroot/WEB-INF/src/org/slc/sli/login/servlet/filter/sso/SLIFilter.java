@@ -79,10 +79,9 @@ public class SLIFilter extends BasePortalFilter {
 			throws Exception {
 
 		boolean authenticated = false;
+        	BasicClient client = (BasicClient) ((HttpServletRequest) request).getSession().getAttribute("client");
 
 		if (request.getRequestURL().toString().endsWith("/c/portal/logout")) {
-			BasicClient client = (BasicClient) request.getSession()
-					.getAttribute("client");
 			if(client != null) {
 				SLISSOUtil.logout(client);
 			}
@@ -92,8 +91,6 @@ public class SLIFilter extends BasePortalFilter {
 
 		if (request.getRequestURL().toString()
 				.endsWith("/c/portal/expire_session")) {
-			BasicClient client = (BasicClient) request.getSession()
-					.getAttribute("client");
 			if(client != null) {
 				SLISSOUtil.logout(client);
 			}
@@ -117,8 +114,10 @@ public class SLIFilter extends BasePortalFilter {
 		HttpSession session = request.getSession();
 
 		Object token = session.getAttribute(Constants.OAUTH_TOKEN);
-        
-		if (token == null && request.getParameter("code") != null) {
+		if (client == null) {
+			response.sendRedirect(request.getRequestURI());
+		}
+		else if (token == null && request.getParameter("code") != null) {
 		 _log.info("slifilter check 1......");
 			try {
 				String jsonText = handleCallback(request, response);
@@ -139,8 +138,6 @@ public class SLIFilter extends BasePortalFilter {
 				e.printStackTrace();
 				// redirect to realm selection in case of token extractor error.
 				response = clearSliCookie(request, response);
-				BasicClient client = (BasicClient) ((HttpServletRequest) request)
-						.getSession().getAttribute("client");
 				response.sendRedirect(client.getLoginURL().toExternalForm());
 			}
 		}	
