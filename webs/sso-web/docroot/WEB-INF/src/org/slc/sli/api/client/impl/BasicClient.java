@@ -34,7 +34,7 @@ import org.slc.sli.common.util.URLBuilder;
  *
  * @author asaarela
  */
-public final class BasicClient implements SLIClient {
+public final class BasicClient implements SLIClient,Serializable{
 
     private RESTClient restClient;
     private Gson gson = null;
