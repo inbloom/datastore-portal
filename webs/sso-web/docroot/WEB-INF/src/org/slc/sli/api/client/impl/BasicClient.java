@@ -27,7 +27,7 @@ import org.slc.sli.api.client.impl.transform.GenericEntityFromJson;
 import org.slc.sli.api.client.impl.transform.GenericEntityToJson;
 import org.slc.sli.common.util.Query;
 import org.slc.sli.common.util.URLBuilder;
-
+import java.io.Serializable;
 /**
  * Class defining the methods available to SLI API client applications. It provides
  * basic CRUD operations once the client connection is established.
