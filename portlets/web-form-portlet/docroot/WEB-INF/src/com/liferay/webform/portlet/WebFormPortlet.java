@@ -46,15 +46,22 @@ import com.liferay.portlet.expando.service.ExpandoValueLocalServiceUtil;
 import com.liferay.util.bridges.mvc.MVCPortlet;
 import com.liferay.portal.kernel.portlet.PortletResponseUtil;
 import com.liferay.webform.util.WebFormUtil;
+import com.sun.mail.smtp.SMTPTransport;
 
+import java.security.Security;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 import java.util.Set;
 
+import javax.mail.Message;
+import javax.mail.Session;
+import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
@@ -73,7 +80,7 @@ import org.slc.sli.util.EmailUtil;
  * @author Brian Wing Shun Chan
  */
 public class WebFormPortlet extends MVCPortlet {
-
+    
 	public void deleteData(ActionRequest actionRequest,
 			ActionResponse actionResponse) throws Exception {
 
@@ -432,13 +439,54 @@ public class WebFormPortlet extends MVCPortlet {
 				fromAddress = new InternetAddress(emailAddress);
 			}
 
-			InternetAddress toAddress = new InternetAddress(emailAddress);
+	        Security.addProvider(new com.sun.net.ssl.internal.ssl.Provider());
+	        
+	        final String SSL_FACTORY = "javax.net.ssl.SSLSocketFactory";
 
-			MailMessage mailMessage = new MailMessage(fromAddress, toAddress,
-					subject, body, false);
+	        Properties properties = PropsUtil.getProperties("mail.session", true);
+	        
+	        // Get a Properties object
+	        Properties props = System.getProperties();
+	        props.setProperty("mail.smtps.host", PropsUtil.get(PropsKeys.MAIL_SESSION_MAIL_SMTP_HOST));
+            props.setProperty("mail.smtp.port", PropsUtil.get(PropsKeys.MAIL_SESSION_MAIL_SMTP_PORT));
+	        props.setProperty("mail.smtp.socketFactory.class", SSL_FACTORY);
+	        props.setProperty("mail.smtp.socketFactory.fallback", "false");
+	        props.setProperty("mail.smtp.socketFactory.port", "465");
+	        props.setProperty("mail.smtps.auth", "true");
 
-			MailServiceUtil.sendEmail(mailMessage);
+	        /*
+	        If set to false, the QUIT command is sent and the connection is immediately closed. If set 
+	        to true (the default), causes the transport to wait for the response to the QUIT command.
 
+	        ref :   http://java.sun.com/products/javamail/javadocs/com/sun/mail/smtp/package-summary.html
+	                http://forum.java.sun.com/thread.jspa?threadID=5205249
+	                smtpsend.java - demo program from javamail
+	        */
+	        props.put("mail.smtps.quitwait", "false");
+
+	        Session session = Session.getInstance(props, null);
+	       
+	        String username = EmailUtil.getAesDecrypt().decrypt(PropsUtil.get(PropsKeys.MAIL_SESSION_MAIL_SMTP_USER));
+	        String password = EmailUtil.getAesDecrypt().decrypt(PropsUtil.get(PropsKeys.MAIL_SESSION_MAIL_SMTP_PASSWORD));
+	        
+			final MimeMessage msg = new MimeMessage(session);
+
+	        // -- Set the FROM and TO fields --
+	        msg.setFrom(fromAddress);
+	        msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(emailAddress, false));
+
+	        msg.setSubject(subject);
+	        msg.setText(body, "utf-8");
+	        
+	        SMTPTransport t = (SMTPTransport)session.getTransport("smtps");
+
+	        t.connect(PropsUtil.get(PropsKeys.MAIL_SESSION_MAIL_SMTP_HOST), username, password);
+	        
+	        if (t.isConnected()) {
+	            t.sendMessage(msg, msg.getAllRecipients());      
+	            t.close();
+	        }
+	        
 			return true;
 		} catch (Exception e) {
 			_log.error("The web form email could not be sent", e);
@@ -446,7 +494,7 @@ public class WebFormPortlet extends MVCPortlet {
 			return false;
 		}
 	}
-
+	
 	protected void serveCaptcha(ResourceRequest resourceRequest,
 			ResourceResponse resourceResponse) throws Exception {
 
