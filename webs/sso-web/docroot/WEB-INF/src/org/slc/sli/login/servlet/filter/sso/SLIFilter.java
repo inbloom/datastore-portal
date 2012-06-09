@@ -117,8 +117,9 @@ public class SLIFilter extends BasePortalFilter {
 		HttpSession session = request.getSession();
 
 		Object token = session.getAttribute(Constants.OAUTH_TOKEN);
-         _log.info("slifilter check 1......");
+        
 		if (token == null && request.getParameter("code") != null) {
+		 _log.info("slifilter check 1......");
 			try {
 				String jsonText = handleCallback(request, response);
 
@@ -142,14 +143,14 @@ public class SLIFilter extends BasePortalFilter {
 						.getSession().getAttribute("client");
 				response.sendRedirect(client.getLoginURL().toExternalForm());
 			}
-		}
-		_log.info("slifilter check 2......");		
+		}	
 		else if (token == null) {
+			_log.info("slifilter check 2......");
 			session.setAttribute(ENTRY_URL, request.getRequestURL());
 			authenticate(request, response);
 
-		}_log.info("slifilter check 3......");
-		else {
+		}else {
+			_log.info("slifilter check 3......");
 			// LOG.debug("Using access token " + token);
 			// addAuthentication((String) token);
 			response.sendRedirect(request.getRequestURI());
