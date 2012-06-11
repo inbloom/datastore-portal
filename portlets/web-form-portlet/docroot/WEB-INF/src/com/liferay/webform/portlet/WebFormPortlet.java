@@ -472,7 +472,10 @@ public class WebFormPortlet extends MVCPortlet {
 	       
 	        String username = EmailUtil.getAesDecrypt().decrypt(PropsUtil.get(PropsKeys.MAIL_SESSION_MAIL_SMTP_USER));
 	        String password = EmailUtil.getAesDecrypt().decrypt(PropsUtil.get(PropsKeys.MAIL_SESSION_MAIL_SMTP_PASSWORD));
-	        
+
+	        _log.info("Encrypted Username: " + PropsUtil.get(PropsKeys.MAIL_SESSION_MAIL_SMTP_USER));
+	        _log.info("Encrypted Password: " + PropsUtil.get(PropsKeys.MAIL_SESSION_MAIL_SMTP_PASSWORD));
+
 	        _log.info("Username to smtp: " + username);
 	        _log.info("Password to smtp: " + password);
 
