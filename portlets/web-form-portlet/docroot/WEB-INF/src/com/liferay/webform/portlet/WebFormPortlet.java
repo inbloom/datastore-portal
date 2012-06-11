@@ -455,17 +455,9 @@ public class WebFormPortlet extends MVCPortlet {
             props.setProperty("mail.smtp.port", PropsUtil.get(PropsKeys.MAIL_SESSION_MAIL_SMTP_PORT));
 	        props.setProperty("mail.smtp.socketFactory.class", SSL_FACTORY);
 	        props.setProperty("mail.smtp.socketFactory.fallback", "false");
-	        props.setProperty("mail.smtp.socketFactory.port", "465");
+	        props.setProperty("mail.smtp.socketFactory.port", PropsUtil.get(PropsKeys.MAIL_SESSION_MAIL_SMTP_PORT));
 	        props.setProperty("mail.smtps.auth", "true");
 
-	        /*
-	        If set to false, the QUIT command is sent and the connection is immediately closed. If set 
-	        to true (the default), causes the transport to wait for the response to the QUIT command.
-
-	        ref :   http://java.sun.com/products/javamail/javadocs/com/sun/mail/smtp/package-summary.html
-	                http://forum.java.sun.com/thread.jspa?threadID=5205249
-	                smtpsend.java - demo program from javamail
-	        */
 	        props.put("mail.smtps.quitwait", "false");
 
 	        Session session = Session.getInstance(props, null);
@@ -494,12 +486,11 @@ public class WebFormPortlet extends MVCPortlet {
 
 	        t.connect(PropsUtil.get(PropsKeys.MAIL_SESSION_MAIL_SMTP_HOST), username, password);
 	        
-	        if (t.isConnected()) {
-	            _log.info("Sending the message...");
-	            t.sendMessage(msg, msg.getAllRecipients());
-	            _log.info("Sent the message...");
-	            t.close();
-	        }
+	        _log.info("Sending the message...");
+	        t.sendMessage(msg, msg.getAllRecipients());
+	        _log.info("Sent the message...");
+	        
+	        t.close();
 	        
 			return true;
 		} catch (Exception e) {
