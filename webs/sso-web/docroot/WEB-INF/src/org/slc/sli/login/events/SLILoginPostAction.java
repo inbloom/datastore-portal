@@ -1,3 +1,4 @@
+
 package org.slc.sli.login.events;
 
 import com.liferay.portal.kernel.events.Action;
@@ -17,6 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.slc.sli.login.json.bean.UserData;
+import org.slc.sli.login.servlet.filter.sso.SLISSOUtil;
 import org.slc.sli.util.SLIUtil;
 import org.slc.sli.util.Constants;
 import org.slc.sli.util.PropsKeys;
@@ -41,8 +43,7 @@ public class SLILoginPostAction extends Action {
 
 			User user = (User) session.getAttribute(WebKeys.USER);
 
-			UserData userData = (UserData) session
-					.getAttribute(Constants.USER_DATA);
+			UserData userData = SLISSOUtil.getUserDetails(request);
 
 			boolean isAdmin = SLIUtil.isAdmin(userData);
 

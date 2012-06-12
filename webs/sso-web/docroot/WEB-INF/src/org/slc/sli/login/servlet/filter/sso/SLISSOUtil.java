@@ -1,3 +1,4 @@
+
 package org.slc.sli.login.servlet.filter.sso;
 
 import com.liferay.portal.kernel.log.Log;
@@ -167,9 +168,6 @@ public class SLISSOUtil {
 		userData.setUser_id(userId);
 		userData.setFull_name(fullName);
 		userData.setGranted_authorities(roles);
-		HttpSession session = request.getSession();
-		session.setAttribute(Constants.USER_DATA, userData);
-
 		if (_log.isDebugEnabled()) {
 			_log.debug("Fetching user details from sessioncheck api "
 					+ userData);

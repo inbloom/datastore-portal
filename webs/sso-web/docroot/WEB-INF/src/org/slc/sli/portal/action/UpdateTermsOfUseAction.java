@@ -1,3 +1,4 @@
+
 package org.slc.sli.portal.action;
 
 import java.io.IOException;
@@ -55,12 +56,9 @@ public class UpdateTermsOfUseAction extends BaseStrutsAction  {
 			
 			System.out.println("token value si ....***"+request.getSession().getAttribute("OAUTH_TOKEN"));
 			
-			//BasicClient client = (BasicClient)request.getSession().getAttribute("client");
-			
 			BasicClient client = SLISSOUtil.getBasicClientObject();
-
-	      	HttpSession session = request.getSession();
-			UserData userData = (UserData)session.getAttribute(Constants.USER_DATA);
+	      	
+	      	UserData userData = SLISSOUtil.getUserDetails(request);
 
 			try{
 				EntityCollection collection = new EntityCollection();
