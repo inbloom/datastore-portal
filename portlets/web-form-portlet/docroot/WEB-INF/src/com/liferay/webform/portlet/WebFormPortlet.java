@@ -443,55 +443,69 @@ public class WebFormPortlet extends MVCPortlet {
 
 	        _log.info("Email to: " + emailAddress);
 
-	        Security.addProvider(new com.sun.net.ssl.internal.ssl.Provider());
-	        
-	        final String SSL_FACTORY = "javax.net.ssl.SSLSocketFactory";
+	        boolean isAuthRequired = Boolean.parseBoolean(PropsUtil.get("mail.session.mail.smtp.auth"));
 
-	        Properties properties = PropsUtil.getProperties("mail.session", true);
-	        
-	        // Get a Properties object
-	        Properties props = System.getProperties();
-	        props.setProperty("mail.smtps.host", PropsUtil.get(PropsKeys.MAIL_SESSION_MAIL_SMTP_HOST));
-            props.setProperty("mail.smtp.port", PropsUtil.get(PropsKeys.MAIL_SESSION_MAIL_SMTP_PORT));
-	        props.setProperty("mail.smtp.socketFactory.class", SSL_FACTORY);
-	        props.setProperty("mail.smtp.socketFactory.fallback", "false");
-	        props.setProperty("mail.smtp.socketFactory.port", PropsUtil.get(PropsKeys.MAIL_SESSION_MAIL_SMTP_PORT));
-	        props.setProperty("mail.smtps.auth", "true");
-
-	        props.put("mail.smtps.quitwait", "false");
-
-	        Session session = Session.getInstance(props, null);
-	       
-	        String username = EmailUtil.getAesDecrypt().decrypt(PropsUtil.get(PropsKeys.MAIL_SESSION_MAIL_SMTP_USER));
-	        String password = EmailUtil.getAesDecrypt().decrypt(PropsUtil.get(PropsKeys.MAIL_SESSION_MAIL_SMTP_PASSWORD));
-
-	        _log.info("Encrypted Username: " + PropsUtil.get(PropsKeys.MAIL_SESSION_MAIL_SMTP_USER));
-	        _log.info("Encrypted Password: " + PropsUtil.get(PropsKeys.MAIL_SESSION_MAIL_SMTP_PASSWORD));
-
-	        _log.info("Username to smtp: " + username);
-	        _log.info("Password to smtp: " + password);
-
-			final MimeMessage msg = new MimeMessage(session);
-
-	        // -- Set the FROM and TO fields --
-	        msg.setFrom(fromAddress);
-	        msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(emailAddress, false));
-
-	        msg.setSubject(subject);
-	        msg.setText(body, "utf-8");
-	        
-	        SMTPTransport t = (SMTPTransport)session.getTransport("smtps");
-
-	        _log.info("Connecting to smtp server...");
-
-	        t.connect(PropsUtil.get(PropsKeys.MAIL_SESSION_MAIL_SMTP_HOST), username, password);
-	        
-	        _log.info("Sending the message...");
-	        t.sendMessage(msg, msg.getAllRecipients());
-	        _log.info("Sent the message...");
-	        
-	        t.close();
-	        
+	        if (isAuthRequired || (!PropsUtil.get(PropsKeys.MAIL_SESSION_MAIL_SMTP_USER).isEmpty() &&
+	                !PropsUtil.get(PropsKeys.MAIL_SESSION_MAIL_SMTP_PASSWORD).isEmpty())) {
+	            
+	            // smtp requiring authentication
+    	        Security.addProvider(new com.sun.net.ssl.internal.ssl.Provider());
+    	        
+    	        final String SSL_FACTORY = "javax.net.ssl.SSLSocketFactory";
+    
+    	        Properties properties = PropsUtil.getProperties("mail.session", true);
+    	        
+    	        // Get a Properties object
+    	        Properties props = System.getProperties();
+    	        props.setProperty("mail.smtps.host", PropsUtil.get(PropsKeys.MAIL_SESSION_MAIL_SMTP_HOST));
+                props.setProperty("mail.smtp.port", PropsUtil.get(PropsKeys.MAIL_SESSION_MAIL_SMTP_PORT));
+    	        props.setProperty("mail.smtp.socketFactory.class", SSL_FACTORY);
+    	        props.setProperty("mail.smtp.socketFactory.fallback", "false");
+    	        props.setProperty("mail.smtp.socketFactory.port", PropsUtil.get(PropsKeys.MAIL_SESSION_MAIL_SMTP_PORT));
+    	        props.setProperty("mail.smtps.auth", "true");
+    
+    	        props.put("mail.smtps.quitwait", "false");
+    
+    	        Session session = Session.getInstance(props, null);
+    	       
+    	        String username = EmailUtil.getAesDecrypt().decrypt(PropsUtil.get(PropsKeys.MAIL_SESSION_MAIL_SMTP_USER));
+    	        String password = EmailUtil.getAesDecrypt().decrypt(PropsUtil.get(PropsKeys.MAIL_SESSION_MAIL_SMTP_PASSWORD));
+    
+    	        _log.info("Encrypted Username: " + PropsUtil.get(PropsKeys.MAIL_SESSION_MAIL_SMTP_USER));
+    	        _log.info("Encrypted Password: " + PropsUtil.get(PropsKeys.MAIL_SESSION_MAIL_SMTP_PASSWORD));
+    
+    	        _log.info("Username to smtp: " + username);
+    	        _log.info("Password to smtp: " + password);
+    
+    			final MimeMessage msg = new MimeMessage(session);
+    
+    	        // -- Set the FROM and TO fields --
+    	        msg.setFrom(fromAddress);
+    	        msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(emailAddress, false));
+    
+    	        msg.setSubject(subject);
+    	        msg.setText(body, "utf-8");
+    	        
+    	        SMTPTransport t = (SMTPTransport)session.getTransport("smtps");
+    
+    	        _log.info("Connecting to smtp server...");
+    
+    	        t.connect(PropsUtil.get(PropsKeys.MAIL_SESSION_MAIL_SMTP_HOST), username, password);
+    	        
+    	        _log.info("Sending the message...");
+    	        t.sendMessage(msg, msg.getAllRecipients());
+    	        _log.info("Sent the message...");
+    	        
+    	        t.close();
+	        } else {
+	            // smtp not requiring authentication
+	            InternetAddress toAddress = new InternetAddress(emailAddress);
+	            
+	            MailMessage mailMessage = new MailMessage(fromAddress, toAddress, subject, body, false);
+	            
+	            MailServiceUtil.sendEmail(mailMessage);
+  
+	        }
 			return true;
 		} catch (Exception e) {
 			_log.error("The web form email could not be sent", e);
