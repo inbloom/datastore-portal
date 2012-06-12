@@ -3,19 +3,11 @@ package org.slc.sli.util;
 import java.util.List;
 
 import com.liferay.portal.kernel.util.Validator;
-import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.PropsUtil;
-
 import org.slc.sli.login.json.bean.UserData;
 import org.slc.sli.util.PropsKeys;
 
-import org.slc.sli.api.client.Entity;
-import org.slc.sli.api.client.EntityCollection;
-import org.slc.sli.api.client.impl.BasicClient;
-import org.slc.sli.api.client.impl.BasicQuery;
-import org.slc.sli.api.client.impl.GenericEntity;
-import org.slc.sli.common.constants.ResourceNames;
-import org.slc.sli.common.constants.v1.PathConstants;
+
 
 /**
  * SLIUtil.java
