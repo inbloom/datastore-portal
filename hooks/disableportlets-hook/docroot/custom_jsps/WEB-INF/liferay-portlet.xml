@@ -20,6 +20,7 @@
 		<css-class-wrapper>portlet-users-admin</css-class-wrapper>
 		<add-default-resource>true</add-default-resource>
 		<system>true</system>
+		<include>false</include>
 	</portlet>
 	<portlet>
 		<portlet-name>3</portlet-name>
@@ -35,6 +36,7 @@
 		<header-portlet-css>/html/portlet/search/css/main.css</header-portlet-css>
 		<css-class-wrapper>portlet-search</css-class-wrapper>
 		<add-default-resource>true</add-default-resource>
+		<include>false</include>
 	</portlet>
 	<portlet>
 		<portlet-name>8</portlet-name>
@@ -101,6 +103,7 @@
 		<private-session-attributes>false</private-session-attributes>
 		<render-weight>50</render-weight>
 		<css-class-wrapper>portlet-admin</css-class-wrapper>
+		<include>false</include>
 	</portlet>
 	<portlet>
 		<portlet-name>10</portlet-name>
@@ -111,6 +114,7 @@
 		<private-session-attributes>false</private-session-attributes>
 		<render-weight>50</render-weight>
 		<css-class-wrapper>portlet-address-book</css-class-wrapper>
+		<include>false</include>
 	</portlet>
 	<portlet>
 		<portlet-name>11</portlet-name>
@@ -166,6 +170,7 @@
 		<header-portlet-javascript>/html/portlet/journal/js/main.js</header-portlet-javascript>
 		<css-class-wrapper>portlet-journal</css-class-wrapper>
 		<add-default-resource>true</add-default-resource>
+		<include>false</include>
 	</portlet>
 	<portlet>
 		<portlet-name>16</portlet-name>
@@ -348,6 +353,7 @@
 		<render-weight>50</render-weight>
 		<header-portlet-css>/html/portlet/layouts_admin/css/main.css</header-portlet-css>
 		<css-class-wrapper>portlet-communities</css-class-wrapper>
+		<include>false</include>
 	</portlet>
 	<portlet>
 		<portlet-name>30</portlet-name>
@@ -516,6 +522,7 @@
 		<render-weight>50</render-weight>
 		<add-default-resource>true</add-default-resource>
 		<system>true</system>
+		<include>false</include>
 	</portlet>
 	<portlet>
 		<portlet-name>50</portlet-name>
@@ -583,6 +590,7 @@
 		<header-portlet-css>/html/portlet/login/css/main.css</header-portlet-css>
 		<css-class-wrapper>portlet-login</css-class-wrapper>
 		<add-default-resource>true</add-default-resource>
+		<include>false</include>
 	</portlet>
 	<portlet>
 		<portlet-name>59</portlet-name>
@@ -622,6 +630,7 @@
 		<private-session-attributes>false</private-session-attributes>
 		<render-weight>50</render-weight>
 		<css-class-wrapper>portlet-journal-articles</css-class-wrapper>
+		<include>false</include>
 	</portlet>
 	<portlet>
 		<portlet-name>64</portlet-name>
@@ -655,6 +664,7 @@
 		<private-session-attributes>false</private-session-attributes>
 		<render-weight>50</render-weight>
 		<css-class-wrapper>portlet-web-proxy</css-class-wrapper>
+		<include>false</include>
 	</portlet>
 	<portlet>
 		<portlet-name>67</portlet-name>
@@ -679,6 +689,7 @@
 		<private-session-attributes>false</private-session-attributes>
 		<render-weight>50</render-weight>
 		<css-class-wrapper>portlet-password-generator</css-class-wrapper>
+		<include>false</include>
 	</portlet>
 	<portlet>
 		<portlet-name>71</portlet-name>
@@ -694,6 +705,7 @@
 		<render-weight>50</render-weight>
 		<css-class-wrapper>portlet-navigation</css-class-wrapper>
 		<add-default-resource>true</add-default-resource>
+		<include>false</include>
 	</portlet>
 	<portlet>
 		<portlet-name>73</portlet-name>
@@ -724,6 +736,7 @@
 		<render-weight>50</render-weight>
 		<css-class-wrapper>portlet-journal-content-search</css-class-wrapper>
 		<add-default-resource>true</add-default-resource>
+		<include>false</include>
 	</portlet>
 	<portlet>
 		<portlet-name>82</portlet-name>
@@ -810,6 +823,7 @@
 		<css-class-wrapper>portlet-configuration</css-class-wrapper>
 		<add-default-resource>true</add-default-resource>
 		<system>true</system>
+		<include>false</include>
 	</portlet>
 	<portlet>
 		<portlet-name>87</portlet-name>
@@ -823,6 +837,7 @@
 		<render-weight>50</render-weight>
 		<add-default-resource>true</add-default-resource>
 		<system>true</system>
+		<include>false</include>
 	</portlet>
 	<portlet>
 		<portlet-name>88</portlet-name>
@@ -839,6 +854,7 @@
 		<css-class-wrapper>portlet-communities</css-class-wrapper>
 		<add-default-resource>true</add-default-resource>
 		<system>true</system>
+		<include>false</include>
 	</portlet>
 	<portlet>
 		<portlet-name>90</portlet-name>
@@ -894,6 +910,7 @@
 		<footer-portal-javascript>/html/js/liferay/service.js</footer-portal-javascript>
 		<footer-portlet-javascript>/html/portlet/asset_tag_admin/js/main.js</footer-portlet-javascript>
 		<css-class-wrapper>portlet-asset-tag-admin</css-class-wrapper>
+		<include>false</include>
 	</portlet>
 	<portlet>
 		<portlet-name>100</portlet-name>
@@ -906,6 +923,7 @@
 		<private-session-attributes>false</private-session-attributes>
 		<render-weight>50</render-weight>
 		<css-class-wrapper>portlet-invitation</css-class-wrapper>
+		<include>false</include>
 	</portlet>
 	<portlet>
 		<portlet-name>101</portlet-name>
@@ -975,6 +993,7 @@
 		<header-portlet-css>/html/portlet/update_manager/css/main.css</header-portlet-css>
 		<css-class-wrapper>portlet-update-manager</css-class-wrapper>
 		<add-default-resource>true</add-default-resource>
+		<include>false</include>
 	</portlet>
 	<portlet>
 		<portlet-name>107</portlet-name>
@@ -1039,6 +1058,7 @@
 		<render-weight>50</render-weight>
 		<css-class-wrapper>portlet-plugin-installer</css-class-wrapper>
 		<add-default-resource>true</add-default-resource>
+		<include>false</include>
 	</portlet>
 	<portlet>
 		<portlet-name>113</portlet-name>
@@ -1050,6 +1070,7 @@
 		<render-weight>50</render-weight>
 		<add-default-resource>true</add-default-resource>
 		<system>true</system>
+		<include>false</include>
 	</portlet>
 	<portlet>
 		<portlet-name>114</portlet-name>
@@ -1092,6 +1113,7 @@
 		<private-session-attributes>false</private-session-attributes>
 		<render-weight>50</render-weight>
 		<css-class-wrapper>portlet-activities</css-class-wrapper>
+		<include>false</include>
 	</portlet>
 	<portlet>
 		<portlet-name>118</portlet-name>
@@ -1117,6 +1139,7 @@
 		<private-session-attributes>false</private-session-attributes>
 		<render-weight>50</render-weight>
 		<system>true</system>
+		<include>false</include>
 	</portlet>
 	<portlet>
 		<portlet-name>121</portlet-name>
@@ -1126,6 +1149,7 @@
 		<private-session-attributes>false</private-session-attributes>
 		<render-weight>50</render-weight>
 		<css-class-wrapper>portlet-activities</css-class-wrapper>
+		<include>false</include>
 	</portlet>
 	<portlet>
 		<portlet-name>122</portlet-name>
@@ -1140,6 +1164,7 @@
 		<private-session-attributes>false</private-session-attributes>
 		<render-weight>50</render-weight>
 		<css-class-wrapper>portlet-asset-categories-navigation</css-class-wrapper>
+		<include>false</include>
 	</portlet>
 	<portlet>
 		<portlet-name>124</portlet-name>
@@ -1149,6 +1174,7 @@
 		<social-request-interpreter-class>com.liferay.portlet.social.util.PortalRequestInterpreter</social-request-interpreter-class>
 		<preferences-owned-by-group>true</preferences-owned-by-group>
 		<system>true</system>
+		<include>false</include>
 	</portlet>
 	<portlet>
 		<portlet-name>125</portlet-name>
@@ -1187,6 +1213,7 @@
 		<render-weight>50</render-weight>
 		<header-portlet-css>/html/portlet/layouts_admin/css/main.css</header-portlet-css>
 		<css-class-wrapper>portlet-users-admin</css-class-wrapper>
+		<include>false</include>
 	</portlet>
 	<portlet>
 		<portlet-name>128</portlet-name>
@@ -1218,6 +1245,7 @@
 		<render-weight>50</render-weight>
 		<header-portlet-css>/html/portlet/users_admin/css/main.css</header-portlet-css>
 		<css-class-wrapper>portlet-users-admin</css-class-wrapper>
+		<include>false</include>
 	</portlet>
 	<portlet>
 		<portlet-name>130</portlet-name>
@@ -1234,6 +1262,7 @@
 		<header-portlet-css>/html/portlet/users_admin/css/main.css</header-portlet-css>
 		<footer-portlet-javascript>/html/portlet/users_admin/js/main.js</footer-portlet-javascript>
 		<css-class-wrapper>portlet-users-admin</css-class-wrapper>
+		<include>false</include>
 	</portlet>
 	<portlet>
 		<portlet-name>131</portlet-name>
@@ -1249,6 +1278,7 @@
 		<render-weight>50</render-weight>
 		<header-portlet-css>/html/portlet/users_admin/css/main.css</header-portlet-css>
 		<css-class-wrapper>portlet-users-admin</css-class-wrapper>
+		<include>false</include>
 	</portlet>
 	<portlet>
 		<portlet-name>132</portlet-name>
@@ -1264,6 +1294,7 @@
 		<render-weight>50</render-weight>
 		<header-portlet-css>/html/portlet/users_admin/css/main.css</header-portlet-css>
 		<css-class-wrapper>portlet-users-admin</css-class-wrapper>
+		<include>false</include>
 	</portlet>
 	<portlet>
 		<portlet-name>133</portlet-name>
@@ -1275,6 +1306,7 @@
 		<render-weight>50</render-weight>
 		<add-default-resource>true</add-default-resource>
 		<system>true</system>
+		<include>false</include>
 	</portlet>
 	<portlet>
 		<portlet-name>134</portlet-name>
@@ -1293,6 +1325,7 @@
 		<header-portlet-css>/html/portlet/users_admin/css/main.css</header-portlet-css>
 		<css-class-wrapper>portlet-users-admin</css-class-wrapper>
 		<add-default-resource>true</add-default-resource>
+		<include>false</include>
 	</portlet>
 	<portlet>
 		<portlet-name>135</portlet-name>
@@ -1308,6 +1341,7 @@
 		<private-session-attributes>false</private-session-attributes>
 		<render-weight>50</render-weight>
 		<css-class-wrapper>portlet-admin</css-class-wrapper>
+		<include>false</include>
 	</portlet>
 	<portlet>
 		<portlet-name>136</portlet-name>
@@ -1323,6 +1357,7 @@
 		<private-session-attributes>false</private-session-attributes>
 		<render-weight>50</render-weight>
 		<css-class-wrapper>portlet-admin</css-class-wrapper>
+		<include>false</include>
 	</portlet>
 	<portlet>
 		<portlet-name>137</portlet-name>
@@ -1354,6 +1389,7 @@
 		<css-class-wrapper>portlet-expando</css-class-wrapper>
 		<add-default-resource>true</add-default-resource>
 		<system>true</system>
+		<include>false</include>
 	</portlet>
 	<portlet>
 		<portlet-name>140</portlet-name>
@@ -1372,6 +1408,7 @@
 		<header-portlet-css>/html/portlet/users_admin/css/main.css</header-portlet-css>
 		<css-class-wrapper>portlet-users-admin</css-class-wrapper>
 		<system>true</system>
+		<include>false</include>
 	</portlet>
 	<portlet>
 		<portlet-name>141</portlet-name>
@@ -1386,6 +1423,7 @@
 		<private-session-attributes>false</private-session-attributes>
 		<render-weight>50</render-weight>
 		<css-class-wrapper>portlet-asset-tags-navigation</css-class-wrapper>
+		<include>false</include>
 	</portlet>
 	<portlet>
 		<portlet-name>142</portlet-name>
@@ -1398,6 +1436,7 @@
 		<css-class-wrapper>portlet-flags</css-class-wrapper>
 		<add-default-resource>true</add-default-resource>
 		<system>true</system>
+		<include>false</include>
 	</portlet>
 	<portlet>
 		<portlet-name>143</portlet-name>
@@ -1408,6 +1447,7 @@
 		<private-session-attributes>false</private-session-attributes>
 		<render-weight>50</render-weight>
 		<css-class-wrapper>portlet-page-flags</css-class-wrapper>
+		<include>false</include>
 	</portlet>
 	<portlet>
 		<portlet-name>144</portlet-name>
@@ -1420,6 +1460,7 @@
 		<css-class-wrapper>portlet-ratings</css-class-wrapper>
 		<add-default-resource>true</add-default-resource>
 		<system>true</system>
+		<include>false</include>
 	</portlet>
 	<portlet>
 		<portlet-name>145</portlet-name>
@@ -1451,6 +1492,7 @@
 		<header-portlet-css>/html/portlet/layouts_admin/css/main.css</header-portlet-css>
 		<header-portlet-css>/html/portlet/users_admin/css/main.css</header-portlet-css>
 		<css-class-wrapper>portlet-users-admin</css-class-wrapper>
+		<include>false</include>
 	</portlet>
 	<portlet>
 		<portlet-name>147</portlet-name>
@@ -1467,6 +1509,7 @@
 		<footer-portal-javascript>/html/js/liferay/service.js</footer-portal-javascript>
 		<footer-portlet-javascript>/html/portlet/asset_category_admin/js/main.js</footer-portlet-javascript>
 		<css-class-wrapper>portlet-asset-category-admin</css-class-wrapper>
+		<include>false</include>
 	</portlet>
 	<portlet>
 		<portlet-name>148</portlet-name>
@@ -1498,6 +1541,7 @@
 		<header-portlet-css>/html/portlet/layouts_admin/css/main.css</header-portlet-css>
 		<header-portlet-css>/html/portlet/users_admin/css/main.css</header-portlet-css>
 		<css-class-wrapper>portlet-users-admin</css-class-wrapper>
+		<include>false</include>
 	</portlet>
 	<portlet>
 		<portlet-name>150</portlet-name>
@@ -1513,6 +1557,7 @@
 		<header-portlet-css>/html/portlet/users_admin/css/main.css</header-portlet-css>
 		<header-portlet-css>/html/portlet/workflow_definitions/css/main.css</header-portlet-css>
 		<css-class-wrapper>portlet-workflow-tasks</css-class-wrapper>
+		<include>false</include>
 	</portlet>
 	<portlet>
 		<portlet-name>151</portlet-name>
@@ -1530,6 +1575,7 @@
 		<header-portlet-css>/html/portlet/asset_publisher/css/main.css</header-portlet-css>
 		<header-portlet-css>/html/portlet/workflow_definitions/css/main.css</header-portlet-css>
 		<css-class-wrapper>portlet-workflow-definitions</css-class-wrapper>
+		<include>false</include>
 	</portlet>
 	<portlet>
 		<portlet-name>152</portlet-name>
@@ -1546,6 +1592,7 @@
 		<render-weight>50</render-weight>
 		<header-portlet-css>/html/portlet/workflow_definitions/css/main.css</header-portlet-css>
 		<css-class-wrapper>portlet-workflow-definitions</css-class-wrapper>
+		<include>false</include>
 	</portlet>
 	<portlet>
 		<portlet-name>153</portlet-name>
@@ -1565,6 +1612,7 @@
 		<header-portlet-css>/html/portlet/workflow_definitions/css/main.css</header-portlet-css>
 		<footer-portlet-javascript>/html/portlet/workflow_tasks/js/main.js</footer-portlet-javascript>
 		<css-class-wrapper>portlet-workflow-tasks</css-class-wrapper>
+		<include>false</include>
 	</portlet>
 	<portlet>
 		<portlet-name>154</portlet-name>
@@ -1603,6 +1651,7 @@
 		<css-class-wrapper>portlet-communities</css-class-wrapper>
 		<add-default-resource>true</add-default-resource>
 		<system>true</system>
+		<include>false</include>
 	</portlet>
 	<portlet>
 		<portlet-name>157</portlet-name>
@@ -1616,6 +1665,7 @@
 		<render-weight>50</render-weight>
 		<header-portlet-css>/html/portlet/workflow_definitions/css/main.css</header-portlet-css>
 		<css-class-wrapper>portlet-workflow-instances</css-class-wrapper>
+		<include>false</include>
 	</portlet>
 	<portlet>
 		<portlet-name>158</portlet-name>
@@ -1634,6 +1684,7 @@
 		<header-portlet-css>/html/portlet/users_admin/css/main.css</header-portlet-css>
 		<header-portlet-css>/html/portlet/workflow_definitions/css/main.css</header-portlet-css>
 		<css-class-wrapper>portlet-workflow-instances</css-class-wrapper>
+		<include>false</include>
 	</portlet>
 	<portlet>
 		<portlet-name>160</portlet-name>
@@ -1683,6 +1734,7 @@
 		<header-portlet-css>/html/portlet/message_boards/css/main.css</header-portlet-css>
 		<footer-portlet-javascript>/html/portlet/message_boards/js/main.js</footer-portlet-javascript>
 		<css-class-wrapper>portlet-message-boards</css-class-wrapper>
+		<include>false</include>
 	</portlet>
 	<portlet>
 		<portlet-name>164</portlet-name>
@@ -1697,6 +1749,7 @@
 		<header-portlet-css>/html/portlet/login/css/main.css</header-portlet-css>
 		<css-class-wrapper>portlet-login</css-class-wrapper>
 		<add-default-resource>true</add-default-resource>
+		<include>false</include>
 	</portlet>
 	<portlet>
 		<portlet-name>165</portlet-name>
@@ -1716,6 +1769,7 @@
 		<css-class-wrapper>portlet-site-settings</css-class-wrapper>
 		<add-default-resource>true</add-default-resource>
 		<system>true</system>
+		<include>false</include>
 	</portlet>
 	<portlet>
 		<portlet-name>166</portlet-name>
@@ -1734,6 +1788,7 @@
 		<footer-portal-javascript>/html/js/liferay/service.js</footer-portal-javascript>
 		<css-class-wrapper>portlet-dynamic-data-mapping</css-class-wrapper>
 		<add-default-resource>true</add-default-resource>
+		<include>false</include>
 	</portlet>
 	<portlet>
 		<portlet-name>167</portlet-name>
@@ -1754,6 +1809,7 @@
 		<footer-portal-javascript>/html/js/liferay/service.js</footer-portal-javascript>
 		<css-class-wrapper>portlet-dynamic-data-lists</css-class-wrapper>
 		<add-default-resource>true</add-default-resource>
+		<include>false</include>
 	</portlet>
 	<portlet>
 		<portlet-name>169</portlet-name>
@@ -1771,6 +1827,7 @@
 		<header-portlet-javascript>/html/portlet/dynamic_data_lists/js/main.js</header-portlet-javascript>
 		<footer-portal-javascript>/html/js/liferay/service.js</footer-portal-javascript>
 		<css-class-wrapper>dynamic_data_list_display</css-class-wrapper>
+		<include>false</include>
 	</portlet>
 	<portlet>
 		<portlet-name>170</portlet-name>
@@ -1838,6 +1895,7 @@
 		<css-class-wrapper>portlet-communities</css-class-wrapper>
 		<add-default-resource>true</add-default-resource>
 		<system>true</system>
+		<include>false</include>
 	</portlet>
 	<portlet>
 		<portlet-name>175</portlet-name>
@@ -1868,6 +1926,7 @@
 		<private-session-attributes>false</private-session-attributes>
 		<render-weight>50</render-weight>
 		<css-class-wrapper>license-manager</css-class-wrapper>
+		<include>false</include>
 	</portlet>
 	<portlet>
 		<portlet-name>177</portlet-name>
@@ -1882,6 +1941,7 @@
 		<render-weight>50</render-weight>
 		<header-portlet-css>/html/portlet/mobile_device_rules/css/main.css</header-portlet-css>
 		<css-class-wrapper>mobile-device-rules</css-class-wrapper>
+		<include>false</include>
 	</portlet>
 	<portlet>
 		<portlet-name>178</portlet-name>
@@ -1896,6 +1956,7 @@
 		<render-weight>50</render-weight>
 		<header-portlet-css>/html/portlet/mobile_device_rules/css/main.css</header-portlet-css>
 		<css-class-wrapper>mobile-device-rules</css-class-wrapper>
+		<include>false</include>
 	</portlet>
 	<portlet>
 		<portlet-name>179</portlet-name>
@@ -1913,6 +1974,7 @@
 		<header-portlet-javascript>/html/portlet/social_activity/js/main.js</header-portlet-javascript>
 		<footer-portal-javascript>/html/js/liferay/service.js</footer-portal-javascript>
 		<css-class-wrapper>portlet-social-activity</css-class-wrapper>
+		<include>false</include>
 	</portlet>
 	<portlet>
 		<portlet-name>180</portlet-name>
@@ -1923,6 +1985,7 @@
 		<private-session-attributes>false</private-session-attributes>
 		<header-portlet-css>/html/portlet/user_statistics/css/main.css</header-portlet-css>
 		<css-class-wrapper>portlet-user-statistics</css-class-wrapper>
+		<include>false</include>
 	</portlet>
 	<portlet>
 		<portlet-name>181</portlet-name>
@@ -1933,6 +1996,7 @@
 		<private-session-attributes>false</private-session-attributes>
 		<header-portlet-css>/html/portlet/group_statistics/css/main.css</header-portlet-css>
 		<css-class-wrapper>portlet-group-statistics</css-class-wrapper>
+		<include>false</include>
 	</portlet>
 	<role-mapper>
 		<role-name>administrator</role-name>
