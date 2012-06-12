@@ -186,10 +186,6 @@ public class SLISSOUtil {
 		HttpSession session = request.getSession();
 		String token = (String) session.getAttribute(Constants.OAUTH_TOKEN);
 
-		if (_log.isDebugEnabled()) {
-			_log.debug(" isAuth Fetching token from session ..." + token);
-		}
-
 		boolean sessionCheckAuthenticated = true;
 
 		if (Validator.isNotNull(token) && basicClient != null) {
@@ -202,10 +198,8 @@ public class SLISSOUtil {
 
 		// Check if token exists
 		if (token != null && sessionCheckAuthenticated == true) {
-			_log.info("inside _isAuthenticated method chk1......" + token);
 			authenticated = true;
 		} else if (token != null && sessionCheckAuthenticated == false) {
-			_log.info("inside _isAuthenticated method chk2......" + token);
 			session.setAttribute(Constants.USER_DATA, null);
 			session.setAttribute(Constants.OAUTH_TOKEN, null);
 			clearLiferayCookies(request, response);

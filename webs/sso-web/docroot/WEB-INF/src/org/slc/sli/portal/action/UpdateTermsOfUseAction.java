@@ -49,12 +49,6 @@ public class UpdateTermsOfUseAction extends BaseStrutsAction  {
 			throws Exception {
 
 			long userId = PortalUtil.getUserId(request);
-	
-			//User usr = UserServiceUtil.updateAgreedToTermsOfUse(userId, true);
-			
-			//System.out.println("inside update terms of use action class*****************************"+usr.getAgreedToTermsOfUse());
-			
-			System.out.println("token value si ....***"+request.getSession().getAttribute("OAUTH_TOKEN"));
 			
 			BasicClient client = SLISSOUtil.getBasicClientObject();
 	      	
@@ -65,7 +59,6 @@ public class UpdateTermsOfUseAction extends BaseStrutsAction  {
 		        try {
 		        	 Response response1 = client.read(collection, ResourceNames.EDUCATION_ORGANIZATIONS, BasicQuery.Builder.create().startIndex(0).maxResults(50)
 		                    .build());
-		        	 _log.info("!!!!!!!!!!!@@@@@@@@@@@@@@############*****"+response1.getStatus());
 		        } catch (URISyntaxException e) {
 		            //LOG.error("Exception occurred", e);
 		        }
