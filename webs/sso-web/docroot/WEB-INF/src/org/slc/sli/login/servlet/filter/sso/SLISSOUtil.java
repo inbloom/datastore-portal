@@ -266,8 +266,10 @@ public class SLISSOUtil {
 		String token = (String) session.getAttribute(Constants.OAUTH_TOKEN);
 		
 		BasicClient client = (BasicClient)request.getSession().getAttribute("client");
+		_log.info("inside is authenticated check1 .... ..."+client);
 
-		_log.info("inside is authenticated ..."+token);
+		_log.info("inside is authenticated check 2..."+token);
+	
 
 		boolean sessionCheckAuthenticated = true;
 
