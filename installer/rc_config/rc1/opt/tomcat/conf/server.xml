@@ -120,7 +120,7 @@ Below added for Clustering!
 <Channel className="org.apache.catalina.tribes.group.GroupChannel">
                         
 <Receiver className="org.apache.catalina.tribes.transport.nio.NioReceiver"
-                                autoBind="0" selectorTimeout="5000" maxThreads="6"
+                                autoBind="0" selectorTimeout="10000" maxThreads="100"
                                 address="10.161.130.11" port="4444" />
 <Sender className="org.apache.catalina.tribes.transport.ReplicationTransmitter">
 <Transport className="org.apache.catalina.tribes.transport.nio.PooledParallelSender"
