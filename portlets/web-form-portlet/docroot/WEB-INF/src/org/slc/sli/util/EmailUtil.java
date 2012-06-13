@@ -6,6 +6,7 @@ import javax.servlet.http.HttpSession;
 import org.slc.sli.client.RESTClient;
 
 import com.google.gson.JsonObject;
+import com.liferay.webform.util.EncryptUtils;
 
 /**
  * EmailUtil.java
@@ -20,6 +21,26 @@ public class EmailUtil {
 
 	private static RESTClient restClient;
 
+	private EncryptUtils aesDecrypt;
+
+    private static EmailUtil instance;
+
+    public void setAesDecrypt(EncryptUtils aesDecrypt) {
+        this.aesDecrypt = aesDecrypt;
+    }
+
+    public EncryptUtils _getAesDecrypt() {
+        return aesDecrypt;
+    }
+
+    public static EncryptUtils getAesDecrypt() {
+        return instance._getAesDecrypt();
+    }
+    
+    public EmailUtil() {
+        this.instance = this;
+    }
+    
 	public RESTClient getRestClient() {
 		return restClient;
 	}
