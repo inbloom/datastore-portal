@@ -35,7 +35,7 @@ public class HeaderFooterStartUpAction extends SimpleAction {
 	@Override
 	public void run(String[] ids) {
 		long companyId = GetterUtil.getLong(ids[0]);
-
+	_log.info("inside header event...");
 		processHeader();
 
 		processFooter();
