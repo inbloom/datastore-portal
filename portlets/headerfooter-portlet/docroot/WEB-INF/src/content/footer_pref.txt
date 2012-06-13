@@ -1,1 +1,1 @@
-<div class="menu_n"><b>© Shared Learning Collaborative, LLC. </b><a target="_blank" href="http://dev.slcedu.org/legal/privacy">Privacy Policy</a>  <a target="_blank"  href="http://dev.slcedu.org/legal/tos"><b>Terms of Use</b></a></div>
+<div class="menu_n"><b>Shared Learning Collaborative, LLC. </b><a target="_blank" href="http://dev.slcedu.org/legal/privacy">Privacy Policy</a>  <a target="_blank"  href="http://dev.slcedu.org/legal/tos"><b>Terms of Use</b></a></div>
