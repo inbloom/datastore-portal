@@ -56,11 +56,11 @@ if (referer.equals(themeDisplay.getPathMain() + "/portal/update_terms_of_use")) 
 		</c:when>
 
 		<c:otherwise>
-		AGREEMENT NOT AVAILABLE<br>
+		<br>
 <br>
 You are in the Shared Learning Collaborative developer sandbox environment which is subject to the <a target="_blank"  href="http://dev.slcedu.org/legal/terms-of-use">Terms of Use</a> and <a target="_blank" href="http://dev.slcedu.org/legal/privacy">Privacy Policy</a> of the Shared Learning Collaborative developer website. <br/>
 
-Please note:  No actual student data or other personally identifiable information under the Family Educational Rights and Privacy Act, 20 U.S.C. §1232g, and its regulations ("FERPA") or other personal information may be accessed, uploaded or otherwise provided to the developer sandbox environment.<br><br>
+Please note:  No actual student data or other personally identifiable information under the Family Educational Rights and Privacy Act, 20 U.S.C. §1232g, and its regulations ("<b>FERPA</b>") or other personal information may be accessed, uploaded or otherwise provided to the developer sandbox environment.<br><br>
 		</c:otherwise>
 
 	</c:choose>
