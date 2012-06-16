@@ -18,7 +18,8 @@
 	</bean>
 
     <bean id="keyStore" class="com.liferay.webform.util.EncryptUtils"  init-method="init">
-	    <property name="keyStorePass" value="${sli.encryption.dalKeyPass}" />
+	    <property name="keyStorePass" value="${sli.encryption.keyStorePass}" />
+	    <property name="keyPass" value="${sli.encryption.dalKeyPass}" />
 	    <property name="keyAlias" value="${sli.encryption.dalKeyAlias}" />
 	    <property name="keyLocation" value="${sli.encryption.keyStore}" />
 	</bean>

@@ -1,6 +1,5 @@
 package com.liferay.webform.util;
 
-import javax.crypto.SecretKey;
 import java.security.GeneralSecurityException;
 import java.security.Key;
 import java.security.KeyStore;
@@ -13,9 +12,6 @@ import java.io.IOException;
 import java.io.File;
 import java.io.FileInputStream;
 import javax.crypto.Cipher;
-
-import com.liferay.portal.kernel.log.Log;
-import com.liferay.portal.kernel.log.LogFactoryUtil;
 
 public class EncryptUtils {
 
@@ -33,7 +29,8 @@ public class EncryptUtils {
 
         if (getKeyLocation() != null && !"".equals(getKeyLocation())
                 && getKeyAlias() != null && !"".equals(getKeyAlias())
-                && getKeyStorePass() != null && !"".equals(getKeyStorePass())) {
+                && getKeyStorePass() != null && !"".equals(getKeyStorePass())
+                && getKeyPass() != null && !"".equals(getKeyPass())) {
 
             if (keyfile.exists()) {
                 // Load Keystore if the keystore file exists
@@ -47,41 +44,17 @@ public class EncryptUtils {
             }
         } else {
             throw new NullPointerException(
-                    "Check key.properties, and ensure all property key has values...");
+                    "Check keystore.properties, and ensure all properties are set properly.");
         }
-        // generateKeyStore();
-        // encryptFiles();
-
     }
 
     /*
-     * Method:saveKey(String alias, SecretKey mykey) Save a key with alias
-     * "alias" and key "mykey".
+     * Get key from keystore with the given alias
      */
-    protected void saveKey(String alias, SecretKey mykey)
-            throws KeyStoreException {
-        KeyStore.SecretKeyEntry skEntry = new KeyStore.SecretKeyEntry(mykey);
-        ks.setEntry(alias, skEntry, password);
-    }
-
-    /*
-     * Method:storekey() Write the key entry to the keystore file.
-     */
-    protected void storekey() throws IOException, NoSuchAlgorithmException,
-            CertificateException, KeyStoreException {
-        java.io.FileOutputStream fos = new java.io.FileOutputStream(
-                getKeyLocation());
-        ks.store(fos, getKeyStorePass().toCharArray());
-        fos.close();
-    }
-
-    /*
-     * Method:getkey(String alias) Get key from keystore with the given alias
-     */
-    public Key getkey(String alias) throws NoSuchAlgorithmException,
+    public Key getkey(String alias, String password) throws NoSuchAlgorithmException,
             UnrecoverableKeyException, KeyStoreException {
 
-        Key k = ks.getKey(alias, getKeyStorePass().toCharArray());
+        Key k = ks.getKey(alias, password.toCharArray());
 
         return k;
     }
@@ -90,7 +63,7 @@ public class EncryptUtils {
             IOException {
 
         // get key
-        Key mykey = getkey(getKeyAlias());
+        Key mykey = getkey(getKeyAlias(), getKeyPass());
         // Create a cipher object and use the generated key to initialize it
         Cipher cipher = Cipher.getInstance("AES");
         cipher.init(Cipher.ENCRYPT_MODE, mykey);
@@ -103,7 +76,7 @@ public class EncryptUtils {
     public String decrypt(String message) throws GeneralSecurityException,
             IOException {
         // get key
-        Key mykey = getkey(getKeyAlias());
+        Key mykey = getkey(getKeyAlias(), getKeyPass());
         Cipher cipher = Cipher.getInstance("AES");
         cipher.init(Cipher.DECRYPT_MODE, mykey);
         byte[] decrypted = cipher.doFinal(hexStringToByteArray(message));
@@ -139,6 +112,14 @@ public class EncryptUtils {
     public void setKeyStorePass(String keyStorePass) {
         this.keyStorePass = keyStorePass;
     }
+    
+    public String getKeyPass() {
+        return keyPass;
+    }
+
+    public void setKeyPass(String keyPass) {
+        this.keyPass = keyPass;
+    }
 
     public String getKeyAlias() {
         return keyAlias;
@@ -157,12 +138,11 @@ public class EncryptUtils {
     }
 
     private String keyStorePass;
+    private String keyPass;
     private String keyAlias;
     private String keyLocation;
 
     KeyStore ks;
     KeyStore.PasswordProtection password;
-
-    private static Log _log = LogFactoryUtil.getLog(EncryptUtils.class);
 
 }
