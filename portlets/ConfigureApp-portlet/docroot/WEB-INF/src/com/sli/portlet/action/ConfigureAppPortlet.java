@@ -29,11 +29,16 @@ import com.liferay.portal.kernel.util.PropsUtil;
 import com.liferay.portal.util.PortalUtil;
 import com.liferay.util.bridges.mvc.MVCPortlet;
 import com.sli.util.PropsKeys;
+import com.liferay.portal.kernel.util.HttpUtil;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * Portlet implementation class ConfigureAppPortlet
  */
 public class ConfigureAppPortlet extends MVCPortlet {
+
+	private List<AppsData> appList = null;
+
 	@Override
 	public void render(RenderRequest renderRequest,
 			RenderResponse renderResponse) throws PortletException, IOException {
@@ -55,19 +60,20 @@ public class ConfigureAppPortlet extends MVCPortlet {
 			try {
 				List<AppsData> appsData = AppsUtil.getUserApps(tokenFromReq);
 
-				
 				List<AppsData> tempAppsData = new ArrayList<AppsData>(appsData);
-				
-				//DE505- checked current url and removed from list
-				String currUrl = "https://"+renderRequest.getServerName()+"/portal";
-					
-				_log.info("current url---"+currUrl);
-				
-				for(AppsData apps : tempAppsData){
-					if(apps.getApplication_url().contains(currUrl)){
+
+				// DE505- checked current url and removed from list
+				String currUrl = "https://" + renderRequest.getServerName()
+						+ "/portal";
+
+				_log.info("current url---" + currUrl);
+
+				for (AppsData apps : tempAppsData) {
+					if (apps.getApplication_url().contains(currUrl)) {
 						appsData.remove(apps);
 					}
 				}
+				appList = appsData;
 				renderRequest.setAttribute("appList", appsData);
 			} catch (Exception e) {
 				_log.info("json response is null");
@@ -134,19 +140,40 @@ public class ConfigureAppPortlet extends MVCPortlet {
 		SessionMessages.add(actionRequest, portletConfig.getPortletName()
 				+ SessionMessages.KEY_SUFFIX_HIDE_DEFAULT_ERROR_MESSAGE);
 
-		if (code == 200) {
+		if (code == 200 && checkUrl(url)) {
+			String encodedUrl = "";
 
-			actionResponse.setEvent(new QName("http:sli.com/events",
-					"iframeurl"), url);
+			// DE 660 - Encoded url in iframe page.
+			encodedUrl = HttpUtil.encodeURL(url);
+			_log.info("encoded url===== " + encodedUrl);
+			// actionResponse.setEvent(new QName("http:sli.com/events",
+			// "iframeurl"),url);
 
 			String iframePage = GetterUtil.getString(PropsUtil
 					.get(PropsKeys.IFRAME_PAGE));
 
-			actionResponse.sendRedirect(iframePage + "#" + url);
+			HttpServletRequest request = PortalUtil
+					.getHttpServletRequest(actionRequest);
+			HttpSession session = request.getSession(false);
+			session.setAttribute("iframeSrc", url);
+
+			actionResponse.sendRedirect(iframePage + "#" + encodedUrl);
 		} else {
 
 			actionResponse.sendRedirect("/portal/web/guest/error");
 		}
+	}
+
+	boolean checkUrl(String url) {
+		boolean validUrl = false;
+		for (AppsData app : appList) {
+			String appUrl = app.getAdmin_url();
+			if (appUrl.equals(url)) {
+				validUrl = true;
+				break;
+			}
+		}
+		return validUrl;
 	}
 
 	private static Log _log = LogFactoryUtil.getLog(ConfigureAppPortlet.class);

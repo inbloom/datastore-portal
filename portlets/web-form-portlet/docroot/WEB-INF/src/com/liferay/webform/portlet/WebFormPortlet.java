@@ -430,14 +430,26 @@ public class WebFormPortlet extends MVCPortlet {
 			InternetAddress fromAddress = null;
 
 			try {
-				String smtpUser = PropsUtil
-						.get(PropsKeys.MAIL_SESSION_MAIL_SMTP_USER);
+				String fromUser = PropsUtil
+						.get(PropsKeys.ADMIN_EMAIL_FROM_ADDRESS);
 
-				if (Validator.isNotNull(smtpUser)) {
-					fromAddress = new InternetAddress(smtpUser);
+				if (Validator.isNotNull(fromUser)) {
+					fromAddress = new InternetAddress(fromUser);
 				}
 			} catch (Exception e) {
 				_log.error(e, e);
+			}
+			if (fromAddress == null) {
+				try {
+					String fromUser = PropsUtil
+							.get(PropsKeys.MAIL_SESSION_MAIL_SMTP_USER);
+
+					if (Validator.isNotNull(fromUser)) {
+						fromAddress = new InternetAddress(fromUser);
+					}
+				} catch (Exception e) {
+					_log.error(e, e);
+				}
 			}
 
 			if (fromAddress == null) {

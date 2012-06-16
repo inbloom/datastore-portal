@@ -56,11 +56,11 @@ if (referer.equals(themeDisplay.getPathMain() + "/portal/update_terms_of_use")) 
 		</c:when>
 
 		<c:otherwise>
-			AGREEMENT NOT AVAILABLE<br>
+		<br>
 <br>
-Your district or organization has not made a licensing agreement available at this time.  In future, you may be asked to read and agree to terms of service for this platform, once one is made available.<br>
-<br>
-For now, please click "Agree" to continue.  You should not see this message again.<br><br>
+You are in the Shared Learning Collaborative developer sandbox environment which is subject to the <a target="_blank"  href="http://dev.slcedu.org/legal/terms-of-use">Terms of Use</a> and <a target="_blank" href="http://dev.slcedu.org/legal/privacy">Privacy Policy</a> of the Shared Learning Collaborative developer website. <br/><br/>
+
+Please note:  No actual student data or other personally identifiable information under the Family Educational Rights and Privacy Act, 20 U.S.C. §1232g, and its regulations ("<b>FERPA</b>") or other personal information may be accessed, uploaded or otherwise provided to the developer sandbox environment.<br><br>
 		</c:otherwise>
 
 	</c:choose>
@@ -89,7 +89,7 @@ For now, please click "Agree" to continue.  You should not see this message agai
  
     <footer id="sli_footer">
       <div class="sli_footer_wrap">
-        <p>CONFIDENTIAL: This page may contain private student data; do not share with unauthorized persons. </p>
+        <p>(C) Shared Learning Collaborative, LLC. <a target="_blank" href="http://dev.slcedu.org/legal/privacy">Privacy Policy</a>  <a target="_blank"  href="http://dev.slcedu.org/legal/terms-of-use">Terms of Use</a> </p>
       </div>
     </footer>
  
