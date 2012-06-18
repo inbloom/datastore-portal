@@ -24,7 +24,7 @@ import org.scribe.builder.ServiceBuilder;
 import org.scribe.model.Token;
 import org.scribe.model.Verifier;
 import org.scribe.oauth.OAuthService;
-
+import com.liferay.portal.kernel.util.ParamUtil;
 import org.slc.sli.security.SliApi;
 import org.slc.sli.util.Constants;
 import org.slc.sli.util.PropsKeys;
@@ -77,7 +77,8 @@ public class SLIFilter extends BasePortalFilter {
 	protected void processFilter(HttpServletRequest request,
 			HttpServletResponse response, FilterChain filterChain)
 			throws Exception {
-
+	//US 2131- Realm selection redirect
+	String realmName = ParamUtil.getString(request,"Realm","No Realm");
 		boolean authenticated = false;
 
 		if (request.getRequestURL().toString().endsWith("/c/portal/logout")) {
@@ -140,7 +141,8 @@ public class SLIFilter extends BasePortalFilter {
 			}
 		} else if (token == null) {
 			session.setAttribute(ENTRY_URL, request.getRequestURL());
-			authenticate(request, response);
+			//US 2131 - realm selection redirect
+			authenticate(request, response,realmName);
 
 		} else {
 			// LOG.debug("Using access token " + token);
@@ -149,7 +151,7 @@ public class SLIFilter extends BasePortalFilter {
 		}
 	}
 
-	private void authenticate(HttpServletRequest req, HttpServletResponse res) {
+	private void authenticate(HttpServletRequest req, HttpServletResponse res, String realmName) {
 
 		try {
 			URL apiURL = new URL(SLISSOUtil.getApiUrl());
@@ -166,7 +168,8 @@ public class SLIFilter extends BasePortalFilter {
 					SLISSOUtil.getClientId(), SLISSOUtil.getClientSecret(),
 					callBackURL);
 
-			res.sendRedirect(client.getLoginURL().toExternalForm());
+			//US 2131 - realm selection redirect
+			res.sendRedirect(client.getLoginURL().toExternalForm()+"&Realm="+realmName);
 			req.getSession().setAttribute("client", client);
 		} catch (MalformedURLException e) {
 			throw new RuntimeException(e);
