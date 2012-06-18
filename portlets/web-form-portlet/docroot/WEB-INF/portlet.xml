@@ -25,7 +25,7 @@
 		<portlet-preferences>
 			<preference>
 				<name>title</name>
-				<value>Suggestions</value>
+				<value>Report a Problem</value>
 			</preference>
 			<preference>
 				<name>description</name>
@@ -33,7 +33,7 @@
 			</preference>
 			<preference>
 				<name>subject</name>
-				<value>Suggestions</value>
+				<value>Report a Problem</value>
 			</preference>
 			<preference>
 				<name>saveToDatabase</name>
@@ -45,30 +45,22 @@
 			</preference>
 			<preference>
 				<name>fieldLabel1</name>
-				<value>Name</value>
+				<value>Problem Type</value>
 			</preference>
 			<preference>
 				<name>fieldType1</name>
-				<value>text</value>
-			</preference>
-			<preference>
-				<name>fieldLabel2</name>
-				<value>Rating</value>
-			</preference>
-			<preference>
-				<name>fieldType2</name>
 				<value>options</value>
 			</preference>
 			<preference>
-				<name>fieldOptions2</name>
-				<value>Excellent,Good,Satisfactory,Poor</value>
+				<name>fieldOptions1</name>
+				<value>Incorrect Data,Can't Access My Students' Data,Other App Problem,Feature Request,Other Feedback</value>
 			</preference>
 			<preference>
-				<name>fieldLabel3</name>
-				<value>Comments</value>
+				<name>fieldLabel2</name>
+				<value>Problem Description</value>
 			</preference>
 			<preference>
-				<name>fieldType3</name>
+				<name>fieldType2</name>
 				<value>textarea</value>
 			</preference>
 		</portlet-preferences>

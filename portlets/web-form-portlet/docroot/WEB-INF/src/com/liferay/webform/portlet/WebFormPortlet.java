@@ -64,6 +64,8 @@ import javax.portlet.ResourceResponse;
 import javax.servlet.http.HttpSession;
 
 import org.slc.sli.util.EmailUtil;
+// US2436 STRETCH-Report-a-problem: Generate ID #
+import com.liferay.counter.service.CounterLocalServiceUtil;
 
 /**
  * @author Daniel Weisser
@@ -313,9 +315,19 @@ public class WebFormPortlet extends MVCPortlet {
 				contentType);
 	}
 
-	protected String getMailBody(Map<String, String> fieldsMap) {
-
+	//protected String getMailBody(Map<String, String> fieldsMap) {
+	// US2436 STRETCH-Report-a-problem: Generate ID #
+	protected String getMailBody(Map<String,String> fieldsMap) throws Exception {
 		StringBuilder sb = new StringBuilder();
+		// US2436 STRETCH-Report-a-problem: Generate ID #
+		long genId = CounterLocalServiceUtil.increment("WebFormPortlet",1);
+		String strGenId = String.format("%06d", genId);
+		sb.append("Problem ID : PR");
+		sb.append(strGenId);
+		sb.append("\n");
+		sb.append("Email"); 
+		sb.append(" : N/A");
+		sb.append("\n");
 
 		for (String fieldLabel : fieldsMap.keySet()) {
 			String fieldValue = fieldsMap.get(fieldLabel);
