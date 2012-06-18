@@ -6,8 +6,8 @@ jdbc.default.url=jdbc:mysql://localhost/lportal?emulateLocators=true&useUnicode=
 jdbc.default.username=liferay
 jdbc.default.password=liferaywgen
 
-session.timeout=15
-
+session.timeout=10
+session.timeout.warning=0
 # Context Path
 
 portal.ctx=/portal
@@ -37,7 +37,7 @@ portlet.public.render.parameter.distribution=ALL_PORTLETS
 ## Enable this property to make liferay to use sli authentication for lifeary login
 ##
 
-org.slc.sli.login.servlet.filter.sso.wgensso.WgenSSOFilter=true
+org.slc.sli.login.servlet.filter.sso.SLIFilter=true
 
 ##
 ## Auto Login
@@ -73,24 +73,28 @@ terms.of.use.required=true
 #
 #logout.events.pre = org.slc.sli.login.events.WgenLogoutAction
 
-#
-# Login event
-#
-#login.events.post=org.slc.sli.login.events.WgenLoginPostAction
-
+ 
 #
 # enable to activate session expiration
 #
-wgen.sso.logout.on.session.expiration=true
+sli.sso.logout.on.session.expiration=true
+
+
+#
+# redirect to error page on login error
+#
+sso.login.error.page=/portal/web/guest/error
 
 #
 # SLI roles
 #
-wgen.role.itadmin=IT Administrator
-wgen.role.sliadmin=SLI Administrator
-wgen.role.educator=Educator
+sli.role.itadmin=IT Administrator
+sli.role.sliadmin=SLI Administrator
+sli.role.educator=Educator
 
+sli.role.admin=LEA Administrator,Realm Administrator,IT Administrator,SEA Administrator,SLC Operator,Application Developer,Ingestion User,SEA Super Administrator,LEA Super Administrator,Realm Admin,App Developer
 
+sli.role.liferayadmin=SLC Operator
 
 ###admin selection interface portlet
 
@@ -114,7 +118,7 @@ iframe.page=/portal/web/guest/iframe
 template.processing.enabled=false
 
 image.menu_arrow=menu_arrow1.png
-
+ 
 image.arrow=arrow.png
 
 image.arrow_w=arrow_w.png
@@ -130,4 +134,68 @@ auto.deploy.deploy.dir=/opt/deploy
 # Set path for error page
 
 layout.friendly.url.page.not.found=/web/guest/error
+ 
+ 
+#smtp details
+ 
+ 
+ #smtp details
+ 
+    mail.session.mail.smtp.host=smtp.gmail.com
+	mail.session.mail.smtp.port=465
+	mail.session.mail.smtp.auth=true
+	mail.session.mail.smtp.user=portal.wgen@gmail.com
+	mail.session.mail.smtp.password=liferaywgen
+	mail.session.mail.transport.protocol=smtp
+ 
+#DE508 - clear sli cookie 
 
+sli.cookie.domain=.slidev.org
+
+openam.cookie.name = iPlanetDirectoryPro
+#logback changes
+
+auto.deploy.copy.log4j=false
+
+#DE762 - Attacker can hijack victim's browser with XSS on attacker's "Welcome" Portal page
+#
+
+# Set whether or not private layouts are enabled. Set whether or not private
+
+# layouts are modifiable. Set whether or not private layouts should be auto
+
+# created if a user has no private layouts. If private layouts are not
+
+# enabled, the other two properties are assumed to be false.
+
+#
+
+layout.user.private.layouts.enabled=false
+
+layout.user.private.layouts.modifiable=true
+
+layout.user.private.layouts.auto.create=false
+
+ 
+
+#
+
+# Set whether or not public layouts are enabled. Set whether or not public
+
+# layouts are modifiable. Set whether or not public layouts should be auto
+
+# created if a user has no public layouts. If public layouts are not
+
+# enabled, the other two properties are assumed to be false.
+
+#
+
+layout.user.public.layouts.enabled=false
+
+layout.user.public.layouts.modifiable=true
+
+layout.user.public.layouts.auto.create=false
+
+
+# DE 892- removed Warning Tab
+session.timeout.warning = 0
