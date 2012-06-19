@@ -87,9 +87,18 @@ public class HeaderFooterStartUpAction extends SimpleAction {
 	 */
 	protected void processFooter() {
 		try {
+			//US 2854- read footer file as per environment
+			
+			String footerFile = "/content/footer_pref.txt";
+			boolean is_sandbox = GetterUtil.getBoolean(PropsUtil.get("is_sandbox"));
 
+			if(is_sandbox){
+				footerFile = "/content/footer_pref_sandbox.txt";
+			}
+			
+			
 			InputStream in = HeaderFooterStartUpAction.class
-					.getResourceAsStream("/content/footer_pref.txt");
+					.getResourceAsStream(footerFile);
 
 			_log.info("Reading Footer Preferences File...");
 
