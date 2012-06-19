@@ -295,7 +295,7 @@
 	<logger name="org.springframework.aop.support.AopUtils" level="INFO"/>
 	<logger name="portal-web.docroot.errors.404.jsp" level="WARN"/>
 
-	<root level="${log.level">
+	<root level="${log.level}">
 		<appender-ref ref="FILE" />
 		<appender-ref ref="CONSOLE" />
 	</root>
