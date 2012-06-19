@@ -204,3 +204,7 @@ session.timeout.warning = 0
 #US 2854- update EULA and footer text as per environment
 
 is_sandbox = true
+
+
+# DE 846- disable cache on logout
+browser.cache.signed.in.disabled=true
