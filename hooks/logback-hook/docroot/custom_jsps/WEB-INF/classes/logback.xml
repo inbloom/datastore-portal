@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration debug="false">
-	<property file="/opt/tomcat/conf/liferaylog.properties"/> 
+	<!--<property file="/opt/tomcat/conf/liferaylog.properties"/> -->
+	<property file="${catalina.base}/../liferaylog.properties"/>
 	<appender name="FILE" class="ch.qos.logback.core.FileAppender">
 		<!--<File>D:/wgen/logs/liferay.log</File>-->
 		<File>${log.path}/liferay.log</File>
@@ -294,7 +295,7 @@
 	<logger name="org.springframework.aop.support.AopUtils" level="INFO"/>
 	<logger name="portal-web.docroot.errors.404.jsp" level="WARN"/>
 
-	<root level="INFO">
+	<root level="${log.level">
 		<appender-ref ref="FILE" />
 		<appender-ref ref="CONSOLE" />
 	</root>
