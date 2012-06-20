@@ -111,7 +111,7 @@ public class WebFormPortlet extends MVCPortlet {
 		String tempUsrDateStamp = ParamUtil.getString(resourceRequest,
 				"dateStamp");
 		String tempSuccess = ParamUtil.getString(resourceRequest, "successURL");
-		System.out.println(">>>>>>>>>>>>>>>>>" + tempSuccess);
+		 
 
 		PortletPreferences preferences = PortletPreferencesFactoryUtil
 				.getPortletSetup(resourceRequest, portletId);

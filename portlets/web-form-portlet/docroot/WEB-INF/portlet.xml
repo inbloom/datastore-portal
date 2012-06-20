@@ -28,10 +28,6 @@
 				<value>Report a Problem</value>
 			</preference>
 			<preference>
-				<name>description</name>
-				<value>Your input is valuable to us. Please send us your suggestions.</value>
-			</preference>
-			<preference>
 				<name>subject</name>
 				<value>Report a Problem</value>
 			</preference>
