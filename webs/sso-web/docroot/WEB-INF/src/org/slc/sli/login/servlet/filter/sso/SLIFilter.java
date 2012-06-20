@@ -24,7 +24,7 @@ import org.scribe.builder.ServiceBuilder;
 import org.scribe.model.Token;
 import org.scribe.model.Verifier;
 import org.scribe.oauth.OAuthService;
-import com.liferay.portal.kernel.util.ParamUtil;
+
 import org.slc.sli.security.SliApi;
 import org.slc.sli.util.Constants;
 import org.slc.sli.util.PropsKeys;
@@ -77,23 +77,23 @@ public class SLIFilter extends BasePortalFilter {
 	protected void processFilter(HttpServletRequest request,
 			HttpServletResponse response, FilterChain filterChain)
 			throws Exception {
-	//US 2131- Realm selection redirect
-	String realmName = ParamUtil.getString(request,"Realm","No Realm");
+
 		boolean authenticated = false;
+        	BasicClient client = (BasicClient) ((HttpServletRequest) request).getSession().getAttribute("client");
 
 		if (request.getRequestURL().toString().endsWith("/c/portal/logout")) {
-			BasicClient client = (BasicClient) request.getSession()
-					.getAttribute("client");
-			SLISSOUtil.logout(client);
+			if(client != null) {
+				SLISSOUtil.logout(client);
+			}
 			processFilter(SLIFilter.class, request, response, filterChain);
 			return;
 		}
 
 		if (request.getRequestURL().toString()
 				.endsWith("/c/portal/expire_session")) {
-			BasicClient client = (BasicClient) request.getSession()
-					.getAttribute("client");
-			SLISSOUtil.logout(client);
+			if(client != null) {
+				SLISSOUtil.logout(client);
+			}
 			return;
 		}
 
@@ -114,8 +114,11 @@ public class SLIFilter extends BasePortalFilter {
 		HttpSession session = request.getSession();
 
 		Object token = session.getAttribute(Constants.OAUTH_TOKEN);
-
-		if (token == null && request.getParameter("code") != null) {
+		if (client == null) {
+			response.sendRedirect(request.getRequestURI());
+		}
+		else if (token == null && request.getParameter("code") != null) {
+		 _log.info("slifilter check 1......");
 			try {
 				String jsonText = handleCallback(request, response);
 
@@ -123,7 +126,7 @@ public class SLIFilter extends BasePortalFilter {
 				JsonObject jsonObj = parser.parse(jsonText).getAsJsonObject();
 				String accessToken = jsonObj.get("access_token").getAsString();
 				session.setAttribute(Constants.OAUTH_TOKEN, accessToken);
-				
+				_log.info("token is ......" + accessToken);
 				Object entryUrl = session.getAttribute(ENTRY_URL);
 				if (entryUrl != null) {
 					response.sendRedirect(session.getAttribute(ENTRY_URL)
@@ -135,23 +138,23 @@ public class SLIFilter extends BasePortalFilter {
 				e.printStackTrace();
 				// redirect to realm selection in case of token extractor error.
 				response = clearSliCookie(request, response);
-				BasicClient client = (BasicClient) ((HttpServletRequest) request)
-						.getSession().getAttribute("client");
 				response.sendRedirect(client.getLoginURL().toExternalForm());
 			}
-		} else if (token == null) {
+		}	
+		else if (token == null) {
+			_log.info("slifilter check 2......");
 			session.setAttribute(ENTRY_URL, request.getRequestURL());
-			//US 2131 - realm selection redirect
-			authenticate(request, response,realmName);
+			authenticate(request, response);
 
-		} else {
+		}else {
+			_log.info("slifilter check 3......");
 			// LOG.debug("Using access token " + token);
 			// addAuthentication((String) token);
 			response.sendRedirect(request.getRequestURI());
 		}
 	}
 
-	private void authenticate(HttpServletRequest req, HttpServletResponse res, String realmName) {
+	private void authenticate(HttpServletRequest req, HttpServletResponse res) {
 
 		try {
 			URL apiURL = new URL(SLISSOUtil.getApiUrl());
@@ -168,8 +171,7 @@ public class SLIFilter extends BasePortalFilter {
 					SLISSOUtil.getClientId(), SLISSOUtil.getClientSecret(),
 					callBackURL);
 
-			//US 2131 - realm selection redirect
-			res.sendRedirect(client.getLoginURL().toExternalForm()+"&Realm="+realmName);
+			res.sendRedirect(client.getLoginURL().toExternalForm());
 			req.getSession().setAttribute("client", client);
 		} catch (MalformedURLException e) {
 			throw new RuntimeException(e);

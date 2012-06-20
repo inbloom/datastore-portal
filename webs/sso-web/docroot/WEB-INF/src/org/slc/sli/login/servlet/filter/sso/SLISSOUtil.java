@@ -183,7 +183,6 @@ public class SLISSOUtil {
         EntityCollection collection = new EntityCollection();
         try {
         	 Response response2 = client.read(collection, PathConstants.SECURITY_SESSION_LOGOUT, BasicQuery.EMPTY_QUERY);
-        	 System.out.println("logout called...."+response2.getStatus());
         	 //_log.info("response2-------"+response2.getStatus());
         } catch (URISyntaxException e) {
         	e.printStackTrace();
@@ -192,7 +191,6 @@ public class SLISSOUtil {
 
         if (collection != null && collection.size() >= 1) {
         	logout= Boolean.valueOf((Boolean)collection.get(0).getData().get("logout"));
-        	System.out.println("value of logout is ***###"+logout);
         }
         return logout;
     }
@@ -268,7 +266,11 @@ public class SLISSOUtil {
 		String token = (String) session.getAttribute(Constants.OAUTH_TOKEN);
 		
 		BasicClient client = (BasicClient)request.getSession().getAttribute("client");
-//DE 766 removed log info
+		_log.info("inside is authenticated check1 .... ..."+client);
+
+		_log.info("inside is authenticated check 2..."+token);
+	
+
 		boolean sessionCheckAuthenticated = true;
 
 		if (Validator.isNotNull(token) && client!=null) {

@@ -57,13 +57,11 @@ public class RESTClient {
      */
     public RESTClient(final URL apiServerURL, final String clientId, final String clientSecret, final URL callbackURL) {
     	
-    	System.out.println("PathConstants.API_SERVER_PATH inside rest cliient ****************"+PathConstants.API_SERVER_PATH);
        
     	client = ClientFactory.newClient();
         apiServerUri = apiServerURL.toString().endsWith("/") ? apiServerURL.toString() + PathConstants.API_SERVER_PATH
                 : apiServerURL.toString() + "/" + PathConstants.API_SERVER_PATH;
         
-        System.out.println("apiServerUri inside rest cliient ****************"+apiServerUri);
 
         sliApi = new SliApi();
         SliApi.setBaseUrl(apiServerURL);
