@@ -40,6 +40,6 @@
 		<property name="clientId" value="${oauth.client.id}" />
 		<property name="clientSecret" value="${oauth.client.secret}" />
 		<property name="apiUrl" value="${api.server.url}" />
-		 
+	</bean>	 
 
 </beans>
