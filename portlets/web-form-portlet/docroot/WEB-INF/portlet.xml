@@ -18,15 +18,11 @@
 			<mime-type>text/html</mime-type>
 		</supports>
 		<portlet-info>
-			<title>Web Form</title>
-			<short-title>Web Form</short-title>
-			<keywords>Web Form</keywords>
+			<title>Report a Problem</title>
+			<short-title>Report a Problem</short-title>
+			<keywords>Report a Problem</keywords>
 		</portlet-info>
 		<portlet-preferences>
-			<preference>
-				<name>title</name>
-				<value>Report a Problem</value>
-			</preference>
 			<preference>
 				<name>subject</name>
 				<value>Report a Problem</value>
@@ -58,6 +54,10 @@
 			<preference>
 				<name>fieldType2</name>
 				<value>textarea</value>
+			</preference>
+			<preference>
+				 <name>portlet-setup-show-borders</name>
+				 <value>false</value>
 			</preference>
 		</portlet-preferences>
 		<security-role-ref>

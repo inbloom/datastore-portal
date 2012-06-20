@@ -30,7 +30,9 @@ public class EmailUtil {
 
 	public static String getEmailAddress(String token) {
 		JsonObject json = restClient.getEmailAddress(token);
+		System.out.println("Tapan Avasthi"+json);
 		String emailAddress = json.get("email").getAsString();
+		System.out.println("Tapan Avasthi"+emailAddress);
 		return emailAddress;
 	}
 
