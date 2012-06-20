@@ -14,7 +14,7 @@
 						http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.0.xsd">
 						
  				
- <context:property-placeholder location="file:////opt/portal-ext.properties,file:////opt/environment.properties,file:///${sli.encryption.properties}" ignore-resource-not-found="true" /> 
+ <context:property-placeholder location="file:////opt/portal-ext.properties,file:////opt/environment.properties,file:////${sli.encryption.properties}" ignore-resource-not-found="true" /> 
 	
 	<bean id="keyStore" class="org.slc.sli.encrypt.EncryptUtils"  init-method="init">
 	    <property name="keyStorePass" value="${sli.encryption.keyStorePass}" />
