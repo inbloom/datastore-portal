@@ -25,17 +25,15 @@
 	    <property name="keyAlias" value="${sli.encryption.dalKeyAlias}" />
 	    <property name="keyLocation" value="${sli.encryption.keyStore}" />
 	</bean>
-	<bean id="basicClient" class="org.slc.sli.api.client.impl.BasicClient" >
-		<constructor-arg value="${api.server.url}"/>
-		<constructor-arg value="${oauth.client.id}"/>
-		<constructor-arg value="${oauth.client.secret}"/>
-		<constructor-arg value="${oauth.redirect}"/>
-	</bean>
-	
+<bean id="basicClient" class="org.slc.sli.api.client.impl.BasicClient" >
+  <constructor-arg value="${api.server.url}"/>
+  <constructor-arg value="#{keyStore.decrypt('${oauth.client.id}')}"/>
+  <constructor-arg value="#{keyStore.decrypt('${oauth.client.secret}')}"/>
+  <constructor-arg value="${oauth.redirect}"/>
+ </bean>
 
 	<bean id="entryPoint" class="org.slc.sli.login.servlet.filter.sso.SLISSOUtil">
-	 
-		<property name="basicClient" ref="basicClient" />
+	 	<property name="basicClient" ref="basicClient" />
 		<property name="callbackUrl" value="${oauth.redirect}" />
 		<property name="clientId" value="${oauth.client.id}" />
 		<property name="clientSecret" value="${oauth.client.secret}" />
