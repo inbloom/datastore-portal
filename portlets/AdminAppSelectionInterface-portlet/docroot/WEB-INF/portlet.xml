@@ -19,9 +19,9 @@
 		</supports>
 		<resource-bundle>content/Language</resource-bundle>
 		<portlet-info>
-			<!-- US 2435 portlet title renamed-->
-			<title>System Configuration</title>
-			<short-title>System Configuration</short-title>
+			<!-- DE 750 portlet title renamed-->
+			<title>System Tools</title>
+			<short-title>System Tools</short-title>
 			<keywords></keywords>
 		</portlet-info>
 		<security-role-ref>
