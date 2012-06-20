@@ -35,9 +35,8 @@ public class SLILogoutAction extends Action {
 			if (!filterEnabled) {
 				return;
 			}
-			_log.info("inside sli logout aciton ^^^^^^^^^^^^^^^^^");
-			BasicClient client = (BasicClient)request.getSession().getAttribute("client");
-			SLISSOUtil.logout(client);
+			BasicClient client = SLISSOUtil.getBasicClientObject();
+			SLISSOUtil.logout(client,request,response);
 
 		} catch (Exception e) {
 			_log.error(e, e);

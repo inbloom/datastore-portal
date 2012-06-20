@@ -50,9 +50,6 @@ public class SLIAutoLogin implements AutoLogin {
 		boolean filterEnabled = GetterUtil.getBoolean(PropsUtil
 				.get(PropsKeys.SLI_SSO_FILTER));
 
-		// String serverURL =
-		// GetterUtil.getString(PropsUtil.get(PropsKeys.API_SERVER_URL));
-
 		try {
 			long companyId = PortalUtil.getCompanyId(request);
 
@@ -62,6 +59,10 @@ public class SLIAutoLogin implements AutoLogin {
 			}
 
 			isauthenticated = SLISSOUtil.isAuthenticated(request, response);
+			
+			if (_log.isDebugEnabled()) {
+				_log.debug("Authenticated inside liferay" + isauthenticated);
+			}
 
 			// return if authentication is false
 			if (!isauthenticated) {
