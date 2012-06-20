@@ -46,8 +46,7 @@ public class AdminAppSelectionInterfacePortlet extends MVCPortlet {
 
 		String tokenFromReq = (String) session.getAttribute("OAUTH_TOKEN");
 
-		_log.info(tokenFromReq);
-		// String token = "e88cb6d1-771d-46ac-a207-2e58d7f12196";
+		//DE 766 removed token log statement
 
 		// check whether user is admin user or not
 		UserData userdata = AppsUtil.getUserData(tokenFromReq);

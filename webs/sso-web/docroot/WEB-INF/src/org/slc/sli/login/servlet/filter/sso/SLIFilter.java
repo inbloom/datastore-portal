@@ -123,7 +123,7 @@ public class SLIFilter extends BasePortalFilter {
 				JsonObject jsonObj = parser.parse(jsonText).getAsJsonObject();
 				String accessToken = jsonObj.get("access_token").getAsString();
 				session.setAttribute(Constants.OAUTH_TOKEN, accessToken);
-				_log.info("token is ......" + accessToken);
+				
 				Object entryUrl = session.getAttribute(ENTRY_URL);
 				if (entryUrl != null) {
 					response.sendRedirect(session.getAttribute(ENTRY_URL)
