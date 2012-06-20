@@ -55,10 +55,6 @@
 				<name>fieldType2</name>
 				<value>textarea</value>
 			</preference>
-			<preference>
-				 <name>portlet-setup-show-borders</name>
-				 <value>false</value>
-			</preference>
 		</portlet-preferences>
 		<security-role-ref>
 			<role-name>administrator</role-name>
