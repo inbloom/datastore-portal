@@ -171,7 +171,7 @@ public class SLIFilter extends BasePortalFilter {
 		}
 	}
 
-	private void authenticate(HttpServletRequest req, HttpServletResponse res) {
+	private void authenticate(HttpServletRequest req, HttpServletResponse res, String realmName) {
 		try {
 			BasicClient client = SLISSOUtil.getBasicClientObject();
 			//US 2131 - realm selection redirect
