@@ -484,9 +484,6 @@ public class WebFormPortlet extends MVCPortlet {
     
     	        Session session = Session.getInstance(props, null);
     	       
-    	        String username = EmailUtil.getAesDecrypt().decrypt(PropsUtil.get(PropsKeys.MAIL_SESSION_MAIL_SMTP_USER));
-    	        String password = EmailUtil.getAesDecrypt().decrypt(PropsUtil.get(PropsKeys.MAIL_SESSION_MAIL_SMTP_PASSWORD));
-    
     			final MimeMessage msg = new MimeMessage(session);
     
     	        // -- Set the FROM and TO fields --
@@ -500,7 +497,7 @@ public class WebFormPortlet extends MVCPortlet {
     
     	        _log.debug("Connecting to smtp server: " + PropsUtil.get(PropsKeys.MAIL_SESSION_MAIL_SMTP_HOST));
     
-    	        t.connect(PropsUtil.get(PropsKeys.MAIL_SESSION_MAIL_SMTP_HOST), username, password);
+    	        t.connect(PropsUtil.get(PropsKeys.MAIL_SESSION_MAIL_SMTP_HOST), PropsUtil.get(PropsKeys.MAIL_SESSION_MAIL_SMTP_USER), PropsUtil.get(PropsKeys.MAIL_SESSION_MAIL_SMTP_PASSWORD));
     	        
     	        _log.debug("Sending the message...");
     	        t.sendMessage(msg, msg.getAllRecipients());
