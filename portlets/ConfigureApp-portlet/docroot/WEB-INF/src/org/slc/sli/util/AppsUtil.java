@@ -105,12 +105,30 @@ public class AppsUtil {
 			
 			AppsData apps = new AppsData();
 
-			String name = jsonEle.getAsJsonObject().get("name").toString().replaceAll(StringPool.QUOTE, StringPool.BLANK);
-			String description = jsonEle.getAsJsonObject().get("description").toString().replaceAll(StringPool.QUOTE, StringPool.BLANK);
-			String behaviour = jsonEle.getAsJsonObject().get("behavior").toString().replaceAll(StringPool.QUOTE, StringPool.BLANK);
-			String imageUrl = jsonEle.getAsJsonObject().get("image_url").toString().replaceAll(StringPool.QUOTE, StringPool.BLANK);
+            String name = "";
+            String description = "";
+            String behaviour = "";
+            String imageUrl = "";
+            String adminUrl = "";
+            
+            if (jsonEle.getAsJsonObject().has("name")) {
+                name = jsonEle.getAsJsonObject().get("name").toString().replaceAll(StringPool.QUOTE, StringPool.BLANK);
+            }
+            
+            if (jsonEle.getAsJsonObject().has("description")) {
+                description = jsonEle.getAsJsonObject().get("description").toString().replaceAll(StringPool.QUOTE, StringPool.BLANK);
+            }
+            
+			behaviour = jsonEle.getAsJsonObject().get("behavior").toString().replaceAll(StringPool.QUOTE, StringPool.BLANK);
+            
+			if (jsonEle.getAsJsonObject().has("image_url")) {
+                imageUrl = jsonEle.getAsJsonObject().get("image_url").toString().replaceAll(StringPool.QUOTE, StringPool.BLANK);
+            }
+			
 			//String applicationUrl = jsonEle.getAsJsonObject().get("application_url").toString();
-			String adminUrl = jsonEle.getAsJsonObject().get("administration_url").toString();
+	        if (jsonEle.getAsJsonObject().has("administration_url")) {
+	            adminUrl = jsonEle.getAsJsonObject().get("administration_url").toString();
+	        }
 
 			// Map Name,Description,Image url and app Url to bean
 			if(!adminUrl.equalsIgnoreCase(StringPool.DOUBLE_QUOTE)){
