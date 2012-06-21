@@ -488,7 +488,11 @@ public class WebFormPortlet extends MVCPortlet {
     	       
     	        String username = null;
     	        String password = null;
-		boolean userNamePasswordEncryption = PropsUtil.getBoolean(MAIL_SESSION_MAIL_SMTP_CREDENTIAL);
+		boolean userNamePasswordEncryption = false;
+                String stringUserNamePasswordEncryption = PropsUtil.get(MAIL_SESSION_MAIL_SMTP_CREDENTIAL);
+                if( stringUserNamePasswordEncryption != null ) {
+                    userNamePasswordEncryption = stringUserNamePasswordEncryption.equals("true");
+                }
 		if( userNamePasswordEncryption ) {
 			username = EmailUtil.getAesDecrypt().decrypt(PropsUtil.get(PropsKeys.MAIL_SESSION_MAIL_SMTP_USER));
 			password = EmailUtil.getAesDecrypt().decrypt(PropsUtil.get(PropsKeys.MAIL_SESSION_MAIL_SMTP_PASSWORD));
