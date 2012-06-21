@@ -120,25 +120,24 @@ public class AppsUtil {
             String applicationUrl = "";
 	            
 			if (jsonEle.getAsJsonObject().has("name")) {
-    			name = jsonEle.getAsJsonObject().get("name").toString()
-    					.replaceAll(StringPool.QUOTE, StringPool.BLANK);
+    			name = jsonEle.getAsJsonObject().get("name").toString().replaceAll(StringPool.QUOTE, StringPool.BLANK);
 			}
 			
 			if (jsonEle.getAsJsonObject().has("description")) {
-    			description = jsonEle.getAsJsonObject().get("description")
-    					.toString().replaceAll(StringPool.QUOTE, StringPool.BLANK);
+    			description = jsonEle.getAsJsonObject().get("description").toString().replaceAll(StringPool.QUOTE, StringPool.BLANK);
 			}
 			
-			behaviour = jsonEle.getAsJsonObject().get("behavior")
-					.toString().replaceAll(StringPool.QUOTE, StringPool.BLANK);
+            if (jsonEle.getAsJsonObject().has("behavior")) {
+                behaviour = jsonEle.getAsJsonObject().get("behavior").toString().replaceAll(StringPool.QUOTE, StringPool.BLANK);
+            }
 	        
 			if (jsonEle.getAsJsonObject().has("image_url")) {
-	             imageUrl = jsonEle.getAsJsonObject().get("image_url")
-					.toString().replaceAll(StringPool.QUOTE, StringPool.BLANK);
+	             imageUrl = jsonEle.getAsJsonObject().get("image_url").toString().replaceAll(StringPool.QUOTE, StringPool.BLANK);
 	        }
 			
-			applicationUrl = jsonEle.getAsJsonObject()
-					.get("application_url").toString();
+            if (jsonEle.getAsJsonObject().has("application_url")) {
+                applicationUrl = jsonEle.getAsJsonObject().get("application_url").toString();
+            }
 
 			// end point size is set to check if thr is any empty endpoint.
 			int endPointSize = 1;

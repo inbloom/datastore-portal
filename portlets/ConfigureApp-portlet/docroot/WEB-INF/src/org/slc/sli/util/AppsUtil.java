@@ -119,7 +119,9 @@ public class AppsUtil {
                 description = jsonEle.getAsJsonObject().get("description").toString().replaceAll(StringPool.QUOTE, StringPool.BLANK);
             }
             
-			behaviour = jsonEle.getAsJsonObject().get("behavior").toString().replaceAll(StringPool.QUOTE, StringPool.BLANK);
+            if (jsonEle.getAsJsonObject().has("behavior")) {
+                behaviour = jsonEle.getAsJsonObject().get("behavior").toString().replaceAll(StringPool.QUOTE, StringPool.BLANK);
+            }
             
 			if (jsonEle.getAsJsonObject().has("image_url")) {
                 imageUrl = jsonEle.getAsJsonObject().get("image_url").toString().replaceAll(StringPool.QUOTE, StringPool.BLANK);
