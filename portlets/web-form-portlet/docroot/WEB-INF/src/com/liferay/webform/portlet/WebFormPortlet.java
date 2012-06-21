@@ -80,6 +80,8 @@ import org.slc.sli.util.EmailUtil;
  * @author Brian Wing Shun Chan
  */
 public class WebFormPortlet extends MVCPortlet {
+
+	public static final String MAIL_SESSION_MAIL_SMTP_CREDENTIAL = "mail.session.mail.smtp.credential";
     
 	public void deleteData(ActionRequest actionRequest,
 			ActionResponse actionResponse) throws Exception {
@@ -484,8 +486,16 @@ public class WebFormPortlet extends MVCPortlet {
     
     	        Session session = Session.getInstance(props, null);
     	       
-    	        String username = EmailUtil.getAesDecrypt().decrypt(PropsUtil.get(PropsKeys.MAIL_SESSION_MAIL_SMTP_USER));
-    	        String password = EmailUtil.getAesDecrypt().decrypt(PropsUtil.get(PropsKeys.MAIL_SESSION_MAIL_SMTP_PASSWORD));
+    	        String username = null;
+    	        String password = null;
+		boolean userNamePasswordEncryption = PropsUtil.getBoolean(MAIL_SESSION_MAIL_SMTP_CREDENTIAL);
+		if( userNamePasswordEncryption ) {
+			username = EmailUtil.getAesDecrypt().decrypt(PropsUtil.get(PropsKeys.MAIL_SESSION_MAIL_SMTP_USER));
+			password = EmailUtil.getAesDecrypt().decrypt(PropsUtil.get(PropsKeys.MAIL_SESSION_MAIL_SMTP_PASSWORD));
+		} else  {
+			username = PropsUtil.get(PropsKeys.MAIL_SESSION_MAIL_SMTP_USER);
+			password = PropsUtil.get(PropsKeys.MAIL_SESSION_MAIL_SMTP_PASSWORD);
+		}
     
     			final MimeMessage msg = new MimeMessage(session);
     
