@@ -16,7 +16,7 @@ import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.PropsUtil;
 import com.liferay.portal.kernel.util.StringPool;
-
+import com.liferay.portal.kernel.util.ParamUtil;
 import org.slc.sli.util.Constants;
 import org.slc.sli.util.PropsKeys;
 import org.slc.sli.api.client.impl.BasicClient;
