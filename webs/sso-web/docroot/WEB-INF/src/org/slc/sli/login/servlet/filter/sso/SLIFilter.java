@@ -74,10 +74,7 @@ public class SLIFilter extends BasePortalFilter {
 
 		Object token = session.getAttribute(Constants.OAUTH_TOKEN);
 
-		if (_log.isDebugEnabled()) {
-			_log.debug(" isAuth Fetching token from session ..." + token);
-		}
-
+		//DE 766 removed token log
 		BasicClient client = SLISSOUtil.getBasicClientObject();
 
 		if (client != null && token != null) {
