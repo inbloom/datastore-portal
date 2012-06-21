@@ -81,7 +81,7 @@ import org.slc.sli.util.EmailUtil;
  */
 public class WebFormPortlet extends MVCPortlet {
 
-	public static final String MAIL_SESSION_MAIL_SMTP_CREDENTIAL = "mail.session.mail.smtp.credential";
+	public static final String MAIL_SESSION_MAIL_SMTP_CREDENTIAL_ENCRYPTION = "mail.session.mail.smtp.credential.encryption";
     
 	public void deleteData(ActionRequest actionRequest,
 			ActionResponse actionResponse) throws Exception {
@@ -488,8 +488,8 @@ public class WebFormPortlet extends MVCPortlet {
     	       
     	        String username = null;
     	        String password = null;
-		boolean userNamePasswordEncryption = false;
-                String stringUserNamePasswordEncryption = PropsUtil.get(MAIL_SESSION_MAIL_SMTP_CREDENTIAL);
+		boolean userNamePasswordEncryption = true;
+                String stringUserNamePasswordEncryption = PropsUtil.get(MAIL_SESSION_MAIL_SMTP_CREDENTIAL_ENCRYPTION);
                 if( stringUserNamePasswordEncryption != null ) {
                     userNamePasswordEncryption = stringUserNamePasswordEncryption.equals("true");
                 }
