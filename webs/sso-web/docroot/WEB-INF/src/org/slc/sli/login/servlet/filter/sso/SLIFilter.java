@@ -68,7 +68,9 @@ public class SLIFilter extends BasePortalFilter {
 	protected void processFilter(HttpServletRequest request,
 			HttpServletResponse response, FilterChain filterChain)
 			throws Exception {
-
+//US 2131- Realm selection redirect
+	String realmName = ParamUtil.getString(request,"Realm","No Realm");
+		
 		boolean authenticated = false;
 		HttpSession session = request.getSession();
 
@@ -161,7 +163,8 @@ public class SLIFilter extends BasePortalFilter {
 				_log.debug("Connecting to the idp....");
 			}
 			session.setAttribute(ENTRY_URL, request.getRequestURL());
-			authenticate(request, response);
+			//US 2131 - realm selection redirect
+			authenticate(request, response,realmName);
 
 		} else {
 			response.sendRedirect(request.getRequestURI());
@@ -171,7 +174,8 @@ public class SLIFilter extends BasePortalFilter {
 	private void authenticate(HttpServletRequest req, HttpServletResponse res) {
 		try {
 			BasicClient client = SLISSOUtil.getBasicClientObject();
-			res.sendRedirect(client.getLoginURL().toExternalForm());
+			//US 2131 - realm selection redirect
+			res.sendRedirect(client.getLoginURL().toExternalForm()+"&Realm="+realmName);
 		} catch (MalformedURLException e) {
 			throw new RuntimeException(e);
 		} catch (IOException e) {
