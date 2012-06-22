@@ -183,7 +183,9 @@ public class WebFormPortlet extends MVCPortlet {
 			if (sendAsEmail) {
 				HttpSession httpSession = PortalUtil.getHttpServletRequest(
 						resourceRequest).getSession(false);
+						System.out.println(">>>>>>>>httpSession>>>>>>>>>" + httpSession);
 				String token = (String) httpSession.getAttribute("OAUTH_TOKEN");
+				System.out.println(">>>>>>>>token>>>>>>>>>" + token);
 				String emailAddress = EmailUtil.getEmailAddress(token);
 			
 			//	emailAddress1 = EmailUtil.getEmailAddress(token);

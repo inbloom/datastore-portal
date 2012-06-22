@@ -25,8 +25,6 @@ preferences.setValue("successURL", "/web/guest/admin");
 String successURL = preferences.getValue("successURL", StringPool.BLANK);
 Calendar calendar =  Calendar.getInstance();
 String refererUrl = request.getHeader("Referer");
-
-
 %>
 
 <portlet:actionURL var="saveDataURL">
