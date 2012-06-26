@@ -4,7 +4,7 @@
 jdbc.default.driverClassName=com.mysql.jdbc.Driver
 jdbc.default.url=jdbc:mysql://localhost/lportal?emulateLocators=true&useUnicode=true&characterEncoding=UTF-8&useFastDateParsing=false&createDatabaseIfNotExists=true
 jdbc.default.username=liferay
-jdbc.default.password=liferaywgen
+jdbc.default.password=FD0AB80E6E632EE817A895E5888ECA0A
 
 session.timeout=10
 session.timeout.warning=0
@@ -88,9 +88,8 @@ sso.login.error.page=/portal/web/guest/error
 #
 # SLI roles
 #
-sli.role.itadmin=IT Administrator
-sli.role.sliadmin=SLI Administrator
-sli.role.educator=Educator
+
+#DE931 removed unused properties
 
 sli.role.admin=LEA Administrator,Realm Administrator,IT Administrator,SEA Administrator,SLC Operator,Application Developer,Ingestion User,SEA Super Administrator,LEA Super Administrator,Realm Admin,App Developer
 
@@ -208,3 +207,13 @@ is_sandbox = true
 
 # DE 846- disable cache on logout
 browser.cache.signed.in.disabled=true
+
+#DE768 - MySQL Password Encryption 
+jdbc.default.encrypted.password=true
+
+include-and-override=${sli.encryption.properties}
+
+
+#DE261- Restrict version info in response header
+
+http.header.version.verbosity= partial
