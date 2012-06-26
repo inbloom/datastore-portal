@@ -104,7 +104,7 @@ if(usrname=="demo"){
 
                                                 var src = "[$PORTAL_URL$]/portal/web/guest/report-a-problem";
 
-                                                $.modal('<div style="width:700px" ><iframe src="' + src + '" width="700" height="500" style="border:0;overflow:hidden"></iframe></div>', {
+                                                $.modal('<div style="width:700px" ><iframe src="' + src + '" width="700" height="519" style="border:0;overflow:hidden"></iframe></div>', {
 
                                                 closeHTML:"",
 
