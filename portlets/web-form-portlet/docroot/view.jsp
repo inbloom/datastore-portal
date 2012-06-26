@@ -295,7 +295,7 @@ String refererUrl = request.getHeader("Referer");
 	}
 </aui:script>
 </div>
-
+<!-- DE 1058-->
 <style type="text/css">
 .dockbar{
 	display:none;
@@ -306,5 +306,6 @@ overflow:hidden
 .taglib-captcha .captcha{
 	padding-left: 150px;
 }
+
 </style>
  
