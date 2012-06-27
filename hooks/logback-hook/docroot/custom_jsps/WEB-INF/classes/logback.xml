@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration debug="false">
+	<!--<property file="/opt/tomcat/conf/liferaylog.properties"/> -->
+	<property file="${catalina.base}/../liferaylog.properties"/>
+	<appender name="FILE" class="ch.qos.logback.core.FileAppender">
+		<!--<File>D:/wgen/logs/liferay.log</File>-->
+		<File>${log.path}/liferay.log</File>
+		<Append>true</Append>
+		<encoder>
+			<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+		</encoder>
+	</appender>
+
+	<appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+		</encoder>
+	</appender>
+
+	<logger name="com.ecyrd.jspwiki" level="ERROR"/>
+	<logger name="com.germinus.easyconf" level="ERROR"/>
+	<logger name="com.liferay" level="ERROR"/>
+	<logger name="com.liferay.jdbc" level="ERROR"/>
+	<logger name="com.liferay.mail.service.impl.MailServiceImpl" level="INFO"/>
+	<logger name="com.liferay.mail.util" level="ERROR"/>
+	<logger name="com.liferay.mail.util.DummyHook" level="ERROR"/>
+	<logger name="com.liferay.mail.util.HookFactory" level="ERROR"/>
+	<logger name="com.liferay.mail.util.MailSessionFactoryBean" level="ERROR"/>
+	<logger name="com.liferay.portal.action.JSONServiceAction" level="INFO"/>
+	<logger name="com.liferay.portal.action.LayoutAction" level="WARN"/>
+	<logger name="com.liferay.portal.bean.BeanLocatorImpl" level="WARN"/>
+	<logger name="com.liferay.portal.cache" level="WARN"/>
+	<logger name="com.liferay.portal.cache.ehcache.EhcachePortalCacheManager" level="ERROR"/>
+	<logger name="com.liferay.portal.cache.ehcache.LiferayBootstrapCacheLoaderFactory" level="INFO"/>
+	<logger name="com.liferay.portal.cache.ehcache.LiferayCacheEventListenerFactory" level="INFO"/>
+	<logger name="com.liferay.portal.cache.ehcache.LiferayCacheManagerPeerProviderFactory" level="INFO"/>
+	<logger name="com.liferay.portal.captcha.CaptchaImpl" level="INFO"/>
+	<logger name="com.liferay.portal.cluster" level="INFO"/>
+	<logger name="com.liferay.portal.configuration.ConfigurationImpl" level="WARN"/>
+	<logger name="com.liferay.portal.convert" level="DEBUG"/>
+	<logger name="com.liferay.portal.dao.db" level="INFO"/>
+	<logger name="com.liferay.portal.dao.db.BaseDB" level="INFO"/>
+	<logger name="com.liferay.portal.dao.jdbc.DataSourceFactoryImpl" level="INFO"/>
+	<logger name="com.liferay.portal.dao.jdbc.aop" level="ERROR"/>
+	<logger name="com.liferay.portal.dao.jdbc.pool" level="ERROR"/>
+	<logger name="com.liferay.portal.dao.orm.common.SQLTransformer" level="ERROR"/>
+	<logger name="com.liferay.portal.dao.orm.hibernate.SessionFactoryImpl" level="ERROR"/>
+	<logger name="com.liferay.portal.dao.shard" level="ERROR"/>
+	<logger name="com.liferay.portal.dao.shard.ShardDataSourceTargetSource" level="INFO"/>
+	<logger name="com.liferay.portal.deploy" level="INFO"/>
+	<logger name="com.liferay.portal.deploy.hot.HookHotDeployListener" level="INFO"/>
+	<logger name="com.liferay.portal.deploy.hot.PluginPackageHotDeployListener" level="ERROR"/>
+	<logger name="com.liferay.portal.deploy.hot.ThemeLoaderHotDeployListener" level="ERROR"/>
+	<logger name="com.liferay.portal.deploy.hot.messaging.HotDeployMessageListener" level="ERROR"/>
+	<logger name="com.liferay.portal.editor" level="ERROR"/>
+	<logger name="com.liferay.portal.editor.fckeditor.ConnectorAction" level="ERROR"/>
+	<logger name="com.liferay.portal.events.ChannelHubAppShutdownAction" level="INFO"/>
+	<logger name="com.liferay.portal.events.ChannelHubAppStartupAction" level="INFO"/>
+
+	<logger name="com.liferay.portal.events.ChannelLoginPostAction" level="INFO"/>
+	<logger name="com.liferay.portal.events.ChannelSessionDestroyAction" level="INFO"/>
+	<logger name="com.liferay.portal.events.EventsProcessor" level="ERROR"/>
+	<logger name="com.liferay.portal.events.FixOracleAction" level="INFO"/>
+	<logger name="com.liferay.portal.events.GarbageCollectorAction" level="ERROR"/>
+	<logger name="com.liferay.portal.events.GlobalStartupAction" level="ERROR"/>
+	<logger name="com.liferay.portal.events.LogMemoryUsageAction" level="DEBUG"/>
+	<logger name="com.liferay.portal.events.LoginPostAction" level="ERROR"/>
+	<logger name="com.liferay.portal.events.LoginPreAction" level="ERROR"/>
+	<logger name="com.liferay.portal.events.LogoutPostAction" level="ERROR"/>
+	<logger name="com.liferay.portal.events.LogoutPreAction" level="ERROR"/>
+	<logger name="com.liferay.portal.events.LogSessionIdAction" level="DEBUG"/>
+	<logger name="com.liferay.portal.events.LogThreadCountAction" level="DEBUG"/>
+	<logger name="com.liferay.portal.events.ServicePreAction" level="ERROR"/>
+	<logger name="com.liferay.portal.events.ShutdownHook" level="ERROR"/>
+	<logger name="com.liferay.portal.events.StartupAction" level="ERROR"/>
+	<logger name="com.liferay.portal.events.StartupHelper" level="INFO"/>
+	<logger name="com.liferay.portal.googleapps" level="INFO"/>
+	<logger name="com.liferay.portal.googleapps.GHelperUtil" level="INFO"/>
+	<logger name="com.liferay.portal.image.HookFactory" level="ERROR"/>
+	<logger name="com.liferay.portal.image.ImageToolImpl" level="ERROR"/>
+	<logger name="com.liferay.portal.image.SpriteProcessorImpl" level="WARN"/>
+	<logger name="com.liferay.portal.kernel.bean.PortalBeanLocatorUtil" level="ERROR"/>
+	<logger name="com.liferay.portal.kernel.cache.cluster.BasePortalCacheClusterChannel" level="WARN"/>
+	<logger name="com.liferay.portal.kernel.dao.orm.QueryUtil" level="WARN"/>
+	<logger name="com.liferay.portal.kernel.deploy" level="INFO"/>
+	<logger name="com.liferay.portal.kernel.search.HitsOpenSearchImpl" level="WARN"/>
+	<logger name="com.liferay.portal.kernel.servlet.PipingServletResponse" level="ERROR"/>
+
+	<logger name="com.liferay.portal.kernel.servlet.PortletContextListener" level="INFO"/>
+	<logger name="com.liferay.portal.kernel.servlet.ServletContextPool" level="ERROR"/>
+	<logger name="com.liferay.portal.kernel.servlet.ServletContextUtil" level="INFO"/>
+	<logger name="com.liferay.portal.kernel.upgrade" level="INFO"/>
+	<logger name="com.liferay.portal.kernel.util.JavaProps" level="ERROR"/>
+	<logger name="com.liferay.portal.kernel.util.ServerDetector" level="INFO"/>
+	<logger name="com.liferay.portal.lar" level="ERROR"/>
+	<logger name="com.liferay.portal.model.Image" level="ERROR"/>
+	<logger name="com.liferay.portal.model.ModelHintsImpl" level="ERROR"/>
+	<logger name="com.liferay.portal.plugin.PluginPackageUtil" level="INFO"/>
+	<logger name="com.liferay.portal.pop" level="ERROR"/>
+	<logger name="com.liferay.portal.repository.cmis" level="WARN"/>
+	<logger name="com.liferay.portal.sanitizer.DummySanitizerImpl" level="ERROR"/>
+	<logger name="com.liferay.portal.scheduler.quartz.PortalJobStore" level="ERROR"/>
+	<logger name="com.liferay.portal.search.lucene" level="INFO"/>
+	<logger name="com.liferay.portal.search.lucene.LuceneFileExtractor" level="ERROR"/>
+	<logger name="com.liferay.portal.search.lucene.LuceneIndexSearcherImpl" level="ERROR"/>
+	<logger name="com.liferay.portal.search.lucene.LuceneIndexWriterImpl" level="ERROR"/>
+	<logger name="com.liferay.portal.security.auth.CASAutoLogin" level="WARN"/>
+
+	<logger name="com.liferay.portal.security.auth.LDAPAuth" level="WARN"/>
+	<logger name="com.liferay.portal.security.auth.OpenSSOAutoLogin" level="WARN"/>
+	<logger name="com.liferay.portal.security.auth.PrincipalThreadLocal" level="ERROR"/>
+	<logger name="com.liferay.portal.security.auth.ScreenNameGeneratorFactory" level="ERROR"/>
+	<logger name="com.liferay.portal.security.auth.ScreenNameValidatorFactory" level="ERROR"/>
+	<logger name="com.liferay.portal.security.auth.SiteMinderAutoLogin" level="WARN"/>
+	<logger name="com.liferay.portal.security.ldap" level="ERROR"/>
+	<logger name="com.liferay.portal.security.ldap.PortalLDAPUtil" level="ERROR"/>
+	<logger name="com.liferay.portal.security.permission.AdvancedPermissionChecker" level="ERROR"/>
+	<logger name="com.liferay.portal.security.permission.BasicPermissionChecker" level="INFO"/>
+	<logger name="com.liferay.portal.security.permission.ResourceActionsImpl" level="WARN"/>
+	<logger name="com.liferay.portal.security.pwd.RegExpToolkit" level="WARN"/>
+	<logger name="com.liferay.portal.service.impl.LayoutLocalServiceImpl" level="ERROR"/>
+	<logger name="com.liferay.portal.service.impl.PermissionLocalServiceImpl" level="ERROR"/>
+	<logger name="com.liferay.portal.service.impl.PortalLocalServiceImpl" level="INFO"/>
+	<logger name="com.liferay.portal.service.impl.PortalServiceImpl" level="INFO"/>
+	<logger name="com.liferay.portal.service.impl.PortletLocalServiceImpl" level="WARN"/>
+	<logger name="com.liferay.portal.service.impl.ReleaseLocalServiceImpl" level="INFO"/>
+	<logger name="com.liferay.portal.service.impl.ResourceLocalServiceImpl" level="ERROR"/>
+
+	<logger name="com.liferay.portal.service.impl.ServiceComponentLocalServiceImpl" level="INFO"/>
+	<logger name="com.liferay.portal.service.impl.ThemeLocalServiceImpl" level="INFO"/>
+
+	<logger name="com.liferay.portal.service.impl.ThemeServiceImpl" level="ERROR"/>
+	<logger name="com.liferay.portal.service.persistence.PermissionPool" level="ERROR"/>
+	<logger name="com.liferay.portal.service.persistence.ResourcePool" level="ERROR"/>
+	<logger name="com.liferay.portal.servlet.FriendlyURLServlet" level="ERROR"/>
+	<logger name="com.liferay.portal.servlet.LanguageServlet" level="WARN"/>
+	<logger name="com.liferay.portal.servlet.LuceneServlet" level="INFO"/>
+	<logger name="com.liferay.portal.servlet.MainServlet" level="WARN"/>
+	<logger name="com.liferay.portal.servlet.PortalSessionCreator" level="ERROR"/>
+	<logger name="com.liferay.portal.servlet.PortalSessionDestroyer" level="ERROR"/>
+	<logger name="com.liferay.portal.servlet.SharedSessionUtil" level="ERROR"/>
+	<logger name="com.liferay.portal.servlet.SoftwareCatalogServlet" level="ERROR"/>
+
+	<logger name="com.liferay.portal.servlet.filters" level="ERROR"/>
+	<logger name="com.liferay.portal.servlet.filters.autologin.AutoLoginFilter" level="ERROR"/>
+	<logger name="com.liferay.portal.servlet.filters.cache" level="ERROR"/>
+	<logger name="com.liferay.portal.servlet.filters.doubleclick" level="ERROR"/>
+	<logger name="com.liferay.portal.servlet.filters.dynamiccss" level="ERROR"/>
+	<logger name="com.liferay.portal.servlet.filters.dynamiccss.DynamicCSSFilter" level="ERROR"/>
+	<logger name="com.liferay.portal.servlet.filters.dynamiccss.DynamicCSSUtil" level="ERROR"/>
+	<logger name="com.liferay.portal.servlet.filters.fragment" level="ERROR"/>
+	<logger name="com.liferay.portal.servlet.filters.gzip" level="ERROR"/>
+	<logger name="com.liferay.portal.servlet.filters.language" level="ERROR"/>
+	<logger name="com.liferay.portal.servlet.filters.minifier" level="ERROR"/>
+	<logger name="com.liferay.portal.servlet.filters.sessionid.SessionIdFilter" level="ERROR"/>
+	<logger name="com.liferay.portal.servlet.filters.sessionid.SessionIdServletRequest" level="ERROR"/>
+	<logger name="com.liferay.portal.servlet.filters.strip" level="ERROR"/>
+	<logger name="com.liferay.portal.servlet.filters.threaddump" level="com.liferay.portal.spring"/>
+	<logger name="com.liferay.portal.servlet.filters.virtualhost.VirtualHostFilter" level="ERROR"/>
+	<logger name="com.liferay.portal.spring" level="ERROR"/>
+	<logger name="com.liferay.portal.spring.context.ArrayApplicationContext" level="ERROR"/>
+	<logger name="com.liferay.portal.spring.context.PortalApplicationContext" level="ERROR"/>
+	<logger name="com.liferay.portal.spring.context.PortletApplicationContext" level="ERROR"/>
+	<logger name="com.liferay.portal.spring.context.TunnelApplicationContext" level="ERROR"/>
+	<logger name="com.liferay.portal.spring.hibernate.DialectDetector" level="INFO"/>
+	<logger name="com.liferay.portal.spring.jpa.DatabaseDetector" level="INFO"/>
+	<logger name="com.liferay.portal.spring.jpa.LocalContainerEntityManagerFactoryBean" level="INFO"/>
+	<logger name="com.liferay.portal.struts" level="ERROR"/>
+	<logger name="com.liferay.portal.struts.MultiMessageResources" level="ERROR"/>
+	<logger name="com.liferay.portal.struts.PortalRequestProcessor" level="ERROR"/>
+	<logger name="com.liferay.portal.struts.PortletRequestProcessor" level="WARN"/>
+	<logger name="com.liferay.portal.struts.StrutsURLEncoder" level="ERROR"/>
+	<logger name="com.liferay.portal.struts.StrutsUtil" level="ERROR"/>
+	<logger name="com.liferay.portal.theme.ThemeLoader" level="INFO"/>
+	<logger name="com.liferay.portal.tools.BaseDeployer" level="INFO"/>
+	<logger name="com.liferay.portal.tools.DBUpgrader" level="ERROR"/>
+	<logger name="com.liferay.portal.tools.PortletDeployer" level="INFO"/>
+	<logger name="com.liferay.portal.tools.ThemeDeployer" level="INFO"/>
+	<logger name="com.liferay.portal.tools.sql" level="INFO"/>
+	<logger name="com.liferay.portal.upgrade" level="INFO"/>
+	<logger name="com.liferay.portal.upgrade.UpgradeProcessUtil" level="INFO"/>
+	<logger name="com.liferay.portal.util" level="ERROR"/>
+	<logger name="com.liferay.portal.util.CookieKeys" level="ERROR"/>
+	<logger name="com.liferay.portal.util.EntityResolver" level="ERROR"/>
+
+	<logger name="com.liferay.portal.util.FileImpl" level="WARN"/>
+	<logger name="com.liferay.portal.util.HttpImpl" level="INFO"/>
+	<logger name="com.liferay.portal.util.MaintenanceUtil" level="DEBUG"/>
+	<logger name="com.liferay.portal.util.MimeTypesUtil" level="ERROR"/>
+	<logger name="com.liferay.portal.util.PortalInstances" level="ERROR"/>
+	<logger name="com.liferay.portal.util.PortalImpl" level="INFO"/>
+	<logger name="com.liferay.portal.velocity" level="ERROR"/>
+	<logger name="com.liferay.portal.velocity.ClassLoaderVelocityResourceListener" level="ERROR"/>
+
+	<logger name="com.liferay.portal.velocity.LiferayResourceLoader" level="ERROR"/>
+	<logger name="com.liferay.portal.velocity.ServletVelocityResourceListener" level="ERROR"/>
+	<logger name="com.liferay.portal.verify" level="INFO"/>
+	<logger name="com.liferay.portal.verify.VerifyUser" level="INFO"/>
+	<logger name="com.liferay.portal.webserver.WebServerServlet" level="ERROR"/>
+	<logger name="com.liferay.portal.webdav" level="ERROR"/>
+	<logger name="com.liferay.portal.xml.SAXReaderImpl" level="WARN"/>
+	<logger name="com.liferay.portlet.InvokerPortlet" level="ERROR"/>
+	<logger name="com.liferay.portlet.PortletPreferencesImpl" level="ERROR"/>
+	<logger name="com.liferay.portlet.RenderRequestFactory" level="ERROR"/>
+	<logger name="com.liferay.portlet.RenderResponseFactory" level="ERROR"/>
+	<logger name="com.liferay.portlet.admin" level="ERROR"/>
+	<logger name="com.liferay.portlet.admin.action.EditServerAction" level="INFO"/>
+	<logger name="com.liferay.portlet.amazonrankings.AmazonRankingsPreferencesValidator" level="INFO"/>
+	<logger name="com.liferay.portlet.asset.util.AssetUtil" level="ERROR"/>
+	<logger name="com.liferay.portlet.blogs.service.impl.BlogsEntryLocalServiceImpl" level="INFO"/>
+	<logger name="com.liferay.portlet.blogs.util" level="INFO"/>
+
+	<logger name="com.liferay.portlet.documentlibrary.lar" level="WARN"/>
+	<logger name="com.liferay.portlet.documentlibrary.store.StoreFactory" level="WARN"/>
+	<logger name="com.liferay.portlet.documentlibrary.util" level="WARN"/>
+	<logger name="com.liferay.portlet.documentlibrary.util.DLIndexer" level="ERROR"/>
+	<logger name="com.liferay.portlet.documentlibrary.webdav" level="WARN"/>
+	<logger name="com.liferay.portlet.journal" level="ERROR"/>
+	<logger name="com.liferay.portlet.journal.lar" level="WARN"/>
+	<logger name="com.liferay.portlet.journal.service.impl.JournalContentSearchLocalServiceImpl" level="INFO"/>
+	<logger name="com.liferay.portlet.journal.util.JournalUtil" level="ERROR"/>
+	<logger name="com.liferay.portlet.journal.util.PropertiesTransformerListener" level="WARN"/>
+	<logger name="com.liferay.portlet.journal.util.RegexTransformerUtil" level="INFO"/>
+	<logger name="com.liferay.portlet.journalcontent.JournalContentPortletLayoutListener" level="ERROR"/>
+	<logger name="com.liferay.portlet.journalcontent.util.JournalContentUtil" level="ERROR"/>
+	<logger name="com.liferay.portlet.mail" level="WARN"/>
+	<logger name="com.liferay.portlet.messageboards.pop.MessageListenerImpl" level="ERROR"/>
+	<logger name="com.liferay.portlet.messageboards.service.impl.MBCategoryLocalServiceImpl" level="ERROR"/>
+	<logger name="com.liferay.portlet.messageboards.service.impl.MBMessageLocalServiceImpl" level="ERROR"/>
+	<logger name="com.liferay.portlet.messageboards.util.MBUtil" level="ERROR"/>
+	<logger name="com.liferay.portlet.portletconfiguration.action" level="ERROR"/>
+	<logger name="com.liferay.portlet.shopping.action.PayPalNotificationAction" level="DEBUG"/>
+	<logger name="com.liferay.portlet.usersadmin.action.EditUserPortraitAction" level="ERROR"/>
+	<logger name="com.liferay.portlet.usersadmin.util.OrganizationIndexer" level="WARN"/>
+	<logger name="com.liferay.portlet.usersadmin.util.OrganizationSearchTerms" level="WARN"/>
+
+	<logger name="com.liferay.portlet.webproxy" level="INFO"/>
+
+
+	<logger name="com.liferay.portlet.wiki.action.ExportPageAction" level="ERROR"/>
+	<logger name="com.liferay.portlet.wiki.importers" level="WARN"/>
+	<logger name="com.liferay.samplestruts" level="INFO"/>
+	<logger name="com.liferay.sampletest" level="INFO"/>
+	<logger name="com.liferay.testhook" level="INFO"/>
+	<logger name="com.liferay.util.JNDIUtil" level="ERROR"/>
+	<logger name="com.liferay.util.dao" level="ERROR"/>
+	<logger name="com.liferay.util.dao.orm.CustomSQLUtil" level="INFO"/>
+	<logger name="com.liferay.util.mail" level="WARN"/>
+	<logger name="com.liferay.util.portlet.PortletRequestUtil" level="INFO"/>
+	<logger name="com.liferay.util.servlet.ServletRequestUtil" level="INFO"/>
+	<logger name="com.liferay.util.servlet.ServletResponseUtil" level="ERROR"/>
+	<logger name="com.mchange" level="WARN"/>
+
+	<logger name="com.opensymphony.oscache" level="ERROR"/>
+	<logger name="com.opensymphony.oscache.plugins.clustersupport.JavaGroupsBroadcastingListener" level="ERROR"/>
+	<logger name="com.sample" level="INFO"/>
+	<logger name="com.sun" level="ERROR"/>
+	<logger name="com.sun.faces" level="ERROR"/>
+	<logger name="de.hunsicker" level="ERROR"/>
+	<logger name="de.nava.informa" level="ERROR"/>
+	<logger name="httpclient.wire" level="ERROR"/>
+	<logger name="net.htmlparser.jericho" level="ERROR"/>
+	<logger name="net.sf.ehcache" level="ERROR"/>
+	<logger name="net.sf.ehcache.config.ConfigurationFactory" level="INFO"/>
+	<logger name="net.sf.ehcache.config.DiskStoreConfiguration" level="ERROR"/>
+	<logger name="net.sf.hibernate" level="ERROR"/>
+	<logger name="org.apache.axis" level="INFO"/>
+	<logger name="org.apache.bsf" level="FATAL"/>
+	<logger name="org.apache.chemistry.opencmis.client.bindings.spi.atompub.HttpUtils" level="ERROR"/>
+	<logger name="org.apache.commons.digester" level="ERROR"/>
+	<logger name="org.apache.commons.beanutils" level="ERROR"/>
+	<logger name="org.apache.commons.fileupload" level="ERROR"/>
+	<logger name="org.apache.commons.httpclient" level="ERROR"/>
+	<logger name="org.apache.commons.validator" level="ERROR"/>
+	<logger name="org.apache.jackrabbit" level="ERROR"/>
+	<logger name="org.apache.myfaces" level="ERROR"/>
+	<logger name="org.apache.pdfbox" level="ERROR"/>
+	<logger name="org.apache.struts" level="ERROR"/>
+	<logger name="org.apache.struts.action.RequestProcessor" level="ERROR"/>
+	<logger name="org.apache.struts.tiles.TilesRequestProcessor" level="ERROR"/>
+	<logger name="org.apache.velocity" level="ERROR"/>
+	<logger name="org.apache.xbean" level="ERROR"/>
+	<logger name="org.hibernate" level="ERROR"/>
+	<logger name="org.hibernate.event.def.AbstractFlushingEventListener" level="OFF"/>
+	<logger name="org.hibernate.util.JDBCExceptionReporter" level="ERROR"/>
+	<logger name="org.jabsorb" level="ERROR"/>
+	<logger name="org.jamwiki.Environment" level="ERROR"/>
+	<logger name="org.jgroups" level="ERROR"/>
+	<logger name="org.openid4java" level="ERROR"/>
+	<logger name="org.pdfbox" level="INFO"/>
+	<logger name="org.portletbridge" level="INFO"/>
+	<logger name="org.quartz" level="ERROR"/>
+	<logger name="org.springframework" level="ERROR"/>
+	<logger name="org.springframework.aop.support.AopUtils" level="INFO"/>
+	<logger name="portal-web.docroot.errors.404.jsp" level="WARN"/>
+
+	<root level="${log.level}">
+		<appender-ref ref="FILE" />
+		<appender-ref ref="CONSOLE" />
+	</root>
+</configuration>
