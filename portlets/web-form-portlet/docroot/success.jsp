@@ -23,3 +23,16 @@
 
 <input type="button" onclick="parent.closePop()" value="Close"/>
 </div>
+<style type="text/css">
+.dockbar{
+	display:none;
+}
+html{
+overflow:hidden
+}
+.taglib-captcha .captcha{
+	padding-left: 150px;
+}
+
+</style>
+ 

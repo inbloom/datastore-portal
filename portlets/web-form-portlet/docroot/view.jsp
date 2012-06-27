@@ -297,9 +297,13 @@ String refererUrl = request.getHeader("Referer");
 .dockbar{
 	display:none;
 }
-
+html{
+overflow:hidden
+}
 .taglib-captcha .captcha{
 	padding-left: 150px;
 }
+
 </style>
+ 
  
