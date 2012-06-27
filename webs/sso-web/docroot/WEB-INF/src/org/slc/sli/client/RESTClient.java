@@ -166,7 +166,7 @@ public class RESTClient {
                 url = new URLBuilder(path);
             }
             System.out.println("inside put json request with headers 1..."+path);
-            System.out.println("inside put json request with headers 2..."+token);
+            //DE 766 removed token log
             System.out.println("inside put json request with headers 3..."+entity);
             HttpHeaders headers = new HttpHeaders();
             headers.add("Authorization", "Bearer " + token);

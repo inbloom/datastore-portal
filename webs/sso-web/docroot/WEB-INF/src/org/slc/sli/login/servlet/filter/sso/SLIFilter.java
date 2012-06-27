@@ -16,7 +16,7 @@ import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.PropsUtil;
 import com.liferay.portal.kernel.util.StringPool;
-
+import com.liferay.portal.kernel.util.ParamUtil;
 import org.slc.sli.util.Constants;
 import org.slc.sli.util.PropsKeys;
 import org.slc.sli.api.client.impl.BasicClient;
@@ -68,16 +68,15 @@ public class SLIFilter extends BasePortalFilter {
 	protected void processFilter(HttpServletRequest request,
 			HttpServletResponse response, FilterChain filterChain)
 			throws Exception {
-
+//US 2131- Realm selection redirect
+	String realmName = ParamUtil.getString(request,"Realm","No Realm");
+		
 		boolean authenticated = false;
 		HttpSession session = request.getSession();
 
 		Object token = session.getAttribute(Constants.OAUTH_TOKEN);
 
-		if (_log.isDebugEnabled()) {
-			_log.debug(" isAuth Fetching token from session ..." + token);
-		}
-
+		//DE 766 removed token log
 		BasicClient client = SLISSOUtil.getBasicClientObject();
 
 		if (client != null && token != null) {
@@ -164,17 +163,19 @@ public class SLIFilter extends BasePortalFilter {
 				_log.debug("Connecting to the idp....");
 			}
 			session.setAttribute(ENTRY_URL, request.getRequestURL());
-			authenticate(request, response);
+			//US 2131 - realm selection redirect
+			authenticate(request, response,realmName);
 
 		} else {
 			response.sendRedirect(request.getRequestURI());
 		}
 	}
 
-	private void authenticate(HttpServletRequest req, HttpServletResponse res) {
+	private void authenticate(HttpServletRequest req, HttpServletResponse res, String realmName) {
 		try {
 			BasicClient client = SLISSOUtil.getBasicClientObject();
-			res.sendRedirect(client.getLoginURL().toExternalForm());
+			//US 2131 - realm selection redirect
+			res.sendRedirect(client.getLoginURL().toExternalForm()+"&Realm="+realmName);
 		} catch (MalformedURLException e) {
 			throw new RuntimeException(e);
 		} catch (IOException e) {
