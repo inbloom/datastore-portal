@@ -89,9 +89,8 @@ public class SLIFilter extends BasePortalFilter {
 			}
 			if (client != null) {
 				SLISSOUtil.logout(client, request, response);
-			}else{
-				clearSliCookie(request,response);
 			}
+
 			processFilter(SLIFilter.class, request, response, filterChain);
 			return;
 		}
