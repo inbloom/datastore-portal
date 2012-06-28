@@ -87,7 +87,7 @@ public class SLIFilter extends BasePortalFilter {
 			if (_log.isDebugEnabled()) {
 				_log.debug("Logout called");
 			}
-			if (client != null && client.getToken()!= null) {
+			if (client != null) {
 				SLISSOUtil.logout(client, request, response);
 			}else{
 				clearSliCookie(request,response);
