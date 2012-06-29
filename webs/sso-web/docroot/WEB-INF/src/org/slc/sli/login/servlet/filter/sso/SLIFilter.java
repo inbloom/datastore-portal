@@ -7,7 +7,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
+import org.slc.sli.util.CookieKeys;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
@@ -89,6 +89,8 @@ public class SLIFilter extends BasePortalFilter {
 			}
 			if (client != null) {
 				SLISSOUtil.logout(client, request, response);
+			}else{
+				clearLiferayCookies(request,response);
 			}
 
 			processFilter(SLIFilter.class, request, response, filterChain);
@@ -209,6 +211,70 @@ public class SLIFilter extends BasePortalFilter {
 			response.addCookie(openAmCookie);
 		}
 		return response;
+	}
+
+
+	/**
+	 * Clear liferay cookies when logged out from liferay
+	 */
+	private void clearLiferayCookies(HttpServletRequest request,
+			HttpServletResponse response) {
+		HttpSession session = request.getSession();
+		try {
+
+			String domain = CookieKeys.getDomain(request);
+
+			Cookie companyIdCookie = new Cookie(CookieKeys.COMPANY_ID,
+					StringPool.BLANK);
+
+			if (Validator.isNotNull(domain)) {
+				companyIdCookie.setDomain(domain);
+			}
+
+			companyIdCookie.setMaxAge(0);
+			companyIdCookie.setPath(StringPool.SLASH);
+
+			Cookie idCookie = new Cookie(CookieKeys.ID, StringPool.BLANK);
+
+			if (Validator.isNotNull(domain)) {
+				idCookie.setDomain(domain);
+			}
+
+			idCookie.setMaxAge(0);
+			idCookie.setPath(StringPool.SLASH);
+
+			Cookie passwordCookie = new Cookie(CookieKeys.PASSWORD,
+					StringPool.BLANK);
+
+			if (Validator.isNotNull(domain)) {
+				passwordCookie.setDomain(domain);
+			}
+
+			passwordCookie.setMaxAge(0);
+			passwordCookie.setPath(StringPool.SLASH);
+
+			Cookie rememberMeCookie = new Cookie(CookieKeys.REMEMBER_ME,
+					StringPool.BLANK);
+
+			if (Validator.isNotNull(domain)) {
+				rememberMeCookie.setDomain(domain);
+			}
+
+			rememberMeCookie.setMaxAge(0);
+			rememberMeCookie.setPath(StringPool.SLASH);
+
+			CookieKeys.addCookie(request, response, companyIdCookie);
+			CookieKeys.addCookie(request, response, idCookie);
+			CookieKeys.addCookie(request, response, passwordCookie);
+			CookieKeys.addCookie(request, response, rememberMeCookie);
+
+			try {
+				session.invalidate();
+			} catch (Exception e) {
+			}
+		} catch (Exception e) {
+
+		}
 	}
 
 	private static Log _log = LogFactoryUtil.getLog(SLIFilter.class);
