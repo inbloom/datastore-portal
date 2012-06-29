@@ -6,6 +6,15 @@ jdbc.default.url=jdbc:mysql://localhost/lportal?emulateLocators=true&useUnicode=
 jdbc.default.username=liferay
 jdbc.default.password=FD0AB80E6E632EE817A895E5888ECA0A
 
+#
+# PostgreSQL
+#
+#jdbc.default.driverClassName=org.postgresql.Driver
+#jdbc.default.url=jdbc:postgresql://localhost:5432/lportal
+#jdbc.default.username=liferay
+#jdbc.default.password=FD0AB80E6E632EE817A895E5888ECA0A
+
+
 session.timeout=10
 session.timeout.warning=0
 # Context Path
