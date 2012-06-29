@@ -121,7 +121,7 @@ public class SLISSOUtil {
 					.get("logout"));
 		}
 		_log.info("logout value---- "+logout);
-		if (logout) {
+		if (!logout) {
 			HttpSession session = request.getSession();
 			session.setAttribute(Constants.USER_DATA, null);
 			session.setAttribute(Constants.OAUTH_TOKEN, null);
