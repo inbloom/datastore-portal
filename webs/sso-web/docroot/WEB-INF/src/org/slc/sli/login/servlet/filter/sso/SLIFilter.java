@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import org.slc.sli.util.CookieKeys;
+import com.liferay.portal.kernel.util.Validator;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
