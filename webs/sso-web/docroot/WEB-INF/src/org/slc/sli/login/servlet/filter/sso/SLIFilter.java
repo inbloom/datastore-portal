@@ -114,7 +114,7 @@ public class SLIFilter extends BasePortalFilter {
    openAmCookie.setValue("");
    openAmCookie.setPath(StringPool.SLASH);
    response.addCookie(openAmCookie);
-
+   }
    processFilter(SLIFilter.class, request, response, filterChain);
    return;
   }
@@ -132,7 +132,7 @@ public class SLIFilter extends BasePortalFilter {
    openAmCookie.setValue("");
    openAmCookie.setPath(StringPool.SLASH);
    response.addCookie(openAmCookie);
-
+   }
    processFilter(SLIFilter.class, request, response, filterChain);
    return;
   }
