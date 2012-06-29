@@ -120,7 +120,7 @@ public class SLISSOUtil {
 			logout = Boolean.valueOf((Boolean) collection.get(0).getData()
 					.get("logout"));
 		}
-
+		_log.info("logout value---- "+logout);
 		if (logout) {
 			HttpSession session = request.getSession();
 			session.setAttribute(Constants.USER_DATA, null);
