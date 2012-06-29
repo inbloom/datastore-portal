@@ -88,7 +88,7 @@ public class SLIFilter extends BasePortalFilter {
 			if (_log.isDebugEnabled()) {
 				_log.debug("Logout called");
 			}
-			if (client != null) {
+			if (client != null && token != null) {
 				_log.info("client not null");
 				SLISSOUtil.logout(client, request, response);
 			}else{
