@@ -110,7 +110,7 @@ public class SLIFilter extends BasePortalFilter {
    Cookie openAmCookie = new Cookie(cookie.getName(), "");
    openAmCookie.setDomain(GetterUtil.getString(PropsUtil
      .get(PropsKeys.SLI_COOKE_DOMAIN)));
-   openAmCookie.setMaxAge(o);
+   openAmCookie.setMaxAge(0);
    openAmCookie.setValue("");
    openAmCookie.setPath(StringPool.SLASH);
    response.addCookie(openAmCookie);
@@ -128,7 +128,7 @@ public class SLIFilter extends BasePortalFilter {
    for (Cookie cookie : cookies) {
    Cookie openAmCookie = new Cookie(cookie.getName(), "");
   // openAmCookie.setDomain(GetterUtil.getString(PropsUtil .get(PropsKeys.SLI_COOKE_DOMAIN)));
-   openAmCookie.setMaxAge(o);
+   openAmCookie.setMaxAge(0);
    openAmCookie.setValue("");
    openAmCookie.setPath(StringPool.SLASH);
    response.addCookie(openAmCookie);
