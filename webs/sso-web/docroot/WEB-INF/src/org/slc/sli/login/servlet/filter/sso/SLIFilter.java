@@ -89,8 +89,10 @@ public class SLIFilter extends BasePortalFilter {
 				_log.debug("Logout called");
 			}
 			if (client != null) {
+				_log.info("client not null");
 				SLISSOUtil.logout(client, request, response);
 			}else{
+				_log.info("client is null");
 				clearLiferayCookies(request,response);
 			}
 
