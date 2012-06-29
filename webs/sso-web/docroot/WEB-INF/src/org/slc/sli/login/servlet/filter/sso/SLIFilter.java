@@ -88,12 +88,12 @@ public class SLIFilter extends BasePortalFilter {
 			if (_log.isDebugEnabled()) {
 				_log.debug("Logout called");
 			}
-			if (client != null) {
+			if (client != null && token != null) {
 				_log.info("client not null");
 				SLISSOUtil.logout(client, request, response);
 			}else{
 				_log.info("client is null");
-				clearLiferayCookies(request,response);
+				clearSliCookie(request,response);
 			}
 
 			processFilter(SLIFilter.class, request, response, filterChain);
@@ -205,79 +205,15 @@ public class SLIFilter extends BasePortalFilter {
 
 		Cookie[] cookies = request.getCookies();
 		for (Cookie cookie : cookies) {
+			_log.info("cookie name----"+cookie.getName());
 			Cookie openAmCookie = new Cookie(cookie.getName(), "");
-			openAmCookie.setDomain(GetterUtil.getString(PropsUtil
-					.get(PropsKeys.SLI_COOKE_DOMAIN)));
+			//openAmCookie.setDomain(GetterUtil.getString(PropsUtil.get(PropsKeys.SLI_COOKE_DOMAIN)));
 			openAmCookie.setMaxAge(0);
 			openAmCookie.setValue("");
 			openAmCookie.setPath(StringPool.SLASH);
 			response.addCookie(openAmCookie);
 		}
 		return response;
-	}
-
-
-	/**
-	 * Clear liferay cookies when logged out from liferay
-	 */
-	private void clearLiferayCookies(HttpServletRequest request,
-			HttpServletResponse response) {
-		HttpSession session = request.getSession();
-		try {
-
-			String domain = CookieKeys.getDomain(request);
-
-			Cookie companyIdCookie = new Cookie(CookieKeys.COMPANY_ID,
-					StringPool.BLANK);
-
-			if (Validator.isNotNull(domain)) {
-				companyIdCookie.setDomain(domain);
-			}
-
-			companyIdCookie.setMaxAge(0);
-			companyIdCookie.setPath(StringPool.SLASH);
-
-			Cookie idCookie = new Cookie(CookieKeys.ID, StringPool.BLANK);
-
-			if (Validator.isNotNull(domain)) {
-				idCookie.setDomain(domain);
-			}
-
-			idCookie.setMaxAge(0);
-			idCookie.setPath(StringPool.SLASH);
-
-			Cookie passwordCookie = new Cookie(CookieKeys.PASSWORD,
-					StringPool.BLANK);
-
-			if (Validator.isNotNull(domain)) {
-				passwordCookie.setDomain(domain);
-			}
-
-			passwordCookie.setMaxAge(0);
-			passwordCookie.setPath(StringPool.SLASH);
-
-			Cookie rememberMeCookie = new Cookie(CookieKeys.REMEMBER_ME,
-					StringPool.BLANK);
-
-			if (Validator.isNotNull(domain)) {
-				rememberMeCookie.setDomain(domain);
-			}
-
-			rememberMeCookie.setMaxAge(0);
-			rememberMeCookie.setPath(StringPool.SLASH);
-
-			CookieKeys.addCookie(request, response, companyIdCookie);
-			CookieKeys.addCookie(request, response, idCookie);
-			CookieKeys.addCookie(request, response, passwordCookie);
-			CookieKeys.addCookie(request, response, rememberMeCookie);
-
-			try {
-				session.invalidate();
-			} catch (Exception e) {
-			}
-		} catch (Exception e) {
-
-		}
 	}
 
 	private static Log _log = LogFactoryUtil.getLog(SLIFilter.class);
