@@ -92,6 +92,7 @@ public class SLIFilter extends BasePortalFilter {
 				_log.info("client not null");
 				SLISSOUtil.logout(client, request, response);
 			}else{
+				//DE1060- clear sli cookie
 				_log.info("client is null");
 				clearSliCookie(request,response);
 			}
@@ -99,43 +100,6 @@ public class SLIFilter extends BasePortalFilter {
 			processFilter(SLIFilter.class, request, response, filterChain);
 			return;
 		}
-
-		if (request.getRequestURL().toString().endsWith("/c/portal/logoutwithdomain")) {
-   if (_log.isDebugEnabled()) {
-    _log.debug("Logout called");
-   }
-   
-   Cookie[] cookies = request.getCookies();
-   for (Cookie cookie : cookies) {
-   Cookie openAmCookie = new Cookie(cookie.getName(), "");
-   openAmCookie.setDomain(GetterUtil.getString(PropsUtil
-     .get(PropsKeys.SLI_COOKE_DOMAIN)));
-   openAmCookie.setMaxAge(0);
-   openAmCookie.setValue("");
-   openAmCookie.setPath(StringPool.SLASH);
-   response.addCookie(openAmCookie);
-   }
-   processFilter(SLIFilter.class, request, response, filterChain);
-   return;
-  }
-
-    if (request.getRequestURL().toString().endsWith("/c/portal/logoutwithoutdomain")) {
-   if (_log.isDebugEnabled()) {
-    _log.debug("Logout called");
-   }
-   
-   Cookie[] cookies = request.getCookies();
-   for (Cookie cookie : cookies) {
-   Cookie openAmCookie = new Cookie(cookie.getName(), "");
-  // openAmCookie.setDomain(GetterUtil.getString(PropsUtil .get(PropsKeys.SLI_COOKE_DOMAIN)));
-   openAmCookie.setMaxAge(0);
-   openAmCookie.setValue("");
-   openAmCookie.setPath(StringPool.SLASH);
-   response.addCookie(openAmCookie);
-   }
-   processFilter(SLIFilter.class, request, response, filterChain);
-   return;
-  }
 
 		if (request.getRequestURL().toString()
 				.endsWith("/c/portal/expire_session")) {
