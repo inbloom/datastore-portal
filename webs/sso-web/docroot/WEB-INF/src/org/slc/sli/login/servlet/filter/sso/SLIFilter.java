@@ -34,6 +34,8 @@ import org.slc.sli.login.servlet.filter.BasePortalFilter;
 public class SLIFilter extends BasePortalFilter {
 
 	private static final String ENTRY_URL = "ENTRY_URL";
+	//DE1060
+	private boolean autoLogout=false;
 
 	/**
 	 * Checks if the liferay has to use sli login authentication to log in to
