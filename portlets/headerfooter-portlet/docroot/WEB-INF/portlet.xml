@@ -12,15 +12,17 @@
 			<name>view-jsp</name>
 			<value>/html/header/view.jsp</value>
 		</init-param>
-		<init-param>
+		<!--DE875 error in log -->
+		<!-- <init-param>
 			<name>edit-jsp</name>
 			<value>/html/header/edit.jsp</value>
-		</init-param>
+		</init-param> -->
 		<expiration-cache>0</expiration-cache>
 		<supports>
 			<mime-type>text/html</mime-type>
 			<portlet-mode>view</portlet-mode>
-			<portlet-mode>edit</portlet-mode>
+			<!--DE875 error in log -->
+			<!--<portlet-mode>edit</portlet-mode>-->
 		</supports>
 		<resource-bundle>content/Language</resource-bundle>
 		<portlet-info>
@@ -58,15 +60,17 @@
 			<name>view-jsp</name>
 			<value>/html/footer/view.jsp</value>
 		</init-param>
-		<init-param>
+		<!--DE875 error in log -->
+		<!-- <init-param>
 			<name>edit-jsp</name>
 			<value>/html/footer/edit.jsp</value>
-		</init-param>
+		</init-param> -->
 		<expiration-cache>0</expiration-cache>
 		<supports>
 			<mime-type>text/html</mime-type>
 			<portlet-mode>view</portlet-mode>
-			<portlet-mode>edit</portlet-mode>
+			<!--DE875 error in log -->
+			<!--<portlet-mode>edit</portlet-mode> -->
 		</supports>
 		<portlet-info>
 			<title>FooterPortlet</title>
