@@ -46,13 +46,17 @@ public class RESTClient {
      * @return JsonOject as described by API documentation
      * @throws NoSessionException
      */
-    public JsonObject sessionCheck(String token) throws NullPointerException{
+    public JsonObject sessionCheck(String token) {
+        JsonObject jsonObject = null;
         logger.info("Session check URL = " + Constants.SESSION_CHECK_PREFIX);
         // String jsonText = makeJsonRequest(Constants.SESSION_CHECK_PREFIX, token);
         String jsonText = makeJsonRequestWHeaders(Constants.SESSION_CHECK_PREFIX, token, true);
         logger.info("jsonText = " + jsonText);
-        JsonParser parser = new JsonParser();
-        return parser.parse(jsonText).getAsJsonObject();
+        if( jsonText != null ) {
+             JsonParser parser = new JsonParser();
+             jsonObject = parser.parse(jsonText).getAsJsonObject();
+        }
+        return jsonObject;
     }
 
     /**
