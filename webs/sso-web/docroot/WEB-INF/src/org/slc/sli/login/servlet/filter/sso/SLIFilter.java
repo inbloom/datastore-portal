@@ -92,15 +92,24 @@ public class SLIFilter extends BasePortalFilter {
 				_log.info("client not null");
 				SLISSOUtil.logout(client, request, response);
 			}else{
-				//DE1060- clear sli cookie
-				_log.info("client is null");
-				clearSliCookie(request,response);
+				//DE1060 set autologout when directly logout from dashboard
+				autoLogout=true;			
 			}
 
 			processFilter(SLIFilter.class, request, response, filterChain);
 			return;
 		}
-
+	
+	//DE 1060
+		if (client != null && token!=null && autoLogout) {
+			if (_log.isDebugEnabled()) {
+				_log.debug("Auto Logout");
+			}
+			autoLogout=false;
+			SLISSOUtil.logout(client, request, response);
+			processFilter(SLIFilter.class, request, response, filterChain);
+			return;
+		}
 		if (request.getRequestURL().toString()
 				.endsWith("/c/portal/expire_session")) {
 			if (_log.isDebugEnabled()) {
