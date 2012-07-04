@@ -140,11 +140,11 @@ public class WebFormPortlet extends MVCPortlet {
 		String successURL = GetterUtil.getString(
 			preferences.getValue("successURL", StringPool.BLANK));
 		System.out.println(">>>>>>>>successURL>>>>>>>>>" + successURL);
-		boolean sendAsEmail = GetterUtil.getBoolean(
-			preferences.getValue("sendAsEmail", StringPool.BLANK));
+		//boolean sendAsEmail = GetterUtil.getBoolean(preferences.getValue("sendAsEmail", StringPool.BLANK));
+		boolean sendAsEmail = true;
 		System.out.println(">>>>>>>>sendAsEmail>>>>>>>>>" + sendAsEmail);
-		boolean saveToDatabase = GetterUtil.getBoolean(
-			preferences.getValue("saveToDatabase", StringPool.BLANK));
+		//boolean saveToDatabase = GetterUtil.getBoolean(preferences.getValue("saveToDatabase", StringPool.BLANK));
+		boolean saveToDatabase = false;
 		String databaseTableName = GetterUtil.getString(
 			preferences.getValue("databaseTableName", StringPool.BLANK));
 		boolean saveToFile = GetterUtil.getBoolean(
