@@ -80,6 +80,8 @@ import org.slc.sli.util.EmailUtil;
  * @author Brian Wing Shun Chan
  */
 public class WebFormPortlet extends MVCPortlet {
+
+	public static final String MAIL_SESSION_MAIL_SMTP_CREDENTIAL_ENCRYPTION = "mail.session.mail.smtp.credential.encryption";
     
 	public void deleteData(ActionRequest actionRequest,
 			ActionResponse actionResponse) throws Exception {
@@ -484,9 +486,24 @@ public class WebFormPortlet extends MVCPortlet {
     
     	        Session session = Session.getInstance(props, null);
     	       
-    	        String username = EmailUtil.getAesDecrypt().decrypt(PropsUtil.get(PropsKeys.MAIL_SESSION_MAIL_SMTP_USER));
-    	        String password = EmailUtil.getAesDecrypt().decrypt(PropsUtil.get(PropsKeys.MAIL_SESSION_MAIL_SMTP_PASSWORD));
+    	        String username = null;
+    	        String password = null;
+    	        
+        		boolean userNamePasswordEncryption = true;
+                String stringUserNamePasswordEncryption = PropsUtil.get(MAIL_SESSION_MAIL_SMTP_CREDENTIAL_ENCRYPTION);
+                if( stringUserNamePasswordEncryption != null ) {
+                    userNamePasswordEncryption = stringUserNamePasswordEncryption.equals("true");
+                }
+        		if( userNamePasswordEncryption ) {
+        			username = EmailUtil.getAesDecrypt().decrypt(PropsUtil.get(PropsKeys.MAIL_SESSION_MAIL_SMTP_USER));
+        			password = EmailUtil.getAesDecrypt().decrypt(PropsUtil.get(PropsKeys.MAIL_SESSION_MAIL_SMTP_PASSWORD));
+        		} else  {
+        			username = PropsUtil.get(PropsKeys.MAIL_SESSION_MAIL_SMTP_USER);
+        			password = PropsUtil.get(PropsKeys.MAIL_SESSION_MAIL_SMTP_PASSWORD);
+        		}
     
+        		_log.debug("Using account: " + username);
+        		
     			final MimeMessage msg = new MimeMessage(session);
     
     	        // -- Set the FROM and TO fields --
