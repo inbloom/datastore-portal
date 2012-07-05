@@ -488,19 +488,22 @@ public class WebFormPortlet extends MVCPortlet {
     	       
     	        String username = null;
     	        String password = null;
-		boolean userNamePasswordEncryption = true;
+    	        
+        		boolean userNamePasswordEncryption = true;
                 String stringUserNamePasswordEncryption = PropsUtil.get(MAIL_SESSION_MAIL_SMTP_CREDENTIAL_ENCRYPTION);
                 if( stringUserNamePasswordEncryption != null ) {
                     userNamePasswordEncryption = stringUserNamePasswordEncryption.equals("true");
                 }
-		if( userNamePasswordEncryption ) {
-			username = EmailUtil.getAesDecrypt().decrypt(PropsUtil.get(PropsKeys.MAIL_SESSION_MAIL_SMTP_USER));
-			password = EmailUtil.getAesDecrypt().decrypt(PropsUtil.get(PropsKeys.MAIL_SESSION_MAIL_SMTP_PASSWORD));
-		} else  {
-			username = PropsUtil.get(PropsKeys.MAIL_SESSION_MAIL_SMTP_USER);
-			password = PropsUtil.get(PropsKeys.MAIL_SESSION_MAIL_SMTP_PASSWORD);
-		}
+        		if( userNamePasswordEncryption ) {
+        			username = EmailUtil.getAesDecrypt().decrypt(PropsUtil.get(PropsKeys.MAIL_SESSION_MAIL_SMTP_USER));
+        			password = EmailUtil.getAesDecrypt().decrypt(PropsUtil.get(PropsKeys.MAIL_SESSION_MAIL_SMTP_PASSWORD));
+        		} else  {
+        			username = PropsUtil.get(PropsKeys.MAIL_SESSION_MAIL_SMTP_USER);
+        			password = PropsUtil.get(PropsKeys.MAIL_SESSION_MAIL_SMTP_PASSWORD);
+        		}
     
+        		_log.debug("Using account: " + username);
+        		
     			final MimeMessage msg = new MimeMessage(session);
     
     	        // -- Set the FROM and TO fields --
