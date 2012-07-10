@@ -46,6 +46,7 @@ Feature: title
 @RALLY_US575
 @RALLY_US1193
 @RALLY_US1200
+@wip
 Scenario:check  wsrp of admin user and go to admin page
     Given I have an open web browser
     Then I am on the Realm selection page
@@ -65,6 +66,7 @@ Scenario:check  wsrp of admin user and go to admin page
 @RALLY_US575
 @RALLY_US1193
 @RALLY_US1200
+@wip
 Scenario:check  wsrp of admin user and go to admin page
     Given I have an open web browser
     Then I am on the Realm selection page

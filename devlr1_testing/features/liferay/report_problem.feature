@@ -81,6 +81,7 @@ Feature: title
  @RALLY_US575
  @RALLYUS1200
  @RALLYUS578 
+@wip
   Scenario:Report a problem happy cancelation for SLI admin User
     Given I have an open web browser
     When I go to the login page
@@ -100,6 +101,7 @@ Feature: title
  @RALLY_US575
  @RALLYUS1200
  @RALLYUS578 
+@wip
 Scenario:Report a problem happy cancelation for SLI admin User
     Given I have an open web browser
     When I go to the login page
