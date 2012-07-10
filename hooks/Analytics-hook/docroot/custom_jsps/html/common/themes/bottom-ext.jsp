@@ -28,6 +28,7 @@ InputStream file = this.getClass().getClassLoader().getResourceAsStream("sli.pro
 props.load(file);
 
 String googleId = props.getProperty("dashboard.google_analytics.id");
+String googleDomain = props.getProperty("sli.domain");
 
 %>
 
@@ -35,8 +36,11 @@ String googleId = props.getProperty("dashboard.google_analytics.id");
 <script type="text/javascript">
  
 var gId = '<%=googleId%>';
+var gDomain = '<%=googleDomain%>';
+
 var _gaq = _gaq || [];
   _gaq.push(['_setAccount',gId]);
+  _gaq.push(['_setDomainName',gDomain]);
   _gaq.push(['_trackPageview']);
 
   (function() {
@@ -44,5 +48,6 @@ var _gaq = _gaq || [];
     ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
   })();
+
 
 </script>
