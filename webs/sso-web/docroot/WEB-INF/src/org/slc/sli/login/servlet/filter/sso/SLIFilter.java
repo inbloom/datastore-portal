@@ -7,7 +7,8 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
+import org.slc.sli.util.CookieKeys;
+import com.liferay.portal.kernel.util.Validator;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
@@ -33,6 +34,8 @@ import org.slc.sli.login.servlet.filter.BasePortalFilter;
 public class SLIFilter extends BasePortalFilter {
 
 	private static final String ENTRY_URL = "ENTRY_URL";
+	//DE1060
+	private boolean autoLogout=false;
 
 	/**
 	 * Checks if the liferay has to use sli login authentication to log in to
@@ -87,13 +90,28 @@ public class SLIFilter extends BasePortalFilter {
 			if (_log.isDebugEnabled()) {
 				_log.debug("Logout called");
 			}
-			if (client != null) {
+			if (client != null && token != null) {
+				_log.info("client not null");
 				SLISSOUtil.logout(client, request, response);
+			}else{
+				//DE1060 set autologout when directly logout from dashboard
+				autoLogout=true;			
 			}
+
 			processFilter(SLIFilter.class, request, response, filterChain);
 			return;
 		}
-
+	
+	//DE 1060
+		if (client != null && token!=null && autoLogout) {
+			if (_log.isDebugEnabled()) {
+				_log.debug("Auto Logout");
+			}
+			autoLogout=false;
+			SLISSOUtil.logout(client, request, response);
+			processFilter(SLIFilter.class, request, response, filterChain);
+			return;
+		}
 		if (request.getRequestURL().toString()
 				.endsWith("/c/portal/expire_session")) {
 			if (_log.isDebugEnabled()) {
@@ -199,9 +217,9 @@ public class SLIFilter extends BasePortalFilter {
 
 		Cookie[] cookies = request.getCookies();
 		for (Cookie cookie : cookies) {
+			_log.info("cookie name----"+cookie.getName());
 			Cookie openAmCookie = new Cookie(cookie.getName(), "");
-			openAmCookie.setDomain(GetterUtil.getString(PropsUtil
-					.get(PropsKeys.SLI_COOKE_DOMAIN)));
+			openAmCookie.setDomain(GetterUtil.getString(PropsUtil.get(PropsKeys.SLI_COOKE_DOMAIN)));
 			openAmCookie.setMaxAge(0);
 			openAmCookie.setValue("");
 			openAmCookie.setPath(StringPool.SLASH);
