@@ -1,7 +1,7 @@
 Feature: title
 Navigate to dashboard link successfully using New York Realm under 'Select an Application' page
   
- @RALLY_US570
+@RALLY_US570
 @RALLY_US1200
  Scenario:-User Login through SSD Realm with wrong username and password
     Given I have an open web browser
