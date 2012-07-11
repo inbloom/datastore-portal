@@ -1,0 +1,26 @@
+18:39:34.617 [main] DEBUG o.a.c.c.ConfigurationUtils - ConfigurationUtils.locate(): base is null, name is global-configuration.properties
+18:39:34.638 [main] DEBUG o.a.c.c.ConfigurationUtils - ConfigurationUtils.locate(): base is null, name is jar:file:/C:/apache-tomcat-7.0.25/webapps/portal/WEB-INF/lib/portal-impl.jar!/portal.properties
+18:39:34.639 [main] DEBUG o.a.c.c.ConfigurationUtils - Loading configuration from the URL jar:file:/C:/apache-tomcat-7.0.25/webapps/portal/WEB-INF/lib/portal-impl.jar!/portal.properties
+18:39:35.262 [main] DEBUG o.a.c.c.ConfigurationUtils - ConfigurationUtils.locate(): base is null, name is C:/liferay-plugins-sdk-6.1.0/portlets/AdminContent-portlet/liferay/${external-properties}
+18:39:35.274 [main] DEBUG o.a.c.c.ConfigurationUtils - ConfigurationUtils.locate(): base is null, name is ${external-properties}
+18:39:35.277 [main] DEBUG o.a.c.c.ConfigurationUtils - ConfigurationUtils.locate(): base is null, name is C:/liferay-plugins-sdk-6.1.0/portlets/AdminContent-portlet/liferay/portal-${easyconf:companyId}.properties
+18:39:35.316 [main] DEBUG o.a.c.c.ConfigurationUtils - ConfigurationUtils.locate(): base is null, name is portal-${easyconf:companyId}.properties
+18:39:35.319 [main] DEBUG o.a.c.c.ConfigurationUtils - ConfigurationUtils.locate(): base is null, name is C:/liferay-plugins-sdk-6.1.0/portlets/AdminContent-portlet/liferay/portal-setup-wizard.properties
+18:39:35.331 [main] DEBUG o.a.c.c.ConfigurationUtils - ConfigurationUtils.locate(): base is null, name is portal-setup-wizard.properties
+18:39:35.333 [main] DEBUG o.a.c.c.ConfigurationUtils - ConfigurationUtils.locate(): base is null, name is C:/liferay-plugins-sdk-6.1.0/portlets/AdminContent-portlet/liferay/portal-ext.properties
+18:39:35.419 [main] DEBUG o.a.c.c.ConfigurationUtils - ConfigurationUtils.locate(): base is null, name is portal-ext.properties
+18:39:35.421 [main] DEBUG o.a.c.c.ConfigurationUtils - ConfigurationUtils.locate(): base is null, name is C:/liferay-plugins-sdk-6.1.0/portlets/AdminContent-portlet/liferay/portal-bundle.properties
+18:39:35.434 [main] DEBUG o.a.c.c.ConfigurationUtils - ConfigurationUtils.locate(): base is null, name is portal-bundle.properties
+17:29:44.010 [main] DEBUG o.a.c.c.ConfigurationUtils - ConfigurationUtils.locate(): base is null, name is global-configuration.properties
+17:29:44.040 [main] DEBUG o.a.c.c.ConfigurationUtils - ConfigurationUtils.locate(): base is null, name is jar:file:/C:/apache-tomcat-7.0.25/webapps/portal/WEB-INF/lib/portal-impl.jar!/portal.properties
+17:29:44.041 [main] DEBUG o.a.c.c.ConfigurationUtils - Loading configuration from the URL jar:file:/C:/apache-tomcat-7.0.25/webapps/portal/WEB-INF/lib/portal-impl.jar!/portal.properties
+17:29:44.248 [main] DEBUG o.a.c.c.ConfigurationUtils - ConfigurationUtils.locate(): base is null, name is C:/liferay-plugins-sdk-6.1.0/portlets/AdminContent-portlet/liferay/${external-properties}
+17:29:44.269 [main] DEBUG o.a.c.c.ConfigurationUtils - ConfigurationUtils.locate(): base is null, name is ${external-properties}
+17:29:44.273 [main] DEBUG o.a.c.c.ConfigurationUtils - ConfigurationUtils.locate(): base is null, name is C:/liferay-plugins-sdk-6.1.0/portlets/AdminContent-portlet/liferay/portal-${easyconf:companyId}.properties
+17:29:44.294 [main] DEBUG o.a.c.c.ConfigurationUtils - ConfigurationUtils.locate(): base is null, name is portal-${easyconf:companyId}.properties
+17:29:44.298 [main] DEBUG o.a.c.c.ConfigurationUtils - ConfigurationUtils.locate(): base is null, name is C:/liferay-plugins-sdk-6.1.0/portlets/AdminContent-portlet/liferay/portal-setup-wizard.properties
+17:29:44.316 [main] DEBUG o.a.c.c.ConfigurationUtils - ConfigurationUtils.locate(): base is null, name is portal-setup-wizard.properties
+17:29:44.319 [main] DEBUG o.a.c.c.ConfigurationUtils - ConfigurationUtils.locate(): base is null, name is C:/liferay-plugins-sdk-6.1.0/portlets/AdminContent-portlet/liferay/portal-ext.properties
+17:29:44.390 [main] DEBUG o.a.c.c.ConfigurationUtils - ConfigurationUtils.locate(): base is null, name is portal-ext.properties
+17:29:44.394 [main] DEBUG o.a.c.c.ConfigurationUtils - ConfigurationUtils.locate(): base is null, name is C:/liferay-plugins-sdk-6.1.0/portlets/AdminContent-portlet/liferay/portal-bundle.properties
+17:29:44.410 [main] DEBUG o.a.c.c.ConfigurationUtils - ConfigurationUtils.locate(): base is null, name is portal-bundle.properties
