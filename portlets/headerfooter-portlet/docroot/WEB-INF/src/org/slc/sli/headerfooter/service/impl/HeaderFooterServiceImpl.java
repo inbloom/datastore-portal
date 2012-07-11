@@ -14,15 +14,10 @@
 
 package org.slc.sli.headerfooter.service.impl;
 
-import org.slc.sli.headerfooter.model.HeaderFooter;
 import org.slc.sli.headerfooter.service.base.HeaderFooterServiceBaseImpl;
 import org.slc.sli.util.VelocityUtil;
+
 import com.liferay.portal.kernel.exception.SystemException;
-import java.io.IOException;
-import java.net.URISyntaxException;
-import com.liferay.portal.kernel.util.GetterUtil;
-import com.liferay.portal.kernel.util.PropsUtil;
-import org.slc.sli.util.PropsKeys;
 
 /**
  * The implementation of the header footer remote service.
@@ -63,7 +58,7 @@ public class HeaderFooterServiceImpl extends HeaderFooterServiceBaseImpl {
 	public String getHeader(boolean isAdmin) throws SystemException {
 
 		String header = headerFooterLocalService.getHeader(isAdmin);
-		String headerWithLogo = "";
+		/*String headerWithLogo = "";
 		try {
 			headerWithLogo = header.replace("[$SLI_LOGO$]","<img alt=\"sli_logo\" src=\"data:image/png;base64,"+VelocityUtil.getEncodedImg(GetterUtil.getString(PropsUtil.get(PropsKeys.SLI_LOGO)))+"\"/>");
 		} catch (IOException e) {
@@ -72,8 +67,8 @@ public class HeaderFooterServiceImpl extends HeaderFooterServiceBaseImpl {
 		} catch (URISyntaxException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
-		return VelocityUtil.velocityHeaderRes(headerWithLogo);
+		}*/
+		return VelocityUtil.velocityHeaderRes(header);
 	}
 
 	public String getFooter(boolean isAdmin) throws SystemException {
