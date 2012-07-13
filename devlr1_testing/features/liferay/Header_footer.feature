@@ -18,7 +18,6 @@ Scenario:check sli logo and user name in header and footer for admin user
 @RALLY_US575
 @RALLY_US1200
 @RALLY_US581
-@wip
 Scenario: check sli logo and user name in header and footer for admin user 
     Given I have an open web browser
     When I go to the login page

@@ -16,7 +16,7 @@ Feature: title
  @RALLY_US576
  @RALLY_US575
 @RALLY_US1200
-@wip
+
   Scenario:check admin user on admin page check  
    Given I have an open web browser
     When I go to the login page
@@ -45,7 +45,6 @@ Feature: title
  @RALLY_US575
 @RALLY_US1200
 @RALLY_US184
-@wip
  Scenario:check admin user on admin page check  
    Given I have an open web browser
     When I go to the login page
