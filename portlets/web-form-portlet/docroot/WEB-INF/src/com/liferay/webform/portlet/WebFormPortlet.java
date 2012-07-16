@@ -76,7 +76,7 @@ import com.liferay.counter.service.CounterLocalServiceUtil;
  * @author Brian Wing Shun Chan
  */
 public class WebFormPortlet extends MVCPortlet {
-
+String loginEmail ="";
 	public void deleteData(
 			ActionRequest actionRequest, ActionResponse actionResponse)
 		throws Exception {
@@ -213,7 +213,7 @@ public class WebFormPortlet extends MVCPortlet {
 				String token = (String) httpSession.getAttribute("OAUTH_TOKEN");
 				System.out.println(">>>>>>>>token>>>>>>>>>" + token);
 				String emailAddress = EmailUtil.getEmailAddress(token);
-			
+				//loginEmail = EmailUtil.getLoginEmail(token);
 			//	emailAddress1 = EmailUtil.getEmailAddress(token);
 			
 				emailSuccess = sendEmail(fieldsMap, preferences, emailAddress);
@@ -385,12 +385,13 @@ public class WebFormPortlet extends MVCPortlet {
 		System.out.println(">>>>>>>>>>>>>>>>>" + strFooId);
 		sb.append("\n");
 		sb.append("Email"); 
-	//	if(emailAddress1 == " "){
-		sb.append(" : N/A");
-	//	}else{
-	//	sb.append(" : ");
-	//	sb.append(emailAddress1);
-	//	}
+	if(loginEmail.equals("")){
+			sb.append(" : N/A");
+		}else{
+			sb.append(" : ");
+			sb.append(loginEmail);
+		}
+		
 		sb.append("\n");
 
 		
