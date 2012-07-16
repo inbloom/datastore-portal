@@ -1,0 +1,158 @@
+<%
+/**
+ * Copyright (c) 2000-2012 Liferay, Inc. All rights reserved.
+ *
+ * This library is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation; either version 2.1 of the License, or (at your option)
+ * any later version.
+ *
+ * This library is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
+ */
+%>
+<%@ include file="/init.jsp" %>
+<%
+	String encode = ParamUtil.getString(renderRequest,"encode");
+	String adminData = ParamUtil.getString(renderRequest,"adminData");
+	String footerData = ParamUtil.getString(renderRequest,"footerData");
+	
+	System.out.println("DDDDDDDDDDD"+encode);
+	System.out.println("DDDDDDDDDDD"+footerData);
+%>
+
+	<div id="customize-portal">
+	
+	 <span class="aui-field aui-field-text">
+			<span class="aui-field-content">
+				<label class="aui-field-label">Logo</label>
+				<span class="">
+					  <img alt="sli_logo" src="data:image/png;base64,<%=encode%>"/>					  
+				 </span>
+			</span>
+	  </span>
+	  <span class="aui-field aui-field-text">
+            <span class="aui-field-content">
+                <label class="aui-field-label">Educational Organization Name</label>
+                <span class="aui-field-element ">
+					<input name="sli_edOrgName" type="text" style="width:210px;"  value=""/>
+				</span>
+            </span>
+        </span>
+		<span class="aui-field aui-field-text">
+            <span class="aui-field-content">
+                <label class="aui-field-label">License Agreement</label>
+                <span class="aui-field-element ">
+					<div id ="defaultEditorLic" style="display: block;">						
+						<textarea  name="licAgree" cols="12" rows="10" onfocus="clearContents(this);" > </textarea>
+					</div>            
+                </span>
+            </span>
+        </span>
+		<span class="aui-field aui-field-text">
+			<span class="aui-field-content">
+				<label class="aui-field-label">Home Page Welcome</label>
+				<span class="aui-field-element ">
+							<div id ="defaultEditorHome" style="display: block;">						
+								<textarea id="homeWel" name="homeWel" cols="12" rows="10" onfocus="clearContents(this);"> </textarea>
+							</div>
+				</span>
+			</span>
+		</span>
+		<span class="aui-field aui-field-text">
+			<span class="aui-field-content">
+				<label class="aui-field-label"> Admin Page Welcome </label>
+				<span class="aui-field-element ">
+							<div id ="defaultEditorAdmin" style="display: block;">						
+								<textarea id="adminWel" name="adminWel" cols="12" rows="10" ><%=adminData%></textarea>
+							</div>							
+				</span>
+			</span>
+		</span>
+		<span class="aui-field aui-field-text">
+			<span class="aui-field-content">
+				<label class="aui-field-label">Footer</label>
+				<span class="aui-field-element ">
+						<div id ="defaultEditorFooter" style="display: block;">			
+							<textarea id="footerWel" name="footerWel" cols="12" rows="10" ><%=footerData%></textarea>
+						</div>
+				</span>
+			</span>
+		</span>
+		<span class="aui-field aui-field-text">
+			<span class="aui-field-content">
+				<label class="aui-field-label">Custom CSS</label>
+				<span class="">
+					  <label id="uploaded_file" style="font-size:16px;margin-right:10px;"></label>
+					  <input id="selecteFile" type="file" onpropertychange="add()" style="position:absolute;visibility:hidden;" name="<portlet:namespace />File_Name" onchange="uploaded_file(this);">
+					  <input type="button" id="browseButton" value="Choose File" onclick="selecteFile.click()">
+					   <label id="noFile">no file selected</label>
+					   <a href="/Custom-portlet/images/view.jsp">download file</a>
+				 </span>
+		</span>
+		 
+		<div class=lfr-upload-container id="<portlet:namespace />testaui_holder"></div>
+		<span class="aui-field aui-field-text">
+			<span class="aui-field-content">
+				<label class="aui-field-label"> &nbsp; </label>
+				<span class="aui-field-element ">
+					<div class="pop_btn_pnl">
+						<aui:button type="submit" value="Save Changes" />
+						<aui:button type="reset"  value="Cancel" />
+					</div>
+				</span>
+			</span>
+		</span>
+
+	</div>
+	<style type="text/css">
+#customize-portal{
+
+}
+
+#customize-portal a{
+	color:#428DCB;
+	text-decoration:none;
+}
+#customize-portal a:hover{
+	text-decoration:underline;
+}
+#customize-portal .aui-field{
+	padding-top:10px;
+	padding-bottom:10px;
+	display:block;
+}
+
+#customize-portal .aui-field-element {
+	float:left;
+	width:65%;
+}
+#customize-portal .aui-field-label{
+    padding-right: 20px;
+    text-align: right;
+    min-width: 30%;
+	float:left;
+}
+
+#customize-portal .aui-field-element input[type="text"]{
+	background:#FFFFFF;
+	border:#DEDEDE solid 1px;
+	color:#808180;
+	font-size:14px;
+	font-family:arial;
+	resize:none;
+}
+
+#customize-portal textarea{
+	width:600px;
+	height:150px;
+	background:#FFFFFF;
+	border:#DEDEDE solid 1px;
+	color:#808180;
+	font-size:14px;
+	font-family:arial;
+	resize:none;
+}
+</style>
