@@ -94,6 +94,9 @@ public void saveData(
 			ActionRequest actionRequest, ActionResponse actionResponse)
 		throws Exception {
 	 
+		boolean valid = true;
+		
+		
 		HttpSession session = PortalUtil.getHttpServletRequest(actionRequest).getSession(false);
 		
 		String token = (String)session.getAttribute("OAUTH_TOKEN");
@@ -121,8 +124,10 @@ public void saveData(
 			if(sli_edOrgName.equals(""))
 			{ 
 				SessionErrors.add(actionRequest, "sli_edOrgName");
+				valid = false;
 			}else if(sli_edOrgName.length()>12 || sli_edOrgName.length()<3){
 				SessionErrors.add(actionRequest, "sli_edOrgNameLenght");
+				valid = false;
 			}
 			
 			// Validation For License Agreement
@@ -136,6 +141,7 @@ public void saveData(
 			}
 			if(licData.length()>1000 || licData.length()<20){
 				SessionErrors.add(actionRequest, "edOrgNameEditorLength");
+				valid = false;
 			}
 			// Validation For Home Welcome Text
 			String welcomeMessageEditor= uploadRequest.getParameter("welcomeMessageEditor");
@@ -148,6 +154,7 @@ public void saveData(
 			}
 			if(homeData.length()>1000 || homeData.length()<20){
 				SessionErrors.add(actionRequest, "welcomeMessageEditorLength");
+				valid = false;
 			}
 			// Validation For Admin Welcome Text
 			String adminmessageEditor= uploadRequest.getParameter("adminmessageEditor");
@@ -160,6 +167,7 @@ public void saveData(
 			}
 			if(adminData.length()>1000 || adminData.length()<20){
 				SessionErrors.add(actionRequest, "adminmessageEditorLength");
+				valid = false;
 			}
 			actionResponse.setRenderParameter("adminData",adminData);
 			// Validation For Footer Text
@@ -173,6 +181,7 @@ public void saveData(
 			}
 			 if(footerData.length()>50 || footerData.length()<10){
 				SessionErrors.add(actionRequest, "footermessageEditorLength");
+				valid = false;
 			}
 			 actionResponse.setRenderParameter("footerData",footerData);
 			//convert image to base64  format
@@ -187,13 +196,16 @@ public void saveData(
 			 String encodedImage = Base64.encodeBase64String(baos.toByteArray());
 			 if(file.length()/1024>20){
 				SessionErrors.add(actionRequest, "sli_Image");
+				valid = false;
 			 }
 			 actionResponse.setRenderParameter("encode",encodedImage);
 		}catch(Exception e){
 		   	e.getMessage();
 		}
 
+	if(valid){
 		actionResponse.setRenderParameter("jspPage","/success.jsp");
+	}
 	}
 	 
 private static Log _log = LogFactoryUtil.getLog(CustomPortlet.class);
