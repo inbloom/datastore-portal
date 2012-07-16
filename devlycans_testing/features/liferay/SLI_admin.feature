@@ -30,6 +30,7 @@ Feature: title
 @RALLY_US575
 @RALLY_US576
 @RALLY_US1200
+@wip
  Scenario: Admin User Login
     Given I have an open web browser
     When I go to the login page
@@ -43,6 +44,7 @@ Feature: title
 @RALLY_US575
 @RALLY_US576
 @RALLY_US1200
+@wip
  Scenario: Admin User Login
     Given I have an open web browser
     When I go to the login page

@@ -150,7 +150,8 @@ When /^I go to the login page$/ do
     if ele == true
       options=a.find_elements(:tag_name=>"option") # all the options of that select tag will be selected
       options.each do |g|
-        if g.attribute('value') == '5a4bfe96-1724-4565-9db1-35b3796e3ce1'
+        if g.attribute('value') == '2012lh-d8135101-cc75-11e1-b0fd-066c72649ec8'
+		
           g.click
           break
         end

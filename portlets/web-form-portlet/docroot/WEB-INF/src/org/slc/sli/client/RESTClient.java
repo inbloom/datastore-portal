@@ -42,6 +42,7 @@ public class RESTClient {
         String jsonText = makeJsonRequestWHeaders(Constants.EMAIL_API, token, true);
         logger.info("jsonText = " + jsonText);
         JsonParser parser = new JsonParser();
+		System.out.println(">>>>"+parser.parse(jsonText).getAsJsonObject());
         return parser.parse(jsonText).getAsJsonObject();
     }
     

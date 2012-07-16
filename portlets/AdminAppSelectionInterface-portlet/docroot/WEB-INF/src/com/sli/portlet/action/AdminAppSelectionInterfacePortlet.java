@@ -35,6 +35,8 @@ import com.sli.util.PropsKeys;
  */
 public class AdminAppSelectionInterfacePortlet extends MVCPortlet {
 
+	private List<AppsData> appList = null;
+
 	@Override
 	public void render(RenderRequest renderRequest,
 			RenderResponse renderResponse) throws PortletException, IOException {
@@ -44,8 +46,7 @@ public class AdminAppSelectionInterfacePortlet extends MVCPortlet {
 
 		String tokenFromReq = (String) session.getAttribute("OAUTH_TOKEN");
 
-		_log.info(tokenFromReq);
-		// String token = "e88cb6d1-771d-46ac-a207-2e58d7f12196";
+		//DE 766 removed token log statement
 
 		// check whether user is admin user or not
 		UserData userdata = AppsUtil.getUserData(tokenFromReq);
@@ -53,24 +54,27 @@ public class AdminAppSelectionInterfacePortlet extends MVCPortlet {
 		_log.info("is admin  " + isAdmin);
 
 		if (isAdmin) {
-			
-			try{
-			List<AppsData> appsData = AppsUtil.getUserApps(tokenFromReq);
-			
-			List<AppsData> tempAppsData = new ArrayList<AppsData>(appsData);
-			
-			//DE505- checked current url and removed from list
-			String currUrl = "https://"+renderRequest.getServerName()+"/portal";
-				
-			_log.info("current url---"+currUrl);
-			
-			for(AppsData apps : tempAppsData){
-				if(apps.getApplication_url().contains(currUrl)){
-					appsData.remove(apps);
+
+			try {
+				List<AppsData> appsData = AppsUtil.getUserApps(tokenFromReq);
+
+				List<AppsData> tempAppsData = new ArrayList<AppsData>(appsData);
+
+				// DE505- checked current url and removed from list
+				String currUrl = "https://" + renderRequest.getServerName()
+						+ "/portal";
+
+				_log.info("current url---" + currUrl);
+
+				for (AppsData apps : tempAppsData) {
+					if (apps.getApplication_url().contains(currUrl)) {
+						appsData.remove(apps);
+					}
 				}
-			}
-			renderRequest.setAttribute("appList", appsData);
-			}catch (Exception e) {
+				appList = appsData;
+				_log.info("app list iframe ..."+appList);
+				renderRequest.setAttribute("appList", appsData);
+			} catch (Exception e) {
 				_log.info("json response is null");
 			}
 		}
@@ -121,44 +125,68 @@ public class AdminAppSelectionInterfacePortlet extends MVCPortlet {
 	public void processIframeAction(ActionRequest actionRequest,
 			ActionResponse actionResponse) throws IOException, PortletException {
 
-		
 		String url = actionRequest.getParameter("url");
-		
+/* DE1124 temporary commented out for network outgoing restriction
 		URL appUrl = new URL(url);
-		HttpURLConnection connection = (HttpURLConnection)appUrl.openConnection();
+		HttpURLConnection connection = (HttpURLConnection) appUrl
+				.openConnection();
 		connection.setRequestMethod("GET");
 		connection.connect();
 
 		int code = connection.getResponseCode();
-		_log.info("code============"+code);
-		
+		_log.info("code============" + code);
+*/
 		// Hide default success Message
-				PortletConfig portletConfig = (PortletConfig) actionRequest
-						.getAttribute(JavaConstants.JAVAX_PORTLET_CONFIG);
-				SessionMessages.add(actionRequest, portletConfig.getPortletName()
-						+ SessionMessages.KEY_SUFFIX_HIDE_DEFAULT_ERROR_MESSAGE);
-		
-		if(code == 200){
+		PortletConfig portletConfig = (PortletConfig) actionRequest
+				.getAttribute(JavaConstants.JAVAX_PORTLET_CONFIG);
+		SessionMessages.add(actionRequest, portletConfig.getPortletName()
+				+ SessionMessages.KEY_SUFFIX_HIDE_DEFAULT_ERROR_MESSAGE);
 
+//		if (code == 200 && checkUrl(url)) { DE1124 temporary commented out for network outgoing restriction
+                if (checkUrl(url)) {
 			String encodedUrl = "";
-			//DE 660 - Encoded url in iframe page.
-			
-				encodedUrl = HttpUtil.encodeURL(url);
-			//encodedUrl = URLEncoder.encode(url.toString(),"UTF-8"); 
-			   _log.info("encoded url===== "+encodedUrl);
-			
+			// DE 660 - Encoded url in iframe page.
 
-		actionResponse.setEvent(new QName("http:sli.com/events", "iframeurl"),encodedUrl);
+			encodedUrl = HttpUtil.encodeURL(url);
+			// encodedUrl = URLEncoder.encode(url.toString(),"UTF-8");
+			_log.info("encoded url===== " + encodedUrl);
 
-		String iframePage = GetterUtil.getString(PropsUtil
-				.get(PropsKeys.IFRAME_PAGE));
-		HttpServletRequest request = PortalUtil.getHttpServletRequest(actionRequest);
-		HttpSession session = request.getSession(false);
-		session.setAttribute("iframeSrc",url);
-		actionResponse.sendRedirect(iframePage + "#" + encodedUrl);
-		}else{
+			actionResponse.setEvent(new QName("http:sli.com/events",
+					"iframeurl"), encodedUrl);
+
+			String iframePage = GetterUtil.getString(PropsUtil
+					.get(PropsKeys.IFRAME_PAGE));
+			HttpServletRequest request = PortalUtil
+					.getHttpServletRequest(actionRequest);
+			HttpSession session = request.getSession(false);
+			session.setAttribute("iframeSrc", url);
+			actionResponse.sendRedirect(iframePage + "#" + encodedUrl);
+		} else {
 			actionResponse.sendRedirect("/portal/web/guest/error");
 		}
+	}
+
+	boolean checkUrl(String url) {
+		boolean validUrl = false;
+		OUTER: for (AppsData app : appList) {
+			if (app.getEndpoints() == null) {
+				String appUrl = app.getApplication_url();
+				if (appUrl.equals(url)) {
+					validUrl = true;
+					break OUTER;
+				}
+			} else {
+				List<AppsData.InnerApps> innerAppList = app.getEndpoints();
+				for (AppsData.InnerApps innerapp : innerAppList) {
+					String appUrl = innerapp.getUrl();
+					if (appUrl.equals(url)) {
+						validUrl = true;
+						break OUTER;
+					}
+				}
+			}
+		}
+		return validUrl;
 	}
 
 	private static Log _log = LogFactoryUtil

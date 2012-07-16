@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2011 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2012 Liferay, Inc. All rights reserved.
  *
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
@@ -22,16 +22,18 @@ import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
-import com.liferay.portal.kernel.util.GetterUtil;
+import com.liferay.portal.kernel.util.HtmlUtil;
+import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
+import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
+import com.liferay.portal.util.PortalUtil;
 import com.liferay.portlet.expando.NoSuchTableException;
 import com.liferay.portlet.expando.model.ExpandoColumnConstants;
 import com.liferay.portlet.expando.model.ExpandoTable;
 import com.liferay.portlet.expando.service.ExpandoColumnLocalServiceUtil;
 import com.liferay.portlet.expando.service.ExpandoRowLocalServiceUtil;
 import com.liferay.portlet.expando.service.ExpandoTableLocalServiceUtil;
-import com.liferay.util.portlet.PortletProps;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -51,9 +53,6 @@ import javax.portlet.PortletPreferences;
  * @author Brian Wing Shun Chan
  */
 public class WebFormUtil {
-
-	public static final boolean VALIDATION_SCRIPT_ENABLED =
-		GetterUtil.getBoolean(PortletProps.get("validation.script.enabled"));
 
 	public static ExpandoTable addTable(long companyId, String tableName)
 		throws PortalException, SystemException {
@@ -87,10 +86,15 @@ public class WebFormUtil {
 			String fieldLabel = preferences.getValue(
 				"fieldLabel" + i, StringPool.BLANK);
 
+			String fieldType = preferences.getValue(
+				"fieldType" + i, StringPool.BLANK);
+
 			while ((i == 1) || (Validator.isNotNull(fieldLabel))) {
-				ExpandoColumnLocalServiceUtil.addColumn(
-					expandoTable.getTableId(), fieldLabel,
-					ExpandoColumnConstants.STRING);
+				if (!fieldType.equalsIgnoreCase("paragraph")) {
+					ExpandoColumnLocalServiceUtil.addColumn(
+						expandoTable.getTableId(), fieldLabel,
+						ExpandoColumnConstants.STRING);
+				}
 
 				i++;
 
@@ -100,6 +104,22 @@ public class WebFormUtil {
 		}
 
 		return expandoTable;
+	}
+
+	public static String getEmailFromAddress(
+			PortletPreferences preferences, long companyId)
+		throws SystemException {
+
+		return PortalUtil.getEmailFromAddress(
+			preferences, companyId, PortletPropsValues.EMAIL_FROM_ADDRESS);
+	}
+
+	public static String getEmailFromName(
+			PortletPreferences preferences, long companyId)
+		throws SystemException {
+
+		return PortalUtil.getEmailFromName(
+			preferences, companyId, PortletPropsValues.EMAIL_FROM_NAME);
 	}
 
 	public static String getNewDatabaseTableName(String portletId)
@@ -130,12 +150,7 @@ public class WebFormUtil {
 		s = s.trim();
 
 		if (!s.endsWith(delimiter)) {
-			StringBuilder sb = new StringBuilder();
-
-			sb.append(s);
-			sb.append(delimiter);
-
-			s = sb.toString();
+			s = s.concat(delimiter);
 		}
 
 		if (s.equals(delimiter)) {
@@ -176,7 +191,7 @@ public class WebFormUtil {
 	}
 
 	public static boolean validate(
-			String currentFieldValue, Map<String,String> fieldsMap,
+			String currentFieldValue, Map<String, String> fieldsMap,
 			String validationScript)
 		throws Exception {
 
@@ -184,9 +199,11 @@ public class WebFormUtil {
 
 		Context context = Context.enter();
 
-		StringBuilder sb = new StringBuilder();
+		StringBundler sb = new StringBundler();
 
-		sb.append("currentFieldValue = String('" + currentFieldValue + "');\n");
+		sb.append("currentFieldValue = String('");
+		sb.append(HtmlUtil.escapeJS(currentFieldValue));
+		sb.append("');\n");
 
 		sb.append("var fieldsMap = {};\n");
 
@@ -194,13 +211,19 @@ public class WebFormUtil {
 			sb.append("fieldsMap['");
 			sb.append(key);
 			sb.append("'] = '");
-			sb.append(fieldsMap.get(key));
+
+			String value = StringUtil.replace(
+				fieldsMap.get(key),
+				new String[] {"\r\n", "\r", "\n"},
+				new String[] {"\\n", "\\n", "\\n"});
+
+			sb.append(HtmlUtil.escapeJS(value));
 			sb.append("';\n");
 		}
 
 		sb.append("function validation(currentFieldValue, fieldsMap) {\n");
 		sb.append(validationScript);
-		sb.append("};\n");
+		sb.append("}\n");
 		sb.append("internalValidationResult = ");
 		sb.append("validation(currentFieldValue, fieldsMap);");
 
@@ -219,7 +242,7 @@ public class WebFormUtil {
 				scope, "internalValidationResult");
 
 			if (obj instanceof Boolean) {
-				validationResult = ((Boolean)obj).booleanValue();
+				validationResult = (Boolean)obj;
 			}
 			else {
 				throw new Exception("The script must return a boolean value");

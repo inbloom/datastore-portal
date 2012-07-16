@@ -99,9 +99,7 @@ public class LarStartUpAction extends SimpleAction {
 			if ((e instanceof LARFileException)
 					|| (e instanceof LARTypeException)) {
 				_log.error("Error while importing lar file");
-			} else {
-				_log.error(e, e);
-			}
+			} //DE867 removed error log regarding work flow handler exception
 		}
 
 	}

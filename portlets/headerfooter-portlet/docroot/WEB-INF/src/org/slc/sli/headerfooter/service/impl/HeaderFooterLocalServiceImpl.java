@@ -71,11 +71,13 @@ public class HeaderFooterLocalServiceImpl extends
 
 		if (Validator.isNotNull(userdata)) {
 			String[] granted_authorities = userdata.getGranted_authorities();
-			for (String role : granted_authorities) {
-				for (String admin : SLI_ROLE_ADMINISTRATOR) {
-					if(role.equalsIgnoreCase(admin)){
-						isAdmin = true;
-						break;
+			if( granted_authorities != null ) {
+				for (String role : granted_authorities) {
+					for (String admin : SLI_ROLE_ADMINISTRATOR) {
+						if(role.equalsIgnoreCase(admin)){
+							isAdmin = true;
+							break;
+						}
 					}
 				}
 			}

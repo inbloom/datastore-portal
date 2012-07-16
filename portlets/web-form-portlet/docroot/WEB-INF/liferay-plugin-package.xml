@@ -3,7 +3,7 @@
 
 <plugin-package>
 	<name>Web Form Portlet</name>
-	<module-id>liferay/web-form-portlet/6.0.6.1/war</module-id>
+	<module-id>liferay/web-form-portlet/6.1.0.1/war</module-id>
 	<types>
 		<type>portlet</type>
 	</types>

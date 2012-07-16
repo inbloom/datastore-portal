@@ -19,8 +19,8 @@ Feature: title
     When I mouseover on menu and click submenu "Report a problem"
     #When I follow "Report a Problem"
     Then It open a popup
-    Then I am selecting the first value from "_1_WAR_webformportlet_INSTANCE_W6Fvabb0rTf2_field1" 
-    Then I fill "Some test Problems" from "_1_WAR_webformportlet_INSTANCE_W6Fvabb0rTf2_field2"
+    Then I am selecting the first value from "_1_WAR_webformportlet_INSTANCE_SeFBCcJut1Pr_field1" 
+    Then I fill "Some test Problems" from "_1_WAR_webformportlet_INSTANCE_SeFBCcJut1Pr_field2"
     Then I click button "Report a Problem"
     Then I should see "Thank you!"
  
@@ -41,7 +41,7 @@ Feature: title
     #When I follow "Report a Problem"
     Then It open a popup
     
-    Then I fill "Some test Problems" from "_1_WAR_webformportlet_INSTANCE_W6Fvabb0rTf2_field2"
+    Then I fill "Some test Problems" from "_1_WAR_webformportlet_INSTANCE_SeFBCcJut1Pr_field2"
     Then I click button "Report a Problem"
     Then I should see "This field is mandatory." 
   @wip  
@@ -55,8 +55,8 @@ Feature: title
     When I mouseover on menu and click submenu "Report a problem"
     #When I follow "Report a Problem"
     Then It open a popup
-    Then I am selecting the first value from "_1_WAR_webformportlet_INSTANCE_W6Fvabb0rTf2_field1" 
-    Then I fill "Some test Problems" from "_1_WAR_webformportlet_INSTANCE_W6Fvabb0rTf2_field2"
+    Then I am selecting the first value from "_1_WAR_webformportlet_INSTANCE_SeFBCcJut1Pr_field1" 
+    Then I fill "Some test Problems" from "_1_WAR_webformportlet_INSTANCE_SeFBCcJut1Pr_field2"
     Then I click button "Report a Problem"
     Then I should see "Thank you!"
   
@@ -72,7 +72,7 @@ Feature: title
     #When I follow "Report a Problem"
     Then It open a popup
     
-    Then I fill "Some test Problems" from "_1_WAR_webformportlet_INSTANCE_W6Fvabb0rTf2_field2"
+    Then I fill "Some test Problems" from "_1_WAR_webformportlet_INSTANCE_SeFBCcJut1Pr_field2"
     Then I click button "Report a Problem"
     Then I should see "This field is mandatory." 
    
@@ -81,6 +81,7 @@ Feature: title
  @RALLY_US575
  @RALLYUS1200
  @RALLYUS578 
+@wip
   Scenario:Report a problem happy cancelation for SLI admin User
     Given I have an open web browser
     When I go to the login page
@@ -90,8 +91,8 @@ Feature: title
     When I mouseover on menu and click submenu "Report a problem"
     #When I follow "Report a Problem"
     Then It open a popup
-    Then I am selecting the first value from "_1_WAR_webformportlet_INSTANCE_W6Fvabb0rTf2_field1" 
-    Then I fill "Some test Problems" from "_1_WAR_webformportlet_INSTANCE_W6Fvabb0rTf2_field2"
+    Then I am selecting the first value from "_1_WAR_webformportlet_INSTANCE_SeFBCcJut1Pr_field1" 
+    Then I fill "Some test Problems" from "_1_WAR_webformportlet_INSTANCE_SeFBCcJut1Pr_field2"
     Then I click button "Report a Problem"
     Then I should see "Thank you!"
 
@@ -100,6 +101,7 @@ Feature: title
  @RALLY_US575
  @RALLYUS1200
  @RALLYUS578 
+@wip
 Scenario:Report a problem happy cancelation for SLI admin User
     Given I have an open web browser
     When I go to the login page
@@ -110,7 +112,7 @@ Scenario:Report a problem happy cancelation for SLI admin User
     #When I follow "Report a Problem"
     Then It open a popup
     
-    Then I fill "Some test Problems" from "_1_WAR_webformportlet_INSTANCE_W6Fvabb0rTf2_field2"
+    Then I fill "Some test Problems" from "_1_WAR_webformportlet_INSTANCE_SeFBCcJut1Pr_field2"
     Then I click button "Report a Problem"
     Then I should see "This field is mandatory." 
    

@@ -1,6 +1,6 @@
-<%
+<%--
 /**
- * Copyright (c) 2000-2011 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2012 Liferay, Inc. All rights reserved.
  *
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
@@ -12,8 +12,7 @@
  * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
  * details.
  */
-%>
-
+--%>
 <div id="messageText" class="innerModalPopupDiv">
 <%@ include file="/init.jsp" %>
 
@@ -21,45 +20,38 @@
 String title = LocalizationUtil.getPreferencesValue(preferences, "title", themeDisplay.getLanguageId());
 String description = LocalizationUtil.getPreferencesValue(preferences, "description", themeDisplay.getLanguageId());
 boolean requireCaptcha = GetterUtil.getBoolean(preferences.getValue("requireCaptcha", StringPool.BLANK));
+requireCaptcha=true;
+System.out.println(">?>?>?>requireCaptcha>?>?>?"+requireCaptcha);
 preferences.setValue("successURL", "/web/guest/admin");
 String successURL = preferences.getValue("successURL", StringPool.BLANK);
 Calendar calendar =  Calendar.getInstance();
 String refererUrl = request.getHeader("Referer");
-System.out.println("Success URL:->"+successURL);
-
 %>
 
 <portlet:actionURL var="saveDataURL">
 	<portlet:param name="<%= ActionRequest.ACTION_NAME %>" value="saveData" />
 </portlet:actionURL>
-<portlet:resourceURL var="saveDataResURL">
-	<portlet:param name="<%= Constants.CMD %>" value="saveData" />
-</portlet:resourceURL>
-
-<aui:form action="<%= saveDataResURL %>" method="post" name="fm">
+ 
+<aui:form action="<%= saveDataURL %>" method="post" name="fm">
 <aui:input type="hidden" name="referUrl" value="<%= refererUrl%>" />
 <aui:input type="hidden" name="usrName" value="<%= themeDisplay.getUser().getFirstName()%>" />
 <aui:input type="hidden" name="screenName" value="<%= themeDisplay.getUser().getScreenName()%>" />
 <aui:input type="hidden" name="dateStamp" value="<%= calendar.getTime()%>" />
 <aui:input type="hidden" name="successURL" value="<%= successURL %>" />
- 
 	<c:if test="<%= Validator.isNull(successURL) %>">
-	<%
-System.out.println("Success URL:->"+successURL+".....>>>>>"+currentURL);
-	%>
 		<aui:input name="redirect" type="hidden" value="<%= currentURL %>" />
 	</c:if>
- 
-	<aui:fieldset label="Report a Problem">
+
+	<aui:fieldset label="<%= HtmlUtil.escape(title) %>">
 		<em class="description"><%= HtmlUtil.escape(description) %></em>
 
-		<!--<liferay-ui:success key="success" message="the-form-information-was-sent-successfully" />-->
+		<liferay-ui:success key="success" message="the-form-information-was-sent-successfully" />
 
 		<liferay-ui:error exception="<%= CaptchaMaxChallengesException.class %>" message="maximum-number-of-captcha-attempts-exceeded" />
 		<liferay-ui:error exception="<%= CaptchaTextException.class %>" message="text-verification-failed" />
 		<liferay-ui:error key="error" message="an-error-occurred-while-sending-the-form-information" />
 
-		<c:if test='<%= WebFormUtil.VALIDATION_SCRIPT_ENABLED && SessionErrors.contains(renderRequest, "validation-script-error") %>'>
+		<c:if test='<%= PortletPropsValues.VALIDATION_SCRIPT_ENABLED && SessionErrors.contains(renderRequest, "validation-script-error") %>'>
 			<liferay-util:include page="/script_error.jsp" />
 		</c:if>
 
@@ -70,7 +62,6 @@ System.out.println("Success URL:->"+successURL+".....>>>>>"+currentURL);
 		String fieldLabel = LocalizationUtil.getPreferencesValue(preferences, "fieldLabel" + i, themeDisplay.getLanguageId());
 		boolean fieldOptional = PrefsParamUtil.getBoolean(preferences, request, "fieldOptional" + i, false);
 		String fieldValue = ParamUtil.getString(request, fieldName);
-		String[] options = null;
 
 		while ((i == 1) || Validator.isNotNull(fieldLabel)) {
 			String fieldType = preferences.getValue("fieldType" + i, "text");
@@ -79,33 +70,34 @@ System.out.println("Success URL:->"+successURL+".....>>>>>"+currentURL);
 			String fieldValidationErrorMessage = preferences.getValue("fieldValidationErrorMessage" + i, StringPool.BLANK);
 		%>
 
-			<liferay-ui:error key='<%= "error" + fieldLabel %>' message="<%= fieldValidationErrorMessage %>" />
+			<c:if test="<%= PortletPropsValues.VALIDATION_SCRIPT_ENABLED %>">
+				<liferay-ui:error key='<%= "error" + fieldLabel %>' message="<%= fieldValidationErrorMessage %>" />
 
-			<c:if test='<%= Validator.isNotNull(fieldValidationScript) %>'>
-				<div class="aui-helper-hidden" id="<portlet:namespace/>validationError<%= fieldLabel.replace(" ","") %>">
-					<span class="portlet-msg-error"><%= fieldValidationErrorMessage %></span>
-				</div>
+				<c:if test='<%= Validator.isNotNull(fieldValidationScript) %>'>
+					<div class="aui-helper-hidden" id="<portlet:namespace/>validationError<%= fieldName.replace(" ","") %>">
+						<span class="portlet-msg-error"><%= fieldValidationErrorMessage %></span>
+					</div>
+				</c:if>
 			</c:if>
 
 			<c:if test="<%= !fieldOptional %>">
-				<div class="aui-helper-hidden" id="<portlet:namespace/>fieldOptionalError<%= fieldLabel.replace(" ","") %>">
+				<div class="aui-helper-hidden" id="<portlet:namespace/>fieldOptionalError<%= fieldName.replace(" ","") %>">
 					<span class="portlet-msg-error"><liferay-ui:message key="this-field-is-mandatory" /></span>
 				</div>
 			</c:if>
- 
+
 			<c:choose>
 				<c:when test='<%= fieldType.equals("paragraph") %>'>
-					<p class="lfr-webform" id="<portlet:namespace /><%= fieldName %>"><%= fieldOptions %></p>
+					<p class="lfr-webform" id="<portlet:namespace /><%= fieldName %>"><%= HtmlUtil.escape(fieldOptions) %></p>
 				</c:when>
 				<c:when test='<%= fieldType.equals("text") %>'>
-					<aui:input cssClass='<%= fieldOptional ? "optional" : StringPool.BLANK %>' label="<%= HtmlUtil.escape(fieldLabel) %>" name="<%= fieldName %>"  value="<%= HtmlUtil.escape(fieldValue) %>" />
+					<aui:input cssClass='<%= fieldOptional ? "optional" : StringPool.BLANK %>' label="<%= HtmlUtil.escape(fieldLabel) %>" name="<%= fieldName %>" value="<%= HtmlUtil.escape(fieldValue) %>" />
 				</c:when>
-				
 				<c:when test='<%= fieldType.equals("textarea") %>'>
 					<div style="margin-left:151px;margin-top:10px;">
 						Please describe your problem in as much detail as possible in the space below.  We already have logged the time and page location of this problem.<strong>  Do not include private student data or passwords in this field....</strong>
 					</div>
-					<aui:input cssClass='<%= fieldOptional ? "optional" : StringPool.BLANK %>' label="<%= HtmlUtil.escape(fieldLabel) %>" name="<%= fieldName %>" type="textarea" value="<%= HtmlUtil.escape(fieldValue) %>" wrap="soft" />
+					<aui:input cssClass='<%= "lfr-textarea-container" + (fieldOptional ? "optional" : StringPool.BLANK) %>' label="<%= HtmlUtil.escape(fieldLabel) %>" name="<%= fieldName %>" type="textarea" value="<%= HtmlUtil.escape(fieldValue) %>" wrap="soft" style="resize : none; width : 315px; height : 75px;"/>
 				</c:when>
 				<c:when test='<%= fieldType.equals("checkbox") %>'>
 					<aui:input cssClass='<%= fieldOptional ? "optional" : StringPool.BLANK %>' inlineLabel="left" label="<%= HtmlUtil.escape(fieldLabel) %>" name="<%= fieldName %>" type="checkbox" value="<%= GetterUtil.getBoolean(fieldValue) %>" />
@@ -113,14 +105,11 @@ System.out.println("Success URL:->"+successURL+".....>>>>>"+currentURL);
 				<c:when test='<%= fieldType.equals("radio") %>'>
 					<aui:field-wrapper cssClass='<%= fieldOptional ? "optional" : StringPool.BLANK %>' label="<%= HtmlUtil.escape(fieldLabel) %>" name="<%= fieldName %>">
 
-						 <%
-						options = WebFormUtil.split(fieldOptions);
-
-						for (int j = 0; j < options.length; j++) {
-							String optionValue = options[j];
+						<%
+						for (String fieldOptionValue : WebFormUtil.split(fieldOptions)) {
 						%>
 
-							<aui:input checked="<%= fieldValue.equals(optionValue) %>" inlineLabel="left" label="<%= HtmlUtil.escape(optionValue) %>" name="<%= fieldName %>" type="radio" value="<%= HtmlUtil.escape(optionValue) %>" />
+							<aui:input checked="<%= fieldValue.equals(fieldOptionValue) %>" inlineLabel="left" label="<%= HtmlUtil.escape(fieldOptionValue) %>" name="<%= fieldName %>" type="radio" value="<%= HtmlUtil.escape(fieldOptionValue) %>" />
 
 						<%
 						}
@@ -131,18 +120,16 @@ System.out.println("Success URL:->"+successURL+".....>>>>>"+currentURL);
 				<c:when test='<%= fieldType.equals("options") %>'>
 
 					<%
-					options = WebFormUtil.split(fieldOptions);
+					String[] options = WebFormUtil.split(fieldOptions);
 					%>
 
-					 
 					<aui:select cssClass='<%= fieldOptional ? "optional" : StringPool.BLANK %>' label="<%= HtmlUtil.escape(fieldLabel) %>" name="<%= fieldName %>">
-							<aui:option selected="true" value="">Choose One...</aui:option>
+						<aui:option selected="true" value="">Choose One...</aui:option>
 						<%
-						for (int j = 0; j < options.length; j++) {
-							String optionValue = options[j];
+						for (String fieldOptionValue : WebFormUtil.split(fieldOptions)) {
 						%>
 
-							<aui:option selected="<%= fieldValue.equals(optionValue) %>" value="<%= HtmlUtil.escape(optionValue) %>"><%= HtmlUtil.escape(optionValue) %></aui:option>
+							<aui:option selected="<%= fieldValue.equals(fieldOptionValue) %>" value="<%= HtmlUtil.escape(fieldOptionValue) %>"><%= HtmlUtil.escape(fieldOptionValue) %></aui:option>
 
 						<%
 						}
@@ -151,18 +138,18 @@ System.out.println("Success URL:->"+successURL+".....>>>>>"+currentURL);
 					</aui:select>
 				</c:when>
 			</c:choose>
-			
 
 		<%
 			i++;
 
 			fieldName = "field" + i;
+			fieldName.replace(" ","");
 			fieldLabel = LocalizationUtil.getPreferencesValue(preferences, "fieldLabel" + i, themeDisplay.getLanguageId());
 			fieldOptional = PrefsParamUtil.getBoolean(preferences, request, "fieldOptional" + i, false);
 			fieldValue = ParamUtil.getString(request, fieldName);
 		}
 		%>
-
+	
 		<c:if test="<%= requireCaptcha %>">
 			<portlet:resourceURL var="captchaURL">
 				<portlet:param name="<%= Constants.CMD %>" value="captcha" />
@@ -178,7 +165,7 @@ System.out.println("Success URL:->"+successURL+".....>>>>>"+currentURL);
 	</aui:fieldset>
 </aui:form>
 
-<aui:script use="aui-base,selector-css3,aui-dialog">
+<aui:script use="aui-base,selector-css3">
 	var form = A.one('#<portlet:namespace />fm');
 
 	if (form) {
@@ -186,6 +173,7 @@ System.out.println("Success URL:->"+successURL+".....>>>>>"+currentURL);
 			'submit',
 			function(event) {
 				var keys = [];
+
 				var fieldLabels = {};
 				var fieldOptional = {};
 				var fieldValidationErrorMessages = {};
@@ -193,26 +181,29 @@ System.out.println("Success URL:->"+successURL+".....>>>>>"+currentURL);
 				var fieldsMap = {};
 
 				<%
-				int fieldIndex = 1;
-				String fieldLabel = preferences.getValue("fieldLabel" + fieldIndex, StringPool.BLANK);
-				fieldLabel = fieldLabel.replace(" ","");
-				while ((fieldIndex == 1) || Validator.isNotNull(fieldLabel)) {
-					boolean fieldOptional = PrefsParamUtil.getBoolean(preferences, request, "fieldOptional" + fieldIndex, false);
-					String fieldType = preferences.getValue("fieldType" + fieldIndex, "text");
-					String fieldValidationScript = preferences.getValue("fieldValidationScript" + fieldIndex, StringPool.BLANK);
-					String fieldValidationErrorMessage = preferences.getValue("fieldValidationErrorMessage" + fieldIndex, StringPool.BLANK);
+				int i = 1;
+
+				String fieldName = "field" + i;
+				fieldName.replace(" ","");
+				String fieldLabel = preferences.getValue("fieldLabel" + i, StringPool.BLANK);
+
+				while ((i == 1) || Validator.isNotNull(fieldLabel)) {
+					boolean fieldOptional = PrefsParamUtil.getBoolean(preferences, request, "fieldOptional" + i, false);
+					String fieldType = preferences.getValue("fieldType" + i, "text");
+					String fieldValidationScript = preferences.getValue("fieldValidationScript" + i, StringPool.BLANK);
+					String fieldValidationErrorMessage = preferences.getValue("fieldValidationErrorMessage" + i, StringPool.BLANK);
 				%>
 
-					var key = "<%= HtmlUtil.escape(fieldLabel) %>";
+					var key = "<%= fieldName %>";
 
-					keys[<%= fieldIndex %>] = key;
+					keys[<%= i %>] = key;
 
 					fieldLabels[key] = "<%= HtmlUtil.escape(fieldLabel) %>";
 					fieldValidationErrorMessages[key] = "<%= fieldValidationErrorMessage %>";
 
-					function fieldValidationFunction<%= fieldIndex %>(currentFieldValue, fieldsMap) {
+					function fieldValidationFunction<%= i %>(currentFieldValue, fieldsMap) {
 						<c:choose>
-							<c:when test='<%= Validator.isNotNull(fieldValidationScript) %>'>
+							<c:when test="<%= PortletPropsValues.VALIDATION_SCRIPT_ENABLED && Validator.isNotNull(fieldValidationScript) %>">
 								<%= fieldValidationScript %>
 							</c:when>
 							<c:otherwise>
@@ -222,11 +213,11 @@ System.out.println("Success URL:->"+successURL+".....>>>>>"+currentURL);
 					};
 
 					fieldOptional[key] = <%= fieldOptional %>;
-					fieldValidationFunctions[key] = fieldValidationFunction<%= fieldIndex %>;
+					fieldValidationFunctions[key] = fieldValidationFunction<%= i %>;
 
 					<c:choose>
 						<c:when test='<%= fieldType.equals("radio") %>'>
-							var radioButton = A.one('input[name=<portlet:namespace />field<%= fieldIndex %>]:checked');
+							var radioButton = A.one('input[name=<portlet:namespace />field<%= i %>]:checked');
 
 							fieldsMap[key] = '';
 
@@ -235,16 +226,17 @@ System.out.println("Success URL:->"+successURL+".....>>>>>"+currentURL);
 							}
 						</c:when>
 						<c:otherwise>
-							var inputField = A.one('#<portlet:namespace />field<%= fieldIndex %>');
+							var inputField = A.one('#<portlet:namespace />field<%= i %>');
 
 							fieldsMap[key] = (inputField && inputField.val()) || '';
 						</c:otherwise>
 					</c:choose>
 
 				<%
-					fieldIndex++;
-					fieldLabel = preferences.getValue("fieldLabel" + fieldIndex, "");
-					fieldLabel = fieldLabel.replace(" ","");
+					i++;
+
+					fieldName = "field" + i;
+					fieldLabel = preferences.getValue("fieldLabel" + i, "");
 				}
 				%>
 
@@ -255,8 +247,8 @@ System.out.println("Success URL:->"+successURL+".....>>>>>"+currentURL);
 
 					var currentFieldValue = fieldsMap[key];
 
-					var optionalFieldError = A.one('#<portlet:namespace />fieldOptionalError' + fieldLabels[key]);
-					var validationError = A.one('#<portlet:namespace />validationError' + fieldLabels[key]);
+					var optionalFieldError = A.one('#<portlet:namespace />fieldOptionalError' + key);
+					var validationError = A.one('#<portlet:namespace />validationError' + key);
 
 					if (!fieldOptional[key] && currentFieldValue.match(/^\s*$/)) {
 						validationErrors = true;
@@ -296,39 +288,8 @@ System.out.println("Success URL:->"+successURL+".....>>>>>"+currentURL);
 					event.stopImmediatePropagation();
 				}
 			}
-			
 		);
 	}
-</aui:script>
- <aui:script use="aui-io-request,aui-parse-content">
-
-	var form = A.one('#<portlet:namespace />fm');
-
-	form.on(
-		'submit',
-		function(event) {
-			var uri = form.getAttribute('action');
-
-			A.io.request(
-				uri,
-				{
-					form: {
-						id: form
-					},
-					on: {
-						success: function(event, id, obj) {
-							var responseData = this.get('responseData');
-							var messageText = document.getElementById("messageText");
-							messageText.innerHTML = responseData;
-
-						}
-					}
-				}
-			);
-
-			event.halt();
-		}
-	);
 </aui:script>
 </div>
 
@@ -336,5 +297,13 @@ System.out.println("Success URL:->"+successURL+".....>>>>>"+currentURL);
 .dockbar{
 	display:none;
 }
+html{
+overflow:hidden
+}
+.taglib-captcha .captcha{
+	padding-left: 150px;
+}
+
 </style>
+ 
  

@@ -186,6 +186,8 @@ public class SLISSOUtil {
 		HttpSession session = request.getSession();
 		String token = (String) session.getAttribute(Constants.OAUTH_TOKEN);
 
+		//DE 766 removed token log statement
+
 		boolean sessionCheckAuthenticated = true;
 
 		if (Validator.isNotNull(token) && basicClient != null) {
@@ -198,8 +200,10 @@ public class SLISSOUtil {
 
 		// Check if token exists
 		if (token != null && sessionCheckAuthenticated == true) {
+			//DE 766 removed token log statement
 			authenticated = true;
 		} else if (token != null && sessionCheckAuthenticated == false) {
+			// DE 766 removed token log statement
 			session.setAttribute(Constants.USER_DATA, null);
 			session.setAttribute(Constants.OAUTH_TOKEN, null);
 			clearLiferayCookies(request, response);

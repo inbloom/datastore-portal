@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2011 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2012 Liferay, Inc. All rights reserved.
  *
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
@@ -14,6 +14,7 @@
 
 package com.liferay.webform.portlet;
 
+
 import com.liferay.counter.service.CounterLocalServiceUtil;
 import com.liferay.mail.service.MailServiceUtil;
 import com.liferay.portal.kernel.captcha.CaptchaTextException;
@@ -22,6 +23,7 @@ import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.mail.MailMessage;
+import com.liferay.portal.kernel.portlet.PortletResponseUtil;
 import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.servlet.SessionMessages;
 import com.liferay.portal.kernel.util.Constants;
@@ -37,41 +39,35 @@ import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.theme.ThemeDisplay;
-import com.liferay.portal.util.PortalUtil;
 import com.liferay.portlet.PortletPreferencesFactoryUtil;
 import com.liferay.portlet.expando.model.ExpandoRow;
 import com.liferay.portlet.expando.service.ExpandoRowLocalServiceUtil;
 import com.liferay.portlet.expando.service.ExpandoTableLocalServiceUtil;
 import com.liferay.portlet.expando.service.ExpandoValueLocalServiceUtil;
 import com.liferay.util.bridges.mvc.MVCPortlet;
-import com.liferay.portal.kernel.portlet.PortletResponseUtil;
+import com.liferay.webform.util.PortletPropsValues;
 import com.liferay.webform.util.WebFormUtil;
-import com.sun.mail.smtp.SMTPTransport;
-
-import java.security.Security;
+import javax.portlet.PortletURL;
+import com.liferay.portlet.PortletURLFactoryUtil;
+import com.liferay.portal.util.PortalUtil;
+import javax.portlet.PortletRequest;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Properties;
 import java.util.Set;
 
-import javax.mail.Message;
-import javax.mail.Session;
-import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
-
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
 import javax.portlet.PortletPreferences;
 import javax.portlet.ResourceRequest;
 import javax.portlet.ResourceResponse;
 import javax.servlet.http.HttpSession;
-
 import org.slc.sli.util.EmailUtil;
 
+import com.liferay.counter.service.CounterLocalServiceUtil;
 /**
  * @author Daniel Weisser
  * @author Jorge Ferrer
@@ -80,75 +76,90 @@ import org.slc.sli.util.EmailUtil;
  * @author Brian Wing Shun Chan
  */
 public class WebFormPortlet extends MVCPortlet {
-    
-	public void deleteData(ActionRequest actionRequest,
-			ActionResponse actionResponse) throws Exception {
 
-		ThemeDisplay themeDisplay = (ThemeDisplay) actionRequest
-				.getAttribute(WebKeys.THEME_DISPLAY);
+	public void deleteData(
+			ActionRequest actionRequest, ActionResponse actionResponse)
+		throws Exception {
 
-		PortletPreferences preferences = PortletPreferencesFactoryUtil
-				.getPortletSetup(actionRequest);
+		ThemeDisplay themeDisplay = (ThemeDisplay)actionRequest.getAttribute(
+			WebKeys.THEME_DISPLAY);
 
-		String databaseTableName = preferences.getValue("databaseTableName",
-				StringPool.BLANK);
+		PortletPreferences preferences =
+			PortletPreferencesFactoryUtil.getPortletSetup(actionRequest);
+
+		String databaseTableName = preferences.getValue(
+			"databaseTableName", StringPool.BLANK);
 
 		if (Validator.isNotNull(databaseTableName)) {
 			ExpandoTableLocalServiceUtil.deleteTable(
-					themeDisplay.getCompanyId(), WebFormUtil.class.getName(),
-					databaseTableName);
+				themeDisplay.getCompanyId(), WebFormUtil.class.getName(),
+				databaseTableName);
 		}
 	}
 
-	public void saveData(ResourceRequest resourceRequest,
-			ResourceResponse resourceResponse) throws Exception {
+	public void saveData(
+			ActionRequest actionRequest, ActionResponse actionResponse)
+		throws Exception {
 
-		ThemeDisplay themeDisplay = (ThemeDisplay) resourceRequest
-				.getAttribute(WebKeys.THEME_DISPLAY);
-
-		String portletId = (String) resourceRequest
-				.getAttribute(WebKeys.PORTLET_ID);
-
-		String tempURL = ParamUtil.getString(resourceRequest, "referUrl");
-		String tempUsrName = ParamUtil.getString(resourceRequest, "usrName");
-		String tempScreenName = ParamUtil.getString(resourceRequest,
+		ThemeDisplay themeDisplay = (ThemeDisplay)actionRequest.getAttribute(WebKeys.THEME_DISPLAY);
+		String portletName = (String)actionRequest.getAttribute(WebKeys.PORTLET_ID);
+		
+		PortletURL redirectURL = PortletURLFactoryUtil.create(PortalUtil.getHttpServletRequest(actionRequest),portletName,themeDisplay.getLayout().getPlid(),
+		PortletRequest.RENDER_PHASE);
+		//PortletURL redirectURL = PortletURLFactoryUtil.create(PortalUtil.getHttpServletRequest(actionRequest), ppid,themeDisplay.getLayout().getPlid(),		PortletRequest.RENDER_PHASE);
+		String portletId = (String)actionRequest.getAttribute(WebKeys.PORTLET_ID);
+		redirectURL.setParameter("jspPage", "/success.jsp");
+		System.out.println(">>>>>>>>themeDisplay END>>>>>>>>>"+themeDisplay);
+		System.out.println(">>>>>>>>portletName END>>>>>>>>>"+portletName);
+		System.out.println(">>>>>>>>redirectURL END>>>>>>>>>"+redirectURL);
+		System.out.println(">>>>>>>>portletId END>>>>>>>>>"+portletId);
+		String tempURL = ParamUtil.getString(actionRequest, "referUrl");
+		String tempUsrName = ParamUtil.getString(actionRequest, "usrName");
+		String tempScreenName = ParamUtil.getString(actionRequest,
 				"screenName");
-		String tempUsrDateStamp = ParamUtil.getString(resourceRequest,
+		String tempUsrDateStamp = ParamUtil.getString(actionRequest,
 				"dateStamp");
-		String tempSuccess = ParamUtil.getString(resourceRequest, "successURL");
+		String tempSuccess = ParamUtil.getString(actionRequest, "successURL");
 		System.out.println(">>>>>>>>>>>>>>>>>" + tempSuccess);
-
-		PortletPreferences preferences = PortletPreferencesFactoryUtil
-				.getPortletSetup(resourceRequest, portletId);
-
+		
+		
+		
+		
+		PortletPreferences preferences =
+			PortletPreferencesFactoryUtil.getPortletSetup(
+				actionRequest, portletId);
 		preferences.setValue("tempURL", tempURL);
 		preferences.setValue("tempUsrName", tempUsrName);
 		preferences.setValue("tempUsrDateStamp", tempUsrDateStamp);
 		preferences.setValue("tempScreenName", tempScreenName);
 		preferences.setValue("successURL", tempSuccess);
-
-		boolean requireCaptcha = GetterUtil.getBoolean(preferences.getValue(
-				"requireCaptcha", StringPool.BLANK));
-		String successURL = GetterUtil.getString(preferences.getValue(
-				"successURL", StringPool.BLANK));
-		System.out.println(">>>>>>>>>>>>>>>>>" + successURL);
-		boolean sendAsEmail = GetterUtil.getBoolean(preferences.getValue(
-				"sendAsEmail", StringPool.BLANK));
-		boolean saveToDatabase = GetterUtil.getBoolean(preferences.getValue(
-				"saveToDatabase", StringPool.BLANK));
-		String databaseTableName = GetterUtil.getString(preferences.getValue(
-				"databaseTableName", StringPool.BLANK));
-		boolean saveToFile = GetterUtil.getBoolean(preferences.getValue(
-				"saveToFile", StringPool.BLANK));
-		String fileName = GetterUtil.getString(preferences.getValue("fileName",
-				StringPool.BLANK));
+		 
+		//boolean requireCaptcha = GetterUtil.getBoolean(preferences.getValue("requireCaptcha", StringPool.BLANK));
+		boolean requireCaptcha = true;
+		System.out.println(">>>>>>>>requireCaptcha>>>>>>>>>" + requireCaptcha);
+		String successURL = GetterUtil.getString(
+			preferences.getValue("successURL", StringPool.BLANK));
+		System.out.println(">>>>>>>>successURL>>>>>>>>>" + successURL);
+		//boolean sendAsEmail = GetterUtil.getBoolean(preferences.getValue("sendAsEmail", StringPool.BLANK));
+		boolean sendAsEmail = true;
+		System.out.println(">>>>>>>>sendAsEmail>>>>>>>>>" + sendAsEmail);
+		//boolean saveToDatabase = GetterUtil.getBoolean(preferences.getValue("saveToDatabase", StringPool.BLANK));
+		boolean saveToDatabase = false;
+		String databaseTableName = GetterUtil.getString(
+			preferences.getValue("databaseTableName", StringPool.BLANK));
+		boolean saveToFile = GetterUtil.getBoolean(
+			preferences.getValue("saveToFile", StringPool.BLANK));
+		String fileName = GetterUtil.getString(
+			preferences.getValue("fileName", StringPool.BLANK));
 
 		if (requireCaptcha) {
 			try {
-				CaptchaUtil.check(resourceRequest);
-			} catch (CaptchaTextException cte) {
-				SessionErrors.add(resourceRequest,
-						CaptchaTextException.class.getName());
+			System.out.println(">>>>>>>>>>requireCaptcha IF CONDITIONS"+requireCaptcha);
+				CaptchaUtil.check(actionRequest);
+			}
+			catch (CaptchaTextException cte) {
+				SessionErrors.add(
+					actionRequest, CaptchaTextException.class.getName());
 
 				return;
 			}
@@ -157,24 +168,32 @@ public class WebFormPortlet extends MVCPortlet {
 		Map<String, String> fieldsMap = new LinkedHashMap<String, String>();
 
 		for (int i = 1; true; i++) {
-			String fieldLabel = preferences.getValue("fieldLabel" + i,
-					StringPool.BLANK);
+			String fieldLabel = preferences.getValue(
+				"fieldLabel" + i, StringPool.BLANK);
+
+			String fieldType = preferences.getValue(
+				"fieldType" + i, StringPool.BLANK);
 
 			if (Validator.isNull(fieldLabel)) {
 				break;
 			}
 
-			fieldsMap
-					.put(fieldLabel, resourceRequest.getParameter("field" + i));
+			if (fieldType.equalsIgnoreCase("paragraph")) {
+				continue;
+			}
+
+			fieldsMap.put(fieldLabel, actionRequest.getParameter("field" + i));
 		}
 
 		Set<String> validationErrors = null;
 
 		try {
 			validationErrors = validate(fieldsMap, preferences);
-		} catch (Exception e) {
-			SessionErrors.add(resourceRequest, "validation-script-error", e
-					.getMessage().trim());
+		}
+		catch (Exception e) {
+			SessionErrors.add(
+				actionRequest, "validation-script-error",
+				e.getMessage().trim());
 
 			return;
 		}
@@ -184,27 +203,39 @@ public class WebFormPortlet extends MVCPortlet {
 			boolean databaseSuccess = true;
 			boolean fileSuccess = true;
 
+			/*if (sendAsEmail) {
+				emailSuccess = sendEmail(
+					themeDisplay.getCompanyId(), fieldsMap, preferences);
+			}*/
 			if (sendAsEmail) {
 				HttpSession httpSession = PortalUtil.getHttpServletRequest(
-						resourceRequest).getSession(false);
+						actionRequest).getSession(false);
+				System.out.println(">>>>>>>>httpSession>>>>>>>>>" + httpSession);
 				String token = (String) httpSession.getAttribute("OAUTH_TOKEN");
+				System.out.println(">>>>>>>>token>>>>>>>>>" + token);
 				String emailAddress = EmailUtil.getEmailAddress(token);
+			
+			//	emailAddress1 = EmailUtil.getEmailAddress(token);
+			
 				emailSuccess = sendEmail(fieldsMap, preferences, emailAddress);
 			}
 
 			if (saveToDatabase) {
+				System.out.println(">>>>>>>>saveToDatabase START>>>>>>>>>");
 				if (Validator.isNull(databaseTableName)) {
-					databaseTableName = WebFormUtil
-							.getNewDatabaseTableName(portletId);
+					databaseTableName = WebFormUtil.getNewDatabaseTableName(
+						portletId);
 
-					preferences
-							.setValue("databaseTableName", databaseTableName);
+					preferences.setValue(
+						"databaseTableName", databaseTableName);
 
 					preferences.store();
 				}
 
-				databaseSuccess = saveDatabase(themeDisplay.getCompanyId(),
-						fieldsMap, preferences, databaseTableName);
+				databaseSuccess = saveDatabase(
+					themeDisplay.getCompanyId(), fieldsMap, preferences,
+					databaseTableName);
+					System.out.println(">>>>>>>>saveToDatabase END>>>>>>>>>");
 			}
 
 			if (saveToFile) {
@@ -212,54 +243,63 @@ public class WebFormPortlet extends MVCPortlet {
 			}
 
 			if (emailSuccess && databaseSuccess && fileSuccess) {
-				SessionMessages.add(resourceRequest, "success");
-			} else {
-				SessionErrors.add(resourceRequest, "error");
+				SessionMessages.add(actionRequest, "success");
 			}
-		} else {
+			else {
+				SessionErrors.add(actionRequest, "error");
+			}
+		}
+		else {
 			for (String badField : validationErrors) {
-				SessionErrors.add(resourceRequest, "error" + badField);
+				SessionErrors.add(actionRequest, "error" + badField);
 			}
 		}
-
-		if (SessionErrors.isEmpty(resourceRequest)
-				&& Validator.isNotNull(successURL)) {
-			System.out.println(">>>>>>>>>>>>>>>>>!!!update d" + successURL);
-			getPortletContext().getRequestDispatcher(
-					resourceResponse.encodeURL("/success.jsp")).include(
-					resourceRequest, resourceResponse);
+		System.out.println(">>>>>>>>successURL BEFORE>>>>>>>>>" + successURL);
+		System.out.println(">>>>>>>>successURL BEFORE>>>>>>>>>" + actionRequest);
+		System.out.println(">>>>>>>>successURL BEFORE>>>>>>>>>" + actionResponse);
+		//getPortletContext().getRequestDispatcher(actionResponse.encodeURL("/success.jsp")).include(actionRequest, actionResponse);
+		actionResponse.sendRedirect(redirectURL.toString());
+		
+		if (SessionErrors.isEmpty(actionRequest) &&
+			Validator.isNotNull(successURL)) {
+			System.out.println(">>>>>>>>successURL IN>>>>>>>>>" + successURL);
+			//getPortletContext().getRequestDispatcher(resourceResponse.encodeURL("/success.jsp")).include(resourceRequest, resourceResponse);
+			actionResponse.sendRedirect(redirectURL.toString());
 		}
+		
 	}
 
-	public void serveResource(ResourceRequest resourceRequest,
-			ResourceResponse resourceResponse) {
+	@Override
+	public void serveResource(
+		ResourceRequest resourceRequest, ResourceResponse resourceResponse) {
 
 		String cmd = ParamUtil.getString(resourceRequest, Constants.CMD);
 
 		try {
 			if (cmd.equals("captcha")) {
 				serveCaptcha(resourceRequest, resourceResponse);
-			} else if (cmd.equals("export")) {
-				exportData(resourceRequest, resourceResponse);
-			} else if (cmd.equals("saveData")) {
-				saveData(resourceRequest, resourceResponse);
 			}
-		} catch (Exception e) {
+			else if (cmd.equals("export")) {
+				exportData(resourceRequest, resourceResponse);
+			}
+		}
+		catch (Exception e) {
 			_log.error(e, e);
 		}
 	}
 
-	protected void exportData(ResourceRequest resourceRequest,
-			ResourceResponse resourceResponse) throws Exception {
+	protected void exportData(
+			ResourceRequest resourceRequest, ResourceResponse resourceResponse)
+		throws Exception {
 
-		ThemeDisplay themeDisplay = (ThemeDisplay) resourceRequest
-				.getAttribute(WebKeys.THEME_DISPLAY);
+		ThemeDisplay themeDisplay = (ThemeDisplay)resourceRequest.getAttribute(
+			WebKeys.THEME_DISPLAY);
 
-		PortletPreferences preferences = PortletPreferencesFactoryUtil
-				.getPortletSetup(resourceRequest);
+		PortletPreferences preferences =
+			PortletPreferencesFactoryUtil.getPortletSetup(resourceRequest);
 
-		String databaseTableName = preferences.getValue("databaseTableName",
-				StringPool.BLANK);
+		String databaseTableName = preferences.getValue(
+			"databaseTableName", StringPool.BLANK);
 		String title = preferences.getValue("title", "no-title");
 
 		StringBuilder sb = new StringBuilder();
@@ -267,12 +307,11 @@ public class WebFormPortlet extends MVCPortlet {
 		List<String> fieldLabels = new ArrayList<String>();
 
 		for (int i = 1; true; i++) {
-			String fieldLabel = preferences.getValue("fieldLabel" + i,
-					StringPool.BLANK);
+			String fieldLabel = preferences.getValue(
+				"fieldLabel" + i, StringPool.BLANK);
 
-			String localizedfieldLabel = LocalizationUtil
-					.getPreferencesValue(preferences, "fieldLabel" + i,
-							themeDisplay.getLanguageId());
+			String localizedfieldLabel = LocalizationUtil.getPreferencesValue(
+				preferences, "fieldLabel" + i, themeDisplay.getLanguageId());
 
 			if (Validator.isNull(fieldLabel)) {
 				break;
@@ -290,15 +329,15 @@ public class WebFormPortlet extends MVCPortlet {
 
 		if (Validator.isNotNull(databaseTableName)) {
 			List<ExpandoRow> rows = ExpandoRowLocalServiceUtil.getRows(
-					themeDisplay.getCompanyId(), WebFormUtil.class.getName(),
-					databaseTableName, QueryUtil.ALL_POS, QueryUtil.ALL_POS);
+				themeDisplay.getCompanyId(), WebFormUtil.class.getName(),
+				databaseTableName, QueryUtil.ALL_POS, QueryUtil.ALL_POS);
 
 			for (ExpandoRow row : rows) {
 				for (String fieldName : fieldLabels) {
 					String data = ExpandoValueLocalServiceUtil.getData(
-							themeDisplay.getCompanyId(),
-							WebFormUtil.class.getName(), databaseTableName,
-							fieldName, row.getClassPK(), StringPool.BLANK);
+						themeDisplay.getCompanyId(),
+						WebFormUtil.class.getName(), databaseTableName,
+						fieldName, row.getClassPK(), StringPool.BLANK);
 
 					data = data.replaceAll("\"", "\\\"");
 
@@ -316,12 +355,11 @@ public class WebFormPortlet extends MVCPortlet {
 		byte[] bytes = sb.toString().getBytes();
 		String contentType = ContentTypes.APPLICATION_TEXT;
 
-		PortletResponseUtil.sendFile(resourceResponse, fileName, bytes,
-				contentType);
+		PortletResponseUtil.sendFile(
+			resourceRequest, resourceResponse, fileName, bytes, contentType);
 	}
 
-	protected String getMailBody(Map<String, String> fieldsMap) {
-
+	/*protected String getMailBody(Map<String, String> fieldsMap) {
 		StringBuilder sb = new StringBuilder();
 
 		for (String fieldLabel : fieldsMap.keySet()) {
@@ -334,30 +372,64 @@ public class WebFormPortlet extends MVCPortlet {
 		}
 
 		return sb.toString();
-	}
+	}*/
+	protected String getMailBody(Map<String,String> fieldsMap) throws Exception {
 
-	protected boolean saveDatabase(long companyId,
-			Map<String, String> fieldsMap, PortletPreferences preferences,
-			String databaseTableName) throws Exception {
+
+		StringBuilder sb = new StringBuilder();
+
+		long fooId = CounterLocalServiceUtil.increment("WebFormPortlet",1);
+		
+		String strFooId = String.format("%06d", fooId);
+		sb.append("Problem ID : PR");
+		sb.append(strFooId);
+		System.out.println(">>>>>>>>>>>>>>>>>" + strFooId);
+		sb.append("\n");
+		sb.append("Email"); 
+	//	if(emailAddress1 == " "){
+		sb.append(" : N/A");
+	//	}else{
+	//	sb.append(" : ");
+	//	sb.append(emailAddress1);
+	//	}
+		sb.append("\n");
+
+		
+		for (String fieldLabel : fieldsMap.keySet()) {
+			String fieldValue = fieldsMap.get(fieldLabel);
+
+			sb.append(fieldLabel);
+			sb.append(" : ");
+			sb.append(fieldValue);
+			sb.append("\n");
+		}
+	
+		return sb.toString();
+	}
+	protected boolean saveDatabase(
+			long companyId, Map<String, String> fieldsMap,
+			PortletPreferences preferences, String databaseTableName)
+		throws Exception {
 
 		WebFormUtil.checkTable(companyId, databaseTableName, preferences);
 
-		long classPK = CounterLocalServiceUtil.increment(WebFormUtil.class
-				.getName());
+		long classPK = CounterLocalServiceUtil.increment(
+			WebFormUtil.class.getName());
 
 		try {
 			for (String fieldLabel : fieldsMap.keySet()) {
 				String fieldValue = fieldsMap.get(fieldLabel);
 
-				ExpandoValueLocalServiceUtil.addValue(companyId,
-						WebFormUtil.class.getName(), databaseTableName,
-						fieldLabel, classPK, fieldValue);
+				ExpandoValueLocalServiceUtil.addValue(
+					companyId, WebFormUtil.class.getName(), databaseTableName,
+					fieldLabel, classPK, fieldValue);
 			}
 
 			return true;
-		} catch (Exception e) {
-			_log.error("The web form data could not be saved to the database",
-					e);
+		}
+		catch (Exception e) {
+			_log.error(
+				"The web form data could not be saved to the database", e);
 
 			return false;
 		}
@@ -385,18 +457,68 @@ public class WebFormPortlet extends MVCPortlet {
 			FileUtil.write(fileName, s, false, true);
 
 			return true;
-		} catch (Exception e) {
+		}
+		catch (Exception e) {
 			_log.error("The web form data could not be saved to a file", e);
 
 			return false;
 		}
 	}
 
+	/*protected boolean sendEmail(
+		long companyId, Map<String, String> fieldsMap,
+		PortletPreferences preferences) {
+
+		try {
+			String emailAddresses = preferences.getValue(
+				"emailAddress", StringPool.BLANK);
+
+			if (Validator.isNull(emailAddresses)) {
+				_log.error(
+					"The web form email cannot be sent because no email " +
+						"address is configured");
+
+				return false;
+			}
+			InternetAddress fromAddress = new InternetAddress(
+				WebFormUtil.getEmailFromAddress(preferences, companyId),
+				WebFormUtil.getEmailFromName(preferences, companyId));
+			String subject = preferences.getValue("subject", StringPool.BLANK);
+			//String body = getMailBody(fieldsMap);
+			String body = "Dear Administrator: \n"
+					+ "\nA user in your school(s) or district has reported the following problem:\n\nUser Name : "
+					+ preferences.getValue("tempUsrName", StringPool.BLANK)
+					+ "\nScreen Name : "
+					+ preferences.getValue("tempScreenName", StringPool.BLANK);
+			body += "\n" + getMailBody(fieldsMap);
+			body += "URL : "
+					+ preferences.getValue("tempURL", StringPool.BLANK)
+					+ "\nDate : "
+					+ preferences
+							.getValue("tempUsrDateStamp", StringPool.BLANK)
+					+ "\nThis email has been automatically generated by the SLC.PLEASE DO NOT RESPOND TO THIS EMAIL.\n\nYours,\nSLC Operations TeamURL   ";
+System.out.println(">>>>>>>>>>>>>>>>>" + body);
+			
+			MailMessage mailMessage = new MailMessage(
+				fromAddress, subject, body, false);
+
+			InternetAddress[] toAddresses = InternetAddress.parse(
+				emailAddresses);
+
+			mailMessage.setTo(toAddresses);
+
+			MailServiceUtil.sendEmail(mailMessage);
+
+			return true;
+		}
+		catch (Exception e) {
+			_log.error("The web form email could not be sent", e);
+
+			return false;
+		}
+	}*/
 	protected boolean sendEmail(Map<String, String> fieldsMap,
 			PortletPreferences preferences, String emailAddress) {
-	    
-	    // initializing the smtp transport to null 
-        SMTPTransport t = null;
 
 		try {
 			String subject = preferences.getValue("subject", StringPool.BLANK);
@@ -408,7 +530,7 @@ public class WebFormPortlet extends MVCPortlet {
 			if (Validator.isNull(emailAddress)) {
 				_log.error("The web form email cannot be sent because no email "
 						+ "address is configured");
-				System.out.print("");
+
 				return false;
 			}
 
@@ -424,9 +546,7 @@ public class WebFormPortlet extends MVCPortlet {
 					+ preferences
 							.getValue("tempUsrDateStamp", StringPool.BLANK)
 					+ "\nThis email has been automatically generated by the SLC.PLEASE DO NOT RESPOND TO THIS EMAIL.\n\nYours,\nSLC Operations TeamURL   ";
-
-		     _log.debug("Email body: " + body);
-
+			System.out.println(">>>>>>>>>>>>>>>>>" + body);
 			InternetAddress fromAddress = null;
 
 			try {
@@ -444,120 +564,69 @@ public class WebFormPortlet extends MVCPortlet {
 				fromAddress = new InternetAddress(emailAddress);
 			}
 
-	        _log.debug("Email to: " + emailAddress);
+			InternetAddress toAddress = new InternetAddress(emailAddress);
 
-	        boolean isAuthRequired = Boolean.parseBoolean(PropsUtil.get("mail.session.mail.smtp.auth"));
-	        
-	        // use smtp with auth only if auth if explicitly set and we have the email credentials
-	        if (isAuthRequired && !PropsUtil.get(PropsKeys.MAIL_SESSION_MAIL_SMTP_USER).isEmpty() &&
-	                !PropsUtil.get(PropsKeys.MAIL_SESSION_MAIL_SMTP_PASSWORD).isEmpty()) {
-	            
-	            // smtp requiring authentication
-    	        Security.addProvider(new com.sun.net.ssl.internal.ssl.Provider());
-    	        
-    	        final String SSL_FACTORY = "javax.net.ssl.SSLSocketFactory";
-    
-    	        Properties properties = PropsUtil.getProperties("mail.session", true);
-    	        
-    	        // Get a Properties object
-    	        Properties props = System.getProperties();
-    	        props.setProperty("mail.smtps.host", PropsUtil.get(PropsKeys.MAIL_SESSION_MAIL_SMTP_HOST));
-                props.setProperty("mail.smtp.port", PropsUtil.get(PropsKeys.MAIL_SESSION_MAIL_SMTP_PORT));
-    	        props.setProperty("mail.smtp.socketFactory.class", SSL_FACTORY);
-    	        props.setProperty("mail.smtp.socketFactory.fallback", "false");
-    	        props.setProperty("mail.smtp.socketFactory.port", PropsUtil.get(PropsKeys.MAIL_SESSION_MAIL_SMTP_PORT));
-    	        props.setProperty("mail.smtps.auth", "true");
-    
-    	        props.put("mail.smtps.quitwait", "false");
-    
-    	        Session session = Session.getInstance(props, null);
-    	       
-    	        String username = EmailUtil.getAesDecrypt().decrypt(PropsUtil.get(PropsKeys.MAIL_SESSION_MAIL_SMTP_USER));
-    	        String password = EmailUtil.getAesDecrypt().decrypt(PropsUtil.get(PropsKeys.MAIL_SESSION_MAIL_SMTP_PASSWORD));
-    
-    			final MimeMessage msg = new MimeMessage(session);
-    
-    	        // -- Set the FROM and TO fields --
-    	        msg.setFrom(fromAddress);
-    	        msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(emailAddress, false));
-    
-    	        msg.setSubject(subject);
-    	        msg.setText(body, "utf-8");
-    	        
-    	        t = (SMTPTransport)session.getTransport("smtps");
-    
-    	        _log.debug("Connecting to smtp server: " + PropsUtil.get(PropsKeys.MAIL_SESSION_MAIL_SMTP_HOST));
-    
-    	        t.connect(PropsUtil.get(PropsKeys.MAIL_SESSION_MAIL_SMTP_HOST), username, password);
-    	        
-    	        _log.debug("Sending the message...");
-    	        t.sendMessage(msg, msg.getAllRecipients());
-    	        _log.debug("Sent the message...");
-    	        
-	        } else {
-	            // smtp not requiring authentication
-	            InternetAddress toAddress = new InternetAddress(emailAddress);
-	            
-	            MailMessage mailMessage = new MailMessage(fromAddress, toAddress, subject, body, false);
-	            
-	            MailServiceUtil.sendEmail(mailMessage);
-	        }
+			MailMessage mailMessage = new MailMessage(fromAddress, toAddress,
+					subject, body, false);
+
+			MailServiceUtil.sendEmail(mailMessage);
+
 			return true;
 		} catch (Exception e) {
 			_log.error("The web form email could not be sent", e);
-			
+
 			return false;
-		} finally {
-    		try {
-    		    if (t != null && t.isConnected()) {
-    		        t.close();
-    		    }
-    		} catch (Exception e){
-    		    _log.error("Cannot close the transport", e);
-    		}
 		}
 	}
-	
-	protected void serveCaptcha(ResourceRequest resourceRequest,
-			ResourceResponse resourceResponse) throws Exception {
+
+
+	protected void serveCaptcha(
+			ResourceRequest resourceRequest, ResourceResponse resourceResponse)
+		throws Exception {
 
 		CaptchaUtil.serveImage(resourceRequest, resourceResponse);
 	}
 
-	protected Set<String> validate(Map<String, String> fieldsMap,
-			PortletPreferences preferences) throws Exception {
+	protected Set<String> validate(
+			Map<String, String> fieldsMap, PortletPreferences preferences)
+		throws Exception {
 
 		Set<String> validationErrors = new HashSet<String>();
 
 		for (int i = 0; i < fieldsMap.size(); i++) {
-			String fieldType = preferences.getValue("fieldType" + (i + 1),
-					StringPool.BLANK);
-			String fieldLabel = preferences.getValue("fieldLabel" + (i + 1),
-					StringPool.BLANK);
+			String fieldType = preferences.getValue(
+				"fieldType" + (i + 1), StringPool.BLANK);
+			String fieldLabel = preferences.getValue(
+				"fieldLabel" + (i + 1), StringPool.BLANK);
 			String fieldValue = fieldsMap.get(fieldLabel);
 
-			boolean fieldOptional = GetterUtil.getBoolean(preferences.getValue(
+			boolean fieldOptional = GetterUtil.getBoolean(
+				preferences.getValue(
 					"fieldOptional" + (i + 1), StringPool.BLANK));
 
 			if (Validator.equals(fieldType, "paragraph")) {
 				continue;
 			}
 
-			if (!fieldOptional && Validator.isNotNull(fieldLabel)
-					&& Validator.isNull(fieldValue)) {
+			if (!fieldOptional && Validator.isNotNull(fieldLabel) &&
+				Validator.isNull(fieldValue)) {
 
 				validationErrors.add(fieldLabel);
 
 				continue;
 			}
 
-			String validationScript = GetterUtil.getString(preferences
-					.getValue("fieldValidationScript" + (i + 1),
-							StringPool.BLANK));
+			if (!PortletPropsValues.VALIDATION_SCRIPT_ENABLED) {
+				continue;
+			}
 
-			if (Validator.isNotNull(validationScript)
-					&& !WebFormUtil.validate(fieldValue, fieldsMap,
-							validationScript)) {
+			String validationScript = GetterUtil.getString(
+				preferences.getValue(
+					"fieldValidationScript" + (i + 1), StringPool.BLANK));
+
+			if (Validator.isNotNull(validationScript) &&
+				!WebFormUtil.validate(
+					fieldValue, fieldsMap, validationScript)) {
 
 				validationErrors.add(fieldLabel);
 

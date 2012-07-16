@@ -44,6 +44,8 @@ if (referer.equals(themeDisplay.getPathMain() + "/portal/update_terms_of_use")) 
 <div class="d_popup">
 <span class="aui-legend" style="font-weight:bold;font-size: 18px; color:#333333; width:700px;">License Agreement</span>
 <br /><br /><br /><br />
+<!-- US 2854- update static text as per environment -->
+<%boolean is_sandbox = false; %>
 <aui:form action='<%= themeDisplay.getPathMain() + "/portal/update_terms_of_use" %>' name="fm">
 	<aui:input name="doAsUserId" type="hidden" value="<%= themeDisplay.getDoAsUserId() %>" />
 	<aui:input name="<%= WebKeys.REFERER %>" type="hidden" value="<%= referer %>" />
@@ -58,9 +60,21 @@ if (referer.equals(themeDisplay.getPathMain() + "/portal/update_terms_of_use")) 
 		<c:otherwise>
 		<br>
 <br>
-You are in the Shared Learning Collaborative developer sandbox environment which is subject to the <a target="_blank"  href="http://dev.slcedu.org/legal/terms-of-use">Terms of Use</a> and <a target="_blank" href="http://dev.slcedu.org/legal/privacy">Privacy Policy</a> of the Shared Learning Collaborative developer website. <br/><br/>
+<!-- US 2854- display EULA text as per environment -->
+<%is_sandbox = GetterUtil.getBoolean(PropsUtil.get("is_sandbox")); 
+			
+			if(is_sandbox){%>
+			You are in the Shared Learning Collaborative developer sandbox environment which is subject to the <a target="_blank"  href="http://dev.slcedu.org/legal/terms-of-use">Terms of Use</a> and <a target="_blank" href="http://dev.slcedu.org/legal/privacy">Privacy Policy</a> of the Shared Learning Collaborative developer website. <br/><br/>
 
-Please note:  No actual student data or other personally identifiable information under the Family Educational Rights and Privacy Act, 20 U.S.C. §1232g, and its regulations ("<b>FERPA</b>") or other personal information may be accessed, uploaded or otherwise provided to the developer sandbox environment.<br><br>
+Please note:  No actual student data or other personally identifiable information under the Family Educational Rights and Privacy Act, 20 U.S.C. §1232g, and its regulations ("<b>FERPA</b>") or other personal information may be accessed, uploaded or otherwise provided to the developer sandbox environment.
+			
+				
+			<%}else{%>
+			
+			AGREEMENT NOT AVAILABLE<br/></br>
+Your district or organization has not made a licensing agreement available at this time.  In future, you may be asked to read and agree to terms of service for this platform, once one is made available.<br/></br>
+For now, please click "Agree" to continue.  You should not see this message again.
+			<%}%><br><br>
 		</c:otherwise>
 
 	</c:choose>
@@ -89,7 +103,12 @@ Please note:  No actual student data or other personally identifiable informatio
  
     <footer id="sli_footer">
       <div class="sli_footer_wrap">
+	  <!-- US 2854- display footer text as per environment -->
+        <%if(is_sandbox){ %>
         <p>(C) Shared Learning Collaborative, LLC. <a target="_blank" href="http://dev.slcedu.org/legal/privacy">Privacy Policy</a>  <a target="_blank"  href="http://dev.slcedu.org/legal/terms-of-use">Terms of Use</a> </p>
+      <%}else{ %>
+      <p>CONFIDENTIAL: This page may contain private student data; do not share with unauthorized persons. </p>
+      <%} %>
       </div>
     </footer>
  

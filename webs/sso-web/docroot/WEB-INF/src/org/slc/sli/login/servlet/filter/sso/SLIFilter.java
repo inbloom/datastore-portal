@@ -7,7 +7,8 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
+import org.slc.sli.util.CookieKeys;
+import com.liferay.portal.kernel.util.Validator;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
@@ -16,7 +17,7 @@ import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.PropsUtil;
 import com.liferay.portal.kernel.util.StringPool;
-
+import com.liferay.portal.kernel.util.ParamUtil;
 import org.slc.sli.util.Constants;
 import org.slc.sli.util.PropsKeys;
 import org.slc.sli.api.client.impl.BasicClient;
@@ -33,6 +34,8 @@ import org.slc.sli.login.servlet.filter.BasePortalFilter;
 public class SLIFilter extends BasePortalFilter {
 
 	private static final String ENTRY_URL = "ENTRY_URL";
+	//DE1060
+	private boolean autoLogout=false;
 
 	/**
 	 * Checks if the liferay has to use sli login authentication to log in to
@@ -68,16 +71,15 @@ public class SLIFilter extends BasePortalFilter {
 	protected void processFilter(HttpServletRequest request,
 			HttpServletResponse response, FilterChain filterChain)
 			throws Exception {
-
+//US 2131- Realm selection redirect
+	String realmName = ParamUtil.getString(request,"Realm","No Realm");
+		
 		boolean authenticated = false;
 		HttpSession session = request.getSession();
 
 		Object token = session.getAttribute(Constants.OAUTH_TOKEN);
 
-		if (_log.isDebugEnabled()) {
-			_log.debug(" isAuth Fetching token from session ..." + token);
-		}
-
+		//DE 766 removed token log
 		BasicClient client = SLISSOUtil.getBasicClientObject();
 
 		if (client != null && token != null) {
@@ -88,13 +90,28 @@ public class SLIFilter extends BasePortalFilter {
 			if (_log.isDebugEnabled()) {
 				_log.debug("Logout called");
 			}
-			if (client != null) {
+			if (client != null && token != null) {
+				_log.info("client not null");
 				SLISSOUtil.logout(client, request, response);
+			}else{
+				//DE1060 set autologout when directly logout from dashboard
+				autoLogout=true;			
 			}
+
 			processFilter(SLIFilter.class, request, response, filterChain);
 			return;
 		}
-
+	
+	//DE 1060
+		if (client != null && token!=null && autoLogout) {
+			if (_log.isDebugEnabled()) {
+				_log.debug("Auto Logout");
+			}
+			autoLogout=false;
+			SLISSOUtil.logout(client, request, response);
+			processFilter(SLIFilter.class, request, response, filterChain);
+			return;
+		}
 		if (request.getRequestURL().toString()
 				.endsWith("/c/portal/expire_session")) {
 			if (_log.isDebugEnabled()) {
@@ -164,17 +181,19 @@ public class SLIFilter extends BasePortalFilter {
 				_log.debug("Connecting to the idp....");
 			}
 			session.setAttribute(ENTRY_URL, request.getRequestURL());
-			authenticate(request, response);
+			//US 2131 - realm selection redirect
+			authenticate(request, response,realmName);
 
 		} else {
 			response.sendRedirect(request.getRequestURI());
 		}
 	}
 
-	private void authenticate(HttpServletRequest req, HttpServletResponse res) {
+	private void authenticate(HttpServletRequest req, HttpServletResponse res, String realmName) {
 		try {
 			BasicClient client = SLISSOUtil.getBasicClientObject();
-			res.sendRedirect(client.getLoginURL().toExternalForm());
+			//US 2131 - realm selection redirect
+			res.sendRedirect(client.getLoginURL().toExternalForm()+"&Realm="+realmName);
 		} catch (MalformedURLException e) {
 			throw new RuntimeException(e);
 		} catch (IOException e) {
@@ -198,9 +217,9 @@ public class SLIFilter extends BasePortalFilter {
 
 		Cookie[] cookies = request.getCookies();
 		for (Cookie cookie : cookies) {
+			_log.info("cookie name----"+cookie.getName());
 			Cookie openAmCookie = new Cookie(cookie.getName(), "");
-			openAmCookie.setDomain(GetterUtil.getString(PropsUtil
-					.get(PropsKeys.SLI_COOKE_DOMAIN)));
+			openAmCookie.setDomain(GetterUtil.getString(PropsUtil.get(PropsKeys.SLI_COOKE_DOMAIN)));
 			openAmCookie.setMaxAge(0);
 			openAmCookie.setValue("");
 			openAmCookie.setPath(StringPool.SLASH);

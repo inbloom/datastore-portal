@@ -49,7 +49,7 @@ Feature: title
 Scenario:check  wsrp of admin user and go to admin page
     Given I have an open web browser
     Then I am on the Realm selection page
-    Then I select "5a4bfe96-1724-4565-9db1-35b3796e3ce1"
+    Then I select "2012lh-d8135101-cc75-11e1-b0fd-066c72649ec8"
     #Then I click "Go"
     When I login with "slcoperator" and "slcoperator1234"
     #this is normal user 
@@ -68,7 +68,7 @@ Scenario:check  wsrp of admin user and go to admin page
 Scenario:check  wsrp of admin user and go to admin page
     Given I have an open web browser
     Then I am on the Realm selection page
-    Then I select "5a4bfe96-1724-4565-9db1-35b3796e3ce1"
+    Then I select "2012lh-d8135101-cc75-11e1-b0fd-066c72649ec8"
     #Then I click "Go"
     When I login with "sunsetrealmadmin" and "sunsetrealmadmin1234"
     #this is normal user 
