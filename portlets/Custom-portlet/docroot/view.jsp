@@ -82,7 +82,7 @@
 								<textarea id="homeWel" name="homeWel" cols="12" rows="10" > </textarea>
 							</div>
 							<a onclick="add('homeWel')">restore to default</a>
-							<liferay-ui:error key="welcomeMessageEditorLength" message="Please enter Home Page Welcome  between 20 to 200 characters" />
+							<liferay-ui:error key="welcomeMessageEditorLength" message="Please enter Home Page Welcome  between 20 to 1000 characters" />
 						</div>
 				</span>
 			</span>
