@@ -135,7 +135,7 @@
 					  <input id="selecteFile" type="file" onpropertychange="add()" style="position:absolute;visibility:hidden;" name="<portlet:namespace />File_Name" onchange="uploaded_file(this);">
 					  <input type="button" id="browseButton" value="Choose File" onclick="selecteFile.click()">
 					   <label id="noFile">no file selected</label>
-					   <div style="margin-left:306px;margin-top:3px;"><a href="/Custom-portlet/images/view.jsp">download default CSS</a></div>
+					   <div style="margin-left:306px;margin-top:3px;"><a href="#">download default CSS</a></div>
 				 </span>
 		</span>
 		 
