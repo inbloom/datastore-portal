@@ -35,8 +35,8 @@
 					  
 				 </span>
 				 <label id="noImage">no file selected</label>
-				 <div style="margin-left:310px;" id="aui_3_4_0_1_1337">max ?k size of ?K, GIF, JPG, PNG</div>
-				 <div style="margin-left:310px;" ><liferay-ui:error key="sli_Image" message="Please upload Image not more then 20 KB" /></div>
+				 <div style="margin-left:310px;" id="aui_3_4_0_1_1337">max 20KB size of GIF, JPG, PNG</div>
+				 <div style="margin-left:310px;" ><liferay-ui:error key="sli_Image" message="Please upload image not more then 20 KB" /></div>
 			</span>
 	  </span>
 	  <span class="aui-field aui-field-text">
