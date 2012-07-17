@@ -76,7 +76,7 @@ import com.liferay.counter.service.CounterLocalServiceUtil;
  * @author Brian Wing Shun Chan
  */
 public class WebFormPortlet extends MVCPortlet {
-
+String loginEmail ="";
 	public void deleteData(
 			ActionRequest actionRequest, ActionResponse actionResponse)
 		throws Exception {
@@ -140,11 +140,10 @@ public class WebFormPortlet extends MVCPortlet {
 		String successURL = GetterUtil.getString(
 			preferences.getValue("successURL", StringPool.BLANK));
 		System.out.println(">>>>>>>>successURL>>>>>>>>>" + successURL);
-		//boolean sendAsEmail = GetterUtil.getBoolean(preferences.getValue("sendAsEmail", StringPool.BLANK));
-		boolean sendAsEmail = true;
-		System.out.println(">>>>>>>>sendAsEmail>>>>>>>>>" + sendAsEmail);
-		//boolean saveToDatabase = GetterUtil.getBoolean(preferences.getValue("saveToDatabase", StringPool.BLANK));
-		boolean saveToDatabase = false;
+		boolean sendAsEmail = GetterUtil.getBoolean(
+			preferences.getValue("sendAsEmail", StringPool.BLANK));
+		boolean saveToDatabase = GetterUtil.getBoolean(
+			preferences.getValue("saveToDatabase", StringPool.BLANK));
 		String databaseTableName = GetterUtil.getString(
 			preferences.getValue("databaseTableName", StringPool.BLANK));
 		boolean saveToFile = GetterUtil.getBoolean(
@@ -214,7 +213,7 @@ public class WebFormPortlet extends MVCPortlet {
 				String token = (String) httpSession.getAttribute("OAUTH_TOKEN");
 				System.out.println(">>>>>>>>token>>>>>>>>>" + token);
 				String emailAddress = EmailUtil.getEmailAddress(token);
-			
+				//loginEmail = EmailUtil.getLoginEmail(token);
 			//	emailAddress1 = EmailUtil.getEmailAddress(token);
 			
 				emailSuccess = sendEmail(fieldsMap, preferences, emailAddress);
@@ -386,12 +385,13 @@ public class WebFormPortlet extends MVCPortlet {
 		System.out.println(">>>>>>>>>>>>>>>>>" + strFooId);
 		sb.append("\n");
 		sb.append("Email"); 
-	//	if(emailAddress1 == " "){
-		sb.append(" : N/A");
-	//	}else{
-	//	sb.append(" : ");
-	//	sb.append(emailAddress1);
-	//	}
+	if(loginEmail.equals("")){
+			sb.append(" : N/A");
+		}else{
+			sb.append(" : ");
+			sb.append(loginEmail);
+		}
+		
 		sb.append("\n");
 
 		

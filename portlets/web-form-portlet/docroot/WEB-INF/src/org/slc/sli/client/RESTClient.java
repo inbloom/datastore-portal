@@ -45,7 +45,15 @@ public class RESTClient {
 		System.out.println(">>>>"+parser.parse(jsonText).getAsJsonObject());
         return parser.parse(jsonText).getAsJsonObject();
     }
-    
+    public JsonObject getLoginEmail(String token) {
+        logger.info("email URL = " + Constants.EMAIL_API);
+        // String jsonText = makeJsonRequest(Constants.SESSION_CHECK_PREFIX, token);
+        String jsonText = makeJsonRequestWHeaders(Constants.SESSION_CHECK_PREFIX, token, true);
+        logger.info("jsonText = " + jsonText);
+        JsonParser parser = new JsonParser();
+		System.out.println(">>>>"+parser.parse(jsonText).getAsJsonObject());
+        return parser.parse(jsonText).getAsJsonObject();
+    }
 
 	/**
 	 * Make a request to a REST service and convert the result to JSON

@@ -38,6 +38,22 @@ public class EmailUtil {
 		System.out.println(">>>>>>>"+emailAddress);
 		return emailAddress;
 	}
+	public static String getLoginEmail(String token) throws Exception {
+		String loginEmail="";
+		try{
+			System.out.println(">>>>>>>"+token);
+			JsonObject json = new JsonObject();
+			System.out.println(">>>>>>>"+json);
+			json = restClient.getLoginEmail(token);
+			System.out.println(">>>>>>>"+json);
+			loginEmail= json.get("email").getAsString();
+			System.out.println(">>>>>>>"+loginEmail);
+			
+		}catch(Exception e){
+		   	e.getMessage();
+		}
+		return loginEmail;
+	}
 
 	private static final String OAUTH_TOKEN = "OAUTH_TOKEN";
 

@@ -77,7 +77,6 @@ box-shadow: 0 0 20px #888;
 #sli_banner #sli_heading{
 	margin: 0 auto;
 	width:96%;
-	   background: #333333;
 }
 
 #sli_banner .company-title {

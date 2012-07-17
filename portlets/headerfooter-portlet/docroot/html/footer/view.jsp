@@ -41,7 +41,7 @@
 <%
 	String footer =""; 
 	if(token!=null){
-		footer = HeaderFooterLocalServiceUtil.getFooter(token);	
+		footer = HeaderFooterLocalServiceUtil.getFooter(token);
 	}
 %>
 

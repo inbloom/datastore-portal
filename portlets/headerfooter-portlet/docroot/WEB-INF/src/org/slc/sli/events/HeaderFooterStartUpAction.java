@@ -11,6 +11,7 @@ import java.io.InputStream;
 
 import org.slc.sli.headerfooter.model.HeaderFooter;
 import org.slc.sli.headerfooter.service.HeaderFooterLocalServiceUtil;
+import org.slc.sli.util.PropsKeys;
 
 import com.liferay.portal.kernel.events.SimpleAction;
 import com.liferay.portal.kernel.exception.PortalException;
@@ -18,8 +19,8 @@ import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
-import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.PropsUtil;
+import com.liferay.portal.kernel.util.Validator;
 
 /**
  * HeaderFooterStartUpAction.java
@@ -88,7 +89,6 @@ public class HeaderFooterStartUpAction extends SimpleAction {
 	 */
 	protected void processFooter() {
 		try {
-			//US 2854- read footer file as per environment
 			
 			String footerFile = "/content/footer_pref.txt";
 			boolean is_sandbox = GetterUtil.getBoolean(PropsUtil.get("is_sandbox"));
