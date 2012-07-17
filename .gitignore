@@ -1,3 +1,4 @@
+build.properties
 devlr1_testing/target/*
 hooks/deploylar-hook/docroot/WEB-INF/classes/*
 hooks/Error-hook/docroot/WEB-INF/classes/*
@@ -11,6 +12,35 @@ portlets/headerfooter-portlet/docroot/WEB-INF/classes/*
 portlets/web-form-portlet/docroot/WEB-INF/classes/*
 portlets/wsrp-portlet/docroot/WEB-INF/classes/*
 webs/SLIWSClient-2/docroot/WEB-INF/classes/*
+
+# Compiled source #
+###################
+*.com
+*.class
+*.dll
+*.exe
+*.o
+*.so
+
+# Packages #
+############
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+
+# Logs and databases #
+######################
+*.log
+
+# OS generated files #
+######################
+.DS_Store
+.DS_Store?
+Thumbs.db
 
 
 

@@ -5,20 +5,15 @@
 <html class="#language("lang.dir")" dir="#language("lang.dir")" lang="$w3c_language_id">
 
 <head>
-	<title>$the_title - $company_name</title>
+	<title>$the_title </title>
 
 	$theme.include($top_head_include)
-<!--	#js ("$javascript_folder/script.js")
-	#js ("$javascript_folder/jquery.js")
-	#js ("$javascript_folder/modal.popup.js")-->
+	 
 	
-	#js ("$javascript_folder/scroll.js")
-
-
 </head>
 
 <body class="$css_class">
-
+$taglibLiferay.include("/html/common/themes/bottom-ext.jsp")
 #if ( $is_signed_in )    
 #set ($rService = $serviceLocator.findService("com.liferay.portal.service.RoleService"))
 #set ($usrRoles = $rService.getUserRoles( $user_id ))
@@ -63,18 +58,10 @@ $theme.include($body_bottom_include)
 
 
 
-<script type="text/javascript">
-jQuery( document ).ready( function ( $ ) {
-// Add first and last menu item classes
-$('ul li:first-child').addClass( 'first' );
-$('ul li:last-child').addClass( 'last' );
-});
-</script>
 
-<script type="text/javascript"> 
-TINY.scroller.init('scroll','scrollcontent','scrollbar','scroller','buttonclick');
-</script>
 
+ 
+	
 </body>
 
 $theme.include($bottom_include)

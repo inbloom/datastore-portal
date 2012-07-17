@@ -6,6 +6,7 @@ import javax.servlet.http.HttpSession;
 import org.slc.sli.client.RESTClient;
 
 import com.google.gson.JsonObject;
+import com.liferay.webform.util.EncryptUtils;
 
 /**
  * EmailUtil.java
@@ -19,7 +20,27 @@ import com.google.gson.JsonObject;
 public class EmailUtil {
 
 	private static RESTClient restClient;
+	
+    private EncryptUtils aesDecrypt;
+    
+    private static EmailUtil instance;
 
+    public EmailUtil() {
+        this.instance = this;
+    }
+ 
+    public void setAesDecrypt(EncryptUtils aesDecrypt) {
+        this.aesDecrypt = aesDecrypt;
+    }
+
+    public EncryptUtils _getAesDecrypt() {
+        return aesDecrypt;
+    }
+
+    public static EncryptUtils getAesDecrypt() {
+        return instance._getAesDecrypt();
+    }
+   
 	public RESTClient getRestClient() {
 		return restClient;
 	}
@@ -29,14 +50,9 @@ public class EmailUtil {
 	}
 
 	public static String getEmailAddress(String token) {
-		System.out.println(">>>>>>>"+token);
-		JsonObject json = new JsonObject();
-		System.out.println(">>>>>>>"+json);
-		json = restClient.getEmailAddress(token);
-		System.out.println(">>>>>>>"+json);
-		String emailAddress = json.get("email").getAsString();
-		System.out.println(">>>>>>>"+emailAddress);
-		return emailAddress;
+	    JsonObject json = restClient.getEmailAddress(token);
+        String emailAddress = json.get("email").getAsString();
+        return emailAddress;
 	}
 
 	private static final String OAUTH_TOKEN = "OAUTH_TOKEN";
