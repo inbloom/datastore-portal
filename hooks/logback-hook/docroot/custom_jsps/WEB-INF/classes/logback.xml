@@ -4,17 +4,16 @@
 	<!--<property file="/opt/tomcat/conf/liferaylog.properties"/> -->
 	<property file="${catalina.base}/../liferaylog.properties"/>
 	<appender name="FILE" class="ch.qos.logback.core.FileAppender">
-		<!--<File>D:/wgen/logs/liferay.log</File>-->
-		<File>${log.path}/liferay.log</File>
+		<File>${log.path}/portal.log</File>
 		<Append>true</Append>
 		<encoder>
-			<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+			<pattern>%date{dd MMM yyyy HH:mm:ss.SSSZ} %-5level [%thread] %logger{10} [%user] - %msg%n</pattern>
 		</encoder>
 	</appender>
 
 	<appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
 		<encoder>
-			<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+			<pattern>%date{dd MMM yyyy HH:mm:ss.SSSZ} %-5level [%thread] %logger{10} [%user] - %msg%n</pattern>
 		</encoder>
 	</appender>
 
