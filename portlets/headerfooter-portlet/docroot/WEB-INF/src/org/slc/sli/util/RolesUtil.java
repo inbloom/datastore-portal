@@ -1,15 +1,45 @@
 package org.slc.sli.util;
 
-import java.io.IOException;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.util.StringBundler;
+import com.liferay.portal.kernel.util.StringPool;
+import com.liferay.portal.kernel.util.StringUtil;
+import com.liferay.portal.kernel.util.Validator;
+import com.liferay.util.CookieUtil;
 
-import org.slc.sli.api.client.impl.CustomClient;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.slc.sli.client.RESTClient;
 import org.slc.sli.login.json.bean.UserData;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.liferay.portal.kernel.log.Log;
-import com.liferay.portal.kernel.log.LogFactoryUtil;
+
+import org.springframework.web.util.WebUtils;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpSession;
+import javax.servlet.http.Cookie;
+import com.liferay.portal.kernel.util.StringPool;
+import com.liferay.portal.kernel.util.CharPool;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * RolesUtil.java
@@ -51,23 +81,6 @@ public class RolesUtil {
 		return userData;
 	}
 
-	
-	//US1577,1576,2801
-	
-	public static CustomClient getCustomClientObject() {
-		return instance.getCustomClient();
-	}
-	
-	public CustomClient getCustomClient() {
-		return customClient;
-	}
-
-	public void setCustomClient(CustomClient customClient) {
-		this.customClient = customClient;
-	}
-	private CustomClient customClient;
-	
-	// end US1577
 	private static Log _log = LogFactoryUtil.getLog(RolesUtil.class);
 
 	private static RolesUtil instance;

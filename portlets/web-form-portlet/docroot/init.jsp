@@ -45,8 +45,9 @@ page import="com.liferay.portlet.expando.DuplicateColumnNameException" %><%@
 page import="com.liferay.webform.util.PortletPropsValues" %><%@
 page import="com.liferay.webform.util.WebFormUtil" %>
 
-<%@ page import="javax.portlet.ActionRequest" %><%@
-page import="javax.portlet.PortletPreferences" %>
+<%@ page import="javax.portlet.ActionRequest" %>
+<%@page import="javax.portlet.PortletPreferences" %>
+
 <%@ page import="java.util.*" %>
 <portlet:defineObjects />
 

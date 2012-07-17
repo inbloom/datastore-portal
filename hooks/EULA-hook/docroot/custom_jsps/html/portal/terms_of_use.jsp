@@ -14,17 +14,7 @@
  */
 --%>
 
-<%@page import="org.slc.sli.constant.StaticText"%>
 <%@ include file="/html/portal/init.jsp" %>
-
-<%@ page import="org.slc.sli.service.ClientServiceUtil"%>
-<%@ page import="org.slc.sli.api.client.impl.CustomClient"%>
-
-<%@ page import="org.slc.sli.api.client.EntityCollection"%>
-
-<%@ page import="org.slc.sli.common.constants.v1.PathConstants"%>
-<%@ page import="org.slc.sli.api.client.impl.BasicQuery"%>
-<%@ page import="java.net.URISyntaxException"%>
 <script type="text/javascript" src="/sli-new-theme/js/scroll.js"></script>
 <%
 String currentURL = PortalUtil.getCurrentURL(request);
@@ -34,52 +24,13 @@ String referer = ParamUtil.getString(request, WebKeys.REFERER, currentURL);
 if (referer.equals(themeDisplay.getPathMain() + "/portal/update_terms_of_use")) {
 	referer = themeDisplay.getPathMain() + "?doAsUserId=" + themeDisplay.getDoAsUserId();
 }
-
-//  Display Logo,Organization Name,Eula text and Footer text from API
-String logo = "";
-String orgName = "";
-String footerText = "";
-String eulaText = "";
-
-HttpSession httpSession = (HttpSession)request.getSession(false);
-String token = (String)httpSession.getAttribute("OAUTH_TOKEN");
-
-CustomClient  bc= ClientServiceUtil.getCustomClientService();
-bc.setToken(token);
-System.out.println("inside bottom ext jsp ************"+bc);
-
-try{
-	EntityCollection collection = new EntityCollection();
-	EntityCollection collection2 = new EntityCollection();
-	EntityCollection collection3 = new EntityCollection();
-	
-	bc.read(collection, StaticText.eulaContent);
-	if (collection != null && collection.size() >= 1) {
-		eulaText = String.valueOf((String)collection.get(0).getData().get("eulaText"));
-		}
-	
-	bc.read(collection2, StaticText.jsonContent);
-	if (collection2 != null && collection2.size() >= 1) {
-		footerText = String.valueOf((String)collection2.get(0).getData().get("footerText"));
-		orgName = String.valueOf((String)collection2.get(0).getData().get("orgName"));
-		}
-
-	bc.read(collection3, StaticText.logoContent);
-
-	if (collection3 != null && collection3.size() >= 1) {
-		logo = String.valueOf((String)collection3.get(0).getData().get("logo"));
-		}
-}catch(Exception e){
-	
-}
-
 %>
      <div id="sli_banner">
          <div id="sli_heading">
               <div class="portlet-layout">
                    <div class="portlet-column portlet-column-only" id="column-1">
-                         <div class="sli_logo_main"> <a href="<%= themeDisplay.getURLHome() %>"><img class="company-logo" src="data:image/png;base64,<%=logo%>" width="<%= themeDisplay.getCompanyLogoWidth() %>" height="<%= themeDisplay.getCompanyLogoHeight() %>"/>  </a> 
- <a href="<%= themeDisplay.getURLHome() %>"><span><%=orgName %></span></a>
+                         <div class="sli_logo_main"> <a href="<%= themeDisplay.getURLHome() %>"> <img class="company-logo" src="<%= themeDisplay.getCompanyLogo() %>" width="<%= themeDisplay.getCompanyLogoWidth() %>" height="<%= themeDisplay.getCompanyLogoHeight() %>"/> </a> 
+ <a href="<%= themeDisplay.getURLHome() %>"><span>SLC</span></a>
 </div>
                    </div>
               </div>
@@ -92,9 +43,9 @@ try{
     
 <div class="d_popup">
 <span class="aui-legend" style="font-weight:bold;font-size: 18px; color:#333333; width:700px;">License Agreement</span>
-<br /><br />
+<br /><br /><br /><br />
 <!-- US 2854- update static text as per environment -->
-
+<%boolean is_sandbox = false; %>
 <aui:form action='<%= themeDisplay.getPathMain() + "/portal/update_terms_of_use" %>' name="fm">
 	<aui:input name="doAsUserId" type="hidden" value="<%= themeDisplay.getDoAsUserId() %>" />
 	<aui:input name="<%= WebKeys.REFERER %>" type="hidden" value="<%= referer %>" />
@@ -109,8 +60,21 @@ try{
 		<c:otherwise>
 		<br>
 <br>
-<!-- US 1579- Display EULA text from API -->
-<%= eulaText%><br><br>
+<!-- US 2854- display EULA text as per environment -->
+<%is_sandbox = GetterUtil.getBoolean(PropsUtil.get("is_sandbox")); 
+			
+			if(is_sandbox){%>
+			You are in the Shared Learning Collaborative developer sandbox environment which is subject to the <a target="_blank"  href="http://dev.slcedu.org/legal/terms-of-use">Terms of Use</a> and <a target="_blank" href="http://dev.slcedu.org/legal/privacy">Privacy Policy</a> of the Shared Learning Collaborative developer website. <br/><br/>
+
+Please note:  No actual student data or other personally identifiable information under the Family Educational Rights and Privacy Act, 20 U.S.C. §1232g, and its regulations ("<b>FERPA</b>") or other personal information may be accessed, uploaded or otherwise provided to the developer sandbox environment.
+			
+				
+			<%}else{%>
+			
+			AGREEMENT NOT AVAILABLE<br/></br>
+Your district or organization has not made a licensing agreement available at this time.  In future, you may be asked to read and agree to terms of service for this platform, once one is made available.<br/></br>
+For now, please click "Agree" to continue.  You should not see this message again.
+			<%}%><br><br>
 		</c:otherwise>
 
 	</c:choose>
@@ -139,8 +103,12 @@ try{
  
     <footer id="sli_footer">
       <div class="sli_footer_wrap">
-	  <!-- US 1577-Display footer text from API -->
-        <%= footerText %>
+	  <!-- US 2854- display footer text as per environment -->
+        <%if(is_sandbox){ %>
+        <p>(C) Shared Learning Collaborative, LLC. <a target="_blank" href="http://dev.slcedu.org/legal/privacy">Privacy Policy</a>  <a target="_blank"  href="http://dev.slcedu.org/legal/terms-of-use">Terms of Use</a> </p>
+      <%}else{ %>
+      <p>CONFIDENTIAL: This page may contain private student data; do not share with unauthorized persons. </p>
+      <%} %>
       </div>
     </footer>
  

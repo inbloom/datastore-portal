@@ -37,16 +37,4 @@ public class ServerUtil {
 		return httpServletRequest.getServerName();
 	}
 
-	public static HttpServletRequest getRequestObject() {
-
-		ApplicationContext ctx = AppContext.getApplicationContext();
-		HTTPRequestHolder httpRequestHolder = (HTTPRequestHolder) ctx
-				.getBean("httpRequestHolder");
-
-		HttpServletRequest httpServletRequest = httpRequestHolder
-				.getHttpServletRequest();
-
-		return httpServletRequest;
-	}
-
 }

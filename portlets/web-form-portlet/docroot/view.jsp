@@ -94,13 +94,10 @@ String refererUrl = request.getHeader("Referer");
 					<aui:input cssClass='<%= fieldOptional ? "optional" : StringPool.BLANK %>' label="<%= HtmlUtil.escape(fieldLabel) %>" name="<%= fieldName %>" value="<%= HtmlUtil.escape(fieldValue) %>" />
 				</c:when>
 				<c:when test='<%= fieldType.equals("textarea") %>'>
-				
 					<div style="margin-left:151px;margin-top:10px;">
 						Please describe your problem in as much detail as possible in the space below.  We already have logged the time and page location of this problem.<strong>  Do not include private student data or passwords in this field....</strong>
 					</div>
-					
 					<aui:input cssClass='<%= "lfr-textarea-container" + (fieldOptional ? "optional" : StringPool.BLANK) %>' label="<%= HtmlUtil.escape(fieldLabel) %>" name="<%= fieldName %>" type="textarea" value="<%= HtmlUtil.escape(fieldValue) %>" wrap="soft" style="resize : none; width : 315px; height : 75px;"/>
-					
 				</c:when>
 				<c:when test='<%= fieldType.equals("checkbox") %>'>
 					<aui:input cssClass='<%= fieldOptional ? "optional" : StringPool.BLANK %>' inlineLabel="left" label="<%= HtmlUtil.escape(fieldLabel) %>" name="<%= fieldName %>" type="checkbox" value="<%= GetterUtil.getBoolean(fieldValue) %>" />
@@ -295,7 +292,7 @@ String refererUrl = request.getHeader("Referer");
 	}
 </aui:script>
 </div>
-<!-- DE 1058-->
+
 <style type="text/css">
 .dockbar{
 	display:none;
@@ -308,4 +305,5 @@ overflow:hidden
 }
 
 </style>
+ 
  

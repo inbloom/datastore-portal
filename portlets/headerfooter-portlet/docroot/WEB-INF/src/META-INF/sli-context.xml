@@ -13,7 +13,9 @@
 
 	<!-- <context:property-placeholder location="file:///${liferay.home}/portal-ext.properties,file:///${liferay.home}/environment.properties" ignore-resource-not-found="true" />-->
 
-	<context:property-placeholder location="file:////opt/portal-ext.properties,file:////opt/environment.properties,file:////${sli.encryption.properties}" ignore-resource-not-found="true" />
+	<context:property-placeholder
+		location="file:////opt/portal-ext.properties,file:////opt/environment.properties"
+		ignore-resource-not-found="true" />
 
 	<bean id="contextApplicationContextProvider" class="org.slc.sli.context.ApplicationContextProvider"></bean>
 
@@ -25,28 +27,6 @@
 
 	<bean id="entryPoint" class="org.slc.sli.util.RolesUtil">
 		<property name="restClient" ref="restClient" />
-		<property name="customClient" ref="customClient" />
 	</bean>
-	
-	
-	<bean id="keyStore" class="org.slc.sli.encrypt.EncryptUtils"  init-method="init">
-	    <property name="keyStorePass" value="${sli.encryption.keyStorePass}" />
-	    <property name="keyPass" value="${sli.encryption.dalKeyPass}" />
-	    <property name="keyAlias" value="${sli.encryption.dalKeyAlias}" />
-	    <property name="keyLocation" value="${sli.encryption.keyStore}" />
-	</bean>
-<!-- <bean id="basicClient" class="org.slc.sli.api.client.impl.BasicClient" >
-  <constructor-arg value="${api.server.url}"/>
-  <constructor-arg value="#{keyStore.decrypt('${oauth.client.id}')}"/>
-  <constructor-arg value="#{keyStore.decrypt('${oauth.client.secret}')}"/>
-  <constructor-arg value="${oauth.redirect}"/>
- </bean> -->
 
- <bean id="customClient" class="org.slc.sli.api.client.impl.CustomClient" >
-  <constructor-arg value="${api.server.url}"/>
-  <constructor-arg value="#{keyStore.decrypt('${oauth.client.id}')}"/>
-  <constructor-arg value="#{keyStore.decrypt('${oauth.client.secret}')}"/>
-  <constructor-arg value="${oauth.redirect}"/>
- </bean>
-	
 </beans>
