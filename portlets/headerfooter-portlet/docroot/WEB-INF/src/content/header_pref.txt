@@ -116,7 +116,7 @@ if(usrname=="demo"){
 
                                                 },
 
-                                                overlayClose:true
+                                                overlayClose:false
 
                                 });
 
