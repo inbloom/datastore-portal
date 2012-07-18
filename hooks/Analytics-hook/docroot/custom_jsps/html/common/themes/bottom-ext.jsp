@@ -43,9 +43,7 @@ String googleId = props.getProperty("dashboard.google_analytics.id");
 %>
 
 <%
-
-	String jsoncss="{\"css\":\"#sli_content{border:3px dotted blue;}\"}";
-	
+	String jsoncss="{\"css\":\"#sli_content{border:3px dotted blue;}.portlet-title{border:1px dotted orange;}\"}";
 	HttpSession httpSession = (HttpSession)request.getSession(false);
 	String token = (String)httpSession.getAttribute("OAUTH_TOKEN");
 
