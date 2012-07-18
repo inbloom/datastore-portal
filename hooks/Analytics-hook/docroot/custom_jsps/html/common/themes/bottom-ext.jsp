@@ -18,6 +18,17 @@
 
 <%@ taglib uri="http://java.sun.com/portlet" prefix="portlet" %>
 
+<%@ page import="org.slc.sli.service.ClientServiceUtil"%>
+<%@ page import="org.slc.sli.api.client.impl.CustomClient"%>
+
+<%@ page import="org.slc.sli.api.client.EntityCollection"%>
+
+<%@ page import="org.slc.sli.common.constants.v1.PathConstants"%>
+<%@ page import="org.slc.sli.api.client.impl.BasicQuery"%>
+<%@ page import="java.net.URISyntaxException"%>
+<%@ page import="com.google.gson.Gson"%>
+<%@ page import="com.google.gson.JsonElement"%>
+
 <portlet:defineObjects />
 
 <%
@@ -31,6 +42,32 @@ String googleId = props.getProperty("dashboard.google_analytics.id");
 
 %>
 
+<%
+
+	String jsoncss="{\"css\":\"#sli_content{border:3px dotted blue;}\"}";
+	
+	HttpSession httpSession = (HttpSession)request.getSession(false);
+	String token = (String)httpSession.getAttribute("OAUTH_TOKEN");
+
+	CustomClient  bc= ClientServiceUtil.getCustomClientService();
+	bc.setToken(token);
+
+	String css="";
+
+	EntityCollection collection1 = new EntityCollection();
+	try {
+			bc.read(collection1, jsoncss);
+		if (collection1 != null && collection1.size() >= 1) {
+				css = String.valueOf((String) collection1.get(0)
+						.getData().get("css"));
+			}
+	} catch (URISyntaxException e) {
+		}
+%>
+
+<style>
+	<%=css%>
+</style>
 
 <script type="text/javascript">
  
