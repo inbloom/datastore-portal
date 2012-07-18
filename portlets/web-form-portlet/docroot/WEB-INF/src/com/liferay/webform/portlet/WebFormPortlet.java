@@ -561,6 +561,7 @@ public class WebFormPortlet extends MVCPortlet {
                     userNamePasswordEncryption = stringUserNamePasswordEncryption.equals("true");
                 }
         		if( userNamePasswordEncryption ) {
+				System.out.println("EmailUtil.getAesDecrypt() == null" + (EmailUtil.getAesDecrypt() == null));
         			username = EmailUtil.getAesDecrypt().decrypt(PropsUtil.get(PropsKeys.MAIL_SESSION_MAIL_SMTP_USER));
         			password = EmailUtil.getAesDecrypt().decrypt(PropsUtil.get(PropsKeys.MAIL_SESSION_MAIL_SMTP_PASSWORD));
         		} else  {
@@ -573,7 +574,8 @@ public class WebFormPortlet extends MVCPortlet {
     			final MimeMessage msg = new MimeMessage(session);
     
     	        // -- Set the FROM and TO fields --
-    	        msg.setFrom(fromAddress);
+    	        System.out.println("fromAddress = " + fromAddress + ", emailAddress = " + emailAddress);
+		msg.setFrom(fromAddress);
     	        msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(emailAddress, false));
     
     	        msg.setSubject(subject);
