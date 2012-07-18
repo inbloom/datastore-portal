@@ -21,6 +21,7 @@
 <%@page import="org.slc.sli.json.bean.AppsData"%>
 <%@ taglib uri="http://java.sun.com/portlet_2_0" prefix="portlet" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <portlet:defineObjects />
 
@@ -47,19 +48,19 @@ if(renderRequest.getAttribute("appList") != null){
 
 <c:choose>
 	
-	<c:when test='${app.behaviour eq "Iframe App" }'>
+	<c:when test='${fn:toLowerCase(app.behaviour) eq "iframe app" }'>
 		<a onClick="callIframeOfConfApp('<c:out value="${app.admin_url}"></c:out>')" href='#' style="color: #000000;font-size: 14px;">
 			<c:out value="${app.name}"></c:out>
 		</a>
 	</c:when>
 	
-	<c:when test='${app.behaviour eq "Wsrp App" }'>
+	<c:when test='${fn:toLowerCase(app.behaviour) eq "wsrp app" }'>
 		<a onClick="callWsrpOfConfApp('<c:out value="${app.admin_url}"></c:out>')"  href='#' style="color: #000000;font-size: 14px;">
 			<c:out value="${app.name}"></c:out>
 		</a>
 	</c:when>
 	
-	<c:when test='${app.behaviour eq "Full Window App" }'>
+	<c:when test='${fn:toLowerCase(app.behaviour) eq "full window app" }'>
 	
 	<a href='<c:out value="${app.admin_url}"></c:out>' style="color: #000000;font-size: 14px;">
 		<c:out value="${app.name}"></c:out>
