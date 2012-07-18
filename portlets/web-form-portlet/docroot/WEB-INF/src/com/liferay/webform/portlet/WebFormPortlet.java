@@ -560,8 +560,8 @@ public class WebFormPortlet extends MVCPortlet {
                 if( stringUserNamePasswordEncryption != null ) {
                     userNamePasswordEncryption = stringUserNamePasswordEncryption.equals("true");
                 }
+			System.out.println("=== Sivan DE1925 === EmailUtil.getAesDecrypt() == null" + (EmailUtil.getAesDecrypt() == null));
         		if( userNamePasswordEncryption ) {
-				System.out.println("EmailUtil.getAesDecrypt() == null" + (EmailUtil.getAesDecrypt() == null));
         			username = EmailUtil.getAesDecrypt().decrypt(PropsUtil.get(PropsKeys.MAIL_SESSION_MAIL_SMTP_USER));
         			password = EmailUtil.getAesDecrypt().decrypt(PropsUtil.get(PropsKeys.MAIL_SESSION_MAIL_SMTP_PASSWORD));
         		} else  {
