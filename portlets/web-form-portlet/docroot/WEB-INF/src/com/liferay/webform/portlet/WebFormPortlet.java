@@ -510,11 +510,11 @@ public class WebFormPortlet extends MVCPortlet {
 			InternetAddress fromAddress = null;
 
 			try {
-				String smtpUser = PropsUtil
-						.get(PropsKeys.MAIL_SESSION_MAIL_SMTP_USER);
+				String fromUser = PropsUtil
+						.get(PropsKeys.ADMIN_EMAIL_FROM_ADDRESS);
 
-				if (Validator.isNotNull(smtpUser)) {
-					fromAddress = new InternetAddress(smtpUser);
+				if (Validator.isNotNull(fromUser)) {
+					fromAddress = new InternetAddress(fromUser);
 				}
 			} catch (Exception e) {
 				_log.error(e, e);
@@ -560,6 +560,7 @@ public class WebFormPortlet extends MVCPortlet {
                 if( stringUserNamePasswordEncryption != null ) {
                     userNamePasswordEncryption = stringUserNamePasswordEncryption.equals("true");
                 }
+			System.out.println("=== Sivan DE1925 === EmailUtil.getAesDecrypt() == null" + (EmailUtil.getAesDecrypt() == null));
         		if( userNamePasswordEncryption ) {
         			username = EmailUtil.getAesDecrypt().decrypt(PropsUtil.get(PropsKeys.MAIL_SESSION_MAIL_SMTP_USER));
         			password = EmailUtil.getAesDecrypt().decrypt(PropsUtil.get(PropsKeys.MAIL_SESSION_MAIL_SMTP_PASSWORD));
@@ -573,7 +574,8 @@ public class WebFormPortlet extends MVCPortlet {
     			final MimeMessage msg = new MimeMessage(session);
     
     	        // -- Set the FROM and TO fields --
-    	        msg.setFrom(fromAddress);
+    	        System.out.println("fromAddress = " + fromAddress + ", emailAddress = " + emailAddress);
+		msg.setFrom(fromAddress);
     	        msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(emailAddress, false));
     
     	        msg.setSubject(subject);

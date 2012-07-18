@@ -19,8 +19,16 @@
 		<property name="securityUrl" value="${security.server.url}" />
 	</bean>
 
+	<bean id="keyStore" class="com.liferay.webform.util.EncryptUtils"  init-method="init">
+		<property name="keyStorePass" value="${sli.encryption.keyStorePass}" />
+		<property name="keyPass" value="${sli.encryption.dalKeyPass}" />
+		<property name="keyAlias" value="${sli.encryption.dalKeyAlias}" />
+		<property name="keyLocation" value="${sli.encryption.keyStore}" />
+	</bean>
+
 	<bean id="entryPoint" class="org.slc.sli.util.EmailUtil">
 		<property name="restClient" ref="restClient" />
+		<property name="aesDecrypt" ref="keyStore"/>
 	</bean>
 
 </beans>
