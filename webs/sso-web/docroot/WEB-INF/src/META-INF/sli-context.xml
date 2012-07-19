@@ -24,6 +24,7 @@
 	    <property name="keyPass" value="${sli.encryption.dalKeyPass}" />
 	    <property name="keyAlias" value="${sli.encryption.dalKeyAlias}" />
 	    <property name="keyLocation" value="${sli.encryption.keyStore}" />
+	    <property name="oauthEncryption" value="${oauth.encryption}" />
 </bean>
 	
 <bean id="basicClient" class="org.slc.sli.api.client.impl.BasicClient" >

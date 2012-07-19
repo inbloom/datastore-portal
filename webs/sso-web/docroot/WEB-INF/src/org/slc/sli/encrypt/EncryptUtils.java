@@ -13,6 +13,9 @@ import java.io.File;
 import java.io.FileInputStream;
 import javax.crypto.Cipher;
 
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
+
 public class EncryptUtils {
 
     /*
@@ -24,6 +27,9 @@ public class EncryptUtils {
         // Initalise KeyStore with password
         password = new KeyStore.PasswordProtection(getKeyStorePass()
                 .toCharArray());
+
+        _log.info("Using the keystore located at " + getKeyLocation());
+        _log.info("Using encrypted client_id and secret? " + getOauthEncryption());
 
         File keyfile = new File(getKeyLocation());
 
@@ -44,7 +50,7 @@ public class EncryptUtils {
             }
         } else {
             throw new NullPointerException(
-                    "Check keystore.properties, and ensure all properties are set properly.");
+                    "Check your properties file and ensure all properties are set properly.");
         }
     }
 
@@ -75,12 +81,18 @@ public class EncryptUtils {
 
     public String decrypt(String message) throws GeneralSecurityException,
             IOException {
+        
         // get key
-        Key mykey = getkey(getKeyAlias(), getKeyPass());
-        Cipher cipher = Cipher.getInstance("AES");
-        cipher.init(Cipher.DECRYPT_MODE, mykey);
-        byte[] decrypted = cipher.doFinal(hexStringToByteArray(message));
-        return new String(decrypted);
+        if (getOauthEncryption().equals("true")) {
+            Key mykey = getkey(getKeyAlias(), getKeyPass());
+            Cipher cipher = Cipher.getInstance("AES");
+            cipher.init(Cipher.DECRYPT_MODE, mykey);
+            byte[] decrypted = cipher.doFinal(hexStringToByteArray(message));
+            _log.info("Decrypting... " + message);
+            return new String(decrypted);
+        } else {
+            return message;
+        }
     }
 
     private static String byteArrayToHexString(byte[] b) {
@@ -136,14 +148,26 @@ public class EncryptUtils {
     public void setKeyLocation(String keyLocation) {
         this.keyLocation = keyLocation;
     }
+    
+    public String getOauthEncryption() {
+        return oauthEncryption;
+    }
+
+    public void setOauthEncryption(String oauthEncryption) {
+        this.oauthEncryption = oauthEncryption;
+    }
 
     private String keyStorePass;
     private String keyPass;
     private String keyAlias;
     private String keyLocation;
+    private String oauthEncryption;
 
     KeyStore ks;
     KeyStore.PasswordProtection password;
+    
+    private static Log _log = LogFactoryUtil.getLog(EncryptUtils.class);
+
 
 }
 
