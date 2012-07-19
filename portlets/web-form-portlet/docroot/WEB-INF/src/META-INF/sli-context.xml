@@ -12,7 +12,7 @@
 						http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.0.xsd">
 
 	<context:property-placeholder
-		location="file:///${liferay.home}/portal-ext.properties,file:///${liferay.home}/environment.properties"
+		location="file:///${liferay.home}/portal-ext.properties,file:///${liferay.home}/environment.properties,file:///${sli.encryption.properties}"
 		ignore-resource-not-found="true" />
 
 	<bean id="restClient" class="org.slc.sli.client.RESTClient">
