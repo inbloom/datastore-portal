@@ -29,6 +29,7 @@ public class EncryptUtils {
                 .toCharArray());
 
         _log.info("Using the keystore located at " + getKeyLocation());
+        _log.info("Chencking the oauth.encryption property...");
         _log.info("Using encrypted client_id and secret? " + getOauthEncryption());
 
         File keyfile = new File(getKeyLocation());

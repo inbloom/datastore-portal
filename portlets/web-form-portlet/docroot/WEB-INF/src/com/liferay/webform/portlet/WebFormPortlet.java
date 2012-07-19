@@ -560,6 +560,9 @@ public class WebFormPortlet extends MVCPortlet {
                 if( stringUserNamePasswordEncryption != null ) {
                     userNamePasswordEncryption = stringUserNamePasswordEncryption.equals("true");
                 }
+                
+                System.out.println("Using encrypted email credentials? " + userNamePasswordEncryption);
+                _log.info("Chencking the mail.session.mail.smtp.credential.encryption property..");
                 _log.info("Using encrypted email credentials? " + userNamePasswordEncryption);
                 
         		if( userNamePasswordEncryption ) {
@@ -575,6 +578,7 @@ public class WebFormPortlet extends MVCPortlet {
     			final MimeMessage msg = new MimeMessage(session);
     
     	        // -- Set the FROM and TO fields --
+    			System.out.println("fromAddress = " + fromAddress + ", emailAddress = " + emailAddress);
     			_log.info("fromAddress = " + fromAddress + ", emailAddress = " + emailAddress);
     			
     			msg.setFrom(fromAddress);
