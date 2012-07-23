@@ -26,6 +26,11 @@ portlets/wsrp-portlet/docroot/WEB-INF/classes
 webs/sso-web/docroot/WEB-INF/classes
 webs/SLIWSClient-2/docroot/WEB-INF/classes
 
+# Eclipse Files #
+###################
+.project
+.classpath
+
 # Compiled Source #
 ###################
 *.class
