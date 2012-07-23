@@ -66,7 +66,6 @@ public class VelocityUtil {
 			URISyntaxException {
 
 		InputStream imageIs = VelocityUtil.class.getResourceAsStream(imageName);
-		System.out.println(imageIs);
 		BufferedImage img = ImageIO.read(imageIs);
 
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();

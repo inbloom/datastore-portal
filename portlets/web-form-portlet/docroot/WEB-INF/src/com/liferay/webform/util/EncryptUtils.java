@@ -68,7 +68,6 @@ public class EncryptUtils {
         Cipher cipher = Cipher.getInstance("AES");
         cipher.init(Cipher.ENCRYPT_MODE, mykey);
         byte[] encrypted = cipher.doFinal(value.getBytes());
-        System.out.println("chiper text is.." + encrypted);
 
         return byteArrayToHexString(encrypted);
     }

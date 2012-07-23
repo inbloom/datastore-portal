@@ -153,12 +153,6 @@ public class EncryptFiles {
 
 				String encryptedClientId = encrypt(oauthClientId);
 				String encryptedClientSecret = encrypt(oauthClientSecret);
-				/*
-				 * System.out.println("encrypted text is...." +
-				 * encryptedClientId);
-				 * System.out.println("encrypted text is...." +
-				 * encryptedClientSecret);
-				 */
 
 				Properties p2 = new Properties();
 				p2.put("api.client", apiClient);

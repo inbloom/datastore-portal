@@ -118,10 +118,6 @@ public class WebFormPortlet extends MVCPortlet {
 		//PortletURL redirectURL = PortletURLFactoryUtil.create(PortalUtil.getHttpServletRequest(actionRequest), ppid,themeDisplay.getLayout().getPlid(),		PortletRequest.RENDER_PHASE);
 		String portletId = (String)actionRequest.getAttribute(WebKeys.PORTLET_ID);
 		redirectURL.setParameter("jspPage", "/success.jsp");
-		System.out.println(">>>>>>>>themeDisplay END>>>>>>>>>"+themeDisplay);
-		System.out.println(">>>>>>>>portletName END>>>>>>>>>"+portletName);
-		System.out.println(">>>>>>>>redirectURL END>>>>>>>>>"+redirectURL);
-		System.out.println(">>>>>>>>portletId END>>>>>>>>>"+portletId);
 		String tempURL = ParamUtil.getString(actionRequest, "referUrl");
 		String tempUsrName = ParamUtil.getString(actionRequest, "usrName");
 		String tempScreenName = ParamUtil.getString(actionRequest,
@@ -129,10 +125,6 @@ public class WebFormPortlet extends MVCPortlet {
 		String tempUsrDateStamp = ParamUtil.getString(actionRequest,
 				"dateStamp");
 		String tempSuccess = ParamUtil.getString(actionRequest, "successURL");
-		System.out.println(">>>>>>>>>>>>>>>>>" + tempSuccess);
-		
-		
-		
 		
 		PortletPreferences preferences =
 			PortletPreferencesFactoryUtil.getPortletSetup(
@@ -143,16 +135,10 @@ public class WebFormPortlet extends MVCPortlet {
 		preferences.setValue("tempScreenName", tempScreenName);
 		preferences.setValue("successURL", tempSuccess);
 		 
-		//boolean requireCaptcha = GetterUtil.getBoolean(preferences.getValue("requireCaptcha", StringPool.BLANK));
 		boolean requireCaptcha = true;
-		System.out.println(">>>>>>>>requireCaptcha>>>>>>>>>" + requireCaptcha);
 		String successURL = GetterUtil.getString(
 			preferences.getValue("successURL", StringPool.BLANK));
-		System.out.println(">>>>>>>>successURL>>>>>>>>>" + successURL);
-		//boolean sendAsEmail = GetterUtil.getBoolean(preferences.getValue("sendAsEmail", StringPool.BLANK));
 		boolean sendAsEmail = true;
-		System.out.println(">>>>>>>>sendAsEmail>>>>>>>>>" + sendAsEmail);
-		//boolean saveToDatabase = GetterUtil.getBoolean(preferences.getValue("saveToDatabase", StringPool.BLANK));
 		boolean saveToDatabase = false;
 		String databaseTableName = GetterUtil.getString(
 			preferences.getValue("databaseTableName", StringPool.BLANK));
@@ -163,7 +149,6 @@ public class WebFormPortlet extends MVCPortlet {
 
 		if (requireCaptcha) {
 			try {
-			System.out.println(">>>>>>>>>>requireCaptcha IF CONDITIONS"+requireCaptcha);
 				CaptchaUtil.check(actionRequest);
 			}
 			catch (CaptchaTextException cte) {
@@ -212,25 +197,16 @@ public class WebFormPortlet extends MVCPortlet {
 			boolean databaseSuccess = true;
 			boolean fileSuccess = true;
 
-			/*if (sendAsEmail) {
-				emailSuccess = sendEmail(
-					themeDisplay.getCompanyId(), fieldsMap, preferences);
-			}*/
 			if (sendAsEmail) {
 				HttpSession httpSession = PortalUtil.getHttpServletRequest(
 						actionRequest).getSession(false);
-				System.out.println(">>>>>>>>httpSession>>>>>>>>>" + httpSession);
 				String token = (String) httpSession.getAttribute("OAUTH_TOKEN");
-				System.out.println(">>>>>>>>token>>>>>>>>>" + token);
 				String emailAddress = EmailUtil.getEmailAddress(token);
-			
-			//	emailAddress1 = EmailUtil.getEmailAddress(token);
-			
+						
 				emailSuccess = sendEmail(fieldsMap, preferences, emailAddress);
 			}
 
 			if (saveToDatabase) {
-				System.out.println(">>>>>>>>saveToDatabase START>>>>>>>>>");
 				if (Validator.isNull(databaseTableName)) {
 					databaseTableName = WebFormUtil.getNewDatabaseTableName(
 						portletId);
@@ -244,7 +220,6 @@ public class WebFormPortlet extends MVCPortlet {
 				databaseSuccess = saveDatabase(
 					themeDisplay.getCompanyId(), fieldsMap, preferences,
 					databaseTableName);
-					System.out.println(">>>>>>>>saveToDatabase END>>>>>>>>>");
 			}
 
 			if (saveToFile) {
@@ -263,16 +238,11 @@ public class WebFormPortlet extends MVCPortlet {
 				SessionErrors.add(actionRequest, "error" + badField);
 			}
 		}
-		System.out.println(">>>>>>>>successURL BEFORE>>>>>>>>>" + successURL);
-		System.out.println(">>>>>>>>successURL BEFORE>>>>>>>>>" + actionRequest);
-		System.out.println(">>>>>>>>successURL BEFORE>>>>>>>>>" + actionResponse);
-		//getPortletContext().getRequestDispatcher(actionResponse.encodeURL("/success.jsp")).include(actionRequest, actionResponse);
+		
 		actionResponse.sendRedirect(redirectURL.toString());
 		
 		if (SessionErrors.isEmpty(actionRequest) &&
 			Validator.isNotNull(successURL)) {
-			System.out.println(">>>>>>>>successURL IN>>>>>>>>>" + successURL);
-			//getPortletContext().getRequestDispatcher(resourceResponse.encodeURL("/success.jsp")).include(resourceRequest, resourceResponse);
 			actionResponse.sendRedirect(redirectURL.toString());
 		}
 		
@@ -368,20 +338,6 @@ public class WebFormPortlet extends MVCPortlet {
 			resourceRequest, resourceResponse, fileName, bytes, contentType);
 	}
 
-	/*protected String getMailBody(Map<String, String> fieldsMap) {
-		StringBuilder sb = new StringBuilder();
-
-		for (String fieldLabel : fieldsMap.keySet()) {
-			String fieldValue = fieldsMap.get(fieldLabel);
-
-			sb.append(fieldLabel);
-			sb.append(" : ");
-			sb.append(fieldValue);
-			sb.append("\n");
-		}
-
-		return sb.toString();
-	}*/
 	protected String getMailBody(Map<String,String> fieldsMap) throws Exception {
 
 
@@ -392,7 +348,6 @@ public class WebFormPortlet extends MVCPortlet {
 		String strFooId = String.format("%06d", fooId);
 		sb.append("Problem ID : PR");
 		sb.append(strFooId);
-		System.out.println(">>>>>>>>>>>>>>>>>" + strFooId);
 		sb.append("\n");
 		sb.append("Email"); 
 	//	if(emailAddress1 == " "){
@@ -506,7 +461,6 @@ public class WebFormPortlet extends MVCPortlet {
 					+ preferences
 							.getValue("tempUsrDateStamp", StringPool.BLANK)
 					+ "\nThis email has been automatically generated by the SLC.PLEASE DO NOT RESPOND TO THIS EMAIL.\n\nYours,\nSLC Operations TeamURL   ";
-			System.out.println(">>>>>>>>>>>>>>>>>" + body);
 			InternetAddress fromAddress = null;
 
 			try {

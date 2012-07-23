@@ -42,7 +42,6 @@ public class RESTClient {
         String jsonText = makeJsonRequestWHeaders(Constants.EMAIL_API, token, true);
         logger.info("jsonText = " + jsonText);
         JsonParser parser = new JsonParser();
-		System.out.println(">>>>"+parser.parse(jsonText).getAsJsonObject());
         return parser.parse(jsonText).getAsJsonObject();
     }
     
@@ -64,19 +63,14 @@ public class RESTClient {
 		url.addPath(path);
 		HttpEntity entity = null;
 		if (token != null) {
-			// url.addQueryParam(API_SESSION_KEY, token);
 			HttpHeaders headers = new HttpHeaders();
 			headers.add("Authorization", "Bearer " + token);
 			entity = new HttpEntity(headers);
 		}
 		logger.info("Accessing API at: " + url.toString());
-
 		HttpEntity<String> response = template.exchange(url.toString(),
 				HttpMethod.GET, entity, String.class);
 		logger.info("JSON response for roles: " + response.getBody());
-		// String jsonText = template.getForObject(url.toString(),
-		// String.class);
-		// logger.info("JSON response for roles: " + jsonText);
 		return response.getBody();
 
 	}
@@ -94,12 +88,10 @@ public class RESTClient {
 			} else {
 				url = new URLBuilder(path);
 			}
-			// TODO probably should use media types
 			if (fullEntities)
 				url.addQueryParam("full-entities", "true");
 
 			HttpHeaders headers = new HttpHeaders();
-			// headers.add(API_SESSION_KEY, token);
 			headers.add("Authorization", "Bearer " + token);
 			HttpEntity entity = new HttpEntity(headers);
 			logger.debug("Accessing API at: " + url);

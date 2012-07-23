@@ -23,7 +23,6 @@ import com.google.gson.JsonParser;
 @Component("RESTClient")
 public class RESTClient {
 
-    //private String SECURITY_URL ="https://devapp1.slidev.org";
 	private String securityUrl;
 
     private static Logger logger = LoggerFactory.getLogger(RESTClient.class);
@@ -38,7 +37,6 @@ public class RESTClient {
      */
     public JsonArray callUserApps(String token) throws NullPointerException {
         logger.info("Session check URL = " + Constants.USER_APPS_PREFIX);
-        // String jsonText = makeJsonRequest(Constants.SESSION_CHECK_PREFIX, token);
         String jsonText = makeJsonRequestWHeaders(Constants.USER_APPS_PREFIX, token, false);
         logger.info("jsonText = " + jsonText);
         JsonParser parser = new JsonParser();
@@ -48,7 +46,6 @@ public class RESTClient {
     
     public JsonObject sessionCheck(String token) throws NullPointerException{
         logger.info("Session check URL = " + Constants.SESSION_CHECK_PREFIX);
-        // String jsonText = makeJsonRequest(Constants.SESSION_CHECK_PREFIX, token);
         String jsonText = makeJsonRequestWHeaders(Constants.SESSION_CHECK_PREFIX, token, true);
         logger.info("jsonText = " + jsonText);
         JsonParser parser = new JsonParser();
@@ -66,42 +63,18 @@ public class RESTClient {
      *         null.
      * @throws NoSessionException
      */
-   /* public String makeJsonRequest(String path, String token) {
-        RestTemplate template = new RestTemplate();
-        URLBuilder url = new URLBuilder(getSecurityUrl());
-        url.addPath(path);
-        HttpEntity entity = null;
-        if (token != null) {
-            // url.addQueryParam(API_SESSION_KEY, token);
-            HttpHeaders headers = new HttpHeaders();
-            headers.add("Authorization", "Bearer" + token);
-            entity = new HttpEntity(headers);
-        }
-        logger.info("Accessing API at: " + url.toString());
-
-        HttpEntity<String> response = template.exchange(url.toString(), HttpMethod.GET, entity, String.class);
-        logger.info("JSON response for roles: " + response.getBody());
-        // String jsonText = template.getForObject(url.toString(), String.class);
-        // logger.info("JSON response for roles: " + jsonText);
-        return response.getBody();
-
-    }
-*/
     public String makeJsonRequestWHeaders(String path, String token, boolean fullEntities) {
         RestTemplate template = new RestTemplate();
 
         if (token != null) {
-            // url.addQueryParam(API_SESSION_KEY, token);
             URLBuilder url = null;
             if (!path.startsWith("http")) {
                 url = new URLBuilder(getSecurityUrl());
-            	//url = new URLBuilder(SECURITY_URL);
                 url.addPath(path);
             } else {
                 url = new URLBuilder(path);
                 
             }
-            //TODO probably should use media types
             if (fullEntities)
                 url.addQueryParam("full-entities", "true");
 
@@ -111,7 +84,7 @@ public class RESTClient {
            
             HttpEntity entity = new HttpEntity(headers);
             logger.debug("Accessing API at: " + url);
-           // System.out.println("accessing api at: "+url);
+
             HttpEntity<String> response = null;
             try {
                 response = template.exchange(url.toString(), HttpMethod.GET, entity, String.class);

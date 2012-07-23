@@ -21,7 +21,6 @@ String title = LocalizationUtil.getPreferencesValue(preferences, "title", themeD
 String description = LocalizationUtil.getPreferencesValue(preferences, "description", themeDisplay.getLanguageId());
 boolean requireCaptcha = GetterUtil.getBoolean(preferences.getValue("requireCaptcha", StringPool.BLANK));
 requireCaptcha=true;
-System.out.println(">?>?>?>requireCaptcha>?>?>?"+requireCaptcha);
 preferences.setValue("successURL", "/web/guest/admin");
 String successURL = preferences.getValue("successURL", StringPool.BLANK);
 Calendar calendar =  Calendar.getInstance();

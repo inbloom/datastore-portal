@@ -101,7 +101,6 @@ public class RESTClient {
            
             HttpEntity entity = new HttpEntity(headers);
             logger.debug("Accessing API at: " + url);
-           // System.out.println("accessing api at: "+url);
             HttpEntity<String> response = null;
             try {
                 response = template.exchange(url.toString(), HttpMethod.GET, entity, String.class);

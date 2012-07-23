@@ -165,21 +165,17 @@ public class RESTClient {
             } else {
                 url = new URLBuilder(path);
             }
-            System.out.println("inside put json request with headers 1..."+path);
             //DE 766 removed token log
-            System.out.println("inside put json request with headers 3..."+entity);
             HttpHeaders headers = new HttpHeaders();
             headers.add("Authorization", "Bearer " + token);
             headers.add("Content-Type", "application/json");
             HttpEntity requestEntity = new HttpEntity(entity, headers);
-            System.out.println("inside put json request with headers 4..."+requestEntity);
             logger.info("Updating API at: {}", url);
             try {
                 template.put(url.toString(), requestEntity);
                 
             } catch (HttpClientErrorException e) {
             	e.printStackTrace();
-            	System.out.println("inside put json request with headers 5...");
                 logger.info("Catch HttpClientException: {}", e.getStatusCode());
             }
         }
