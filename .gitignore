@@ -1,36 +1,43 @@
 build.properties
-devlr1_testing/target/*
-hooks/deploylar-hook/docroot/WEB-INF/classes/*
-hooks/Error-hook/docroot/WEB-INF/classes/*
-hooks/EULA-hook/docroot/WEB-INF/classes/*
-hooks/log4j-hook/docroot/custom_jsps/WEB-INF/classes/*
-portlets/AdminAppSelectionInterface-portlet/docroot/WEB-INF/classes/*
-portlets/AppSelectionInterface-portlet/docroot/WEB-INF/classes/*
-portlets/ConfigureApp-portlet/docroot/WEB-INF/classes/*
-portlets/headerfooter-portlet/build/classes/*
-portlets/headerfooter-portlet/docroot/WEB-INF/classes/*
-portlets/web-form-portlet/docroot/WEB-INF/classes/*
-portlets/wsrp-portlet/docroot/WEB-INF/classes/*
-webs/SLIWSClient-2/docroot/WEB-INF/classes/*
 
-# Compiled source #
+# Target Folders #
 ###################
-*.com
+devlr1_testing/target
+devlr2_testing/target
+devlycans_testing/target
+
+hooks/Analytics-hook/docroot/WEB-INF/classes
+hooks/deploylar-hook/docroot/WEB-INF/classes
+hooks/disableportlets-hook/docroot/WEB-INF/classes
+hooks/Error-hook/docroot/WEB-INF/classes
+hooks/EULA-hook/docroot/WEB-INF/classes
+hooks/Iframe-hook/docroot/WEB-INF/classes
+hooks/liferaycorechange-hook/docroot/WEB-INF/classes
+hooks/logback-hook/docroot/custom_jsps/WEB-INF/classes
+hooks/Security-hook/docroot/custom_jsps/WEB-INF/classes
+
+portlets/AdminAppSelectionInterface-portlet/docroot/WEB-INF/classes
+portlets/AppSelectionInterface-portlet/docroot/WEB-INF/classes
+portlets/ConfigureApp-portlet/docroot/WEB-INF/classes
+portlets/headerfooter-portlet/docroot/WEB-INF/classes
+portlets/web-form-portlet/docroot/WEB-INF/classes
+portlets/wsrp-portlet/docroot/WEB-INF/classes
+
+webs/sso-web/docroot/WEB-INF/classes
+webs/SLIWSClient-2/docroot/WEB-INF/classes
+
+# Compiled Source #
+###################
 *.class
-*.dll
-*.exe
-*.o
-*.so
 
 # Packages #
 ############
-*.dmg
+*.zip
 *.gz
-*.iso
 *.jar
 *.rar
 *.tar
-*.zip
+*.war
 
 # Logs and databases #
 ######################
