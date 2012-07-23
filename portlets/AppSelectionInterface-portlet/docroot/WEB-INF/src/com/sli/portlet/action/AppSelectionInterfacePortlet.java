@@ -119,31 +119,19 @@ public class AppSelectionInterfacePortlet extends MVCPortlet {
 			ActionResponse actionResponse) throws IOException, PortletException {
 
 		String url = actionRequest.getParameter("url");
-/* DE1124 temporary commented out for network outgoing restriction
-		URL appUrl = new URL(url);
-		HttpURLConnection connection = (HttpURLConnection) appUrl
-				.openConnection();
-		connection.setRequestMethod("GET");
-		connection.connect();
 
-		int code = connection.getResponseCode();
-		_log.info("code============" + code);
-*/
 		// Hide default success message
 		PortletConfig portletConfig = (PortletConfig) actionRequest
 				.getAttribute(JavaConstants.JAVAX_PORTLET_CONFIG);
 		SessionMessages.add(actionRequest, portletConfig.getPortletName()
 				+ SessionMessages.KEY_SUFFIX_HIDE_DEFAULT_ERROR_MESSAGE);
 
-//		if (code == 200 && checkUrl(url)) { DE1124 temporary commented out for network outgoing restriction
                 if (checkUrl(url)) {
 			String encodedUrl = "";
 
 			// DE 660 - Encoded url in iframe page.
 			encodedUrl = HttpUtil.encodeURL(url);
 			_log.info("encoded url===== " + encodedUrl);
-			// actionResponse.setEvent(new QName("http:sli.com/events",
-			// "iframeurl"),url);
 
 			String iframePage = GetterUtil.getString(PropsUtil
 					.get(PropsKeys.IFRAME_PAGE));

@@ -145,8 +145,6 @@ public class ConfigureAppPortlet extends MVCPortlet {
 			// DE 660 - Encoded url in iframe page.
 			encodedUrl = HttpUtil.encodeURL(url);
 			_log.info("encoded url===== " + encodedUrl);
-			// actionResponse.setEvent(new QName("http:sli.com/events",
-			// "iframeurl"),url);
 
 			String iframePage = GetterUtil.getString(PropsUtil
 					.get(PropsKeys.IFRAME_PAGE));

@@ -39,7 +39,6 @@ public class RESTClient {
      */
     public JsonObject sessionCheck(String token) {
         logger.info("Session check URL = " + Constants.SESSION_CHECK_PREFIX);
-        // String jsonText = makeJsonRequest(Constants.SESSION_CHECK_PREFIX, token);
         String jsonText = makeJsonRequestWHeaders(Constants.SESSION_CHECK_PREFIX, token, true);
         logger.info("jsonText = " + jsonText);
         JsonParser parser = new JsonParser();
@@ -56,7 +55,6 @@ public class RESTClient {
      */
     public JsonObject logout(String token) {
         logger.info("logout URL = " + Constants.LOGOUT_PREFIX);
-        // String jsonText = makeJsonRequest(Constants.SESSION_CHECK_PREFIX, token);
         String jsonText = makeJsonRequestWHeaders(Constants.LOGOUT_PREFIX, token, true);
         logger.info("jsonText = " + jsonText);
         JsonParser parser = new JsonParser();
@@ -80,7 +78,6 @@ public class RESTClient {
         url.addPath(path);
         HttpEntity entity = null;
         if (token != null) {
-            // url.addQueryParam(API_SESSION_KEY, token);
             HttpHeaders headers = new HttpHeaders();
             headers.add("Authorization", "Bearer " + token);
             entity = new HttpEntity(headers);
@@ -89,8 +86,6 @@ public class RESTClient {
 
         HttpEntity<String> response = template.exchange(url.toString(), HttpMethod.GET, entity, String.class);
         logger.info("JSON response for roles: " + response.getBody());
-        // String jsonText = template.getForObject(url.toString(), String.class);
-        // logger.info("JSON response for roles: " + jsonText);
         return response.getBody();
 
     }
@@ -99,7 +94,6 @@ public class RESTClient {
         RestTemplate template = new RestTemplate();
 
         if (token != null) {
-            // url.addQueryParam(API_SESSION_KEY, token);
             URLBuilder url = null;
             if (!path.startsWith("http")) {
                 url = new URLBuilder(getSecurityUrl());
@@ -107,12 +101,10 @@ public class RESTClient {
             } else {
                 url = new URLBuilder(path);
             }
-            //TODO probably should use media types
             if (fullEntities)
                 url.addQueryParam("full-entities", "true");
 
             HttpHeaders headers = new HttpHeaders();
-            // headers.add(API_SESSION_KEY, token);
             headers.add("Authorization", "Bearer " + token);
             HttpEntity entity = new HttpEntity(headers);
             logger.debug("Accessing API at: " + url);
@@ -243,8 +235,6 @@ public class RESTClient {
      * @return the entity
      */
     public Object createEntityFromAPI(String url, String token, Class entityClass) {
-//        DE260 - Logging of possibly sensitive data
-//        LOGGER.info("Querying API: {}", url);
         String response = makeJsonRequestWHeaders(url, token);
         if (response == null) {
             return null;
@@ -255,8 +245,6 @@ public class RESTClient {
     }
 
     public GenericEntity createEntityFromAPI(String url, String token) {
-//      DE260 - Logging of possibly sensitive data
-//      LOGGER.info("Querying API: {}", url);
       String response = makeJsonRequestWHeaders(url, token);
       if (response == null) {
           return null;
