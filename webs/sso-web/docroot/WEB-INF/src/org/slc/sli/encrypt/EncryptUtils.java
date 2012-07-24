@@ -16,6 +16,9 @@ import javax.crypto.Cipher;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 
+/**
+ * Encryption util class to decrypt the client_id and secret
+ */
 public class EncryptUtils {
 
     /*

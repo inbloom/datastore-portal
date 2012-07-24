@@ -13,6 +13,9 @@ import java.io.File;
 import java.io.FileInputStream;
 import javax.crypto.Cipher;
 
+/**
+ * Encryption util class to decrypt the email credentials
+ */
 public class EncryptUtils {
 
     /*

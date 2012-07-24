@@ -47,10 +47,6 @@ public class SLIFilter extends BasePortalFilter {
 			HttpServletResponse response) {
 
 		// check for slifilter property enabled
-		// check if the session check url is not null
-		// check if the session check rest api is accesseble - can be removed
-		// not needed in prod
-
 		try {
 			if (GetterUtil.getBoolean(PropsUtil.get(PropsKeys.SLI_SSO_FILTER))) {
 				return true;
@@ -71,21 +67,21 @@ public class SLIFilter extends BasePortalFilter {
 	protected void processFilter(HttpServletRequest request,
 			HttpServletResponse response, FilterChain filterChain)
 			throws Exception {
-//US 2131- Realm selection redirect
-	String realmName = ParamUtil.getString(request,"Realm","No Realm");
+	    //US 2131- Realm selection redirect
+	    String realmName = ParamUtil.getString(request,"Realm","No Realm");
 		
 		boolean authenticated = false;
 		HttpSession session = request.getSession();
 
 		Object token = session.getAttribute(Constants.OAUTH_TOKEN);
 
-		//DE 766 removed token log
 		BasicClient client = SLISSOUtil.getBasicClientObject();
 
 		if (client != null && token != null) {
 			client.setToken((String) token);
 		}
 
+		// handling logout requests
 		if (request.getRequestURL().toString().endsWith("/c/portal/logout")) {
 			if (_log.isDebugEnabled()) {
 				_log.debug("Logout called");
@@ -102,7 +98,6 @@ public class SLIFilter extends BasePortalFilter {
 			return;
 		}
 	
-	//DE 1060
 		if (client != null && token!=null && autoLogout) {
 			if (_log.isDebugEnabled()) {
 				_log.debug("Auto Logout");
@@ -112,6 +107,8 @@ public class SLIFilter extends BasePortalFilter {
 			processFilter(SLIFilter.class, request, response, filterChain);
 			return;
 		}
+		
+		// handling session timeout
 		if (request.getRequestURL().toString()
 				.endsWith("/c/portal/expire_session")) {
 			if (_log.isDebugEnabled()) {
@@ -123,6 +120,7 @@ public class SLIFilter extends BasePortalFilter {
 			return;
 		}
 
+		// check if user is authenticated
 		try {
 			authenticated = SLISSOUtil.isAuthenticated(request, response);
 		} catch (Exception e) {
@@ -138,8 +136,7 @@ public class SLIFilter extends BasePortalFilter {
 			return;
 		}
 
-		// if not authenticated flow comes here redirects to idp url
-
+		// if not authenticated, redirect the user to IDP
 		if (client == null) {
 			response.sendRedirect(request.getRequestURI());
 		} else if (token == null && request.getParameter("code") != null) {
