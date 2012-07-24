@@ -45,10 +45,7 @@ import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
 
 /**
- * @author Jorge Ferrer
- * @author Alberto Montero
- * @author Julio Camarero
- * @author Brian Wing Shun Chan
+ * Portlet for the Report-a-Problem pop-up
  */
 public class ConfigurationActionImpl extends DefaultConfigurationAction {
 

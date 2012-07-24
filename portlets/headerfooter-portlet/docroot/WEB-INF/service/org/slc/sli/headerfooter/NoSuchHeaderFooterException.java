@@ -17,6 +17,7 @@ package org.slc.sli.headerfooter;
 import com.liferay.portal.NoSuchModelException;
 
 /**
+ * NoSuchHeaderFooterException
  * @author manoj
  */
 public class NoSuchHeaderFooterException extends NoSuchModelException {

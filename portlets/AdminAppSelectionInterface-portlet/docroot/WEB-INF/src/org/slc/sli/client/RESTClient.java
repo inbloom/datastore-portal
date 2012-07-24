@@ -17,8 +17,8 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 /**
+ * REST client to make requests to API
  * 
- * @author pwolf
  */
 @Component("RESTClient")
 public class RESTClient {

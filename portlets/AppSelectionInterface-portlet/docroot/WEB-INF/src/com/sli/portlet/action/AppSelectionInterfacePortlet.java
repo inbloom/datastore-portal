@@ -49,7 +49,6 @@ public class AppSelectionInterfacePortlet extends MVCPortlet {
 
 		String tokenFromReq = (String) session.getAttribute("OAUTH_TOKEN");
 
-			//DE 766 removed token log statement
 		try {
 			List<AppsData> appsData = AppsUtil.getUserApps(tokenFromReq);
 

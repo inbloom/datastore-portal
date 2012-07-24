@@ -46,8 +46,6 @@ public class AdminAppSelectionInterfacePortlet extends MVCPortlet {
 
 		String tokenFromReq = (String) session.getAttribute("OAUTH_TOKEN");
 
-		//DE 766 removed token log statement
-
 		// check whether user is admin user or not
 		UserData userdata = AppsUtil.getUserData(tokenFromReq);
 		boolean isAdmin = AppsUtil.isAdmin(userdata);
@@ -60,7 +58,7 @@ public class AdminAppSelectionInterfacePortlet extends MVCPortlet {
 
 				List<AppsData> tempAppsData = new ArrayList<AppsData>(appsData);
 
-				// DE505- checked current url and removed from list
+				// DE505 - checked current url and removed from list
 				String currUrl = "https://" + renderRequest.getServerName()
 						+ "/portal";
 

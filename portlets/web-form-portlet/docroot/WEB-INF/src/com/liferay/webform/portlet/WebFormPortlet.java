@@ -75,12 +75,9 @@ import org.slc.sli.util.EmailUtil;
 
 import com.liferay.counter.service.CounterLocalServiceUtil;
 import com.sun.mail.smtp.SMTPTransport;
+
 /**
- * @author Daniel Weisser
- * @author Jorge Ferrer
- * @author Alberto Montero
- * @author Julio Camarero
- * @author Brian Wing Shun Chan
+ * Portlet for the Report-a-Problem pop-up
  */
 public class WebFormPortlet extends MVCPortlet {
 

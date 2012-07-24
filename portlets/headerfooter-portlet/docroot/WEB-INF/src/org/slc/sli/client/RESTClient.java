@@ -17,8 +17,8 @@ import org.slc.sli.util.Constants;
 import org.slc.sli.util.URLBuilder;
 
 /**
+ * REST client to make requests to API
  * 
- * @author
  */
 @Component("RESTClient")
 public class RESTClient {
