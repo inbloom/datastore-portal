@@ -26,6 +26,9 @@ portlets/wsrp-portlet/docroot/WEB-INF/classes
 webs/sso-web/docroot/WEB-INF/classes
 webs/SLIWSClient-2/docroot/WEB-INF/classes
 
+themes/sli-new-theme/docroot/css/.sass-cache
+themes/sli-new-theme/docroot/css/color_schemes/.sass-cache
+
 # Eclipse Files #
 ###################
 .project
@@ -34,6 +37,7 @@ webs/SLIWSClient-2/docroot/WEB-INF/classes
 # Compiled Source #
 ###################
 *.class
+*.png
 
 # Packages #
 ############
