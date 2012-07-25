@@ -236,8 +236,8 @@ if [ ${SKIP_DEPLOY} == 0 ]; then
    if [ ${RM_PORTAL} == 1 ]; then
       rm -rf ${PORTAL_TOMCAT}/webapps/portal
    fi
+   mv /opt/portal/environment.properties ${OPT}/
 fi
-mv /opt/portal/environment.properties ${OPT}/
 rm -rf /opt/portal/
 if [ ${UPDATE_JSON} == 1 ]; then
    echo "UPDATING JSON"
