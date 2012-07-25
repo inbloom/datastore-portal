@@ -134,7 +134,7 @@ if [ ${DATABASE_INIT} == 1 ]; then
    mysql -u root < ${LIFERAY_HOME}/installer/mysql/lr_mysql_init.sql
 fi
 
-if [ ! -d ${SLI_HOME}/conf ]; then
+if [ ! -d ${SLI_HOME}/config ]; then
    echo "${SLI_HOME} is incorrect"
    echo "Please make sure your sli repo directory is \"${SLI_HOME}\""
    echo "You can specify your liferay repo directory by running \"portal-local-install.sh -i\""
