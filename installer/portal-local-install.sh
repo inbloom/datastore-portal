@@ -247,6 +247,7 @@ if [ ${SKIP_DEPLOY} == 0 ]; then
       unzip -d ${PORTAL_TOMCAT}/webapps/portal portal.war
       RM_PORTAL=1
    fi
+   cd ${LIFERAY_HOME}
    CLASSPATH=${LIFERAY_HOME}/lib/ecj.jar ant -Denv=/tmp/environment.properties deploy
    #temporary until DE1385 is fix.
    rm -f ${DEPLOY_DIR}/Analytics-hook*.war
