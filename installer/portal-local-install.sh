@@ -43,18 +43,18 @@ if [ -z "${WGET}" ]; then
    exit
 fi
 
-if [ ${INTERACTIVE} == 1 ]; then
-   DIALOG=`which dialog`
-   if [ -z "${DIALOG}" ]; then
-      echo "dialog is required"
-      echo "hint for OSX: brew install dialog"
-      echo "hint for RedHat: yum install dialog"
-      echo "hint for Ubuntu: apt-get install dialog"
-      exit
-   fi
+DIALOG=`which dialog`
+if [ -z "${DIALOG}" ]; then
+   echo "dialog is required"
+   echo "hint for OSX: brew install dialog"
+   echo "hint for RedHat: yum install dialog"
+   echo "hint for Ubuntu: apt-get install dialog"
+   exit
 fi
 
-
+if [ -f ~/.portal-local-install.env ]; then
+. ~/.portal-local-install.env
+else
 LIFERAY_HOME=~/liferay
 SLI_HOME=~/sli/sli
 OPT=/opt
@@ -68,6 +68,7 @@ CLIENT_ID="lY83c5HmTPX"
 CLIENT_SECRET="ghjZfyAXi7qwejklcxziuohiueqjknfdsip9cxzhiu13mnsX"
 API="http://local.slidev.org:8080/"
 PORTAL_PORT="7000"
+fi
 
 if [ ${INTERACTIVE} == 1 ]; then
    PID=$$
@@ -101,6 +102,20 @@ if [ ${INTERACTIVE} == 1 ]; then
    rm -f /tmp/portal-install.${PID}
 fi
 
+echo "LIFERAY_HOME=${LIFERAY_HOME}
+SLI_HOME=${SLI_HOME}
+OPT=${OPT}
+PORTAL_TOMCAT=${PORTAL_TOMCAT}
+DEPLOY_DIR=${DEPLOY_DIR}
+ENCRYPTION_DIR=${ENCRYPTION_DIR}
+TOMCAT_VERSION=${TOMCAT_VERSION}
+TOMCAT_HOME=${TOMCAT_HOME}
+USER=${USER}
+CLIENT_ID=${CLIENT_ID}
+CLIENT_SECRET=${CLIENT_SECRET}
+API=${API}
+PORTAL_PORT=${PORTAL_PORT}"> ~/.portal-local-install.env
+
 if [ ${DATABASE_INIT} == 1 ]; then
    MYSQL=`which mysql`
    if [ -z "${MYSQL}" ]; then
@@ -108,9 +123,22 @@ if [ ${DATABASE_INIT} == 1 ]; then
       echo "Abort installation"
       exit 1
    fi
+   if [ ! -f ${LIFERAY_HOME}/installer/mysql/lr_mysql_init.sql ]; then
+      echo "${LIFERAY_HOME}/installer/mysql/lr_mysql_init.sql file does not exist"
+      echo "Please make sure your liferay repo directory is \"${LIFERAY_HOME}\""
+      echo "You can specify your liferay repo directory by running \"portal-local-install.sh -i\""
+      exit
+   fi
    echo "Dropping lportal database"
    mysqladmin drop lportal -u root
    mysql -u root < ${LIFERAY_HOME}/installer/mysql/lr_mysql_init.sql
+fi
+
+if [ ! -d ${SLI_HOME}/conf ]; then
+   echo "${SLI_HOME} is incorrect"
+   echo "Please make sure your sli repo directory is \"${SLI_HOME}\""
+   echo "You can specify your liferay repo directory by running \"portal-local-install.sh -i\""
+   exit
 fi
 
 if [ ${PURGE_OPT} == 1 ]; then
@@ -164,16 +192,7 @@ fi
 
 if [ ! -f ${PORTAL_TOMCAT}/conf/sli.properties ]; then
    grep -v bootstrap.app.keys ${SLI_HOME}/config/properties/sli.properties |grep -v portal.footer.url |grep -v portal.header.url > ${PORTAL_TOMCAT}/conf/sli.properties
-   echo "bootstrap.app.keys = admin,databrowser,dashboard,portal
-bootstrap.app.portal.name = Portal
-bootstrap.app.portal.description = The SLC Portal application is the primary access portal.
-bootstrap.app.portal.version = 0.0 
-bootstrap.app.portal.client_secret = ghjZfyAXi7qwejklcxziuohiueqjknfdsip9cxzhiu13mnsX
-bootstrap.app.portal.client_id = lY83c5HmTPX
-bootstrap.app.portal.template = applications/portal.json
-bootstrap.app.portal.url = http://local.slidev.org:${PORTAL_PORT}/portal
-bootstrap.app.portal.authorized_for_all_edorgs = true
-bootstrap.app.portal.allowed_for_all_edorgs = true" >> ${PORTAL_TOMCAT}/conf/sli.properties
+   echo "bootstrap.app.keys = admin,databrowser,dashboard,portal" >> ${PORTAL_TOMCAT}/conf/sli.properties
    echo "portal.header.url = http://local.slidev.org:${PORTAL_PORT}/headerfooter-portlet/api/secure/jsonws/headerfooter/get-header" >> ${PORTAL_TOMCAT}/conf/sli.properties
    echo "portal.footer.url = http://local.slidev.org:${PORTAL_PORT}/headerfooter-portlet/api/secure/jsonws/headerfooter/get-footer" >> ${PORTAL_TOMCAT}/conf/sli.properties
    echo "sli.domain=slidev.org" >> ${PORTAL_TOMCAT}/conf/sli.properties
@@ -228,11 +247,9 @@ if [ ${SKIP_DEPLOY} == 0 ]; then
       unzip -d ${PORTAL_TOMCAT}/webapps/portal portal.war
       RM_PORTAL=1
    fi
-   cd ${LIFERAY_HOME}
-   ant -Denv=/tmp/environment.properties deploy
+   CLASSPATH=${LIFERAY_HOME}/lib/ecj.jar ant -Denv=/tmp/environment.properties deploy
    #temporary until DE1385 is fix.
    rm -f ${DEPLOY_DIR}/Analytics-hook*.war
-   cd -
    if [ ${RM_PORTAL} == 1 ]; then
       rm -rf ${PORTAL_TOMCAT}/webapps/portal
    fi
