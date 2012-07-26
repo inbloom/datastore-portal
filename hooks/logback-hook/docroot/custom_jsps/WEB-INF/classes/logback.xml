@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration debug="false">
-	<!--<property file="/opt/tomcat/conf/liferaylog.properties"/> -->
-	<property file="${catalina.base}/../liferaylog.properties"/>
+
+	<property file="${sli.properties}"/>
 	<appender name="FILE" class="ch.qos.logback.core.FileAppender">
-		<!--<File>D:/wgen/logs/liferay.log</File>-->
 		<File>${log.path}/liferay.log</File>
 		<Append>true</Append>
 		<encoder>

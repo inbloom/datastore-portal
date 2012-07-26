@@ -15,7 +15,7 @@
 						
 	 
 						
-	 <context:property-placeholder location="file:////opt/portal-ext.properties,file:////opt/environment.properties,file:////${sli.encryption.properties}" ignore-resource-not-found="true" />
+	<context:property-placeholder location="file:///${liferay.home}/portal-ext.properties,file:///${sli.properties}" ignore-resource-not-found="true" />
 	
 	
 	 
