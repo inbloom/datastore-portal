@@ -203,10 +203,7 @@ public class HeaderFooterLocalServiceImpl extends
 				// String fullName = getFullName(userdata);
 
 				headerData = headerData.replace("[$IS_ADMIN_PAGE$]", "");
-
-				String serverUrl = Constants.HTTP_PREFIX
-						+ ServerUtil.getServerURL();
-
+				String serverUrl = ServerUtil.getServerURL();
 				headerData = headerData.replace("[$PORTAL_URL$]", serverUrl);
 
 				if (isAdmin) {
@@ -288,10 +285,7 @@ public class HeaderFooterLocalServiceImpl extends
 				// UserData userdata = RolesUtil.getUserData(token);
 				// String fullName = getFullName(userdata);
 				// boolean isAdmin=isAdmin(userdata);
-
-				String serverUrl = Constants.HTTP_PREFIX
-						+ ServerUtil.getServerURL();
-
+				String serverUrl = ServerUtil.getServerURL();
 				footerData = footerData.replace("[$PORTAL_URL$]", serverUrl);
 
 				if (isAdmin) {

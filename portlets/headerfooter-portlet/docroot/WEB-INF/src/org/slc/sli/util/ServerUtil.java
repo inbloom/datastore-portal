@@ -33,8 +33,18 @@ public class ServerUtil {
 
 		HttpServletRequest httpServletRequest = httpRequestHolder
 				.getHttpServletRequest();
-
-		return httpServletRequest.getServerName();
+		String scheme = httpServletRequest.getScheme();
+		int port = httpServletRequest.getServerPort();
+		StringBuffer sb = new StringBuffer();
+		sb.append(scheme+"://");
+		sb.append(httpServletRequest.getServerName());
+		if(scheme.equals("http") && port != 80 ) {
+			sb.append(":" + port);
+		} else if(scheme.equals("https") && port != 443 ) {
+			sb.append(":" + port);
+		}
+		
+		return sb.toString();
 	}
 
 }
