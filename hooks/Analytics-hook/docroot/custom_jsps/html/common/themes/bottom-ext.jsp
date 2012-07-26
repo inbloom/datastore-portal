@@ -1,5 +1,7 @@
 <%@page import="java.io.InputStream"%>
+<%@page import="java.io.FileInputStream"%>
 <%@page import="java.util.Properties"%>
+<%@page import="java.lang.System"%>
 <%
 /**
  * Copyright (c) 2000-2012 Liferay, Inc. All rights reserved.
@@ -23,15 +25,12 @@
 <%
 Properties props = new Properties();
 
-InputStream file = this.getClass().getClassLoader().getResourceAsStream("sli.properties");
+props.load(new FileInputStream(System.getProperty("sli.properties")));
 
-props.load(file);
-
-String googleId = props.getProperty("dashboard.google_analytics.id");
+String googleId = props.getProperty("sli.google_analytics.id");
 String googleDomain = props.getProperty("sli.domain");
 
 %>
-
 
 <script type="text/javascript">
  
