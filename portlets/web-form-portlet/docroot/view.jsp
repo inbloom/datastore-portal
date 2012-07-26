@@ -159,7 +159,6 @@ String refererUrl = request.getHeader("Referer");
 
 		<div class="pop_btn_pnl">
 		<aui:button type="submit" value="Report a Problem" />
-		<aui:button type="button" onClick="parent.closePop()" value="Cancel" />
         </div>
 	</aui:fieldset>
 </aui:form>

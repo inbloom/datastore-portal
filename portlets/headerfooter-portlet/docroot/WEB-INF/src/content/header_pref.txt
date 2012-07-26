@@ -93,10 +93,12 @@ if(usrname=="demo"){
         document.getElementById('menulink').onclick = showDropDown;
 
     </script><script type="text/javascript">
+				function loadClose() {
+					$("#report-a-problem-div").html('<a style="background: none repeat scroll 0 0 #333333; border: medium none; color: #FFFFFF; cursor: pointer; font-weight: normal; overflow: visible; padding: 2px 10px; width: auto;" onClick="closePop()">Close</a>');
+				}
 
                                 function closePop(){
-
-                                                $.modal.close();
+					$.modal.close();
 
                                 }
 
@@ -104,7 +106,7 @@ if(usrname=="demo"){
 
                                                 var src = "[$PORTAL_URL$]/portal/web/guest/report-a-problem";
 
-                                                $.modal('<div style="width:700px" ><iframe src="' + src + '" width="700" height="519" style="border:0;overflow:hidden"></iframe></div>', {
+                                                $.modal('<div style="width:700px; text-align: right" id="report-a-problem-div"></div><iframe onload="javascript:loadClose()" src="' + src + '" width="700" height="700" style="border:0;overflow:hidden"></iframe>', {
 
                                                 closeHTML:"",
 
