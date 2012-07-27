@@ -43,37 +43,43 @@ function set_env() {
       . ~/.portal-local-install.env
    fi
    if [ ${INTERACTIVE} == 1 ]; then
-      dialog --title "liferay git repo" --backtitle "Portal Local Install: 1 of 8" --nocancel --inputbox "Enter location of liferay git repo directory" 8 80 ${LIFERAY_HOME} 2>/tmp/portal-install.${PID}
+      dialog --title "liferay git repo" --backtitle "Portal Local Install: 1 of 9" --nocancel --inputbox "Enter location of liferay git repo directory" 8 80 ${LIFERAY_HOME} 2>/tmp/portal-install.${PID}
       LIFERAY_HOME=`cat /tmp/portal-install.${PID}`
       rm -f /tmp/portal-install.${PID}
    
-      dialog --title "sli git repo" --backtitle "Portal Local Install: 2 of 8" --nocancel --inputbox "Enter location of portal git repo directory" 8 80 ${SLI_HOME} 2>/tmp/portal-install.${PID}
+      dialog --title "sli git repo" --backtitle "Portal Local Install: 2 of 9" --nocancel --inputbox "Enter location of portal git repo directory" 8 80 ${SLI_HOME} 2>/tmp/portal-install.${PID}
       SLI_HOME=`cat /tmp/portal-install.${PID}`
       rm -f /tmp/portal-install.${PID}
 
-      dialog --title "Encryption directory" --backtitle "Portal Local Install: 3 of 8" --nocancel --inputbox "Enter ciEncryption directory to install" 8 80 ${ENCRYPTION_DIR} 2>/tmp/portal-install.${PID}
+      dialog --title "Encryption directory" --backtitle "Portal Local Install: 3 of 9" --nocancel --inputbox "Enter ciEncryption directory to install" 8 80 ${ENCRYPTION_DIR} 2>/tmp/portal-install.${PID}
       ENCRYPTION_DIR=`cat /tmp/portal-install.${PID}`
       rm -f /tmp/portal-install.${PID}
    
-      dialog --title "TOMCAT version" --backtitle "Portal Local Install: 4 of 8" --nocancel --inputbox "Enter Tomcat version you want to install" 8 80 ${TOMCAT_VERSION} 2>/tmp/portal-install.${PID}
+      dialog --title "TOMCAT version" --backtitle "Portal Local Install: 4 of 9" --nocancel --inputbox "Enter Tomcat version you want to install" 8 80 ${TOMCAT_VERSION} 2>/tmp/portal-install.${PID}
       TOMCAT_VERSION=`cat /tmp/portal-install.${PID}`
       rm -f /tmp/portal-install.${PID}
    
-      dialog --title "client id" --backtitle "Portal Local Install: 5 of 8" --nocancel --inputbox "Enter your client id for Portal" 8 80 ${CLIENT_ID} 2>/tmp/portal-install.${PID}
+      dialog --title "client id" --backtitle "Portal Local Install: 5 of 9" --nocancel --inputbox "Enter your client id for Portal" 8 80 ${CLIENT_ID} 2>/tmp/portal-install.${PID}
       CLIENT_ID=`cat /tmp/portal-install.${PID}`
       rm -f /tmp/portal-install.${PID}
    
-      dialog --title "client secret" --backtitle "Portal Local Install: 6 of 8" --nocancel --inputbox "Enter your client secret for Portal" 8 80 ${CLIENT_SECRET} 2>/tmp/portal-install.${PID}
+      dialog --title "client secret" --backtitle "Portal Local Install: 6 of 9" --nocancel --inputbox "Enter your client secret for Portal" 8 80 ${CLIENT_SECRET} 2>/tmp/portal-install.${PID}
       CLIENT_SECRET=`cat /tmp/portal-install.${PID}`
       rm -f /tmp/portal-install.${PID}
    
-      dialog --title "API Server" --backtitle "Portal Local Install: 7 of 8" --nocancel --inputbox "Enter your API Server" 8 80 ${API} 2>/tmp/portal-install.${PID}
+      dialog --title "API Server" --backtitle "Portal Local Install: 7 of 9" --nocancel --inputbox "Enter your API Server" 8 80 ${API} 2>/tmp/portal-install.${PID}
       API=`cat /tmp/portal-install.${PID}`
       rm -f /tmp/portal-install.${PID}
    
-      dialog --title "Portal Server Port" --backtitle "Portal Local Install: 8 of 8" --nocancel --inputbox "Enter Portal Server Listening Port" 8 80 ${PORTAL_PORT} 2>/tmp/portal-install.${PID}
+      dialog --title "Portal Server Port" --backtitle "Portal Local Install: 8 of 9" --nocancel --inputbox "Enter Portal Server Listening Port" 8 80 ${PORTAL_PORT} 2>/tmp/portal-install.${PID}
       PORTAL_PORT=`cat /tmp/portal-install.${PID}`
       rm -f /tmp/portal-install.${PID}
+
+#TODO
+#update build.xml
+      #dialog --title "Portal Deployment Directory" --backtitle "Portal Local Install: 9 of 9" --nocancel --inputbox "Enter Portal Deployment Directory" 8 80 ${DEPLOY_DIR} 2>/tmp/portal-install.${PID}
+      #DEPLOY_DIR=`cat /tmp/portal-install.${PID}`
+      #rm -f /tmp/portal-install.${PID}
    fi
    echo "LIFERAY_HOME=${LIFERAY_HOME}
 SLI_HOME=${SLI_HOME}
@@ -196,10 +202,10 @@ oauth.encryption=false" > ${PORTAL_TOMCAT}/conf/sli.properties
    
    if [ ! -f ${LIFERAY_HOME}/build.${USER}.properties ]; then
       echo "app.server.portal.dir=${PORTAL_TOMCAT}/webapps/portal
-   app.server.lib.global.dir=${LIFERAY_HOME}/installer/conf/ext
-   app.server.deploy.dir=${DEPLOY_DIR}
-   app.server.type=tomcat
-   app.server.dir=${TOMCAT_HOME}" > ${LIFERAY_HOME}/build.${USER}.properties
+app.server.lib.global.dir=${LIFERAY_HOME}/installer/conf/ext
+app.server.deploy.dir=${DEPLOY_DIR}
+app.server.type=tomcat
+app.server.dir=${TOMCAT_HOME}" > ${LIFERAY_HOME}/build.${USER}.properties
    fi
 
    if [ ! -d ${ENCRYPTION_DIR} ]; then
@@ -327,11 +333,11 @@ function update_json() {
 }
 
 function start_tomcat() {
-export CATALINA_HOME=${TOMCAT_HOME}
-export CATALINA_BASE=${PORTAL_TOMCAT}
-${TOMCAT_HOME}/bin/catalina.sh start
-unset CATALINA_HOME
-unset CATALINA_BASE
+   export CATALINA_HOME=${TOMCAT_HOME}
+   export CATALINA_BASE=${PORTAL_TOMCAT}
+   ${TOMCAT_HOME}/bin/catalina.sh start
+   unset CATALINA_HOME
+   unset CATALINA_BASE
 }
 
 function starting_tomcat() {
