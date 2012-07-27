@@ -6,23 +6,6 @@
 
 	<import file="build-common.xml" />
 
-	<!--added for moving environment properties to server start -->
-	<condition property="env">
-		<isset property="evn"/>
-	</condition>
-
-    <target name="check">
-        <fail unless="env">
-			Must specify the parameters: usage ant -Denv=test.properties movenv
-        </fail>
-    </target>
-
-	<target name="moveenv" depends="check">
-		<echo>${env}</echo>
-		<copy file="${env}" tofile="/opt/portal/environment.properties" overwrite="true"/>
-	</target>
-
-	<!--added for moving environment properties to server end -->
 
 	<target name="all">
 		<antcall target="clean" />
@@ -75,7 +58,7 @@
 	</target>
 
 	<!-- added depends moveenv target  -->
-	<target name="deploy" depends="moveenv">
+	<target name="deploy">
 	  <ant dir="hooks" target="deploy" inheritAll="false" />
 	  <ant dir="layouttpl" target="deploy" inheritAll="false" />
 	  <ant dir="portlets" target="deploy" inheritAll="false" />
