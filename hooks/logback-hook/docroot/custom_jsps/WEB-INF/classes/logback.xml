@@ -2,7 +2,7 @@
 
 <configuration debug="false">
 
-	<property file="${sli.properties}"/>
+	<property file="${sli.conf}"/>
 	<appender name="FILE" class="ch.qos.logback.core.FileAppender">
 		<File>${log.path}/liferay.log</File>
 		<Append>true</Append>

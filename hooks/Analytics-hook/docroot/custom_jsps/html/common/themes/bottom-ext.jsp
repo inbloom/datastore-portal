@@ -25,7 +25,7 @@
 <%
 Properties props = new Properties();
 
-props.load(new FileInputStream(System.getProperty("sli.properties")));
+props.load(new FileInputStream(System.getProperty("sli.conf")));
 
 String googleId = props.getProperty("sli.google_analytics.id");
 String googleDomain = props.getProperty("sli.domain");
