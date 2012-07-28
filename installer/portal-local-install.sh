@@ -28,12 +28,12 @@ function check_dependancy() {
 function set_env() {
    LIFERAY_HOME=~/liferay
    SLI_HOME=~/sli/sli
-   OPT=/opt
+   OPT=~/opt
    PORTAL_TOMCAT=${OPT}/tomcat
    DEPLOY_DIR=${OPT}/deploy
    ENCRYPTION_DIR=${PORTAL_TOMCAT}/encryption
    TOMCAT_VERSION=7.0.29
-   TOMCAT_HOME=/opt/apache-tomcat-${TOMCAT_VERSION}
+   TOMCAT_HOME=${OPT}/apache-tomcat-${TOMCAT_VERSION}
    USER=`whoami`
    CLIENT_ID="lY83c5HmTPX"
    CLIENT_SECRET="ghjZfyAXi7qwejklcxziuohiueqjknfdsip9cxzhiu13mnsX"
@@ -43,43 +43,45 @@ function set_env() {
       . ~/.portal-local-install.env
    fi
    if [ ${INTERACTIVE} == 1 ]; then
-      dialog --title "liferay git repo" --backtitle "Portal Local Install: 1 of 9" --nocancel --inputbox "Enter location of liferay git repo directory" 8 80 ${LIFERAY_HOME} 2>/tmp/portal-install.${PID}
+      dialog --title "liferay git repo" --backtitle "Portal Local Install: 1 of 10" --nocancel --inputbox "Enter Tomcat Portal Base directory" 8 80 ${OPT} 2>/tmp/portal-install.${PID}
+      OPT=`cat /tmp/portal-install.${PID}`
+      rm -f /tmp/portal-install.${PID}
+
+      dialog --title "liferay git repo" --backtitle "Portal Local Install: 2 of 10" --nocancel --inputbox "Enter location of liferay git repo directory" 8 80 ${LIFERAY_HOME} 2>/tmp/portal-install.${PID}
       LIFERAY_HOME=`cat /tmp/portal-install.${PID}`
       rm -f /tmp/portal-install.${PID}
    
-      dialog --title "sli git repo" --backtitle "Portal Local Install: 2 of 9" --nocancel --inputbox "Enter location of portal git repo directory" 8 80 ${SLI_HOME} 2>/tmp/portal-install.${PID}
+      dialog --title "sli git repo" --backtitle "Portal Local Install: 3 of 10" --nocancel --inputbox "Enter location of portal git repo directory" 8 80 ${SLI_HOME} 2>/tmp/portal-install.${PID}
       SLI_HOME=`cat /tmp/portal-install.${PID}`
       rm -f /tmp/portal-install.${PID}
 
-      dialog --title "Encryption directory" --backtitle "Portal Local Install: 3 of 9" --nocancel --inputbox "Enter ciEncryption directory to install" 8 80 ${ENCRYPTION_DIR} 2>/tmp/portal-install.${PID}
+      dialog --title "Encryption directory" --backtitle "Portal Local Install: 4 of 10" --nocancel --inputbox "Enter ciEncryption directory to install" 8 80 ${ENCRYPTION_DIR} 2>/tmp/portal-install.${PID}
       ENCRYPTION_DIR=`cat /tmp/portal-install.${PID}`
       rm -f /tmp/portal-install.${PID}
    
-      dialog --title "TOMCAT version" --backtitle "Portal Local Install: 4 of 9" --nocancel --inputbox "Enter Tomcat version you want to install" 8 80 ${TOMCAT_VERSION} 2>/tmp/portal-install.${PID}
+      dialog --title "TOMCAT version" --backtitle "Portal Local Install: 5 of 10" --nocancel --inputbox "Enter Tomcat version you want to install" 8 80 ${TOMCAT_VERSION} 2>/tmp/portal-install.${PID}
       TOMCAT_VERSION=`cat /tmp/portal-install.${PID}`
       rm -f /tmp/portal-install.${PID}
    
-      dialog --title "client id" --backtitle "Portal Local Install: 5 of 9" --nocancel --inputbox "Enter your client id for Portal" 8 80 ${CLIENT_ID} 2>/tmp/portal-install.${PID}
+      dialog --title "client id" --backtitle "Portal Local Install: 6 of 10" --nocancel --inputbox "Enter your client id for Portal" 8 80 ${CLIENT_ID} 2>/tmp/portal-install.${PID}
       CLIENT_ID=`cat /tmp/portal-install.${PID}`
       rm -f /tmp/portal-install.${PID}
    
-      dialog --title "client secret" --backtitle "Portal Local Install: 6 of 9" --nocancel --inputbox "Enter your client secret for Portal" 8 80 ${CLIENT_SECRET} 2>/tmp/portal-install.${PID}
+      dialog --title "client secret" --backtitle "Portal Local Install: 7 of 10" --nocancel --inputbox "Enter your client secret for Portal" 8 80 ${CLIENT_SECRET} 2>/tmp/portal-install.${PID}
       CLIENT_SECRET=`cat /tmp/portal-install.${PID}`
       rm -f /tmp/portal-install.${PID}
    
-      dialog --title "API Server" --backtitle "Portal Local Install: 7 of 9" --nocancel --inputbox "Enter your API Server" 8 80 ${API} 2>/tmp/portal-install.${PID}
+      dialog --title "API Server" --backtitle "Portal Local Install: 8 of 10" --nocancel --inputbox "Enter your API Server" 8 80 ${API} 2>/tmp/portal-install.${PID}
       API=`cat /tmp/portal-install.${PID}`
       rm -f /tmp/portal-install.${PID}
    
-      dialog --title "Portal Server Port" --backtitle "Portal Local Install: 8 of 9" --nocancel --inputbox "Enter Portal Server Listening Port" 8 80 ${PORTAL_PORT} 2>/tmp/portal-install.${PID}
+      dialog --title "Portal Server Port" --backtitle "Portal Local Install: 9 of 10" --nocancel --inputbox "Enter Portal Server Listening Port" 8 80 ${PORTAL_PORT} 2>/tmp/portal-install.${PID}
       PORTAL_PORT=`cat /tmp/portal-install.${PID}`
       rm -f /tmp/portal-install.${PID}
 
-#TODO
-#update build.xml
-      #dialog --title "Portal Deployment Directory" --backtitle "Portal Local Install: 9 of 9" --nocancel --inputbox "Enter Portal Deployment Directory" 8 80 ${DEPLOY_DIR} 2>/tmp/portal-install.${PID}
-      #DEPLOY_DIR=`cat /tmp/portal-install.${PID}`
-      #rm -f /tmp/portal-install.${PID}
+      dialog --title "Portal Hot Deployment Directory" --backtitle "Portal Local Install: 10 of 10" --nocancel --inputbox "Enter Portal Hot Deployment Directory" 8 80 ${DEPLOY_DIR} 2>/tmp/portal-install.${PID}
+      DEPLOY_DIR=`cat /tmp/portal-install.${PID}`
+      rm -f /tmp/portal-install.${PID}
    fi
    echo "LIFERAY_HOME=${LIFERAY_HOME}
 SLI_HOME=${SLI_HOME}
@@ -130,7 +132,7 @@ function purge_opt() {
       dialog --title "Deleting ${OPT} directory"  --backtitle "Portal Local Install"  --yesno "Are you sure you want to permanetly delete \"${OPT}\"?" 8 80
       YES_NO=$?
       case $YES_NO in
-         0) sudo rm -rf ${OPT};;
+         0) rm -rf ${OPT}/*;;
          1) echo "${OPT} directory not deleted";;
          255) echo "[ESC] key pressed. I am exiting out"; exit;;
       esac
@@ -140,13 +142,18 @@ function purge_opt() {
 function check_opt() {
 #shell commands to prepare portal environment
    if [ ! -d ${OPT} ]; then
-      sudo mkdir ${OPT}
-      sudo chown -R ${USER} ${OPT}
+      mkdir ${OPT}
+      RET=$?
+      if [ ${RET} != 0 ]; then
+         echo "Fail to create ${OPT} directory."
+         echo "exiting out..."
+         exit 1
+      fi
    fi
 }
 
 function setup_tomcat() {
-   mkdir -p ${PORTAL_TOMCAT}/{webapps,logs,bin} ${DEPLOY_DIR}
+   mkdir -p ${PORTAL_TOMCAT}/{webapps,logs,bin} ${DEPLOY_DIR} ${OPT}/staging
    if [ ! -d ${PORTAL_TOMCAT}/conf ]; then
       NUM=`grep --binary-files=text -n "# END OF SCRIPT #" $0|grep -v cut|cut -d':' -f1`
       NUM=`expr $NUM + 1`
@@ -156,14 +163,32 @@ function setup_tomcat() {
    fi
 #   find ${PORTAL_TOMCAT}/webapps -type d -depth 1|grep -v portal |xargs rm -rf
    if [ ! -d ${TOMCAT_HOME} ]; then
-      wget -O /opt/apache-tomcat.tar.gz http://apache.mirrors.hoobly.com/tomcat/tomcat-7/v${TOMCAT_VERSION}/bin/apache-tomcat-${TOMCAT_VERSION}.tar.gz
-      tar -C /opt -zxvf /opt/apache-tomcat.tar.gz
-      rm -f /opt/apache-tomcat.tar.gz
+      wget -O ${OPT}/apache-tomcat.tar.gz http://apache.mirrors.hoobly.com/tomcat/tomcat-7/v${TOMCAT_VERSION}/bin/apache-tomcat-${TOMCAT_VERSION}.tar.gz
+      tar -C ${OPT} -zxf ${OPT}/apache-tomcat.tar.gz
+      rm -f ${OPT}/apache-tomcat.tar.gz
       if [ -f ${PORTAL_TOMCAT}/conf/server.xml.template ]; then
          sed -e "s/{PORTAL_PORT}/${PORTAL_PORT}/g" ${PORTAL_TOMCAT}/conf/server.xml.template > ${PORTAL_TOMCAT}/conf/server.xml
          rm -f ${PORTAL_TOMCAT}/conf/server.xml.template
       fi
       ln -sf ${TOMCAT_HOME}/bin/catalina.sh ${PORTAL_TOMCAT}/bin/catalina.sh
+      echo "export CATALINA_HOME=${TOMCAT_HOME}
+export CATALINA_BASE=${PORTAL_TOMCAT}
+${PORTAL_TOMCAT}/bin/catalina.sh start
+unset CATALINA_HOME
+unset CATALINA_BASE" > ${PORTAL_TOMCAT}/bin/start.sh
+chmod a+x ${PORTAL_TOMCAT}/bin/start.sh
+      echo "export CATALINA_HOME=${TOMCAT_HOME}
+export CATALINA_BASE=${PORTAL_TOMCAT}
+${PORTAL_TOMCAT}/bin/catalina.sh jpda start
+unset CATALINA_HOME
+unset CATALINA_BASE" > ${PORTAL_TOMCAT}/bin/debug-start.sh
+chmod a+x ${PORTAL_TOMCAT}/bin/debug-start.sh
+      echo "export CATALINA_HOME=${TOMCAT_HOME}
+export CATALINA_BASE=${PORTAL_TOMCAT}
+${PORTAL_TOMCAT}/bin/catalina.sh stop
+unset CATALINA_HOME
+unset CATALINA_BASE" > ${PORTAL_TOMCAT}/bin/stop.sh
+chmod a+x ${PORTAL_TOMCAT}/bin/stop.sh
    else
       echo "################################"
       echo "${TOMCAT_HOME} exists"
@@ -175,8 +200,9 @@ function setup_tomcat() {
 function set_portal_env() {
 
    if [ ! -f ${OPT}/portal-ext.properties ]; then
-      grep -v jdbc.default.encrypted.password ${LIFERAY_HOME}/installer/conf/portal-ext.properties|grep -v jdbc.default.password > ${OPT}/portal-ext.properties
+      grep -v jdbc.default.encrypted.password ${LIFERAY_HOME}/installer/conf/portal-ext.properties|grep -v jdbc.default.password |grep -v auto.deploy.deploy.dir > ${OPT}/portal-ext.properties
       echo "jdbc.default.password=liferaywgen" >> ${OPT}/portal-ext.properties
+      echo "auto.deploy.deploy.dir=${DEPLOY_DIR}" >> ${OPT}/portal-ext.properties
    else
       echo "################################"
       echo "${OPT}/portal-ext.properties exists"
@@ -191,8 +217,9 @@ security.server.url=${API}
 oauth.client.id=${CLIENT_ID}
 oauth.client.secret=${CLIENT_SECRET}
 oauth.redirect=http://local.slidev.org:${PORTAL_PORT}/portal/c/portal/login
+sli.encryption.keyStorePass=changeit
 oauth.encryption=false" > ${PORTAL_TOMCAT}/conf/sli.properties
-      grep -v security.server.url ${LIFERAY_HOME}/config/properties/sli.properties.template |grep -v api.server.url |grep -v oauth.client.id|grep -v oauth.client.secret|grep -v oauth.redirect |grep -v oauth.encryption|grep -v api.client >> ${PORTAL_TOMCAT}/conf/sli.properties
+      grep -v security.server.url ${LIFERAY_HOME}/config/properties/sli.properties.template |grep -v api.server.url |grep -v oauth.client.id|grep -v oauth.client.secret|grep -v oauth.redirect |grep -v oauth.encryption|grep -v api.client |grep -v sli.encryption.keyStore >> ${PORTAL_TOMCAT}/conf/sli.properties
    else
       echo "################################"
       echo "${PORTAL_TOMCAT}/conf/sli.properties exists"
@@ -200,13 +227,12 @@ oauth.encryption=false" > ${PORTAL_TOMCAT}/conf/sli.properties
       echo "################################"
    fi
    
-   if [ ! -f ${LIFERAY_HOME}/build.${USER}.properties ]; then
-      echo "app.server.portal.dir=${PORTAL_TOMCAT}/webapps/portal
+   echo "app.server.portal.dir=${PORTAL_TOMCAT}/webapps/portal
 app.server.lib.global.dir=${LIFERAY_HOME}/installer/conf/ext
-app.server.deploy.dir=${DEPLOY_DIR}
+app.server.deploy.dir=${PORTAL_TOMCAT}/webapps
 app.server.type=tomcat
+auto.deploy.dir=${DEPLOY_DIR}
 app.server.dir=${TOMCAT_HOME}" > ${LIFERAY_HOME}/build.${USER}.properties
-   fi
 
    if [ ! -d ${ENCRYPTION_DIR} ]; then
       mkdir -p ${ENCRYPTION_DIR}
@@ -241,12 +267,17 @@ app.server.dir=${TOMCAT_HOME}" > ${LIFERAY_HOME}/build.${USER}.properties
       echo "################################"
    fi
    if [ ! -f ${PORTAL_TOMCAT}/bin/setenv.sh ]; then
-      echo "CATALINA_OPTS='-Dwtp.deploy=\"/opt/tomcat/webapps\" -Djava.endorsed.dirs=\"/opt/apache-tomcat-7.0.29/endorsed\" -Dorg.apache.catalina.loader.WebappClassLoader.ENABLE_CLEAR_REFERENCES=false -Xmx1024m -XX:+CMSClassUnloadingEnabled -XX:+CMSPermGenSweepingEnabled -XX:MaxPermSize=512m -Dsli.encryption.keyStore=${ENCRYPTION_DIR}/ciKeyStore.jks -Dsli.encryption.properties=${ENCRYPTION_DIR}/ciEncryption.properties -Dsli.trust.certificates=${ENCRYPTION_DIR}/trustedCertificates -Dsli.conf=${PORTAL_TOMCAT}/conf/sli.properties'" > ${PORTAL_TOMCAT}/bin/setenv.sh
+      echo "CATALINA_OPTS='-Dwtp.deploy=\"${PORTAL_TOMCAT}/webapps\" -Djava.endorsed.dirs=\"${TOMCAT_HOME}/endorsed\" -Dorg.apache.catalina.loader.WebappClassLoader.ENABLE_CLEAR_REFERENCES=false -Xmx1024m -XX:+CMSClassUnloadingEnabled -XX:+CMSPermGenSweepingEnabled -XX:MaxPermSize=512m -Dsli.encryption.keyStore=${ENCRYPTION_DIR}/ciKeyStore.jks -Dsli.encryption.properties=${ENCRYPTION_DIR}/ciEncryption.properties -Dsli.trust.certificates=${ENCRYPTION_DIR}/trustedCertificates -Dsli.conf=${PORTAL_TOMCAT}/conf/sli.properties -Dliferay.home=${OPT}'" > ${PORTAL_TOMCAT}/bin/setenv.sh
    fi
 }
 
 function deploy_all() {
    CLASSPATH=${LIFERAY_HOME}/lib/ecj.jar ant deploy
+   RET=$?
+   if [ $RET != 0 ];then
+      echo "Failed compiling Portal hooks/portlets.  Exiting..."
+      exit
+   fi
    #temporary until DE1385 is fix.
    rm -f ${DEPLOY_DIR}/Analytics-hook*.war
 }
@@ -254,7 +285,7 @@ function deploy_all() {
 function deploy_individual() {
    COUNT=0
    LIST=""
-   LISTS=`find portlets hooks -type d -depth 1`
+   LISTS=`find portlets hooks webs -type d -depth 1`
    for APPS in ${LISTS}
    do
       COUNT=`expr $COUNT + 1`
@@ -272,6 +303,11 @@ function deploy_individual() {
       NUM=`echo $APPS|sed -e 's/"//g'`
       cd ${DATA[$NUM]}
       CLASSPATH=${LIFERAY_HOME}/lib/ecj.jar ant deploy
+      RET=$?
+      if [ $RET != 0 ];then
+         echo "Failed compiling Portal hooks/portlets.  Exiting..."
+         exit
+      fi
       cd -
    done
    rm -f /tmp/portal-install.${PID}
@@ -296,9 +332,12 @@ function deploy_portal_apps() {
       RM_PORTAL=0
       if [ ! -d ${PORTAL_TOMCAT}/webapps/portal ]; then
          cd ${PORTAL_TOMCAT}/webapps/
-         unzip -d ${PORTAL_TOMCAT}/webapps/portal portal.war
+         unzip -qd ${PORTAL_TOMCAT}/webapps/portal portal.war
          RM_PORTAL=1
       fi
+      #if [ -f ${LIFERAY_HOME}/build.properties ]; then
+      #   rm -f ${LIFERAY_HOME}/build.properties
+      #fi
       cd ${LIFERAY_HOME}
       if [ ${INTERACTIVE} == 0 ]; then
          deploy_all
@@ -309,12 +348,12 @@ function deploy_portal_apps() {
          rm -rf ${PORTAL_TOMCAT}/webapps/portal
       fi
    fi
-   rm -rf /opt/portal/
+   rm -rf ${OPT}/portal/
 }
 
 function update_json() {
    if [ ${UPDATE_JSON} == 1 ]; then
-      echo "UPDATING JSON"
+      echo "UPDATING JSON fixture files"
       grep 213ee853-8983-fe48-bf5e-fde3c3a6437b ${SLI_HOME}/acceptance-tests/test/data/application_fixture.json > /dev/null 2>&1
       JSON_DATA=$?
       if [ ${JSON_DATA} == 1 ]; then
@@ -333,20 +372,48 @@ function update_json() {
 }
 
 function start_tomcat() {
+   FIRST_TIME=0
+   if [ ! -d ${PORTAL_TOMCAT}/webapps/portal ]; then
+      FIRST_TIME=1
+   fi
    export CATALINA_HOME=${TOMCAT_HOME}
    export CATALINA_BASE=${PORTAL_TOMCAT}
-   ${TOMCAT_HOME}/bin/catalina.sh start
+   ${PORTAL_TOMCAT}/bin/catalina.sh start
    unset CATALINA_HOME
    unset CATALINA_BASE
+   if [ ${FIRST_TIME} == 1 ]; then
+      sleep 1
+      COUNT=0
+      echo "Please wait while Tomcat is deploying applications...."
+      tail -f ${PORTAL_TOMCAT}/logs/catalina.out | while read -t 30 line
+      do
+         COUNT=`expr ${COUNT} + 1`
+         echo -en "\033[2JPlease wait while Tomcat is deploying applications....${COUNT}"
+         if  echo $line |grep "Hook for wsrp-portlet is available for use"; then
+            echo "Restarting Tomcat..."
+            sleep 10
+            ${PORTAL_TOMCAT}/bin/stop.sh
+            sleep 10
+            ${PORTAL_TOMCAT}/bin/start.sh
+            echo "Starting Tomcat again... Please check ${PORTAL_TOMCAT}/logs/catalina.out"
+            break
+         fi
+      done
+   fi
 }
-
+   
 function starting_tomcat() {
-   TOMCAT=`ps aux |grep "/opt/tomcat"|grep -v jetty|grep -v tomcat`
+   TOMCAT=`ps aux |grep "${OPT}/tomcat"|grep -v jetty|grep -v tomcat`
    if [ -z "${TOMCAT}" ]; then
+      FIRST_TIME=0
+      if [ ! -d ${PORTAL_TOMCAT}/webapps/portal ]; then
+         FIRST_TIME=1
+      fi
       dialog --title "Starting Portal Tomcat?"  --backtitle "Starting Tomcat"  --yesno "Start Portal Tomcat?" 8 80
       YES_NO=$?
       case $YES_NO in
          0) start_tomcat;;
+         1) if [ $FIRST_TIME == 1 ]; then echo "Please start and stop Tomcat twice";fi;;
       esac
    fi
 }
@@ -377,11 +444,11 @@ do
       d)   DATABASE_INIT=1;;
       j)   UPDATE_JSON=1;;
       s)   SKIP_DEPLOY=1;;
-      [?])   echo "-a (equivalent of -p -d -j)"
+      [?])   echo "-a Fresh Install (equivalent of -p -d -j)"
              echo "-i (interactive mode to setup Tomcat and Portal)"
-             echo "-p (purge /opt before install)"
+             echo "-p (purge opt directory before install)"
              echo "-d (drop and create loption database)"
-             echo "-j (update JSON file then update mongo)"
+             echo "-j (update JSON fixture file then update mongo)"
              echo "-s (skip deploy portal applications to /opt/deploy)"
              echo "useful link https://thesli.onconfluence.com/display/sli/Checkout+and+Build+Portal"
            exit 1;;
@@ -403,19 +470,19 @@ database_init
 setup_tomcat
 set_portal_env
 deploy_portal_apps
-update_json
 starting_tomcat
+update_json
 
 echo "#####################"
 echo "IF you need to setup Tomcat for Eclipse"
 echo "Append following line to Eclipse Tomcat 'General Information'->'Open launch configuration'->'Arguments' tab->'VM arguments:'"
-echo "Please make sure you select 'Use custom location (does not modify Tomcat installation)' and set '/opt/tomcat' for 'Server path:' and set 'webapps' for 'Deploy path:' before saving it"
+echo "Please make sure you select 'Use custom location (does not modify Tomcat installation)' and set '${OPT}/tomcat' for 'Server path:' and set 'webapps' for 'Deploy path:' before saving it"
 echo "https://thesli.onconfluence.com/display/sli/Checkout+and+Build+Portal and refer 'Option 2. Script Driven Install'"
 if [ ${DATABASE_INIT} == 1 ]; then
    echo "Your lportal database has been newly created.  This is very important that Tomcat server needs to start \"TWICE\" before you login to portal"
 fi
 echo "############# BEGIN ###########"
-echo "-Dorg.apache.catalina.loader.WebappClassLoader.ENABLE_CLEAR_REFERENCES=false -Xmx1024m -XX:+CMSClassUnloadingEnabled -XX:+CMSPermGenSweepingEnabled -XX:MaxPermSize=512m -Dsli.encryption.keyStore=${ENCRYPTION_DIR}/ciKeyStore.jks -Dsli.encryption.properties=${ENCRYPTION_DIR}/ciEncryption.properties -Dsli.trust.certificates=${ENCRYPTION_DIR}/trustedCertificates -Dsli.conf=${PORTAL_TOMCAT}/sli.properties"
+echo "-Dorg.apache.catalina.loader.WebappClassLoader.ENABLE_CLEAR_REFERENCES=false -Xmx1024m -XX:+CMSClassUnloadingEnabled -XX:+CMSPermGenSweepingEnabled -XX:MaxPermSize=512m -Dsli.encryption.keyStore=${ENCRYPTION_DIR}/ciKeyStore.jks -Dsli.encryption.properties=${ENCRYPTION_DIR}/ciEncryption.properties -Dsli.trust.certificates=${ENCRYPTION_DIR}/trustedCertificates -Dsli.conf=${PORTAL_TOMCAT}/conf/sli.properties"
 echo "############# END #############"
 exit
 
@@ -426,6 +493,20 @@ exit
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+#### DO NOT DELETE LINES BELOW #####
+#### IT CONTAINS BINARY FILES (TOMCAT CONFIGURATIONS) #####
 #### END OF SCRIPT #####
 ‹ áçP í}isä¸‘è|î_AkÖÏÝc‘:ûôt;4}x4ÛW´43öz7&P$ªŠ¯&È:Úáˆýï¼ú2 ‹¬*‰„”%õ®Å°§UU2$y!ó£˜ý(E ó?M†ßläÙÝÝ}üð¡óÍczüOõïîîþáž³·¿»{øðÑÁãÝ‡ÎîÞáÁ£Çß8³Í Ó~JUˆP)R%ÎÓ‹ß›Ž¥Œ.é§=(‡ÍM={Oœ2žïï>zºw¸ûäéã{û»Ž_„±|¾wpxp¸÷hÿÑ~'Zß=Ü¿wðÄy{üÃÑ§—?ÿòÚós	o¤IýÖþáá“§îí:'ðÆÛ¿yœ<ß?8|òdowÿÉ½ýƒêû0IŸïÁ²ï?zòø c¾N¢09þôÞmOÐÿòwýÎ†aTûÿ¿áïœþßÿ·¼ÿñC{ÿìí?úÆy¸a¼èùßÿ´þëCà¥(l<Á
 £‹ÿï=>Ðë°w ëÿhow÷ŽÿßÄÓÉÿwŸ<\æÿ»÷í8û“Î~pÇÙ¿†‡öµë7tôæÿõþ?|tppÇÿoâYâÿ¾¡/K£ÐŸóÀ€ùxtxØ—ÿïÂú?><¸ãÿ7ò\…ÿï=Ú=Ø³ãÿOWøÿÞÿÿÚÿÙõ‹§ÚÿÿýÍ:þ¿ÿøááîÒþ´·¿÷³ËÈºç_|ÿïì8oC_&JN‘:ÅX:G™ðáŸ“tXLE.7i™¤Ü;÷NÞ<pà£Ì4‘Nš;qšË{ÐR‘‡ƒ²€ï"Ý£#F¹”±L
