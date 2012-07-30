@@ -1,3 +1,5 @@
+require_relative 'sli_utils.rb'
+
 def webdriverDebugMessage(driver, message="Webdriver could not achieve expected results")
   return "Debug Informaton\nCurrent Page: "+driver.title+"\nCurrent URL : "+driver.current_url+"\nCurrent Time: "+Time.now.getutc.to_s+"\n\n"+message
 end
@@ -16,6 +18,41 @@ end
 
 When /^I wait for "([^"]*)" seconds$/ do |secs|
   sleep(Integer(secs))
+end
+
+When /^I was redirected to the "([^"]*)" IDP Login page$/ do |idpType|
+  if idpType=="OpenAM"
+    assertWithWait("Failed to navigate to the IDP Login page")  {@driver.find_element(:id, "IDToken1")}
+  elsif idpType=="ADFS"
+    assertWithWait("Failed to navigate to the IDP Login page")  {@driver.find_element(:id, "ctl00_ContentPlaceHolder1_SubmitButton")}
+  elsif idpType=="Simple"
+    assertWithWait("Failed to navigate to the IDP Login page")  {@driver.find_element(:id, "login_button")}
+  else
+    raise "IDP type '#{arg1}' not implemented yet"
+  end
+end
+
+When /^I submit the credentials "([^"]*)" "([^"]*)" for the "([^"]*)" login page$/ do |user, pass, idpType|
+  if idpType=="OpenAM"
+    @driver.find_element(:id, "IDToken1").send_keys user
+    @driver.find_element(:id, "IDToken2").send_keys pass
+    @driver.find_element(:name, "Login.Submit").click
+    begin
+      @driver.switch_to.alert.accept
+    rescue
+    end
+  elsif idpType=="ADFS"
+    @driver.find_element(:id, "ctl00_ContentPlaceHolder1_UsernameTextBox").send_keys user
+    @driver.find_element(:id, "ctl00_ContentPlaceHolder1_PasswordTextBox").send_keys pass
+    @driver.find_element(:id, "ctl00_ContentPlaceHolder1_SubmitButton").click
+  elsif idpType=="Simple"
+    @driver.find_element(:id, "user_id").send_keys user
+    @driver.find_element(:id, "password").send_keys pass
+    @driver.find_element(:id, "login_button").click
+  else
+    raise "IDP type '#{arg1}' not implemented yet"
+  end
+
 end
 
 After do |scenario| 
