@@ -1,68 +1,30 @@
-Feature: title
-  In order to keep control of website information the expectation of the results 
-  As an admin
-  If you Login you should see SLI Administrator and as an normal User If you login, you should not see SLI administrator 
+Feature: Admin Login Tests
 
- # Background:
-
-    #Given an admin user exists with "demo" and "changeit"
-    
-@RALLY_US570 
-@RALLY_US1200
+Background:
+Given I have an open web browser
+When I navigate to the Portal home page
+ When I select "Shared Learning Infrastructure" and click go
+And I was redirected to the "Simple" IDP Login page
+ 
+@RALLY_US570 @RALLY_US1200
  Scenario: Admin User Login with wrong username and password
-    Given I have an open web browser
-    When I go to the login page
-    #@RALLYUS570-- Ref 127 - As a user, I see a login screen that brings me to the SLI home page.
-    #Given I should remove all cookies
-    When I login with "dem" and "change"
-    Then I should be on the authentication failed page
-    Then I should see "Invalid User Name or password"
+When I submit the credentials "dem" "change" for the "Simple" login page
+Then I should be on the authentication failed page
   
- # Scenario: Admin User Login with blank username and password
-    #Given I have an open web browser
-    #When I go to the login page
-    #Given I should remove all cookies
-    #When I login with "" and ""
-    #Then I should be on the authentication failed page
-    #Then I should see "Authentication failed."  
-    
-@RALLY_US570 
-@RALLY_US575
-@RALLY_US576
-@RALLY_US1200
- Scenario: Admin User Login
-    Given I have an open web browser
-    When I go to the login page
-    #@RALLYUS570-- Ref 127 - As a user, I see a login screen that brings me to the SLI home page.
-    #Given I should remove all cookies
-    When I login with "sunsetrealmadmin" and "sunsetrealmadmin1234"
-    Then I should be on the home page
-    Then I should see "Admin"
-    Then I should logged out
-@RALLY_US570 
-@RALLY_US575
-@RALLY_US576
-@RALLY_US1200
- Scenario: Admin User Login
-    Given I have an open web browser
-    When I go to the login page
-    #@RALLYUS570-- Ref 127 - As a user, I see a login screen that brings me to the SLI home page.
-    #Given I should remove all cookies
-    When I login with "slcoperator" and "slcoperator1234"
-    Then I should be on the home page
-    Then I should see "Admin"
-    Then I should logged out
- @wip
- Scenario: Admin User Login for SSD
-    Given I have an open web browser
-    Then I am on the Realm selection page
-    Then I select "4cb03fa0-83ad-46e2-a936-09ab31af377e"
-    #Given I should remove all cookies
-    When I login with "rrogers" and "rrogers1234"
-    #This is admin user
-    Then I should be on the home page
-    Then I should see "Admin"
-    Then I should logged out
+@RALLY_US570  @RALLY_US575 @RALLY_US576 @RALLY_US1200
+ Scenario: District Admin User Login
+When I submit the credentials "sunsetrealmadmin" "sunsetrealmadmin1234" for the "Simple" login page
+ Then I should be on the home page
+ Then I should see Admin link
+ Then I click on log out
+
+@RALLY_US570  @RALLY_US575 @RALLY_US576 @RALLY_US1200
+Scenario: Admin User Login
+When I submit the credentials "slcoperator" "slcoperator1234" for the "Simple" login page
+Then I should be on the home page
+Then I should see Admin link
+ Then I click on log out
+
  
 
 

@@ -1,30 +1,25 @@
 Feature: title
 Navigate to dashboard link successfully using New York Realm under 'Select an Application' page
+
+Background:
+Given I have an open web browser
+When I navigate to the Portal home page	
   
-@RALLY_US570
-@RALLY_US1200
+@RALLY_US570 @RALLY_US1200
  Scenario:-User Login through SSD Realm with wrong username and password
-    Given I have an open web browser
-    Then I am on the Realm selection page
-    Then I select "4cb03fa0-83ad-46e2-a936-09ab31af377e"
-    #Then I click "Go"
-    When I login with "linda" and "linda.kim"
-    Then I should be on the authentication failed page
-    Then I should see "Authentication failed."
+When I select "Illinois Daybreak School District 4529" and click go
+And I was redirected to the "Simple" IDP Login page
+When I submit the credentials "linda" "linda.kim" for the "Simple" login page
+Then I should be on the authentication failed page
     
- @RALLY_US570
- @RALLY_US576
- @RALLY_US575
- @RALLY_US1200 
-  Scenario:-User Login through SSD Realm and choose No filter
-    Given I have an open web browser
-    Then I am on the Realm selection page
-    Then I select "4cb03fa0-83ad-46e2-a936-09ab31af377e"
-    #Then I click "Go"
-    When I login with "linda.kim" and "linda.kim1234"
-    Then I should be on the home page
-    Then I should see " Dashboard"
-    Then I should logged out
+@RALLY_US570 @RALLY_US576 @RALLY_US575 @RALLY_US1200 
+ Scenario:-User Login through SSD Realm and choose No filter
+When I select "Illinois Daybreak School District 4529" and click go
+And I was redirected to the "Simple" IDP Login page
+When I submit the credentials "linda.kim" "linda.kim1234" for the "Simple" login page    
+Then I should be on the home page
+Then I should see "SLC Dashboard"
+Then I click on log out
     #Then I follow the home page Dashboard
     #Then I select "4cb03fa0-83ad-46e2-a936-09ab31af377e"
     #Then I click "Go"
@@ -42,6 +37,7 @@ Navigate to dashboard link successfully using New York Realm under 'Select an Ap
     #Then I should see "Student Fake"
     #Then I should see "Raphael De Sliva"
     #Then I should see "Fabio De Silva"
+  
   @wip
   Scenario:-User Login through SSD Realm and choose English Language Learner
     Given I have an open web browser
