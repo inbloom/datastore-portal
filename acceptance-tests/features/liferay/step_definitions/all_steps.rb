@@ -145,20 +145,6 @@ Then /^I am on the wsrp page$/ do
 
 end
 
-Then /^It open a popup$/ do
-#puts "---@RALLYUS578--Ref-136- As a user, I want to be able to report application and/or data problems so that they can be fixed and/or provide feedback on an application."
-begin
-  wait = Selenium::WebDriver::Wait.new(:timeout => 10)
-  wait.until{
-    frame=@driver.find_element(:tag_name, "iframe")
-    @driver.switch_to.frame(frame) 
-  }
-rescue
-  puts "Iframe is not detected"
-end 
-end
-
-
 Then /^I should see "([^"]*)" as "([^"]*)"$/ do |field,text|
 
   begin
