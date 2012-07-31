@@ -11,7 +11,7 @@ function check_dependancy() {
       echo "hint for RedHat: yum install wget"
       echo "hint for Ubuntu: apt-get install wget"
       echo "Windows? ..... format your hard drive and install Linux"
-      exit
+      exit 1
    fi
    
    DIALOG=`which dialog`
@@ -21,7 +21,7 @@ function check_dependancy() {
       echo "hint for RedHat: yum install dialog"
       echo "hint for Ubuntu: apt-get install dialog"
       echo "Windows? ..... format your hard drive and install Linux"
-      exit
+      exit 1
    fi
 }
 
@@ -63,20 +63,24 @@ function set_env() {
       TOMCAT_VERSION=`cat /tmp/portal-install.${PID}`
       rm -f /tmp/portal-install.${PID}
    
-      dialog --title "client id" --backtitle "Portal Local Install: 6 of 10" --nocancel --inputbox "Enter your client id for Portal" 8 80 ${CLIENT_ID} 2>/tmp/portal-install.${PID}
+      dialog --title "client id" --backtitle "Portal Local Install: 6 of 10" --nocancel --inputbox "Enter your Portal client id for Portal" 8 80 ${CLIENT_ID} 2>/tmp/portal-install.${PID}
       CLIENT_ID=`cat /tmp/portal-install.${PID}`
       rm -f /tmp/portal-install.${PID}
    
-      dialog --title "client secret" --backtitle "Portal Local Install: 7 of 10" --nocancel --inputbox "Enter your client secret for Portal" 8 80 ${CLIENT_SECRET} 2>/tmp/portal-install.${PID}
+      dialog --title "client secret" --backtitle "Portal Local Install: 7 of 10" --nocancel --inputbox "Enter your Portal client secret for Portal" 8 80 ${CLIENT_SECRET} 2>/tmp/portal-install.${PID}
       CLIENT_SECRET=`cat /tmp/portal-install.${PID}`
       rm -f /tmp/portal-install.${PID}
    
-      dialog --title "API Server" --backtitle "Portal Local Install: 8 of 10" --nocancel --inputbox "Enter your API Server" 8 80 ${API} 2>/tmp/portal-install.${PID}
-      API=`cat /tmp/portal-install.${PID}`
-      rm -f /tmp/portal-install.${PID}
-   
+
       dialog --title "Portal Server Port" --backtitle "Portal Local Install: 9 of 10" --nocancel --inputbox "Enter Portal Server Listening Port" 8 80 ${PORTAL_PORT} 2>/tmp/portal-install.${PID}
       PORTAL_PORT=`cat /tmp/portal-install.${PID}`
+      rm -f /tmp/portal-install.${PID}
+
+      if [ ${API_INSTALL} != 0 ]; then
+         API="http://local.slidev.org:${PORTAL_PORT}/"
+      fi
+      dialog --title "API Server" --backtitle "Portal Local Install: 9 of 10" --nocancel --inputbox "Enter your API Server" 8 80 ${API} 2>/tmp/portal-install.${PID}
+      API=`cat /tmp/portal-install.${PID}`
       rm -f /tmp/portal-install.${PID}
 
       dialog --title "Portal Hot Deployment Directory" --backtitle "Portal Local Install: 10 of 10" --nocancel --inputbox "Enter Portal Hot Deployment Directory" 8 80 ${DEPLOY_DIR} 2>/tmp/portal-install.${PID}
@@ -110,7 +114,7 @@ function database_init() {
          echo "${LIFERAY_HOME}/installer/mysql/lr_mysql_init.sql file does not exist"
          echo "Please make sure your liferay repo directory is \"${LIFERAY_HOME}\""
          echo "You can specify your liferay repo directory by running \"portal-local-install.sh -i\""
-         exit
+         exit 1
       fi
       echo "Dropping lportal database"
       mysqladmin drop lportal -u root
@@ -123,10 +127,31 @@ function check_SLI_HOME() {
       echo "${SLI_HOME} is incorrect"
       echo "Please make sure your sli repo directory is \"${SLI_HOME}\""
       echo "You can specify your liferay repo directory by running \"portal-local-install.sh -i\""
-      exit
+      exit 1
    fi
-   
+   if [ ${API_INSTALL} != 0 ]; then
+      API_INSTALL=${SLI_HOME}/api/target/api.war
+      if [ ! -f ${API_INSTALL} ]; then
+         echo "${API_INSTALL} does not exist."
+         exit 1
+      fi
+   fi
+   if [ ${SIMPLE_IDP_INSTALL} != 0 ]; then
+      SIMPLE_IDP_INSTALL=${SLI_HOME}/simple-idp/target/simple-idp.war
+      if [ ! -f ${SIMPLE_IDP_INSTALL} ]; then
+         echo "${SIMPLE_IDP_INSTALL} does not exist."
+         exit 1
+      fi
+   fi
+   if [ ${DASHBOARD_INSTALL} != 0 ]; then
+      DASHBOARD_INSTALL=${SLI_HOME}/dashboard/target/dashboard.war
+      if [ ! -f ${DASHBOARD_INSTALL} ]; then
+         echo "${DASHBOARD_INSTALL} does not exist."
+         exit 1
+      fi
+   fi
 }
+
 function purge_opt() {
    if [ ${PURGE_OPT} == 1 ]; then
       if [ -d ${OPT} ]; then
@@ -219,6 +244,12 @@ function set_portal_env() {
       grep -v jdbc.default.encrypted.password ${LIFERAY_HOME}/installer/conf/portal-ext.properties|grep -v jdbc.default.password |grep -v auto.deploy.deploy.dir > ${OPT}/portal-ext.properties
       echo "jdbc.default.password=liferaywgen" >> ${OPT}/portal-ext.properties
       echo "auto.deploy.deploy.dir=${DEPLOY_DIR}" >> ${OPT}/portal-ext.properties
+      echo "# disable access to repositories
+plugin.repositories.trusted=
+plugin.repositories.untrusted=
+
+#disable new plugin notifications
+plugin.notifications.enabled=false" >> ${OPT}/portal-ext.properties
    else
       echo "################################"
       echo "${OPT}/portal-ext.properties exists"
@@ -230,19 +261,55 @@ function set_portal_env() {
       echo "api.client=apiClient
 api.server.url=${API}
 security.server.url=${API}
-oauth.client.id=${CLIENT_ID}
-oauth.client.secret=${CLIENT_SECRET}
-oauth.redirect=http://local.slidev.org:${PORTAL_PORT}/portal/c/portal/login
-oauth.encryption=false
+portal.oauth.client.id=${CLIENT_ID}
+portal.oauth.client.secret=${CLIENT_SECRET}
+portal.oauth.redirect=http://local.slidev.org:${PORTAL_PORT}/portal/c/portal/login
+portal.oauth.encryption=false
 log.path=${OPT}/logs" > ${PORTAL_TOMCAT}/conf/sli.properties
-      ${SLI_HOME}/config/scripts/webapp-provision.rb ${SLI_HOME}/config/config.in/portal_config.yml local /dev/stdout|grep -v security.server.url |grep -v api.server.url |grep -v oauth.client.id|grep -v oauth.client.secret|grep -v oauth.redirect |grep -v oauth.encryption|grep -v api.client |grep -v log.path >> ${PORTAL_TOMCAT}/conf/sli.properties
+      ${SLI_HOME}/config/scripts/webapp-provision.rb ${SLI_HOME}/config/config.in/portal_config.yml local /dev/stdout|grep -v security.server.url |grep -v api.server.url |grep -v oauth.client.id|grep -v oauth.client.secret|grep -v oauth.redirect |grep -v oauth.encryption|grep -v api.client |grep -v log.path |grep -v bootstrap.app.dashboard.authorized_for_all_edorgs >> ${PORTAL_TOMCAT}/conf/sli.properties
+      SLI_PROP=""
+      if [ ${API_INSTALL} != 0 ]; then
+          if [ -z ${SLI_PROP} ]; then
+             SLI_PROP=${PORTAL_TOMCAT}/conf/.sli.properties.tmp
+             ${SLI_HOME}/config/scripts/webapp-provision.rb ${SLI_HOME}/config/config.in/canonical_config.yml local ${SLI_PROP}
+          fi
+          cat ${SLI_PROP}|grep -v security.server.url |grep -v api.server.url |grep -v oauth.encryption|grep -v api.client |grep -v log.path |sed -e "s/:8080/:${PORTAL_PORT}/g" > ${SLI_PROP}.1
+          mv -f ${SLI_PROP}.1 ${SLI_PROP}
+      fi
+      if [ ${SIMPLE_IDP_INSTALL} != 0 ]; then
+          if [ -z ${SLI_PROP} ]; then
+             SLI_PROP=${PORTAL_TOMCAT}/conf/.sli.properties.tmp
+             ${SLI_HOME}/config/scripts/webapp-provision.rb ${SLI_HOME}/config/config.in/canonical_config.yml local ${SLI_PROP}
+          fi
+          cat ${SLI_PROP}|grep -v security.server.url |grep -v api.server.url |grep -v oauth.encryption|grep -v api.client |grep -v log.path |sed -e "s/:8082/:${PORTAL_PORT}/g" > ${SLI_PROP}.1
+          mv -f ${SLI_PROP}.1 ${SLI_PROP}
+      fi
+      if [ ${DASHBOARD_INSTALL} != 0 ]; then
+          if [ -z ${SLI_PROP} ]; then
+             SLI_PROP=${PORTAL_TOMCAT}/conf/.sli.properties.tmp
+             ${SLI_HOME}/config/scripts/webapp-provision.rb ${SLI_HOME}/config/config.in/canonical_config.yml local ${SLI_PROP}
+          fi
+          cat ${SLI_PROP}|grep -v security.server.url |grep -v api.server.url |grep -v oauth.encryption|grep -v api.client |grep -v log.path |grep -v portal.footer.url |grep -v portal.header.url |sed -e "s/:8888/:${PORTAL_PORT}/g" > ${SLI_PROP}.1
+          mv -f ${SLI_PROP}.1 ${SLI_PROP}
+          echo "portal.footer.url=http://local.slidev.org:${PORTAL_PORT}/headerfooter-portlet/api/secure/jsonws/headerfooter/get-footer" >> ${SLI_PROP}
+          echo "portal.header.url=http://local.slidev.org:${PORTAL_PORT}/headerfooter-portlet/api/secure/jsonws/headerfooter/get-header" >> ${SLI_PROP}
+      fi
+      if [ -f ${SLI_PROP} ]; then
+         cat ${SLI_PROP} |grep -v dashboard.encryption.keyStore |grep -v sli.encryption.keyStore >> ${PORTAL_TOMCAT}/conf/sli.properties
+         echo "dashboard.encryption.keyStore = ${ENCRYPTION_DIR}/ciKeyStore.jks" >> ${PORTAL_TOMCAT}/conf/sli.properties
+         echo "sli.encryption.keyStore = ${ENCRYPTION_DIR}/ciKeyStore.jks" >> ${PORTAL_TOMCAT}/conf/sli.properties
+         echo "bootstrap.app.dashboard.authorized_for_all_edorgs = true" >> ${PORTAL_TOMCAT}/conf/sli.properties
+         rm -f ${SLI_PROP} 
+      fi
+#this must be a bug for simple-idp.  it should not be in this file
+         echo "sli.encryption.keyStorePass=changeit" >> ${PORTAL_TOMCAT}/conf/sli.properties
    else
       echo "################################"
       echo "${PORTAL_TOMCAT}/conf/sli.properties exists"
       echo "Skipping creating ${PORTAL_TOMCAT}/conf/sli.properties"
       echo "################################"
    fi
-   
+
    echo "app.server.portal.dir=${PORTAL_TOMCAT}/webapps/portal
 app.server.lib.global.dir=${LIFERAY_HOME}/installer/conf/ext
 app.server.deploy.dir=${PORTAL_TOMCAT}/webapps
@@ -297,7 +364,7 @@ function deploy_all() {
    RET=$?
    if [ $RET != 0 ];then
       echo "Failed compiling Portal hooks/portlets.  Exiting..."
-      exit
+      exit 1
    fi
    #temporary until DE1385 is fix.
    rm -f ${DEPLOY_DIR}/Analytics-hook*.war
@@ -327,7 +394,7 @@ function deploy_individual() {
       RET=$?
       if [ $RET != 0 ];then
          echo "Failed compiling Portal hooks/portlets.  Exiting..."
-         exit
+         exit 1
       fi
       cd -
    done
@@ -380,10 +447,29 @@ function update_json() {
       if [ ${JSON_DATA} == 1 ]; then
          echo '{ "_id" : "213ee853-8983-fe48-bf5e-fde3c3a6437b", "type" : "application", "body" : { "authorized_ed_orgs" : ["IL-SUNSET", "IL", "IL-DAYBREAK", "15", "NC-KRYPTON", "GALACTICA", "CAPRICA", "PICON", "SAGITTARON", "VIRGON", "NY-Parker","NY-Dusk", "NY", "SC-OVERLORD", "KS-GREATVILLE", "KS-SMALLVILLE","KS-OVERLORD"], "version": "0.0", "image_url": "http://placekitten.com/150/150", "administration_url": "http://local.slidev.org:PORTAL_PORT/c/portal/login", "application_url":"http://local.slidev.org:PORTAL_PORT/c/portal/login", "client_secret" : "ghjZfyAXi7qwejklcxziuohiueqjknfdsip9cxzhiu13mnsX", "registration": {"status": "APPROVED", "request_date": 1330521193111, "approval_date": 1330521193111}, "redirect_uri" : "http://local.slidev.org:PORTAL_PORT/portal/c/portal/login", "description" : "Portal Local", "name" : "Portal Local", "is_admin": false, "authorized_for_all_edorgs": true, "allowed_for_all_edorgs": true, "created_by": "slcdeveloper", "installed": false, "client_id" : "lY83c5HmTPX", "behavior": "Full Window App", "vendor" : "SLC"}, "metaData" : { "updated" : { "$date" : 1330521193111 }, "created" : { "$date" : 1330521193111 }} }' |sed "s/PORTAL_PORT/${PORTAL_PORT}/g" >> ${SLI_HOME}/acceptance-tests/test/data/application_fixture.json
          echo '{ "_id" :{ "$binary" : "D0j+8nc6kW62GFLgZnwNnA==", "$type" : "03" }, "type" : "applicationAuthorization", "body" :{ "authId" : "IL-DAYBREAK", "authType" : "EDUCATION_ORGANIZATION", "appIds" : [ "78f71c9a-8e37-0f86-8560-7783379d96f7", "deb9a9d2-771d-40a1-bb9c-7f93b44e51df", "148eebc7-e320-4e35-b7c2-238e90dbd957", "1ad39ff1-65f8-4a16-8912-b49872f1ee96", "63e006bd-fc5f-450f-89c2-69bdfa979c43", "ee3e4e95-0c28-4110-b41b-b29cdec344e6", "25d21fdd-7e97-4aa4-aed0-6d6592a35bb2", "7a8a28cf-f9f2-4ea4-a238-d11b84a3dad2", "8a3def8c-016c-454a-a3ef-cf851e386d4e", "df91814a-ae2e-47f9-b642-742b8c26d65f", "25d21fdd-7e97-4aa4-79d0-6d6592a35bb2", "7a8a28cf-f9f2-4ea4-7938-d11b84a3dad2", "df91814a-ae2e-47f9-7942-742b8c26d65f", "7ae2a2f6-09dc-455d-b139-4d0da6189b52", "af264911-f638-4ec7-b792-69a2a2949b1e", "71ee2a92-788a-4dff-9d72-f1b6f0670aa7", "f4ad653b-2108-4e92-864c-e03722e5ef82", "b26e9c15-54d5-43d5-9d6f-52b8998a6047", "6387e94d-1912-4918-85e0-4f38014253cf", "213ee853-8983-4e40-bf5e-fde3c3a6437b", "52ab3769-1655-4542-971c-1fa02b1b368d", "1ef3990c-e0b5-4046-985c-fbcbab680bb9", "19cca28d-7357-4044-8df9-caad4b1c8ee4", "ee3e4e95-0c28-5114-b41b-b29cdec344e6", "2274ab86-6e21-ab75-9d6f-52b8998a6007", "eab130ba-6e5a-ab75-864c-e03722e523c2", "c09628da-9ea2-d969-85e0-4f3801425388", "c07a656a-6a2c-d9b1-85e0-4fe419425b3b", "1abf3940-84cc-11e1-b0c4-0800200c9a66", "c6251365-e571-482e-8f80-aaece6fd5136", "206e28d3-89a9-db4a-8f80-aaece6fda529", "213ee853-8983-fe48-bf5e-fde3c3a6437b" ] }, "metaData" : { "updated" :{ "$date" : 1332785105123 }, "created" :{ "$date" : 1332785105123 }} }' >> ${SLI_HOME}/acceptance-tests/test/data/applicationAuthorization_fixture.json
+         if [ ${SIMPLE_IDP_INSTALL} != 0 ]; then
+            mv ${SLI_HOME}/acceptance-tests/test/data/realm_fixture.json ${SLI_HOME}/acceptance-tests/test/data/.realm_fixture.json
+            cat ${SLI_HOME}/acceptance-tests/test/data/.realm_fixture.json|sed -e "s/:8082/:${PORTAL_PORT}/g" > ${SLI_HOME}/acceptance-tests/test/data/realm_fixture.json
+            rm -f ${SLI_HOME}/acceptance-tests/test/data/.realm_fixture.json
+         fi
       fi
-      echo "######## REQURED if this is your first time installing Portal on your computer ########"
-      echo "Please run bundle exec rake realmInitNoPeople"
+      #echo "Please run bundle exec rake realmInitNoPeople"
+      cd ${SLI_HOME}/acceptance-tests
+      bundle install
+      bundle exec rake realmInitNoPeople
       echo
+   fi
+}
+
+function deploy_sli_applications() {
+   if [ ${API_INSTALL} != 0 ]; then
+      cp -f ${API_INSTALL} ${PORTAL_TOMCAT}/webapps
+   fi
+   if [ ${SIMPLE_IDP_INSTALL} != 0 ]; then
+      cp -f ${SIMPLE_IDP_INSTALL} ${PORTAL_TOMCAT}/webapps
+   fi
+   if [ ${DASHBOARD_INSTALL} != 0 ]; then
+      cp -f ${DASHBOARD_INSTALL} ${PORTAL_TOMCAT}/webapps
    fi
 }
 
@@ -415,6 +501,7 @@ function start_tomcat() {
          fi
       done
    fi
+   deploy_sli_applications
 }
    
 function starting_tomcat() {
@@ -433,7 +520,23 @@ function starting_tomcat() {
    fi
 }
 
-
+function select_apps_install() {
+   if [ ${INTERACTIVE} == 1 ]; then
+      dialog --backtitle "Deployment selection" --checklist "Choose Applications to deploy with Portal Tomcat" 30 80 3 1 "API" off 2 "Simple IDP" off 3 "Dashboard" off 2>/tmp/portal-install.${PID}
+      for APPS in `cat /tmp/portal-install.${PID}`
+      do
+         NUM=`echo $APPS|sed -e 's/"//g'`
+         if [ "${NUM}" == "1" ]; then
+            API_INSTALL=1
+         elif [ "${NUM}" == "2" ]; then
+            SIMPLE_IDP_INSTALL=1
+         elif [ "${NUM}" == "3" ]; then
+            DASHBOARD_INSTALL=1
+         fi
+      done
+      rm -f /tmp/portal-install.${PID}
+   fi
+}
 
 
 
@@ -449,6 +552,9 @@ INTERACTIVE=0
 DATABASE_INIT=0
 UPDATE_JSON=0
 SKIP_DEPLOY=0
+API_INSTALL=0
+SIMPLE_IDP_INSTALL=0
+DASHBOARD_INSTALL=0
 
 while getopts aipdjs o
 do
@@ -476,6 +582,7 @@ if [ ${EXECUTE_ALL} == 1 ]; then
    UPDATE_JSON=1
 fi
 
+select_apps_install
 check_dependancy
 set_env
 check_SLI_HOME

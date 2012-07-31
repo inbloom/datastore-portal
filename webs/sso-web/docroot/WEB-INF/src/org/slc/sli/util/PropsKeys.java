@@ -26,11 +26,11 @@ public interface PropsKeys {
 
 	public static final String SECURITY_SERVER_URL = "security.server.url";
 
-	public static final String OAUTH_CLIENT_ID = "oauth.client.id";
+	public static final String OAUTH_CLIENT_ID = "portal.oauth.client.id";
 
-	public static final String OAUTH_CLIENT_SECRET = "oauth.client.secret";
+	public static final String OAUTH_CLIENT_SECRET = "portal.oauth.client.secret";
 
-	public static final String OAUTH_REDIRECT = "oauth.redirect";
+	public static final String OAUTH_REDIRECT = "portal.oauth.redirect";
 	
 	public static final String SLI_ROLE_ADMINISTRATOR = "sli.role.admin";
 	

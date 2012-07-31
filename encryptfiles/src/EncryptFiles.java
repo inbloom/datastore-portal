@@ -146,10 +146,10 @@ public class EncryptFiles {
 				String apiServerUrl = p1.getProperty("api.server.url");
 				String securityServerUrl = p1
 						.getProperty("security.server.url");
-				String oauthClientId = p1.getProperty("oauth.client.id");
+				String oauthClientId = p1.getProperty("portal.oauth.client.id");
 				String oauthClientSecret = p1
-						.getProperty("oauth.client.secret");
-				String oauthRedirect = p1.getProperty("oauth.redirect");
+						.getProperty("portal.oauth.client.secret");
+				String oauthRedirect = p1.getProperty("portal.oauth.redirect");
 
 				String encryptedClientId = encrypt(oauthClientId);
 				String encryptedClientSecret = encrypt(oauthClientSecret);
@@ -158,9 +158,9 @@ public class EncryptFiles {
 				p2.put("api.client", apiClient);
 				p2.put("api.server.url", apiServerUrl);
 				p2.put("security.server.url", securityServerUrl);
-				p2.put("oauth.client.id", encryptedClientId);
-				p2.put("oauth.client.secret", encryptedClientSecret);
-				p2.put("oauth.redirect", oauthRedirect);
+				p2.put("portal.oauth.client.id", encryptedClientId);
+				p2.put("portal.oauth.client.secret", encryptedClientSecret);
+				p2.put("portal.oauth.redirect", oauthRedirect);
 				p2.store(encryptedPropertyFile, "");
 				System.out.println("Encrypted [" + propertyFiles[i] + "] to ["
 						+ propertyFiles[i] + ".encrypted" + "]");
