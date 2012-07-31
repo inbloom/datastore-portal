@@ -61,8 +61,15 @@ end
 # Rake tasks
 
 
-desc "Run Liferay Tests"
-task :liferay => [:liferayTest] do
+desc "Run Portal Tests"
+task :portalTests => [:portalAdminTests,
+                      :portalEducatorTests,
+                      :portalEulaTests,
+                      :portalReportAProblemTests,
+                      :portalAdminPageTests,
+                      :portalEducatorLoginTests,
+                      :portalWsrpTests,
+                      :portalHeaderFooterTests] do
   displayFailureReport()
   if $SUCCESS
     puts "Completed All Tests"
@@ -75,16 +82,47 @@ end
 #SLI Liferay testing
 ###########################################################
 
-desc "Run the testing for life ray SLI for admin"
-task :liferayTest do
+desc "Run Portal Admin Test"
+task :portalAdminTests do
    runTests("features/liferay/SLI_admin.feature")
+end
+
+desc "Run Portal Educator Test"
+task :portalEducatorTests do
    runTests("features/liferay/SLI_normal_user.feature")
+end
+
+desc "Run Eula Test"
+task :portalEulaTests do
    #runTests("features/liferay/NY_Realm_EULA_agree.feature")
+end
+
+desc "Run Report A Problem Test"
+task :portalReportAProblemTests do
    runTests("features/liferay/report_problem.feature")
+end
+
+desc "Run Admin Page Test"
+task :portalAdminPageTests do
    runTests("features/liferay/admin_page.feature")
+end
+
+desc "Run Eduator Test"
+task :portalEducatorLoginTests do
    runTests("features/liferay/SSD_Realm_linda.feature")
+end
+
+desc "Run WSRP Test"
+task :portalWsrpTests do
    runTests("features/liferay/WSRP.feature")
-   runTests("features/liferay/Header_footer.feature")
+end
+
+desc "Run Header and Footer Test"
+task :portalHeaderFooterTests do
+   runTests("features/liferay/Header_footer.feature")  
+end
+
+desc "Run Eula Agreement Test"
+task :portalEulaAgreementTests do
 # runTests("test/features/liferay/IL_Realm_EULA_agree.feature")
-  
 end
