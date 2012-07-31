@@ -155,7 +155,7 @@ function check_opt() {
 }
 
 function setup_tomcat() {
-   mkdir -p ${PORTAL_TOMCAT}/{webapps,logs,bin} ${DEPLOY_DIR}
+   mkdir -p ${PORTAL_TOMCAT}/{webapps,logs,bin} ${DEPLOY_DIR} ${OPT}/logs
    if [ ! -d ${PORTAL_TOMCAT}/conf ]; then
       NUM=`grep --binary-files=text -n "# END OF SCRIPT #" $0|grep -v cut|cut -d':' -f1`
       NUM=`expr $NUM + 1`
@@ -233,9 +233,9 @@ security.server.url=${API}
 oauth.client.id=${CLIENT_ID}
 oauth.client.secret=${CLIENT_SECRET}
 oauth.redirect=http://local.slidev.org:${PORTAL_PORT}/portal/c/portal/login
-sli.encryption.keyStorePass=changeit
-oauth.encryption=false" > ${PORTAL_TOMCAT}/conf/sli.properties
-      grep -v security.server.url ${LIFERAY_HOME}/config/properties/sli.properties.template |grep -v api.server.url |grep -v oauth.client.id|grep -v oauth.client.secret|grep -v oauth.redirect |grep -v oauth.encryption|grep -v api.client |grep -v sli.encryption.keyStore >> ${PORTAL_TOMCAT}/conf/sli.properties
+oauth.encryption=false
+log.path=${OPT}/logs" > ${PORTAL_TOMCAT}/conf/sli.properties
+      ${SLI_HOME}/config/scripts/webapp-provision.rb ${SLI_HOME}/config/config.in/portal_config.yml local /dev/stdout|grep -v security.server.url |grep -v api.server.url |grep -v oauth.client.id|grep -v oauth.client.secret|grep -v oauth.redirect |grep -v oauth.encryption|grep -v api.client |grep -v log.path >> ${PORTAL_TOMCAT}/conf/sli.properties
    else
       echo "################################"
       echo "${PORTAL_TOMCAT}/conf/sli.properties exists"
@@ -494,7 +494,7 @@ echo "Append following line to Eclipse Tomcat 'General Information'->'Open launc
 echo "Please make sure you select 'Use custom location (does not modify Tomcat installation)' and set '${OPT}/tomcat' for 'Server path:' and set 'webapps' for 'Deploy path:' before saving it"
 echo "https://thesli.onconfluence.com/display/sli/Checkout+and+Build+Portal and refer 'Option 2. Script Driven Install'"
 if [ ${DATABASE_INIT} == 1 ]; then
-   echo "Your lportal database has been newly created.  This is very important that Tomcat server needs to start \"TWICE\" before you login to portal"
+   echo "Your lportal database has been newly created.  This is very important that Tomcat server needs to start and stop \"TWICE\" before you login to portal"
 fi
 echo "############# BEGIN ###########"
 echo "-Dorg.apache.catalina.loader.WebappClassLoader.ENABLE_CLEAR_REFERENCES=false -Xmx1024m -XX:+CMSClassUnloadingEnabled -XX:+CMSPermGenSweepingEnabled -XX:MaxPermSize=512m -Dsli.encryption.keyStore=${ENCRYPTION_DIR}/ciKeyStore.jks -Dsli.encryption.properties=${ENCRYPTION_DIR}/ciEncryption.properties -Dsli.trust.certificates=${ENCRYPTION_DIR}/trustedCertificates -Dsli.conf=${PORTAL_TOMCAT}/conf/sli.properties -Dliferay.home=${OPT}"
@@ -506,7 +506,7 @@ echo " Start Tomcat with JPDA (debug mode): ${PORTAL_TOMCAT}/bin/debug-start.sh"
 echo " Stop  Tomcat                       : ${PORTAL_TOMCAT}/bin/stop.sh"
 echo " Location of Tomcat env settings    : ${PORTAL_TOMCAT}/bin/setenv.sh"
 echo " Location of Tomcat log             : ${PORTAL_TOMCAT}/logs/catalina.out"
-echo " Location of Tomcat Web Apss Dir    : ${PORTAL_TOMCAT}/webapps"
+echo " Location of Tomcat Web Apps Dir    : ${PORTAL_TOMCAT}/webapps"
 exit
 
 
