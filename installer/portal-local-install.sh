@@ -533,7 +533,7 @@ function starting_tomcat() {
 }
 
 function select_apps_install() {
-   if [ ${INTERACTIVE} == 1 ]; then
+   if [ ${MODULES} == 1 ]; then
       dialog --backtitle "Deployment selection" --checklist "Choose Applications to deploy with Portal Tomcat" 30 80 3 1 "API" off 2 "Simple IDP" off 3 "Dashboard" off 2>/tmp/portal-install.${PID}
       for APPS in `cat /tmp/portal-install.${PID}`
       do
@@ -566,6 +566,7 @@ DATABASE_INIT=0
 UPDATE_JSON=0
 SKIP_DEPLOY=0
 API_INSTALL=0
+MODULES=0
 SIMPLE_IDP_INSTALL=0
 DASHBOARD_INSTALL=0
 
@@ -578,12 +579,14 @@ do
       d)   DATABASE_INIT=1;;
       j)   UPDATE_JSON=1;;
       s)   SKIP_DEPLOY=1;;
+      e)   MODULES=1;;
       [?])   echo "-a Fresh Install (equivalent of -p -d -j)"
              echo "-i (interactive mode to setup Tomcat and Portal)"
              echo "-p (purge opt directory before install)"
              echo "-d (drop and create loption database)"
              echo "-j (update JSON fixture file then update mongo)"
              echo "-s (skip deploy portal applications to /opt/deploy)"
+             echo "-e (Install API/Simple IDP/Dashboard)"
              echo "useful link https://thesli.onconfluence.com/display/sli/Checkout+and+Build+Portal"
            exit 1;;
    esac
