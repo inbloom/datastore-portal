@@ -18,7 +18,7 @@ When I select "Illinois Daybreak School District 4529" and click go
 And I was redirected to the "Simple" IDP Login page
 When I submit the credentials "linda.kim" "linda.kim1234" for the "Simple" login page    
 Then I should be on the home page
-Then I should see "SLC Dashboard"
+Then I should see "AuthorizeTestApp1"
 Then I click on log out
     #Then I follow the home page Dashboard
     #Then I select "4cb03fa0-83ad-46e2-a936-09ab31af377e"
