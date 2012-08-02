@@ -194,15 +194,14 @@ function setup_tomcat() {
    fi
 #   find ${PORTAL_TOMCAT}/webapps -type d -depth 1|grep -v portal |xargs rm -rf
    if [ ! -d ${TOMCAT_HOME} ]; then
-      if [ -f ~/apache-tomcat-${TOMCAT_VERSION}.tar.gz ]; then
+      if [ -f ~/.portal/apache-tomcat-${TOMCAT_VERSION}.tar.gz ]; then
          echo
-         echo "Found ~/apache-tomcat-${TOMCAT_VERSION}.tar.gz"
+         echo "Found ~/.portal/apache-tomcat-${TOMCAT_VERSION}.tar.gz"
          echo
-         cp ~/apache-tomcat-${TOMCAT_VERSION}.tar.gz ${OPT}/apache-tomcat.tar.gz
+         cp ~/.portal/apache-tomcat-${TOMCAT_VERSION}.tar.gz ${OPT}/apache-tomcat.tar.gz
       else
          echo
          echo "Downloading Tomcat from the Internet"
-         echo "You may skip downloading if you copy apache-tomcat-${TOMCAT_VERSION}.tar.gz to ~/apache-tomcat-${TOMCAT_VERSION}.tar.gz"
          echo
          wget -O ${OPT}/apache-tomcat.tar.gz http://apache.mirrors.hoobly.com/tomcat/tomcat-7/v${TOMCAT_VERSION}/bin/apache-tomcat-${TOMCAT_VERSION}.tar.gz
          RET=$?
@@ -210,6 +209,10 @@ function setup_tomcat() {
             echo "Failed to doanload apache-tomcat.  Exiting out..."
             exit 1
          fi
+         if [ ! -d ~/.portal ]; then
+            mkdir ~/.portal
+         fi
+         cp ${OPT}/apache-tomcat.tar.gz ~/.portal/apache-tomcat-${TOMCAT_VERSION}.tar.gz
       fi
       tar -C ${OPT} -zxf ${OPT}/apache-tomcat.tar.gz
       rm -f ${OPT}/apache-tomcat.tar.gz
@@ -363,15 +366,14 @@ app.server.dir=${TOMCAT_HOME}" > ${LIFERAY_HOME}/build.${USER}.properties
    fi
    
    if [ ! -f ${PORTAL_TOMCAT}/webapps/portal.war ]; then
-      if [ -f ~/portal.war ]; then
+      if [ -f ~/.portal/portal.war ]; then
          echo 
-         echo "Found ~/portal.war"
+         echo "Found ~/.portal/portal.war"
          echo 
-         cp ~/portal.war ${PORTAL_TOMCAT}/webapps/portal.war
+         cp ~/.portal/portal.war ${PORTAL_TOMCAT}/webapps/portal.war
       else
          echo 
          echo "Downloading portal.war from the Internet"
-         echo "You may skip downloading if you copy portal.war to ~/portal.war"
          echo 
          wget -O ${PORTAL_TOMCAT}/webapps/portal.war http://downloads.sourceforge.net/project/lportal/Liferay%20Portal/6.1.0%20GA1/liferay-portal-6.1.0-ce-ga1-20120106155615760.war
          RET=$?
@@ -379,6 +381,10 @@ app.server.dir=${TOMCAT_HOME}" > ${LIFERAY_HOME}/build.${USER}.properties
             echo "Failed to doanload Liferay.  Exiting out..."
             exit 1
          fi
+         if [ ! -d ~/.portal ]; then
+            mkdir ~/.portal
+         fi
+         cp ${PORTAL_TOMCAT}/webapps/portal.war ~/.portal/
       fi
    else
       echo "################################"
@@ -651,6 +657,7 @@ echo " Stop  Tomcat                       : ${PORTAL_TOMCAT}/bin/stop.sh"
 echo " Location of Tomcat env settings    : ${PORTAL_TOMCAT}/bin/setenv.sh"
 echo " Location of Tomcat log             : ${PORTAL_TOMCAT}/logs/catalina.out"
 echo " Location of Tomcat Web Apps Dir    : ${PORTAL_TOMCAT}/webapps"
+echo " Uninstall this Portal              : rm -rf ${OPT}"
 exit
 
 
