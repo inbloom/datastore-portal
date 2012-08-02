@@ -39,23 +39,24 @@ function set_env() {
    CLIENT_SECRET="ghjZfyAXi7qwejklcxziuohiueqjknfdsip9cxzhiu13mnsX"
    API="http://local.slidev.org:8080/"
    PORTAL_PORT="7000"
+   #sourcing previous environment variables from the file
    if [ -f ~/.portal-local-install.env ]; then
       . ~/.portal-local-install.env
    fi
    if [ ${INTERACTIVE} == 1 ]; then
-      dialog --title "liferay git repo" --backtitle "Portal Local Install: 1 of 10" --nocancel --inputbox "Enter Tomcat Portal Base directory" 8 80 ${OPT} 2>/tmp/portal-install.${PID}
+      dialog --title "liferay git repo" --backtitle "Portal Local Install: 1 of 10" --nocancel --inputbox "Enter Location of Tomcat directory that contains Tomcat installation" 8 80 ${OPT} 2>/tmp/portal-install.${PID}
       OPT=`cat /tmp/portal-install.${PID}`
       rm -f /tmp/portal-install.${PID}
 
-      dialog --title "liferay git repo" --backtitle "Portal Local Install: 2 of 10" --nocancel --inputbox "Enter location of liferay git repo directory" 8 80 ${LIFERAY_HOME} 2>/tmp/portal-install.${PID}
+      dialog --title "liferay git repo" --backtitle "Portal Local Install: 2 of 10" --nocancel --inputbox "Enter location of liferay git repository directory" 8 80 ${LIFERAY_HOME} 2>/tmp/portal-install.${PID}
       LIFERAY_HOME=`cat /tmp/portal-install.${PID}`
       rm -f /tmp/portal-install.${PID}
    
-      dialog --title "sli git repo" --backtitle "Portal Local Install: 3 of 10" --nocancel --inputbox "Enter location of portal git repo directory" 8 80 ${SLI_HOME} 2>/tmp/portal-install.${PID}
+      dialog --title "sli git repo" --backtitle "Portal Local Install: 3 of 10" --nocancel --inputbox "Enter location of SLI git repository directory" 8 80 ${SLI_HOME} 2>/tmp/portal-install.${PID}
       SLI_HOME=`cat /tmp/portal-install.${PID}`
       rm -f /tmp/portal-install.${PID}
 
-      dialog --title "Encryption directory" --backtitle "Portal Local Install: 4 of 10" --nocancel --inputbox "Enter ciEncryption directory to install" 8 80 ${ENCRYPTION_DIR} 2>/tmp/portal-install.${PID}
+      dialog --title "Encryption directory" --backtitle "Portal Local Install: 4 of 10" --nocancel --inputbox "Enter the directory to install ciEncryption in" 8 80 ${ENCRYPTION_DIR} 2>/tmp/portal-install.${PID}
       ENCRYPTION_DIR=`cat /tmp/portal-install.${PID}`
       rm -f /tmp/portal-install.${PID}
    
@@ -63,16 +64,16 @@ function set_env() {
       TOMCAT_VERSION=`cat /tmp/portal-install.${PID}`
       rm -f /tmp/portal-install.${PID}
    
-      dialog --title "client id" --backtitle "Portal Local Install: 6 of 10" --nocancel --inputbox "Enter your Portal client id for Portal" 8 80 ${CLIENT_ID} 2>/tmp/portal-install.${PID}
+      dialog --title "client id" --backtitle "Portal Local Install: 6 of 10" --nocancel --inputbox "Enter your unecnrypted client id for Portal" 8 80 ${CLIENT_ID} 2>/tmp/portal-install.${PID}
       CLIENT_ID=`cat /tmp/portal-install.${PID}`
       rm -f /tmp/portal-install.${PID}
    
-      dialog --title "client secret" --backtitle "Portal Local Install: 7 of 10" --nocancel --inputbox "Enter your Portal client secret for Portal" 8 80 ${CLIENT_SECRET} 2>/tmp/portal-install.${PID}
+      dialog --title "client secret" --backtitle "Portal Local Install: 7 of 10" --nocancel --inputbox "Enter your unencrypted client secret for Portal" 8 80 ${CLIENT_SECRET} 2>/tmp/portal-install.${PID}
       CLIENT_SECRET=`cat /tmp/portal-install.${PID}`
       rm -f /tmp/portal-install.${PID}
    
 
-      dialog --title "Portal Server Port" --backtitle "Portal Local Install: 9 of 10" --nocancel --inputbox "Enter Portal Server Listening Port" 8 80 ${PORTAL_PORT} 2>/tmp/portal-install.${PID}
+      dialog --title "Portal Server Port" --backtitle "Portal Local Install: 9 of 10" --nocancel --inputbox "Which port will Portal use for listening?" 8 80 ${PORTAL_PORT} 2>/tmp/portal-install.${PID}
       PORTAL_PORT=`cat /tmp/portal-install.${PID}`
       rm -f /tmp/portal-install.${PID}
 
@@ -81,7 +82,7 @@ function set_env() {
       else
          API="http://local.slidev.org:8080/"
       fi
-      dialog --title "API Server" --backtitle "Portal Local Install: 9 of 10" --nocancel --inputbox "Enter your API Server" 8 80 ${API} 2>/tmp/portal-install.${PID}
+      dialog --title "API Server" --backtitle "Portal Local Install: 9 of 10" --nocancel --inputbox "Enter URL for API Server" 8 80 ${API} 2>/tmp/portal-install.${PID}
       API=`cat /tmp/portal-install.${PID}`
       rm -f /tmp/portal-install.${PID}
 
@@ -89,6 +90,7 @@ function set_env() {
       DEPLOY_DIR=`cat /tmp/portal-install.${PID}`
       rm -f /tmp/portal-install.${PID}
    fi
+   #saving environment variable for future execution
    echo "LIFERAY_HOME=${LIFERAY_HOME}
 SLI_HOME=${SLI_HOME}
 OPT=${OPT}
@@ -121,6 +123,7 @@ function database_init() {
       echo "Dropping lportal database"
       mysqladmin drop lportal -u root
       mysql -u root < ${LIFERAY_HOME}/installer/mysql/lr_mysql_init.sql
+      echo "You can ignore \"ERROR 1062\" if displayed"
    fi
 }
 
@@ -169,13 +172,12 @@ function purge_opt() {
 }
 
 function check_opt() {
-#shell commands to prepare portal environment
    if [ ! -d ${OPT} ]; then
       mkdir ${OPT}
       RET=$?
       if [ ${RET} != 0 ]; then
          echo "Fail to create ${OPT} directory."
-         echo "exiting out..."
+         echo "exiting"
          exit 1
       fi
    fi
@@ -193,8 +195,15 @@ function setup_tomcat() {
 #   find ${PORTAL_TOMCAT}/webapps -type d -depth 1|grep -v portal |xargs rm -rf
    if [ ! -d ${TOMCAT_HOME} ]; then
       if [ -f ~/apache-tomcat-${TOMCAT_VERSION}.tar.gz ]; then
+         echo
+         echo "Found ~/apache-tomcat-${TOMCAT_VERSION}.tar.gz"
+         echo
          cp ~/apache-tomcat-${TOMCAT_VERSION}.tar.gz ${OPT}/apache-tomcat.tar.gz
       else
+         echo
+         echo "Downloading Tomcat from the Internet"
+         echo "You may skip downloading if you copy apache-tomcat-${TOMCAT_VERSION}.tar.gz to ~/apache-tomcat-${TOMCAT_VERSION}.tar.gz"
+         echo
          wget -O ${OPT}/apache-tomcat.tar.gz http://apache.mirrors.hoobly.com/tomcat/tomcat-7/v${TOMCAT_VERSION}/bin/apache-tomcat-${TOMCAT_VERSION}.tar.gz
          RET=$?
          if [ ${RET} != 0 ]; then
@@ -209,6 +218,8 @@ function setup_tomcat() {
          rm -f ${PORTAL_TOMCAT}/conf/server.xml.template
       fi
       ln -sf ${TOMCAT_HOME}/bin/catalina.sh ${PORTAL_TOMCAT}/bin/catalina.sh
+
+      #Generating start/stop/debug-start script for Tomcat
       echo "export CATALINA_HOME=${TOMCAT_HOME}
 export CATALINA_BASE=${PORTAL_TOMCAT}
 ${PORTAL_TOMCAT}/bin/catalina.sh start
@@ -273,6 +284,8 @@ portal.oauth.redirect=http://local.slidev.org:${PORTAL_PORT}/portal/c/portal/log
 portal.oauth.encryption=false
 log.path=${OPT}/logs" > ${PORTAL_TOMCAT}/conf/sli.properties
       ${SLI_HOME}/config/scripts/webapp-provision.rb ${SLI_HOME}/config/config.in/portal_config.yml local /dev/stdout|grep -v security.server.url |grep -v api.server.url |grep -v oauth.client.id|grep -v oauth.client.secret|grep -v oauth.redirect |grep -v oauth.encryption|grep -v api.client |grep -v log.path |grep -v bootstrap.app.dashboard.authorized_for_all_edorgs >> ${PORTAL_TOMCAT}/conf/sli.properties
+
+      #If a user chose to install additional applicaiton, generate sli.properties
       SLI_PROP=""
       if [ ${API_INSTALL} != 0 ]; then
           if [ -z ${SLI_PROP} ]; then
@@ -351,8 +364,15 @@ app.server.dir=${TOMCAT_HOME}" > ${LIFERAY_HOME}/build.${USER}.properties
    
    if [ ! -f ${PORTAL_TOMCAT}/webapps/portal.war ]; then
       if [ -f ~/portal.war ]; then
+         echo 
+         echo "Found ~/portal.war"
+         echo 
          cp ~/portal.war ${PORTAL_TOMCAT}/webapps/portal.war
       else
+         echo 
+         echo "Downloading portal.war from the Internet"
+         echo "You may skip downloading if you copy portal.war to ~/portal.war"
+         echo 
          wget -O ${PORTAL_TOMCAT}/webapps/portal.war http://downloads.sourceforge.net/project/lportal/Liferay%20Portal/6.1.0%20GA1/liferay-portal-6.1.0-ce-ga1-20120106155615760.war
          RET=$?
          if [ ${RET} != 0 ]; then
@@ -365,6 +385,7 @@ app.server.dir=${TOMCAT_HOME}" > ${LIFERAY_HOME}/build.${USER}.properties
       echo "${PORTAL_TOMCAT}/webapps/portal.war  exists"
       echo "Skipping downloading ${PORTAL_TOMCAT}/webapps/portal.war "
       echo "################################"
+      echo 
    fi
    if [ ! -f ${PORTAL_TOMCAT}/bin/setenv.sh ]; then
       echo "CATALINA_OPTS='-Dwtp.deploy=\"${PORTAL_TOMCAT}/webapps\" -Djava.endorsed.dirs=\"${TOMCAT_HOME}/endorsed\" -Dorg.apache.catalina.loader.WebappClassLoader.ENABLE_CLEAR_REFERENCES=false -Xmx1024m -XX:+CMSClassUnloadingEnabled -XX:+CMSPermGenSweepingEnabled -XX:MaxPermSize=512m -Dsli.encryption.keyStore=${ENCRYPTION_DIR}/ciKeyStore.jks -Dsli.encryption.properties=${ENCRYPTION_DIR}/ciEncryption.properties -Dsli.trust.certificates=${ENCRYPTION_DIR}/trustedCertificates -Dsli.conf=${PORTAL_TOMCAT}/conf/sli.properties -Dliferay.home=${OPT}'" > ${PORTAL_TOMCAT}/bin/setenv.sh
@@ -417,7 +438,7 @@ function interactive_app_selection() {
    if [ -f /tmp/portal-install.${PID} ]; then
       rm -f /tmp/portal-install.${PID}
    fi
-   dialog --backtitle "Portal deployment selection" --radiolist "Select Type of Deployment" 10 40 2 1 "Deploy all" on 2 "Deploy individuals" off 2>/tmp/portal-install.${PID}
+   dialog --backtitle "Portal deployment selection" --radiolist "Select Type of Deployment" 10 40 2 1 "Deploy all" on 2 "Deploy individual portal applications" off 2>/tmp/portal-install.${PID}
    NUM=`sed 's/"//g' /tmp/portal-install.${PID}`
    rm -f /tmp/portal-install.${PID}
    if [ "${NUM}" == "1" ]; then
@@ -503,7 +524,8 @@ function start_tomcat() {
       do
          COUNT=`expr ${COUNT} + 1`
          echo -en "\033[2JPlease wait while Tomcat is deploying applications....${COUNT}"
-         if  echo $line |grep "Hook for wsrp-portlet is available for use"; then
+         if echo $line |grep "Hook for wsrp-portlet is available for use"; then
+            clear
             echo "Restarting Tomcat..."
             sleep 10
             ${PORTAL_TOMCAT}/bin/stop.sh
@@ -523,7 +545,7 @@ function starting_tomcat() {
       if [ ! -d ${PORTAL_TOMCAT}/webapps/portal ]; then
          FIRST_TIME=1
       fi
-      dialog --title "Starting Portal Tomcat?"  --backtitle "Starting Tomcat"  --yesno "Start Portal Tomcat?" 8 80
+      dialog --title "Starting Portal Tomcat?"  --backtitle "Starting Tomcat"  --yesno "Start Tomcat?" 8 80
       YES_NO=$?
       case $YES_NO in
          0) start_tomcat;;
@@ -534,7 +556,7 @@ function starting_tomcat() {
 
 function select_apps_install() {
    if [ ${MODULES} == 1 ]; then
-      dialog --backtitle "Deployment selection" --checklist "Choose Applications to deploy with Portal Tomcat" 30 80 3 1 "API" off 2 "Simple IDP" off 3 "Dashboard" off 2>/tmp/portal-install.${PID}
+      dialog --backtitle "Deployment selection" --checklist "Choose Applications to deploy in the same Tomcat as Portal" 30 80 3 1 "API" off 2 "Simple IDP" off 3 "Dashboard" off 2>/tmp/portal-install.${PID}
       for APPS in `cat /tmp/portal-install.${PID}`
       do
          NUM=`echo $APPS|sed -e 's/"//g'`
@@ -546,7 +568,6 @@ function select_apps_install() {
             DASHBOARD_INSTALL=1
          fi
       done
-cp /tmp/portal-install.${PID} /tmp/portal.api
       rm -f /tmp/portal-install.${PID}
    fi
 }
@@ -570,9 +591,9 @@ MODULES=0
 SIMPLE_IDP_INSTALL=0
 DASHBOARD_INSTALL=0
 
-while getopts aipdjs o
+while getopts aipdjse option
 do
-   case  "$o" in
+   case  "$option" in
       a)   EXECUTE_ALL=1;;
       i)   INTERACTIVE=1;;
       p)   PURGE_OPT=1;;
@@ -623,7 +644,7 @@ echo "############# BEGIN ###########"
 echo "-Dorg.apache.catalina.loader.WebappClassLoader.ENABLE_CLEAR_REFERENCES=false -Xmx1024m -XX:+CMSClassUnloadingEnabled -XX:+CMSPermGenSweepingEnabled -XX:MaxPermSize=512m -Dsli.encryption.keyStore=${ENCRYPTION_DIR}/ciKeyStore.jks -Dsli.encryption.properties=${ENCRYPTION_DIR}/ciEncryption.properties -Dsli.trust.certificates=${ENCRYPTION_DIR}/trustedCertificates -Dsli.conf=${PORTAL_TOMCAT}/conf/sli.properties -Dliferay.home=${OPT}"
 echo "############# END #############"
 echo "Please check ${PORTAL_TOMCAT}/logs/catalina.out"
-echo "Usefuly hints and commands:"
+echo "Useful hints and commands:"
 echo " Start Tomcat                       : ${PORTAL_TOMCAT}/bin/start.sh"
 echo " Start Tomcat with JPDA (debug mode): ${PORTAL_TOMCAT}/bin/debug-start.sh"
 echo " Stop  Tomcat                       : ${PORTAL_TOMCAT}/bin/stop.sh"
