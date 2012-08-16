@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite errors="0" failures="0" name="title" skipped="0" tests="2" time="45.996443">
-<testcase classname="title.-User Login through SSD Realm with wrong username and password" name="-User Login through SSD Realm with wrong username and password" time="18.232970">
-</testcase>
-<testcase classname="title.-User Login through SSD Realm and choose No filter" name="-User Login through SSD Realm and choose No filter" time="27.763473">
-</testcase>
-</testsuite>

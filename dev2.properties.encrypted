@@ -1,8 +1,0 @@
-#
-#Tue Jun 05 06:57:15 EDT 2012
-oauth.client.id=D7E5F0B4FE28741B6A64D028AC4119E7
-api.server.url=https\://devapp1.slidev.org/
-oauth.redirect=https\://devlr2.slidev.org/c/portal/login
-api.client=apiClient
-security.server.url=https\://devapp1.slidev.org/
-oauth.client.secret=AF846CEF5E252FB4447218A49C2922D70CFA38C3DEAA95A042672741C18ED0C638AE1B2EE9234F9951A264F3574FBED857A2D2D65D536975E960723B26A2E6B1
