@@ -43,12 +43,12 @@ end
 Then /^I should be on the home page$/ do
   home = @driver.find_elements(:class, "sli_home_title")
   assert(home.length == 1, "User is not on the portal home page. Current URL: " + @driver.current_url)
-  begin
+  if (@driver.page_source.include?("d_popup"))
     accept = @driver.find_element(:xpath, "//input[@value='Agree']")
     puts "EULA is present"
     accept.click
-  rescue
-    puts "EULA has already been accepted."
+  else
+    puts "EULA has already been accepted"
   end
 end
 
