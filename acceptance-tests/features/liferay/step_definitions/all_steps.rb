@@ -41,8 +41,8 @@ Then /^I click on log out$/ do
 end
 
 Then /^I should be on the home page$/ do
-  home = @driver.find_elements(:class, "sli_home_title")
-  assert(home.length == 1, "User is not on the portal home page. Current URL: " + @driver.current_url)
+  home = @driver.find_element(:class, "sli_home_title")
+  assert(home.text == "HOME", "User is not on the portal home page. Current URL: " + @driver.current_url)
   if (@driver.page_source.include?("d_popup"))
     accept = @driver.find_element(:xpath, "//input[@value='Agree']")
     puts "EULA is present"
@@ -71,8 +71,8 @@ Then /^(?:|I )should not see "([^\"]*)"$/ do |text|
   assert((body.attribute('innerHTML').include? text) == false, "Body contains #{text}")
 end
 
-When /^(?:|I )follow "([^\"]*)"$/ do |link|
-  @driver.find_element(:link, link).click
+When /^I click on Admin$/ do
+  clickOnLink("Admin")
 end
 
 And /^I should see logo$/ do 
@@ -90,10 +90,96 @@ And /^I should see username "([^"]*)"$/ do |expectedName|
   assert(name == expectedName, "Expected: #{expectedName} Actual: #{name}")
 end
 
-#TODO
-Then /^I follow the home page Dashboard$/ do 
-  element= @driver.find_element(:xpath, "//td/a/div[text()=' Dashboard']")
-  element.click
+Then /^under System Tools, I click on "(.*?)"$/ do |link|
+  clickOnLink(link)
+end
+
+Then /^under Application Configuration, I click on "(.*?)"$/ do |link|
+  clickOnLink(link)
+end
+
+Then /^under My Applications, I click on "(.*?)"$/ do |link|
+  links = @driver.find_elements(:tag_name, "a")
+  links.each do |availableLink|
+    if (availableLink.text.include? link)
+      yLocation = availableLink.location.y.to_s
+      xLocation = availableLink.location.x.to_s
+      @driver.execute_script("window.scrollTo(#{xLocation}, #{yLocation});")
+      availableLink.click
+      break
+    end
+  end
+end
+
+Then /^under Application Configuration, I see the following: "(.*?)"$/ do |links|
+  section = @driver.find_element(:id, "column-5")
+  verifyItemsInSections(links, section, "Application Configuration")
+end
+
+Then /^under System Tools, I see the following "(.*?)"$/ do |links|
+  section = @driver.find_element(:id, "column-4")
+  verifyItemsInSections(links, section, "System Tools")
+end
+
+Then /^under My Applications, I see the following apps: "(.*?)"$/ do |apps|
+  myApps = @driver.find_element(:id, "column-4")
+  verifyItemsInSections(apps, myApps, "My Applications")
+end
+
+Then /^I switch to the iframe$/ do
+  wait = Selenium::WebDriver::Wait.new(:timeout => 15) 
+  wait.until{(iframe = isIframePresent()) != nil}
+end
+
+Then /^I exit out of the iframe$/ do
+  @driver.switch_to.default_content
+end
+
+Then /^I click on the SLC Logo$/ do
+  logo = @driver.find_element(:class, "sli_logo_main")
+  links = logo.find_elements(:tag_name,"a")
+  links[1].click
+end
+
+def isIframePresent()
+  #TODO figure out how to determine when page is loaded instead of using sleep
+  sleep 2
+  @driver.switch_to.default_content
+  begin
+    iframe = @driver.find_element(:tag_name, "iframe")
+    puts "iframe found"
+    @driver.switch_to.frame(iframe.attribute('id'))
+    puts "iframe switched"
+    # This might not be a good solution that works for all
+    @driver.find_element(:id,"messageContainer")
+    puts "iframe contents appears to be loaded"
+    return iframe
+  rescue  
+    puts "iframe not fully loaded yet"
+    @driver.switch_to.default_content
+    return nil
+  end 
+end
+
+def clickOnLink(linkText)
+  @driver.find_element(:link, linkText).click
+end
+
+def verifyItemsInSections(expectedItems, section, sectionTitle)
+  listOfItems = expectedItems.split(';')
+  title = section.find_element(:class, "portlet-title-text")
+  assert(title.text == sectionTitle, "Expected: #{sectionTitle} Actual: #{title}")
+  all_trs = section.find_element(:class, "portlet-body").find_elements(:tag_name, "tr")
+  listOfItems.each do |item|
+    found = false
+    all_trs.each do |tr|
+      if (tr.text.include? item)
+        found = true
+        break
+      end
+    end
+    assert(found,"#{item} was not found in My Applications")
+  end
 end
 
 ### TODO 

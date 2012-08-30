@@ -28,8 +28,9 @@ Then I should see Admin link
 And I should see logo
 And I should see username "SLC Operator"
 And I should see footer
-Then I follow "Admin"
+Then I click on Admin
 And I should see logo
+And under System Tools, I see the following "Application Registration Approval;Account Approval;Change Password"
 
 @RALLY_US570 @RALLY_US576 @RALLY_US575 @RALLY_US1200 @RALLY_US581
 Scenario:check sli logo and user name in header and footer for normal user 

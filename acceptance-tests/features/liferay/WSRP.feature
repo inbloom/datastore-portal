@@ -29,7 +29,7 @@ When I login with "rrogers" and "rrogers1234"
 #this is normal user 
 Then I should be on the home page
 Then I should see "Admin"
-Then I follow "Admin"
+Then I click on Admin
 Then I should be on the admin page
 Then I follow all the wsrp links
 
@@ -40,7 +40,7 @@ And I was redirected to the "Simple" IDP Login page
 When I submit the credentials "slcoperator" "slcoperator1234" for the "Simple" login page 
 Then I should be on the home page
 Then I should see Admin link
-Then I follow "Admin"
+Then I click on Admin
 Then I should be on the admin page
 Then I follow all the wsrp links
  
@@ -51,6 +51,6 @@ And I was redirected to the "Simple" IDP Login page
 When I submit the credentials "sunsetrealmadmin" "sunsetrealmadmin1234" for the "Simple" login page 
 Then I should be on the home page
 Then I should see Admin link
-Then I follow "Admin"
+Then I click on Admin
 Then I should be on the admin page
 Then I follow all the wsrp links
