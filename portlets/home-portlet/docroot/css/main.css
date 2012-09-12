@@ -1,0 +1,12 @@
+[class^="icon-"],[class*=" icon-"] {
+    background-image:url("../images/glyphicons-halflings.png");
+}
+.icon-white, .nav > .active > a > [class^="icon-"], .nav > .active > a > [class*=" icon-"], .dropdown-menu > li > a:hover > [class^="icon-"], .dropdown-menu > li > a:hover > [class*=" icon-"], .dropdown-menu > .active > a > [class^="icon-"], .dropdown-menu > .active > a > [class*=" icon-"]  {
+    background-image:url("../images/glyphicons-halflings-white.png");
+}
+
+.devCheckList { text-align: center; border: 1px solid #DDDDDD; padding: 10px 20px; }
+
+.devCheckList a { cursor: pointer; }
+
+#apply_button { position: absolute; font-size: 11px; margin-left: 10px; }

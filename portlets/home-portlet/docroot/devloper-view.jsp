@@ -17,32 +17,7 @@
 
 
 <link rel="stylesheet" href="css/bootstrap.min.css">
-<style>
-[class^="icon-"],[class*=" icon-"] {
-	background-image: url("images/glyphicons-halflings.png");
-}
-
-.icon-white,.nav>.active>a>[class^="icon-"],.nav>.active>a>[class*=" icon-"],.dropdown-menu>li>a:hover>[class^="icon-"],.dropdown-menu>li>a:hover>[class*=" icon-"],.dropdown-menu>.active>a>[class^="icon-"],.dropdown-menu>.active>a>[class*=" icon-"]
-	{
-	background-image: url("images/glyphicons-halflings-white.png");
-}
-
-.devCheckList {
-	text-align: center;
-	border: 1px solid #DDDDDD;
-	padding: 10px 20px;
-}
-
-.devCheckList a {
-	cursor: pointer;
-}
-
-#apply_button {
-	position: absolute;
-	font-size: 11px;
-	margin-left: 10px;
-}
-</style>
+<link rel="stylesheet" href="css/main.css">
 <div class="span4 devCheckList">
 
 	<%
@@ -69,15 +44,15 @@
 			<td>
 				<% if (taskState) { %> <i class="icon-ok"></i> <% } %>
 			</td>
-			<td><a><%=taskName%></a></td>
+			<td><a class="tasks" data-content="And here's some amazing content. It's very engaging. right?" data-original-title="<%=taskName%>"><%=taskName%></a></td>
 		</tr>
 		<%
 		    }
 		%>
 	</table>
 	<form class="form-inline">
-		<label class="checkbox"> <input type="checkbox" id="checkbox">
-			Don't show this again.
+		<label class="checkbox">
+            <input type="checkbox" id="checkbox"> Don't show this again.
 		</label>
 		<button type="submit" id="apply_button" class="hide btn btn-primary">Apply</button>
 	</form>
@@ -111,11 +86,5 @@
 	%>
 </div>
 <script src="js/libs/jquery-1.7.2.min.js" sync></script>
-<script>
-	$(function() {
-		$("#checkbox").click(function() {
-			$("#apply_button").toggle();
-		});
-
-	});
-</script>
+<script src="js/libs/bootstrap.min.js" sync></script>
+<script src="js/libs/main.js" sync></script>
