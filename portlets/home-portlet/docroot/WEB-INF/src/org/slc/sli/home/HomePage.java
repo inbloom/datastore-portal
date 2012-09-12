@@ -7,6 +7,10 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
+import javax.portlet.ActionRequest;
+import javax.portlet.ActionResponse;
+import javax.portlet.PortletMode;
+import javax.portlet.PortletModeException;
 import javax.portlet.PortletPreferences;
 import javax.portlet.ReadOnlyException;
 import javax.portlet.RenderRequest;
@@ -15,6 +19,8 @@ import javax.portlet.PortletException;
 import javax.portlet.ResourceRequest;
 import javax.portlet.ResourceResponse;
 import javax.portlet.ValidatorException;
+import javax.portlet.WindowState;
+import javax.portlet.WindowStateException;
 
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.util.bridges.mvc.MVCPortlet;
@@ -48,9 +54,9 @@ public class HomePage extends MVCPortlet {
         
         PortletPreferences preferences = renderRequest.getPreferences();
         
-        String doNotShowCheckList = preferences.getValue(DO_NOT_SHOW_CHECK_LIST, "false");
+        String doNotShowCheckList = preferences.getValue(DO_NOT_SHOW_CHECK_LIST, Boolean.FALSE.toString());
         
-        return doNotShowCheckList.equals("true");
+        return doNotShowCheckList.equals(Boolean.TRUE.toString());
     }
     
     /**
@@ -69,30 +75,42 @@ public class HomePage extends MVCPortlet {
         
         // If a user has a developer role and wants to see a check list,
         // set URL to developer-view.jsp and create a list of a check list.
-        if (isDeveloper() && !isDoShowCheckList(renderRequest)) {
+        if (isDeveloper()) {
             url = DEVELOPER_VIEW;
-            renderRequest.setAttribute(CHECK_LIST, getCheckList());
+            List<Map.Entry<String, Boolean>> checkList = null;
+            if (!isDoShowCheckList(renderRequest)) {
+                checkList = getCheckList();
+            }
+            renderRequest.setAttribute(CHECK_LIST, checkList);
         }
         
         getPortletContext().getRequestDispatcher(url).include(renderRequest, renderResponse);
     }
     
     /**
-     * serveResource method is for AJAX handling
+     * When a User hits "Apply", this method will be executed.
      */
     @Override
-    public void serveResource(ResourceRequest resourceRequest, ResourceResponse resourceResponse) {
+    public void processAction(ActionRequest actionRequest, ActionResponse actionResponse) {
         // read doNotShowList value and store in PortalPreferences
-        String doNotShowList = ParamUtil.getString(resourceRequest, DO_NOT_SHOW_CHECK_LIST);
-        if (doNotShowList != null && doNotShowList.equals("true")) {
-            PortletPreferences preferences = resourceRequest.getPreferences();
+        String doNotShowList = ParamUtil.getString(actionRequest, DO_NOT_SHOW_CHECK_LIST);
+        if (doNotShowList != null && doNotShowList.equals(Boolean.TRUE.toString())) {
+            PortletPreferences preferences = actionRequest.getPreferences();
             try {
-                preferences.setValue(DO_NOT_SHOW_CHECK_LIST, "true");
+                preferences.setValue(DO_NOT_SHOW_CHECK_LIST, Boolean.TRUE.toString());
                 preferences.store();
             } catch (ReadOnlyException e) {
             } catch (ValidatorException e) {
             } catch (IOException e) {
             }
+        }
+        try {
+            actionResponse.setPortletMode(PortletMode.VIEW);
+            actionResponse.setWindowState(WindowState.NORMAL);
+        } catch (PortletModeException e) {
+            
+        } catch (WindowStateException e) {
+            e.printStackTrace();
         }
     }
     
