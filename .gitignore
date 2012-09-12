@@ -22,6 +22,7 @@ portlets/ConfigureApp-portlet/docroot/WEB-INF/classes
 portlets/headerfooter-portlet/docroot/WEB-INF/classes
 portlets/web-form-portlet/docroot/WEB-INF/classes
 portlets/wsrp-portlet/docroot/WEB-INF/classes
+portlets/home-portlet/docroot/WEB-INF/classes
 
 webs/sso-web/docroot/WEB-INF/classes
 webs/SLIWSClient-2/docroot/WEB-INF/classes
