@@ -4,10 +4,10 @@
 package org.slc.sli.home;
 
 import java.io.IOException;
-import org.slc.sli.client.CheckListHelper;
-import java.util.List;
-import java.util.Map;
 
+import org.slc.sli.util.CheckListHelper;
+
+import java.util.List;
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
 import javax.portlet.PortletMode;
@@ -67,9 +67,9 @@ public class HomePage extends MVCPortlet {
      * 
      * @return
      */
-    private List<Map.Entry<String, Boolean>> getCheckList(String token) {
-    	CheckListHelper checkListHelper = new CheckListHelper(token);
-        return checkListHelper.getCheckList();
+    private List<CheckListHelper.CheckList> getCheckList(String token) {
+    	CheckListHelper checkListHelper = new CheckListHelper();
+        return checkListHelper.getCheckLists(token);
     }
     
     @Override
@@ -81,7 +81,7 @@ public class HomePage extends MVCPortlet {
         // set URL to developer-view.jsp and create a list of a check list.
         if (isDeveloper()) {
             url = DEVELOPER_VIEW;
-            List<Map.Entry<String, Boolean>> checkList = null;
+            List<CheckListHelper.CheckList> checkList = null;
             if (!isDoShowCheckList(renderRequest)) {
             	HttpSession session = PortalUtil.getHttpServletRequest(renderRequest).getSession(false);
 

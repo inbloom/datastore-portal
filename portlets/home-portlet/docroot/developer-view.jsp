@@ -1,4 +1,5 @@
 
+<%@page import="org.slc.sli.util.CheckListHelper"%>
 <%
     /**
      * SLI Copy right here
@@ -16,12 +17,14 @@
 
 
 
-<link rel="stylesheet" href="<%=renderRequest.getContextPath()%>/css/bootstrap.min.css">
-<link rel="stylesheet" href="<%=renderRequest.getContextPath()%>/css/main.css">
+<link rel="stylesheet"
+	href="<%=renderRequest.getContextPath()%>/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="<%=renderRequest.getContextPath()%>/css/main.css">
 <div class="span4 devCheckList">
 
 	<%
-	    List<Map.Entry<String, Boolean>> checkLists = (List<Map.Entry<String, Boolean>>) renderRequest
+	    List<CheckListHelper.CheckList> checkLists = (List<CheckListHelper.CheckList>) renderRequest
 	            .getAttribute(HomePage.CHECK_LIST);
 	    //if checkLists is not null, then a user would like to see a checkList
 	    if (checkLists != null) {
@@ -35,16 +38,19 @@
 		</tr>
 
 		<%
-		    for (Map.Entry<String, Boolean> checkList : checkLists) {
-		            String taskName = (String) checkList.getKey();
-		            Boolean taskState = (Boolean) checkList.getValue();
+		    for (CheckListHelper.CheckList checkList : checkLists) {
+		            String taskName = checkList.getTaskName();
+		            boolean taskState = checkList.isTaskFinished();
+		            String taskDescription = checkList.getTaskDescription();
 		%>
 
 		<tr>
 			<td>
 				<% if (taskState) { %> <i class="icon-ok"></i> <% } %>
 			</td>
-			<td><a class="tasks" data-content="And here's some amazing content. It's very engaging. right?" data-original-title="<%=taskName%>"><%=taskName%></a></td>
+			<td><a class="tasks"
+				data-content="<%=taskDescription%>"
+				data-original-title="<%=taskName%>"><%=taskName%></a></td>
 		</tr>
 		<%
 		    }
@@ -92,5 +98,14 @@
 	    }
 	%>
 </div>
+<<<<<<< Updated upstream
 <script src="<%=renderRequest.getContextPath()%>/js/libs/jquery-1.7.2.min.js" sync></script>
 <script src="<%=renderRequest.getContextPath()%>/js/libs/bootstrap.min.js" sync></script>
+=======
+<script
+	src="<%=renderRequest.getContextPath()%>/js/libs/jquery-1.7.2.min.js"
+	sync></script>
+<script
+	src="<%=renderRequest.getContextPath()%>/js/libs/bootstrap.min.js" sync></script>
+<script src="<%=renderRequest.getContextPath()%>/js/main.js" sync></script>
+>>>>>>> Stashed changes
