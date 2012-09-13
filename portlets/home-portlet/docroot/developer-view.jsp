@@ -17,6 +17,7 @@
 
 
 <link rel="stylesheet" href="<%=renderRequest.getContextPath()%>/css/bootstrap.min.css">
+<link rel="stylesheet" href="<%=renderRequest.getContextPath()%>/css/main.css">
 <div class="span4 devCheckList">
 
 	<%
