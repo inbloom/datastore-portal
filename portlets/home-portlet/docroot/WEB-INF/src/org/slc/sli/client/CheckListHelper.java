@@ -13,11 +13,11 @@ import com.google.gson.JsonArray;
 
 public class CheckListHelper {
 	
-	private static final String PROVISIONED_LZ = "Provisioned_LZ";
-	private static final String UPLOADED_DATA = "Uploaded_Data";
-	private static final String ADDED_USER = "Added_User";
-	private static final String REGISTERED_APP = "Registered_App";
-	private static final String ENABLED_APP = "Enabled_App";
+	private static final String PROVISION_LZ = "Provision a Landing Zone";
+	private static final String UPLOAD_DATA = "Upload Data";
+	private static final String ADD_USER = "Add Users";
+	private static final String REGISTER_APP = "Register your Application";
+	private static final String ENABLE_APP = "Enable an Application";
 	
 	private RESTClient restClient;
 	private String token;
@@ -31,9 +31,12 @@ public class CheckListHelper {
 	{
 		List<Map.Entry<String, Boolean>> checkList = new ArrayList<Map.Entry<String,Boolean>>();
 		
-		Map.Entry<String, Boolean> test = new AbstractMap.SimpleEntry<String, Boolean>(PROVISIONED_LZ, this.hasProvisionedLandingZone());
-		checkList.add(test);
-
+		checkList.add(new AbstractMap.SimpleEntry<String, Boolean>(PROVISION_LZ, Boolean.TRUE));
+		checkList.add(new AbstractMap.SimpleEntry<String, Boolean>(UPLOAD_DATA, Boolean.TRUE));
+		checkList.add(new AbstractMap.SimpleEntry<String, Boolean>(ADD_USER, Boolean.TRUE));
+		checkList.add(new AbstractMap.SimpleEntry<String, Boolean>(REGISTER_APP, Boolean.TRUE));
+		checkList.add(new AbstractMap.SimpleEntry<String, Boolean>(ENABLE_APP, Boolean.FALSE));
+		
 		return checkList;
 	}
 	

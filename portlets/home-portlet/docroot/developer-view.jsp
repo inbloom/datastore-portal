@@ -16,8 +16,8 @@
 
 
 
-<link rel="stylesheet" href="css/bootstrap.min.css">
-<link rel="stylesheet" href="css/main.css">
+<link rel="stylesheet" href="<%=renderRequest.getContextPath()%>/css/bootstrap.min.css">
+<link rel="stylesheet" href="<%=renderRequest.getContextPath()%>/css/main.css">
 <div class="span4 devCheckList">
 
 	<%
@@ -59,7 +59,9 @@
 	<%
 	    } else {
 	%>
+	<%
 	//if checkList is null, then a user does not want to see a checkList
+	%>
 	<h4>How to Get Up and Running</h4>
 	<table class="table table-bordered">
 		<tr>
@@ -85,6 +87,6 @@
 	    }
 	%>
 </div>
-<script src="js/libs/jquery-1.7.2.min.js" sync></script>
-<script src="js/libs/bootstrap.min.js" sync></script>
-<script src="js/libs/main.js" sync></script>
+<script src="<%=renderRequest.getContextPath()%>/js/libs/jquery-1.7.2.min.js" sync></script>
+<script src="<%=renderRequest.getContextPath()%>/js/libs/bootstrap.min.js" sync></script>
+<script src="<%=renderRequest.getContextPath()%>/js/main.js" sync></script>
