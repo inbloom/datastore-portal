@@ -6,8 +6,8 @@
 		<display-name>Home</display-name>
 		<portlet-class>org.slc.sli.home.HomePage</portlet-class>
 		<init-param>
-			<name>view-jsp</name>
-			<value>/view.jsp</value>
+			<name>developer-view-jsp</name>
+			<value>/developer-view.jsp</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
 		<supports>
