@@ -17,7 +17,6 @@
 
 
 <link rel="stylesheet" href="<%=renderRequest.getContextPath()%>/css/bootstrap.min.css">
-<link rel="stylesheet" href="<%=renderRequest.getContextPath()%>/css/main.css">
 <div class="span4 devCheckList">
 
 	<%
@@ -89,4 +88,3 @@
 </div>
 <script src="<%=renderRequest.getContextPath()%>/js/libs/jquery-1.7.2.min.js" sync></script>
 <script src="<%=renderRequest.getContextPath()%>/js/libs/bootstrap.min.js" sync></script>
-<script src="<%=renderRequest.getContextPath()%>/js/main.js" sync></script>
