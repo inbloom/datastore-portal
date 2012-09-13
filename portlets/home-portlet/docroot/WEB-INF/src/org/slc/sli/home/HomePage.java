@@ -32,7 +32,7 @@ import com.liferay.util.bridges.mvc.MVCPortlet;
  */
 public class HomePage extends MVCPortlet {
     
-    private static final String DO_NOT_SHOW_CHECK_LIST = "doNotShowCheckList";
+    public static final String DO_NOT_SHOW_CHECK_LIST = "doNotShowCheckList";
     private static final String OAUTH_TOKEN = "OAUTH_TOKEN";
     private static final String USER_VIEW = "/user-view.jsp";
     private static final String DEVELOPER_VIEW = "/developer-view.jsp";
@@ -44,6 +44,7 @@ public class HomePage extends MVCPortlet {
      * @return true if he/she has a Developer role
      */
     private boolean isDeveloper() {
+    	// Do a session check to see if sliRoles is "Application Developer"
         return true;
     }
     

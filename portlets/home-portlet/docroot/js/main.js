@@ -22,7 +22,7 @@ var SLC = SLC || {};
 SLC.developer = (function() {
 
 	// when user "Don't show this again" checkbox selects, "Apply" button will be displayed
-	$("#checkbox").click(function () {
+	$(".action_checkbox").click(function () {
 		$("#apply_button").toggle();
 	});
 

@@ -50,9 +50,14 @@
 		    }
 		%>
 	</table>
-	<form class="form-inline">
+	
+	<portlet:actionURL var="developerViewURL">
+    	<portlet:param name="jspPage" value="/developer-view.jsp" />
+	</portlet:actionURL>
+
+	<form class="form-inline" action="<%= developerViewURL.toString() %>" method="post">
 		<label class="checkbox">
-            <input type="checkbox" id="checkbox"> Don't show this again.
+            <input type="checkbox" class="action_checkbox" id="<%= HomePage.DO_NOT_SHOW_CHECK_LIST %>"> Don't show this again.
 		</label>
 		<button type="submit" id="apply_button" class="hide btn btn-primary">Apply</button>
 	</form>
