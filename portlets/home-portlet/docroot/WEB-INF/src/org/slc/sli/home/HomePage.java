@@ -4,6 +4,7 @@
 package org.slc.sli.home;
 
 import java.io.IOException;
+import org.slc.sli.client.CheckListHelper;
 import java.util.List;
 import java.util.Map;
 
@@ -21,8 +22,10 @@ import javax.portlet.ResourceResponse;
 import javax.portlet.ValidatorException;
 import javax.portlet.WindowState;
 import javax.portlet.WindowStateException;
+import javax.servlet.http.HttpSession;
 
 import com.liferay.portal.kernel.util.ParamUtil;
+import com.liferay.portal.util.PortalUtil;
 import com.liferay.util.bridges.mvc.MVCPortlet;
 
 /**
@@ -32,6 +35,7 @@ import com.liferay.util.bridges.mvc.MVCPortlet;
 public class HomePage extends MVCPortlet {
     
     private static final String DO_NOT_SHOW_CHECK_LIST = "doNotShowCheckList";
+    private static final String OAUTH_TOKEN = "OAUTH_TOKEN";
     private static final String USER_VIEW = "/user-view.jsp";
     private static final String DEVELOPER_VIEW = "/developer-view.jsp";
     public static final String CHECK_LIST = "checkList";
@@ -64,8 +68,9 @@ public class HomePage extends MVCPortlet {
      * 
      * @return
      */
-    private List<Map.Entry<String, Boolean>> getCheckList() {
-        return null;
+    private List<Map.Entry<String, Boolean>> getCheckList(String token) {
+    	CheckListHelper checkListHelper = new CheckListHelper(token);
+        return checkListHelper.getCheckList();
     }
     
     @Override
@@ -79,7 +84,10 @@ public class HomePage extends MVCPortlet {
             url = DEVELOPER_VIEW;
             List<Map.Entry<String, Boolean>> checkList = null;
             if (!isDoShowCheckList(renderRequest)) {
-                checkList = getCheckList();
+            	HttpSession session = PortalUtil.getHttpServletRequest(renderRequest).getSession(false);
+
+         		String token = (String) session.getAttribute(OAUTH_TOKEN);
+                checkList = getCheckList(token);
             }
             renderRequest.setAttribute(CHECK_LIST, checkList);
         }
