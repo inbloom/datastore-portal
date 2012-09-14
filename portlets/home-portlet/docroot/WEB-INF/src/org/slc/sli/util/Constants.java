@@ -3,25 +3,26 @@ package org.slc.sli.util;
 /**
  * This class is for constants that are used in multiple places throughout the application.
  * Constants used only in one class should be kept in that class.
- *
+ * 
  * @author dwu
- *
+ * 
  */
 public class Constants {
     // API related URLs
     public static final String API_PREFIX = "api/rest";
-
+    
     public static final String SESSION_CHECK_PREFIX = "api/rest/system/session/check";
-     
+    
     // developer check list
     public static final String TENANTS = "tenants";
     public static final String TENANT_METRIC = "tenant_metrics";
     public static final String USERS = "users";
     public static final String APPS = "apps";
-   
+    public static final String API_V1 = "v1";
+    
     public static final String PROGRAM_ELL = "limitedEnglishProficiency";
     public static final String PROGRAM_FRE = "schoolFoodServicesEligibility";
-
+    
     // view config strings - TODO: should these be changed to enums?
     public static final String VIEW_TYPE_STUDENT_LIST = "listOfStudents";
     public static final String VIEW_TYPE_STUDENT_PROFILE_PAGE = "studentProfilePage";
@@ -31,7 +32,7 @@ public class Constants {
     public static final String FIELD_LOZENGES_POSITION_BACK = "post";
     public static final String FIELD_TYPE_HISTORICAL_GRADE = "historicalGrade";
     public static final String FIELD_TYPE_HISTORICAL_COURSE = "historicalCourse";
-
+    
     // model map keys
     public static final String MM_KEY_LOZENGE_CONFIG = "lozengeConfigs";
     public static final String MM_KEY_VIEW_CONFIG = "viewConfig";
@@ -103,30 +104,30 @@ public class Constants {
     public static final String ATTR_TERM = "term";
     
     public static final String HISTORICAL_DATA_VIEW = "Historical Data";
-
+    
     public static final Object ATTR_NAME_WITH_LINK = "name_w_link";
     
     public static final String PARAM_INCLUDE_FIELDS = "includeFields";
     
-    //Program Participation Constants
+    // Program Participation Constants
     public static final String SHOW_ELL_LOZENGE = "Yes";
-
+    
     /**
      * Contains the possible values for FRE participation
      */
     public static enum FREParticipation {
         FREE("Free"), REDUCED_PRICE("Reduced Price");
-
+        
         private final String value;
-
+        
         FREParticipation(String value) {
             this.value = value;
         }
-
+        
         public String getValue() {
             return value;
         }
-
+        
     }
-
+    
 }

@@ -22,7 +22,9 @@ public class CheckListHelper {
     private static final String EXTERNAL_ID = "external_id";
     private static final String AUTHORIZED_ED_ORGS = "authorized_ed_orgs";
     private static final String LANDING_ZONE = "landingZone";
-    private static final String PATH="path";
+    private static final String PATH = "path";
+    private static final String EDUCATION_ORGANIZATION = "educationOrganization";
+    private static final String ENTITY_COUNT = "entityCount";
     
     private static RESTClient restClient;
     
@@ -35,7 +37,7 @@ public class CheckListHelper {
         checkList
                 .add(new CheckList(PROVISION_LZ, "Provision description", hasProvisionedLandingZone(mySession, token)));
         // Upload Data
-        checkList.add(new CheckList(UPLOAD_DATA, "upload data description", hasUploadedData(mySession,token)));
+        checkList.add(new CheckList(UPLOAD_DATA, "upload data description", hasUploadedData(mySession, token)));
         // Add User
         checkList.add(new CheckList(ADD_USER, "add user description", hasAddedUsers(mySession, token)));
         // Register App
@@ -47,27 +49,51 @@ public class CheckListHelper {
     }
     
     /**
-     * check if ProvisionLandingZone has done
+     * It means whether sandbox tenant has data in their mongo 
+     * Tracking ingestion job doesn't seem like a good solution
+     * Possible solution: check mongo for data for that tenant 
      * 
+     * @param mySession
      * @param token
      * @return
      */
-    private boolean hasProvisionedLandingZone(JsonObject mySession, String token) {
+    private boolean hasUploadedData(JsonObject mySession, String token) {
         boolean result = false;
-        
-        String path = Constants.API_PREFIX + "/" + Constants.TENANTS;
-        JsonArray jsonArray = getJsonArray(path, token);
-        
-        // if a list of tenantIds in API call "tenants" contains my tennantId from sessionCheck,
-        // then consider as done
-        for (JsonElement jsonElement : jsonArray) {
-            JsonElement tenantId = jsonElement.getAsJsonObject().get(TENANT_ID);
-            if (tenantId != null && !tenantId.isJsonNull()) {
-                // API sessionCheck call
-                JsonElement myTenantId = mySession.get(TENANT_ID);
-                if (myTenantId != null && !myTenantId.isJsonNull()
-                        && myTenantId.getAsString().equals(tenantId.getAsString())) {
-                    result = true;
+        JsonElement myTenantIdJson = mySession.get(TENANT_ID);
+        if (myTenantIdJson != null && !myTenantIdJson.isJsonNull()) {
+            String myTenantId = myTenantIdJson.getAsString();
+            
+            //call API http(s)://xxx.xxx.xxx.xxx/api/rest/v1/tenant_metrics/<tenantId>
+            String path = Constants.API_PREFIX + "/" + Constants.API_V1 + "/" + Constants.TENANT_METRIC + "/"
+                    + myTenantId;
+            JsonArray tenantMetricJsonArray = getJsonArray(path, token);
+            
+            //find element with the same tenant id if there is multiple records
+            for (JsonElement tenantMetricElement : tenantMetricJsonArray) {
+                String tenantMetricTenantId = tenantMetricElement.getAsString();
+                if (tenantMetricTenantId != null && tenantMetricTenantId.equals(myTenantId)) {
+                    //found the same tenant
+                    JsonObject tenantMetricObject = tenantMetricElement.getAsJsonObject();
+                    if (tenantMetricObject != null && !tenantMetricObject.isJsonNull()) {
+                        
+                        //get educationOrganization element
+                        JsonElement educatinoOrganizationElement = tenantMetricObject.get(EDUCATION_ORGANIZATION);
+                        if (educatinoOrganizationElement != null && !educatinoOrganizationElement.isJsonNull()) {
+                            JsonObject educatinoOrganizationObject = educatinoOrganizationElement.getAsJsonObject();
+                            if (educatinoOrganizationObject != null && !educatinoOrganizationObject.isJsonNull()) {
+                                
+                                //get entityCount
+                                JsonElement entityCountElement = educatinoOrganizationObject.get(ENTITY_COUNT);
+                                if (entityCountElement != null && !entityCountElement.isJsonNull()) {
+                                    int entityCount = entityCountElement.getAsInt();
+                                    //if there is more than 0, then consider as data is ready
+                                    if (entityCount > 0) {
+                                        result = true;
+                                    }
+                                }
+                            }
+                        }
+                    }
                     break;
                 }
             }
@@ -76,11 +102,16 @@ public class CheckListHelper {
         return result;
     }
     
-    // Check for landingZone exists and that landingZone.path is defined
-    // note: the call retrieves the entire tenants collections, so we need to filter to the
-    // developer's tenant. The tenant name is the developer's login email.
-    private boolean hasUploadedData(JsonObject mySession, String token) {
-        
+    /**
+     * check if ProvisionLandingZone has done
+     * Check for landingZone exists and that landingZone.path is defined
+     * note: the call retrieves the entire tenants collections, so we need to filter to the
+     * developer's tenant. The tenant name is the developer's login email.
+     * 
+     * @param token
+     * @return
+     */
+    private boolean hasProvisionedLandingZone(JsonObject mySession, String token) {
         boolean uploadedData = false;
         JsonElement myTenantIdJson = mySession.get(TENANT_ID);
         if (myTenantIdJson != null && !myTenantIdJson.isJsonNull()) {
@@ -95,16 +126,16 @@ public class CheckListHelper {
                         if (myTenantId.equals(tenantId.getAsString())) {
                             // matched with my tenant
                             
-                            //find landingZone.path is defined
+                            // find landingZone.path is defined
                             JsonElement landingZoneJsonObject = tenantObject.get(LANDING_ZONE);
                             if (landingZoneJsonObject != null && !landingZoneJsonObject.isJsonNull()) {
                                 JsonArray landingZoneArray = landingZoneJsonObject.getAsJsonArray();
-                                if(landingZoneArray!=null&&!landingZoneJsonObject.isJsonNull()) {
-                                    for(JsonElement landingZone:landingZoneArray) {
+                                if (landingZoneArray != null && !landingZoneJsonObject.isJsonNull()) {
+                                    for (JsonElement landingZone : landingZoneArray) {
                                         JsonObject landingZoneObject = landingZone.getAsJsonObject();
                                         JsonElement landingZonePath = landingZoneObject.get(PATH);
-                                        if(landingZonePath!=null&&!landingZonePath.isJsonNull()) {
-                                            uploadedData=true;
+                                        if (landingZonePath != null && !landingZonePath.isJsonNull()) {
+                                            uploadedData = true;
                                             break;
                                         }
                                     }
