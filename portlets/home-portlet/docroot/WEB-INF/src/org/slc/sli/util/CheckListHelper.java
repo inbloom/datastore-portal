@@ -49,9 +49,9 @@ public class CheckListHelper {
     }
     
     /**
-     * It means whether sandbox tenant has data in their mongo 
-     * Tracking ingestion job doesn't seem like a good solution
-     * Possible solution: check mongo for data for that tenant 
+     * It means whether sandbox tenant has data in their mongo Tracking
+     * ingestion job doesn't seem like a good solution Possible solution: check
+     * mongo for data for that tenant
      * 
      * @param mySession
      * @param token
@@ -63,30 +63,36 @@ public class CheckListHelper {
         if (myTenantIdJson != null && !myTenantIdJson.isJsonNull()) {
             String myTenantId = myTenantIdJson.getAsString();
             
-            //call API http(s)://xxx.xxx.xxx.xxx/api/rest/v1/tenant_metrics/<tenantId>
+            // call API
+            // http(s)://xxx.xxx.xxx.xxx/api/rest/v1/tenant_metrics/<tenantId>
             String path = Constants.API_PREFIX + "/" + Constants.API_V1 + "/" + Constants.TENANT_METRIC + "/"
                     + myTenantId;
-            JsonArray tenantMetricJsonArray = getJsonArray(path, token);
+            String jsonText = restClient.makeJsonRequestWHeaders(path, token, true);
+            JsonParser parser = new JsonParser();
+            JsonObject jsonObject = parser.parse(jsonText).getAsJsonObject();
             
-            //find element with the same tenant id if there is multiple records
-            for (JsonElement tenantMetricElement : tenantMetricJsonArray) {
-                String tenantMetricTenantId = tenantMetricElement.getAsString();
-                if (tenantMetricTenantId != null && tenantMetricTenantId.equals(myTenantId)) {
-                    //found the same tenant
+            if (jsonObject != null && !jsonObject.isJsonNull()) {
+                JsonElement tenantMetricElement = jsonObject.get(myTenantId);
+                
+                // find element with the same tenant id if there is multiple
+                // records
+                if (tenantMetricElement != null && !tenantMetricElement.isJsonNull()) {
+                    
                     JsonObject tenantMetricObject = tenantMetricElement.getAsJsonObject();
                     if (tenantMetricObject != null && !tenantMetricObject.isJsonNull()) {
                         
-                        //get educationOrganization element
-                        JsonElement educatinoOrganizationElement = tenantMetricObject.get(EDUCATION_ORGANIZATION);
-                        if (educatinoOrganizationElement != null && !educatinoOrganizationElement.isJsonNull()) {
-                            JsonObject educatinoOrganizationObject = educatinoOrganizationElement.getAsJsonObject();
+                        // get educationOrganization element
+                        JsonElement educationOrganizationElement = tenantMetricObject.get(EDUCATION_ORGANIZATION);
+                        if (educationOrganizationElement != null && !educationOrganizationElement.isJsonNull()) {
+                            JsonObject educatinoOrganizationObject = educationOrganizationElement.getAsJsonObject();
                             if (educatinoOrganizationObject != null && !educatinoOrganizationObject.isJsonNull()) {
                                 
-                                //get entityCount
+                                // get entityCount
                                 JsonElement entityCountElement = educatinoOrganizationObject.get(ENTITY_COUNT);
                                 if (entityCountElement != null && !entityCountElement.isJsonNull()) {
                                     int entityCount = entityCountElement.getAsInt();
-                                    //if there is more than 0, then consider as data is ready
+                                    // if there is more than 0, then
+                                    // consider as data is ready
                                     if (entityCount > 0) {
                                         result = true;
                                     }
@@ -94,7 +100,6 @@ public class CheckListHelper {
                             }
                         }
                     }
-                    break;
                 }
             }
         }
@@ -103,10 +108,10 @@ public class CheckListHelper {
     }
     
     /**
-     * check if ProvisionLandingZone has done
-     * Check for landingZone exists and that landingZone.path is defined
-     * note: the call retrieves the entire tenants collections, so we need to filter to the
-     * developer's tenant. The tenant name is the developer's login email.
+     * check if ProvisionLandingZone has done Check for landingZone exists and
+     * that landingZone.path is defined note: the call retrieves the entire
+     * tenants collections, so we need to filter to the developer's tenant. The
+     * tenant name is the developer's login email.
      * 
      * @param token
      * @return
