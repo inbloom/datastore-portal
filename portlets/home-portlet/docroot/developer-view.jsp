@@ -98,14 +98,5 @@
 	    }
 	%>
 </div>
-<<<<<<< Updated upstream
 <script src="<%=renderRequest.getContextPath()%>/js/libs/jquery-1.7.2.min.js" sync></script>
 <script src="<%=renderRequest.getContextPath()%>/js/libs/bootstrap.min.js" sync></script>
-=======
-<script
-	src="<%=renderRequest.getContextPath()%>/js/libs/jquery-1.7.2.min.js"
-	sync></script>
-<script
-	src="<%=renderRequest.getContextPath()%>/js/libs/bootstrap.min.js" sync></script>
-<script src="<%=renderRequest.getContextPath()%>/js/main.js" sync></script>
->>>>>>> Stashed changes
