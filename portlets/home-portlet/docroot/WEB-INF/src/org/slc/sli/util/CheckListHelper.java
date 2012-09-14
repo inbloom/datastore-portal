@@ -21,20 +21,21 @@ public class CheckListHelper {
     private static final String UID = "uid";
     private static final String EXTERNAL_ID = "external_id";
     private static final String AUTHORIZED_ED_ORGS = "authorized_ed_orgs";
+    private static final String LANDING_ZONE = "landingZone";
+    private static final String PATH="path";
     
     private static RESTClient restClient;
     
-    public List<CheckList> getCheckLists(String token) {
+    public List<CheckList> getCheckLists(String token, JsonObject mySession) {
         List<CheckList> checkList = new ArrayList<CheckList>();
         
         JsonArray jsonArrayApps = getApps(token);
-        JsonObject mySession = restClient.sessionCheck(token);
         
         // Provision LZ
         checkList
                 .add(new CheckList(PROVISION_LZ, "Provision description", hasProvisionedLandingZone(mySession, token)));
         // Upload Data
-        checkList.add(new CheckList(UPLOAD_DATA, "upload data description", true));
+        checkList.add(new CheckList(UPLOAD_DATA, "upload data description", hasUploadedData(mySession,token)));
         // Add User
         checkList.add(new CheckList(ADD_USER, "add user description", hasAddedUsers(mySession, token)));
         // Register App
@@ -75,8 +76,47 @@ public class CheckListHelper {
         return result;
     }
     
-    private boolean hasUploadedData() {
-        return false;
+    // Check for landingZone exists and that landingZone.path is defined
+    // note: the call retrieves the entire tenants collections, so we need to filter to the
+    // developer's tenant. The tenant name is the developer's login email.
+    private boolean hasUploadedData(JsonObject mySession, String token) {
+        
+        boolean uploadedData = false;
+        JsonElement myTenantIdJson = mySession.get(TENANT_ID);
+        if (myTenantIdJson != null && !myTenantIdJson.isJsonNull()) {
+            String myTenantId = myTenantIdJson.getAsString();
+            String path = Constants.API_PREFIX + "/" + Constants.TENANTS;
+            JsonArray tenantJsonArray = getJsonArray(path, token);
+            for (JsonElement tenantElement : tenantJsonArray) {
+                JsonObject tenantObject = tenantElement.getAsJsonObject();
+                if (tenantObject != null && !tenantObject.isJsonNull()) {
+                    JsonElement tenantId = tenantObject.get(TENANT_ID);
+                    if (tenantId != null && !tenantId.isJsonNull()) {
+                        if (myTenantId.equals(tenantId.getAsString())) {
+                            // matched with my tenant
+                            
+                            //find landingZone.path is defined
+                            JsonElement landingZoneJsonObject = tenantObject.get(LANDING_ZONE);
+                            if (landingZoneJsonObject != null && !landingZoneJsonObject.isJsonNull()) {
+                                JsonArray landingZoneArray = landingZoneJsonObject.getAsJsonArray();
+                                if(landingZoneArray!=null&&!landingZoneJsonObject.isJsonNull()) {
+                                    for(JsonElement landingZone:landingZoneArray) {
+                                        JsonObject landingZoneObject = landingZone.getAsJsonObject();
+                                        JsonElement landingZonePath = landingZoneObject.get(PATH);
+                                        if(landingZonePath!=null&&!landingZonePath.isJsonNull()) {
+                                            uploadedData=true;
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+        return uploadedData;
     }
     
     private boolean hasAddedUsers(JsonObject mySession, String token) {
@@ -108,12 +148,15 @@ public class CheckListHelper {
     
     private boolean hasEnabledApp(JsonArray jsonArrayApps) {
         // Check authorized_ed_orgs exists and is non-empty
-        boolean result = jsonArrayApps.size() > 0;
+        boolean result = false;
         for (JsonElement jsonElement : jsonArrayApps) {
-            JsonElement authorizedEdOrg = jsonElement.getAsJsonObject().get(AUTHORIZED_ED_ORGS);
-            if (authorizedEdOrg.isJsonNull() || authorizedEdOrg.getAsString().isEmpty()) {
-                result = false;
-                break;
+            JsonElement authorizedEdOrgObject = jsonElement.getAsJsonObject().get(AUTHORIZED_ED_ORGS);
+            if (authorizedEdOrgObject != null && !authorizedEdOrgObject.isJsonNull()) {
+                JsonArray authorizedEdOrgs = authorizedEdOrgObject.getAsJsonArray();
+                if (authorizedEdOrgs != null && !authorizedEdOrgs.isJsonNull() && authorizedEdOrgs.size() > 0) {
+                    result = true;
+                    break;
+                }
             }
         }
         return result;
@@ -125,10 +168,18 @@ public class CheckListHelper {
     }
     
     private JsonArray getJsonArray(String path, String token) {
-        String jsonText = restClient.makeJsonRequestWHeaders(path, token, true);
-        
-        JsonParser parser = new JsonParser();
-        JsonArray jsonArray = parser.parse(jsonText).getAsJsonArray();
+        JsonArray jsonArray = null;
+        try {
+            String jsonText = restClient.makeJsonRequestWHeaders(path, token, true);
+            
+            JsonParser parser = new JsonParser();
+            jsonArray = parser.parse(jsonText).getAsJsonArray();
+        } catch (Exception e) {
+            // possibly API returns 500 or throws some Exception
+            // HttpServerErrorException: 500 Internal Server Error
+            // if this is the case, return empty JsonArray
+            jsonArray = new JsonArray();
+        }
         
         return jsonArray;
     }
