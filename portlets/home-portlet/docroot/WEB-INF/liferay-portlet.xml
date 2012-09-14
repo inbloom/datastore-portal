@@ -5,6 +5,7 @@
 	<portlet>
 		<portlet-name>home</portlet-name>
 		<icon>/icon.png</icon>
+		<preferences-owned-by-group>false</preferences-owned-by-group>
 		<instanceable>false</instanceable>
 		<private-session-attributes>false</private-session-attributes>
 		<header-portlet-css>/css/main.css</header-portlet-css>
