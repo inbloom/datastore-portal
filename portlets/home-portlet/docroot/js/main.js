@@ -22,8 +22,13 @@ var SLC = SLC || {};
 SLC.developer = (function() {
 
 	// when user "Don't show this again" checkbox selects, "Apply" button will be displayed
-	$(".action_checkbox").click(function () {
-		$("#apply_button").toggle();
+	$(".action_checkbox").click(function (e) {
+		if ($(this).is(':checked')) {
+			$("#apply_button").css("display", "inline-block");
+		}
+		else {
+			$("#apply_button").css("display", "none");
+		}
 	});
 
 	// create a popover for the tasks
