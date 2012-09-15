@@ -56,7 +56,7 @@
 		    }
 		%>
 	</table>
-	
+
 	<portlet:actionURL var="developerViewURL">
     	<portlet:param name="jspPage" value="/developer-view.jsp" />
 	</portlet:actionURL>
@@ -98,5 +98,5 @@
 	    }
 	%>
 </div>
-<script src="<%=renderRequest.getContextPath()%>/js/libs/jquery-1.7.2.min.js" sync></script>
-<script src="<%=renderRequest.getContextPath()%>/js/libs/bootstrap.min.js" sync></script>
+<script src="<%=renderRequest.getContextPath()%>/js/libs/bootstrap-tooltip.js" sync></script>
+<script src="<%=renderRequest.getContextPath()%>/js/libs/bootstrap-popover.js" sync></script>

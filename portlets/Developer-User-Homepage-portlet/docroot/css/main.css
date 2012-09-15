@@ -5,6 +5,18 @@
     background-image:url("../images/glyphicons-halflings-white.png");
 }
 
+.modal {
+    border: none !important;
+    box-shadow: none !important;
+    position: relative !important;
+    top: 0 !important;
+    width: auto !important;
+    border-radius: 0px !important;
+    left: 0 !important;
+}
+
+#sli_heading h1 { line-height: 1 !important; }
+
 .devCheckList { text-align: center; border: 1px solid #DDDDDD; padding: 10px 20px; }
 
 .devCheckList a { cursor: pointer; }
