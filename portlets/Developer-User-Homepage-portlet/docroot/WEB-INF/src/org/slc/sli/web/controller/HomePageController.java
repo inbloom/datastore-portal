@@ -1,7 +1,20 @@
-/**
- * 
+/*
+ * Copyright 2012 Shared Learning Collaborative, LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
-package org.slc.sli.home;
+
+package org.slc.sli.web.controller;
 
 import java.io.IOException;
 
@@ -29,21 +42,20 @@ import com.liferay.portal.util.PortalUtil;
 import com.liferay.util.bridges.mvc.MVCPortlet;
 
 /**
+ * Controller to display Developer or User Home page in Developer-User-Homepage portlet
  * @author dip
  * 
  */
-public class HomePage extends MVCPortlet {
+public class HomePageController extends MVCPortlet {
     
     public static final String DO_NOT_SHOW_CHECK_LIST = "doNotShowCheckList";
     private static final String OAUTH_TOKEN = "OAUTH_TOKEN";
     private static final String USER_VIEW = "/user-view.jsp";
-    private static final String DEVELOPER_VIEW = "/developer-view.jsp";
+    public static final String DEVELOPER_VIEW = "/developer-view.jsp";
     public static final String CHECK_LIST = "checkList";
     private static final String SLI_ROLES = "sliRoles";
     private static final String DEVELOPER = "Application Developer";
     private static final String IS_SANDBOX = "is_sandbox";
-    private static final String DEVELOPER_HOME = "Developer Home";
-    private static final String HOME = "Home";
     
     private static RESTClient restClient;
     
@@ -117,11 +129,7 @@ public class HomePage extends MVCPortlet {
                 checkList = getCheckList(token, mySession);
             }
             renderRequest.setAttribute(CHECK_LIST, checkList);
-            renderResponse.setTitle(DEVELOPER_HOME);
-        } else {
-            renderResponse.setTitle(HOME);
         }
-        
         getPortletContext().getRequestDispatcher(url).include(renderRequest, renderResponse);
     }
     
@@ -148,6 +156,6 @@ public class HomePage extends MVCPortlet {
     }
     
     public void setRestClient(RESTClient restClient) {
-        HomePage.restClient = restClient;
+        HomePageController.restClient = restClient;
     }
 }

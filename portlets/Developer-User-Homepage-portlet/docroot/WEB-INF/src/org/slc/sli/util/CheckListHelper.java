@@ -1,3 +1,19 @@
+/*
+ * Copyright 2012 Shared Learning Collaborative, LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package org.slc.sli.util;
 
 import java.util.List;
@@ -9,6 +25,12 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonArray;
+
+/**
+ * CheckListHelper class helps to create a list of check list for Developer Home page
+ * @author Takashi Osako
+ *
+ */
 
 public class CheckListHelper {
     
@@ -28,6 +50,12 @@ public class CheckListHelper {
     
     private static RESTClient restClient;
     
+    /**
+     * Create List of check list which includes Task name, task description, and task indicator
+     * @param token
+     * @param mySession
+     * @return
+     */
     public List<CheckList> getCheckLists(String token, JsonObject mySession) {
         List<CheckList> checkList = new ArrayList<CheckList>();
         
@@ -49,7 +77,7 @@ public class CheckListHelper {
     }
     
     /**
-     * It means whether sandbox tenant has data in their mongo Tracking
+     * whether sandbox tenant has data in their mongo Tracking
      * ingestion job doesn't seem like a good solution Possible solution: check
      * mongo for data for that tenant
      * 
@@ -102,7 +130,6 @@ public class CheckListHelper {
                 }
             }
         }
-        
         return result;
     }
     
@@ -153,7 +180,15 @@ public class CheckListHelper {
         }
         return uploadedData;
     }
-    
+    /**
+     * To find users have been added or not
+     * API Call http(s)://xxx.xxx.xxx.xxx/api/rest/users
+     * get external_id from session.
+     * then, find himself/herself from rest users call
+     * @param mySession
+     * @param token
+     * @return
+     */
     private boolean hasAddedUsers(JsonObject mySession, String token) {
         boolean result = false;
         String path = Constants.API_PREFIX + "/" + Constants.USERS;
@@ -181,6 +216,13 @@ public class CheckListHelper {
         return result;
     }
     
+    /**
+     * Check authorized_ed_orgs exists and is non-empty
+     * API call http(s)://xxx.xxx.xxx.xxx/api/rest/apps
+     * 
+     * @param jsonArrayApps
+     * @return
+     */
     private boolean hasEnabledApp(JsonArray jsonArrayApps) {
         // Check authorized_ed_orgs exists and is non-empty
         boolean result = false;
@@ -197,11 +239,23 @@ public class CheckListHelper {
         return result;
     }
     
+    /**
+     * helper method
+     * API call http(s)://xxx.xxx.xxx.xxx/api/rest/apps
+     * @param token
+     * @return
+     */
     private JsonArray getApps(String token) {
         String path = Constants.API_PREFIX + "/" + Constants.APPS;
         return getJsonArray(path, token);
     }
     
+    /**
+     * Call API call by given path and return as JsonArray
+     * @param path
+     * @param token
+     * @return
+     */
     private JsonArray getJsonArray(String path, String token) {
         JsonArray jsonArray = null;
         try {
@@ -224,7 +278,7 @@ public class CheckListHelper {
     }
     
     /**
-     * Check list information holder class
+     * POJO: Check list information holder class
      */
     public class CheckList {
         /**

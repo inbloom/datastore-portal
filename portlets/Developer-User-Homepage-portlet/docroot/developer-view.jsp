@@ -1,16 +1,25 @@
-
-<%@page import="org.slc.sli.util.CheckListHelper"%>
-<%
-    /**
-     * SLI Copy right here
-     */
-%>
+<%--
+/**
+ * Copyright (c) 2000-2012 Liferay, Inc. All rights reserved.
+ *
+ * This library is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation; either version 2.1 of the License, or (at your option)
+ * any later version.
+ *
+ * This library is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
+ */
+--%>
 
 <%@ taglib uri="http://java.sun.com/portlet_2_0" prefix="portlet"%>
-<%@ page import="org.slc.sli.home.HomePage"%>
+<%@ page import="org.slc.sli.util.CheckListHelper"%>
+<%@ page import="org.slc.sli.web.controller.HomePageController"%>
 <%@ page import="java.util.List"%>
 <%@ page import="java.util.Map"%>
-<%@ page import="org.slc.sli.home.HomePage"%>
+<%@ page import="org.slc.sli.web.controller.HomePageController"%>
 <%@ page import="javax.portlet.PortletPreferences"%>
 
 <portlet:defineObjects />
@@ -21,13 +30,16 @@
 	href="<%=renderRequest.getContextPath()%>/css/bootstrap.min.css">
 <link rel="stylesheet"
 	href="<%=renderRequest.getContextPath()%>/css/main.css">
+<script type="text/javascript">
+	$("div.sli_home_title").text("Developer Home");
+</script>
 <div class="span4 devCheckList">
 
 	<%
 	    List<CheckListHelper.CheckList> checkLists = (List<CheckListHelper.CheckList>) renderRequest
-	            .getAttribute(HomePage.CHECK_LIST);
-	    //if checkLists is not null, then a user would like to see a checkList
-	    if (checkLists != null) {
+		            .getAttribute(HomePageController.CHECK_LIST);
+		    //if checkLists is not null, then a user would like to see a checkList
+		    if (checkLists != null) {
 	%>
 	<h4>How to Get Up and Running</h4>
 	<table class="table table-bordered">
@@ -39,14 +51,18 @@
 
 		<%
 		    for (CheckListHelper.CheckList checkList : checkLists) {
-		            String taskName = checkList.getTaskName();
-		            boolean taskState = checkList.isTaskFinished();
-		            String taskDescription = checkList.getTaskDescription();
+				            String taskName = checkList.getTaskName();
+				            boolean taskState = checkList.isTaskFinished();
+				            String taskDescription = checkList.getTaskDescription();
 		%>
 
 		<tr>
 			<td>
-				<% if (taskState) { %> <i class="icon-ok"></i> <% } %>
+				<%
+				    if (taskState) {
+				%> <i class="icon-ok"></i> <%
+     }
+ %>
 			</td>
 			<td><a class="tasks"
 				data-content="<%=taskDescription%>"
@@ -58,12 +74,12 @@
 	</table>
 
 	<portlet:actionURL var="developerViewURL">
-    	<portlet:param name="jspPage" value="/developer-view.jsp" />
+    	<portlet:param name="jspPage" value="<%=HomePageController.DEVELOPER_VIEW%>" />
 	</portlet:actionURL>
 
-	<form class="form-inline" action="<%= developerViewURL.toString() %>" method="post">
+	<form class="form-inline" action="<%=developerViewURL.toString()%>" method="post">
 		<label class="checkbox">
-            <input type="checkbox" class="action_checkbox" id="<%= HomePage.DO_NOT_SHOW_CHECK_LIST %>"> Don't show this again.
+            <input type="checkbox" class="action_checkbox" id="<%=HomePageController.DO_NOT_SHOW_CHECK_LIST%>"> Don't show this again.
 		</label>
 		<button type="submit" id="apply_button" class="hide btn btn-primary">Apply</button>
 	</form>
