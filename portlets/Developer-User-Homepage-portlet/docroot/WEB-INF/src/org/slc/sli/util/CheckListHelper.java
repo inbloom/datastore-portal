@@ -68,8 +68,7 @@ public class CheckListHelper {
             String path = Constants.API_PREFIX + "/" + Constants.API_V1 + "/" + Constants.TENANT_METRIC + "/"
                     + myTenantId;
             String jsonText = restClient.makeJsonRequestWHeaders(path, token, true);
-            JsonParser parser = new JsonParser();
-            JsonObject jsonObject = parser.parse(jsonText).getAsJsonObject();
+            JsonObject jsonObject = (new JsonParser()).parse(jsonText).getAsJsonObject();
             
             if (jsonObject != null && !jsonObject.isJsonNull()) {
                 JsonElement tenantMetricElement = jsonObject.get(myTenantId);

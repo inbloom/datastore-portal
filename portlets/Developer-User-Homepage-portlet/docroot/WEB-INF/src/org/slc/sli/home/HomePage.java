@@ -22,7 +22,9 @@ import javax.servlet.http.HttpSession;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
+import com.liferay.portal.kernel.util.PropsUtil;
 import com.liferay.portal.util.PortalUtil;
 import com.liferay.util.bridges.mvc.MVCPortlet;
 
@@ -39,6 +41,9 @@ public class HomePage extends MVCPortlet {
     public static final String CHECK_LIST = "checkList";
     private static final String SLI_ROLES = "sliRoles";
     private static final String DEVELOPER = "Application Developer";
+    private static final String IS_SANDBOX = "is_sandbox";
+    private static final String DEVELOPER_HOME = "Developer Home";
+    private static final String HOME = "Home";
     
     private static RESTClient restClient;
     
@@ -47,17 +52,23 @@ public class HomePage extends MVCPortlet {
      * 
      * @return true if he/she has a Developer role
      */
-    private boolean isDeveloper(JsonObject mySession) {
+    private boolean isDeveloperAndSandbox(JsonObject mySession) {
+        
         boolean developer = false;
-        // Do a session check to see if sliRoles is "Application Developer"
-        JsonElement sli_role_element = mySession.get(SLI_ROLES);
-        if (sli_role_element != null && !sli_role_element.isJsonNull()) {
-            JsonArray sli_roles = sli_role_element.getAsJsonArray();
-            for (JsonElement sli_role : sli_roles) {
-                if (sli_role != null && !sli_role.isJsonNull()) {
-                    if (sli_role.getAsString().equals(DEVELOPER)) {
-                        developer = true;
-                        break;
+        
+        boolean is_sandbox = GetterUtil.getBoolean(PropsUtil.get(IS_SANDBOX));
+        // check if portal is running sandbox mode.
+        if (is_sandbox) {
+            // Do a session check to see if sliRoles is "Application Developer"
+            JsonElement sli_role_element = mySession.get(SLI_ROLES);
+            if (sli_role_element != null && !sli_role_element.isJsonNull()) {
+                JsonArray sli_roles = sli_role_element.getAsJsonArray();
+                for (JsonElement sli_role : sli_roles) {
+                    if (sli_role != null && !sli_role.isJsonNull()) {
+                        if (sli_role.getAsString().equals(DEVELOPER)) {
+                            developer = true;
+                            break;
+                        }
                     }
                 }
             }
@@ -98,7 +109,7 @@ public class HomePage extends MVCPortlet {
         JsonObject mySession = restClient.sessionCheck(token);
         // If a user has a developer role and wants to see a check list,
         // set URL to developer-view.jsp and create a list of a check list.
-        if (isDeveloper(mySession)) {
+        if (isDeveloperAndSandbox(mySession)) {
             url = DEVELOPER_VIEW;
             List<CheckListHelper.CheckList> checkList = null;
             if (!isDoShowCheckList(renderRequest)) {
@@ -106,6 +117,9 @@ public class HomePage extends MVCPortlet {
                 checkList = getCheckList(token, mySession);
             }
             renderRequest.setAttribute(CHECK_LIST, checkList);
+            renderResponse.setTitle(DEVELOPER_HOME);
+        } else {
+            renderResponse.setTitle(HOME);
         }
         
         getPortletContext().getRequestDispatcher(url).include(renderRequest, renderResponse);

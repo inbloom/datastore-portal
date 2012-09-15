@@ -2,8 +2,8 @@
 
 <portlet-app xmlns="http://java.sun.com/xml/ns/portlet/portlet-app_2_0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/portlet/portlet-app_2_0.xsd http://java.sun.com/xml/ns/portlet/portlet-app_2_0.xsd" version="2.0">
 	<portlet>
-		<portlet-name>home</portlet-name>
-		<display-name>Home</display-name>
+		<portlet-name>Developer-User-Homepage</portlet-name>
+		<display-name>Developer-User-Homepage</display-name>
 		<portlet-class>org.slc.sli.home.HomePage</portlet-class>
 		<init-param>
 			<name>developer-view-jsp</name>
@@ -14,9 +14,9 @@
 			<mime-type>text/html</mime-type>
 		</supports>
 		<portlet-info>
-			<title>Home</title>
-			<short-title>Home</short-title>
-			<keywords>Home</keywords>
+			<title>Developer-User-Homepage</title>
+			<short-title>Developer-User-Homepage</short-title>
+			<keywords>Developer-User-Homepage</keywords>
 		</portlet-info>
 		<security-role-ref>
 			<role-name>administrator</role-name>

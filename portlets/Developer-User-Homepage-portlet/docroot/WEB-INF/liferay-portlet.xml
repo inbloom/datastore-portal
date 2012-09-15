@@ -3,14 +3,14 @@
 
 <liferay-portlet-app>
 	<portlet>
-		<portlet-name>home</portlet-name>
+		<portlet-name>Developer-User-Homepage</portlet-name>
 		<icon>/icon.png</icon>
 		<preferences-owned-by-group>false</preferences-owned-by-group>
 		<instanceable>false</instanceable>
 		<private-session-attributes>false</private-session-attributes>
 		<header-portlet-css>/css/main.css</header-portlet-css>
 		<footer-portlet-javascript>/js/main.js</footer-portlet-javascript>
-		<css-class-wrapper>home-portlet</css-class-wrapper>
+		<css-class-wrapper>Developer-User-Homepage-portlet</css-class-wrapper>
 	</portlet>
 	<role-mapper>
 		<role-name>administrator</role-name>
