@@ -21,7 +21,7 @@
 	<bean id="checklistHelper" class="org.slc.sli.util.CheckListHelper" >
 	    <property name="restClient" ref="restClient" />
 	</bean>
-	<bean id="homePage" class="org.slc.sli.home.HomePage" >
+	<bean id="homePage" class="org.slc.sli.web.controller.HomePageController" >
 	    <property name="restClient" ref="restClient" />
 	</bean>
 </beans>

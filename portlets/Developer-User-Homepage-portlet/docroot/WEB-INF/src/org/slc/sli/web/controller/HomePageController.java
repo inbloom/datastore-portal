@@ -130,6 +130,7 @@ public class HomePageController extends MVCPortlet {
             }
             renderRequest.setAttribute(CHECK_LIST, checkList);
         }
+        renderResponse.setTitle("");
         getPortletContext().getRequestDispatcher(url).include(renderRequest, renderResponse);
     }
     

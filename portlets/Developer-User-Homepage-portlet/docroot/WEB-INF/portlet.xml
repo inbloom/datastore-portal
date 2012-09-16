@@ -4,7 +4,7 @@
 	<portlet>
 		<portlet-name>Developer-User-Homepage</portlet-name>
 		<display-name>Developer-User-Homepage</display-name>
-		<portlet-class>org.slc.sli.home.HomePage</portlet-class>
+		<portlet-class>org.slc.sli.web.controller.HomePageController</portlet-class>
 		<init-param>
 			<name>developer-view-jsp</name>
 			<value>/developer-view.jsp</value>
@@ -14,7 +14,7 @@
 			<mime-type>text/html</mime-type>
 		</supports>
 		<portlet-info>
-			<title></title>
+			<title>Developer-User-Homepage</title>
 			<short-title>Developer-User-Homepage</short-title>
 			<keywords>Developer-User-Homepage</keywords>
 		</portlet-info>
