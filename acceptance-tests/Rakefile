@@ -69,7 +69,8 @@ task :portalTests => [:portalAdminTests,
                       :portalAdminPageTests,
                       :portalEducatorLoginTests,
                       :portalWsrpTests,
-                      :portalHeaderFooterTests] do
+                      :portalHeaderFooterTests,
+                      :portalDeveloperHomePageTests] do
   displayFailureReport()
   if $SUCCESS
     puts "Completed All Tests"
@@ -125,4 +126,9 @@ end
 desc "Run Eula Agreement Test"
 task :portalEulaAgreementTests do
 # runTests("test/features/liferay/IL_Realm_EULA_agree.feature")
+end
+
+desc "Run Developer HomePage Test"
+task :portalDeveloperHomePageTests do
+   runTests("features/liferay/developer_homepage.feature")  
 end
