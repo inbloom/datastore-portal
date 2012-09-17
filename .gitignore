@@ -1,4 +1,5 @@
 build.properties
+build.*.properties
 
 # Target Folders #
 ###################
@@ -23,12 +24,15 @@ portlets/headerfooter-portlet/docroot/WEB-INF/classes
 portlets/web-form-portlet/docroot/WEB-INF/classes
 portlets/wsrp-portlet/docroot/WEB-INF/classes
 portlets/home-portlet/docroot/WEB-INF/classes
+portlets/Developer-User-Homepage-portlet/docroot/WEB-INF/classes/
 
 webs/sso-web/docroot/WEB-INF/classes
 webs/SLIWSClient-2/docroot/WEB-INF/classes
 
 themes/sli-new-theme/docroot/css/.sass-cache
 themes/sli-new-theme/docroot/css/color_schemes/.sass-cache
+
+portlets/Developer-User-Homepage-portlet/docroot/css/.sass-cache/
 
 # Eclipse Files #
 ###################
