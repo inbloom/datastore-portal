@@ -37,3 +37,6 @@
 </p>
 <p> If you experience any problems or if you have a great idea for a new feature, please let us know. Click your name at the top of this page and choose "Report a Problem" to share feedback with the SLC.</p>
 <p>  </p>
+
+<script src="<%=renderRequest.getContextPath()%>/js/libs/jquery-1.7.2.min.js" sync></script>
+
