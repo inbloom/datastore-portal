@@ -35,10 +35,15 @@ import com.google.gson.JsonArray;
 public class CheckListHelper {
     
     private static final String PROVISION_LZ = "Provision a Landing Zone";
+    private static final String PROVISION_LZ_DESCRIPTION = "A Landing Zone is where you drop your data to migrate it into your SLC Sandbox";
     private static final String UPLOAD_DATA = "Upload Data";
+    private static final String UPLOAD_DATA_DESCRIPTION = "Once you've created your Landing Zone, SFTP some sample data into your SLC Sandbox";
     private static final String ADD_USER = "Add Users";
+    private static final String ADD_USER_DESCRIPTION = "Add members of your development team to your Sandbox so you can work together on building applications";
     private static final String REGISTER_APP = "Register your Application";
+    private static final String REGISTER_APP_DESCRIPTION = "Registering your application activates an API key to allow you to access SLC Sandbox data";
     private static final String ENABLE_APP = "Enable an Application";
+    private static final String ENABLE_APP_DESCRIPTION = "Once you're ready to release your app, enable it for states and districts to use";
     private static final String TENANT_ID = "tenantId";
     private static final String UID = "uid";
     private static final String EXTERNAL_ID = "external_id";
@@ -63,15 +68,15 @@ public class CheckListHelper {
         
         // Provision LZ
         checkList
-                .add(new CheckList(PROVISION_LZ, "Provision description", hasProvisionedLandingZone(mySession, token)));
+                .add(new CheckList(PROVISION_LZ, PROVISION_LZ_DESCRIPTION, hasProvisionedLandingZone(mySession, token)));
         // Upload Data
-        checkList.add(new CheckList(UPLOAD_DATA, "upload data description", hasUploadedData(mySession, token)));
+        checkList.add(new CheckList(UPLOAD_DATA, UPLOAD_DATA_DESCRIPTION, hasUploadedData(mySession, token)));
         // Add User
-        checkList.add(new CheckList(ADD_USER, "add user description", hasAddedUsers(mySession, token)));
+        checkList.add(new CheckList(ADD_USER, ADD_USER_DESCRIPTION, hasAddedUsers(mySession, token)));
         // Register App
-        checkList.add(new CheckList(REGISTER_APP, "registar app description", jsonArrayApps.size() > 0));
+        checkList.add(new CheckList(REGISTER_APP, REGISTER_APP_DESCRIPTION, jsonArrayApps.size() > 0));
         // Enable app
-        checkList.add(new CheckList(ENABLE_APP, "enable app description", hasEnabledApp(jsonArrayApps)));
+        checkList.add(new CheckList(ENABLE_APP, ENABLE_APP_DESCRIPTION, hasEnabledApp(jsonArrayApps)));
         
         return checkList;
     }

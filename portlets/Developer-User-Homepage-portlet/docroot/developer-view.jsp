@@ -95,19 +95,19 @@
 			<th>Resource</th>
 		</tr>
 		<tr>
-			<td>Help Documentation</td>
+			<td><a href="http://dev.slcedu.org/documentation" target="_blank">Help Documentation</a></td>
 		</tr>
 		<tr>
-			<td>Developer Forum</td>
+			<td><a href="http://dev.slcedu.org/getting-started/mailing-list" target="_blank">Developer Forum</a></td>
 		</tr>
 		<tr>
-			<td>SLC Developer Blog</td>
+			<td><a href="http://dev.slcedu.org/blog" target="_blank">SLC Developer Blog</a></td>
 		</tr>
 		<tr>
-			<td>SLC Developer Camps</td>
+			<td><a href="http://dev.slcedu.org/slc-camps" target="_blank">SLC Developer Camps</a></td>
 		</tr>
 		<tr>
-			<td>Get Involved</td>
+			<td><a href="http://dev.slcedu.org/get-involved" target="_blank">Get Involved</a></td>
 		</tr>
 	</table>
 	<%
