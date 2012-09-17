@@ -60,9 +60,9 @@ public class HomePageController extends MVCPortlet {
     private static RESTClient restClient;
     
     /**
-     * whether a user has a Developer role
+     * whether a user has a Developer role and Portal runs as sandbox mode
      * 
-     * @return true if he/she has a Developer role
+     * @return true if Portal runs as sandbox mode and he/she has a Developer role
      */
     private boolean isDeveloperAndSandbox(JsonObject mySession) {
         
@@ -93,7 +93,7 @@ public class HomePageController extends MVCPortlet {
      * 
      * @return true if a user does not want to see a check list
      */
-    private boolean isDoShowCheckList(RenderRequest renderRequest) {
+    private boolean isDoNotShowCheckList(RenderRequest renderRequest) {
         
         PortletPreferences preferences = renderRequest.getPreferences();
         
@@ -124,7 +124,7 @@ public class HomePageController extends MVCPortlet {
         if (isDeveloperAndSandbox(mySession)) {
             url = DEVELOPER_VIEW;
             List<CheckListHelper.CheckList> checkList = null;
-            if (!isDoShowCheckList(renderRequest)) {
+            if (!isDoNotShowCheckList(renderRequest)) {
                 
                 checkList = getCheckList(token, mySession);
             }
