@@ -17,9 +17,10 @@
 /*
  * SLC Portal developer
  */
-var SLC = SLC || {};
-
-SLC.developer = (function() {
+var SLC = SLC || {},
+	newJQuery = jQuery.noConflict(true),
+	oldJQuery = jQuery;
+SLC.developer = (function($) {
 
 	// when user "Don't show this again" checkbox selects, "Apply" button will be displayed
 	$(".action_checkbox").click(function (e) {
@@ -36,4 +37,4 @@ SLC.developer = (function() {
 		trigger: 'hover',
 		placement: 'right'
 	});
-}());
+}(newJQuery));
