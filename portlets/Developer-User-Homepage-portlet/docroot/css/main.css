@@ -1,3 +1,5 @@
+.right.popover .arrow{border-right-color/*\**/: #cccccc\9;}
+
 [class^="icon-"],[class*=" icon-"] {
     background-image:url("../images/glyphicons-halflings.png");
 }
@@ -22,3 +24,4 @@
 .devCheckList a { cursor: pointer; }
 
 #apply_button { position: absolute; font-size: 11px; margin-left: 10px; }
+
