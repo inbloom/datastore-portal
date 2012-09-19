@@ -1,16 +1,18 @@
 <%--
 /**
- * Copyright (c) 2000-2012 Liferay, Inc. All rights reserved.
+ * Copyright 2012 Shared Learning Collaborative, LLC
  *
- * This library is free software; you can redistribute it and/or modify it under
- * the terms of the GNU Lesser General Public License as published by the Free
- * Software Foundation; either version 2.1 of the License, or (at your option)
- * any later version.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- * This library is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
- * details.
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 --%>
 
@@ -22,9 +24,9 @@
 <%@ page import="org.slc.sli.web.controller.HomePageController"%>
 <%@ page import="javax.portlet.PortletPreferences"%>
 
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
 <portlet:defineObjects />
-
-
 
 <link rel="stylesheet"
 	href="<%=renderRequest.getContextPath()%>/css/bootstrap.min.css">
@@ -37,83 +39,85 @@
 
 	<%
 	    List<CheckListHelper.CheckList> checkLists = (List<CheckListHelper.CheckList>) renderRequest
-		            .getAttribute(HomePageController.CHECK_LIST);
-		    //if checkLists is not null, then a user would like to see a checkList
-		    if (checkLists != null) {
+	            .getAttribute(HomePageController.CHECK_LIST);
+	pageContext.setAttribute("checkLists", checkLists);
 	%>
-	<h4>How to Get Up and Running</h4>
-	<table class="table table-bordered">
+	<c:choose>
+		<c:when test="${checkLists != null}">
+			<h4>How to Get Up and Running</h4>
+			<table class="table table-bordered">
 
-		<tr>
-			<th></th>
-			<th>Task</th>
-		</tr>
+				<tr>
+					<th></th>
+					<th>Task</th>
+				</tr>
+				<c:forEach items="${checkLists}" var="checkList">
 
-		<%
-		    for (CheckListHelper.CheckList checkList : checkLists) {
-				            String taskName = checkList.getTaskName();
-				            boolean taskState = checkList.isTaskFinished();
-				            String taskDescription = checkList.getTaskDescription();
-		%>
+					<tr>
+						<td><c:if test="${checkList.isTaskFinished()}">
+								<i class="icon-ok"></i>
+							</c:if></td>
+						<td><a class="tasks"
+							data-content="<c:out value="${checkList.getTaskDescription() }" />"
+							data-original-title="<c:out value="${checkList.getTaskName()}"/>"><c:out
+									value="${checkList.getTaskName()}" /></a></td>
+					</tr>
+				</c:forEach>
+			</table>
 
-		<tr>
-			<td>
-				<%
-				    if (taskState) {
-				%> <i class="icon-ok"></i> <%
-     }
- %>
-			</td>
-			<td><a class="tasks"
-				data-content="<%=taskDescription%>"
-				data-original-title="<%=taskName%>"><%=taskName%></a></td>
-		</tr>
-		<%
-		    }
-		%>
-	</table>
+			<portlet:actionURL var="developerViewURL">
+				<portlet:param name="jspPage"
+					value="<%=HomePageController.DEVELOPER_VIEW%>" />
+			</portlet:actionURL>
 
-	<portlet:actionURL var="developerViewURL">
-    	<portlet:param name="jspPage" value="<%=HomePageController.DEVELOPER_VIEW%>" />
-	</portlet:actionURL>
+			<form class="form-inline" action="<%=developerViewURL.toString()%>"
+				method="post">
+				<label class="checkbox"> <input type="checkbox"
+					class="action_checkbox"
+					id="<%=HomePageController.DO_NOT_SHOW_CHECK_LIST%>"> Don't
+					show this again.
+				</label>
+				<button type="submit" id="apply_button" class="hide btn btn-primary">Apply</button>
+			</form>
+		</c:when>
+		<c:otherwise>
+			<h4>How to Get Up and Running</h4>
+			<table class="table table-bordered">
+				<tr>
+					<th>Resource</th>
+				</tr>
+				<tr>
+					<td><a href="http://dev.slcedu.org/documentation"
+						target="_blank">Help Documentation</a></td>
+				</tr>
+				<tr>
+					<td><a
+						href="http://dev.slcedu.org/getting-started/mailing-list"
+						target="_blank">Developer Forum</a></td>
+				</tr>
+				<tr>
+					<td><a href="http://dev.slcedu.org/blog" target="_blank">SLC
+							Developer Blog</a></td>
+				</tr>
+				<tr>
+					<td><a href="http://dev.slcedu.org/slc-camps" target="_blank">SLC
+							Developer Camps</a></td>
+				</tr>
+				<tr>
+					<td><a href="http://dev.slcedu.org/get-involved"
+						target="_blank">Get Involved</a></td>
+				</tr>
+			</table>
+		</c:otherwise>
+	</c:choose>
 
-	<form class="form-inline" action="<%=developerViewURL.toString()%>" method="post">
-		<label class="checkbox">
-            <input type="checkbox" class="action_checkbox" id="<%=HomePageController.DO_NOT_SHOW_CHECK_LIST%>"> Don't show this again.
-		</label>
-		<button type="submit" id="apply_button" class="hide btn btn-primary">Apply</button>
-	</form>
-	<%
-	    } else {
-	%>
-	<%
-	//if checkList is null, then a user does not want to see a checkList
-	%>
-	<h4>How to Get Up and Running</h4>
-	<table class="table table-bordered">
-		<tr>
-			<th>Resource</th>
-		</tr>
-		<tr>
-			<td><a href="http://dev.slcedu.org/documentation" target="_blank">Help Documentation</a></td>
-		</tr>
-		<tr>
-			<td><a href="http://dev.slcedu.org/getting-started/mailing-list" target="_blank">Developer Forum</a></td>
-		</tr>
-		<tr>
-			<td><a href="http://dev.slcedu.org/blog" target="_blank">SLC Developer Blog</a></td>
-		</tr>
-		<tr>
-			<td><a href="http://dev.slcedu.org/slc-camps" target="_blank">SLC Developer Camps</a></td>
-		</tr>
-		<tr>
-			<td><a href="http://dev.slcedu.org/get-involved" target="_blank">Get Involved</a></td>
-		</tr>
-	</table>
-	<%
-	    }
-	%>
 </div>
-<script src="<%=renderRequest.getContextPath()%>/js/libs/jquery-1.7.2.min.js" sync></script>
-<script src="<%=renderRequest.getContextPath()%>/js/libs/bootstrap-tooltip.js" sync></script>
-<script src="<%=renderRequest.getContextPath()%>/js/libs/bootstrap-popover.js" sync></script>
+<script
+	src="<%=renderRequest.getContextPath()%>/js/libs/jquery-1.7.2.min.js"
+	sync></script>
+<script
+	src="<%=renderRequest.getContextPath()%>/js/libs/bootstrap-tooltip.js"
+	sync></script>
+<script
+	src="<%=renderRequest.getContextPath()%>/js/libs/bootstrap-popover.js"
+	sync></script>
