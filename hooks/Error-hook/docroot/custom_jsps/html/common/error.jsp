@@ -22,23 +22,26 @@
 <%@ page import="com.liferay.portal.service.LayoutLocalServiceUtil" %>
 <%@ page import="com.liferay.portal.util.WebKeys" %>
 <%@ page import="com.liferay.portal.model.LayoutSet" %>
+<%@ page import="com.liferay.portal.model.Layout" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%--
     It seems we cannot directly specify a portal page in the layout.friendly.url.page.not.found property
     So do a jstl import and fake it
 --%>
-<%! private static final String NOT_FOUND_LAYOUT_FRIENDLY_URL = "/web/guest/error"; %>
+<%! private static final String NOT_FOUND_LAYOUT_FRIENDLY_URL = "/error"; %>
 <%
 LayoutSet layoutSet = (LayoutSet)request.getAttribute(WebKeys.VIRTUAL_HOST_LAYOUT_SET);
-
 boolean notFoundPageExists = true;
+String url=null;
 try {
-    LayoutLocalServiceUtil.getFriendlyURLLayout(layoutSet.getGroupId(), layoutSet.isPrivateLayout(),
-            NOT_FOUND_LAYOUT_FRIENDLY_URL);
+    url=LayoutLocalServiceUtil.getFriendlyURLLayout(layoutSet.getGroupId(), layoutSet.isPrivateLayout(),
+            NOT_FOUND_LAYOUT_FRIENDLY_URL).getFriendlyURL();
 } catch (NoSuchLayoutException e) {
+e.printStackTrace();
     notFoundPageExists = false;
 }
 %>
 <c:if test="<%= notFoundPageExists %>">
-    <c:import url="<%= PortalUtil.getPortalURL(request) + NOT_FOUND_LAYOUT_FRIENDLY_URL + ";jsessionid=" + session.getId() %>"/>
+    <c:import url='<%= PortalUtil.getHomeURL(request) + NOT_FOUND_LAYOUT_FRIENDLY_URL + \";jsessionid=\" + session.getId() %>'/>
 </c:if>
+<br>
