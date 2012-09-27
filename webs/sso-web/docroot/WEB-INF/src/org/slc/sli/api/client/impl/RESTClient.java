@@ -137,7 +137,7 @@ public class RESTClient {
         Response response = getRequest(url);
 
         String jsonText = response.readEntity(String.class);
-        logger.info("jsonText = " + jsonText);
+        System.out.println("jsonText = " + jsonText);
         JsonParser parser = new JsonParser();
         JsonObject obj = parser.parse(jsonText).getAsJsonObject();
 
