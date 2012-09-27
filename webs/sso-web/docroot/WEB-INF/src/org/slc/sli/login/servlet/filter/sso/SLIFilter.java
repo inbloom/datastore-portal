@@ -11,6 +11,7 @@ import org.slc.sli.util.CookieKeys;
 import com.liferay.portal.kernel.util.Validator;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.google.gson.JsonSyntaxException;
 
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
@@ -152,20 +153,25 @@ public class SLIFilter extends BasePortalFilter {
 
 				boolean isSignedIn = SLISSOUtil.isSignedIn(client);
 
-				if (isSignedIn) {
-					session.setAttribute(Constants.OAUTH_TOKEN, accessToken);
-				} else {
-					clearSliCookie(request, response);
-					response.sendRedirect(client.getLoginURL().toExternalForm());
-				}
-
 				Object entryUrl = session.getAttribute(ENTRY_URL);
 
 				if (entryUrl != null) {
-					response.sendRedirect(session.getAttribute(ENTRY_URL)
+					if (isSignedIn) {
+						session.setAttribute(Constants.OAUTH_TOKEN, accessToken);
+						response.sendRedirect(session.getAttribute(ENTRY_URL)
 							.toString());
+					} else {
+						clearSliCookie(request, response);
+						response.sendRedirect(client.getLoginURL().toExternalForm());
+					}
 				} else {
-					response.sendRedirect(request.getRequestURI());
+					if (isSignedIn) {
+						session.setAttribute(Constants.OAUTH_TOKEN, accessToken);
+						response.sendRedirect(request.getRequestURI());
+					} else {
+						clearSliCookie(request, response);
+						response.sendRedirect(client.getLoginURL().toExternalForm());
+					}
 				}
 			} catch (JsonSyntaxException e) {
 				_log.error("Token Extract error.. (JsonSyntaxException)", e);
