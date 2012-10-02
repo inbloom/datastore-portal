@@ -68,7 +68,7 @@ public class HomePageController extends MVCPortlet {
         
         boolean developer = false;
         
-        boolean is_sandbox = GetterUtil.getBoolean(PropsUtil.get(IS_SANDBOX));
+        boolean is_sandbox = false; //GetterUtil.getBoolean(PropsUtil.get(IS_SANDBOX));
         // check if portal is running sandbox mode.
         if (is_sandbox) {
             // Do a session check to see if sliRoles is "Application Developer"
