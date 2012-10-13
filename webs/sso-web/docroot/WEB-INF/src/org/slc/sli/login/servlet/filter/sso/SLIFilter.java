@@ -162,12 +162,12 @@ public class SLIFilter extends BasePortalFilter {
 			} catch (JsonSyntaxException e) {
 				_log.error("Token Extract error.. (JsonSyntaxException)", e);
 				response = clearSliCookie(request, response);
-				response.sendRedirect(session.getAttribute(ENTRY_URL).toString());
+				response.sendRedirect("/sli-new-theme/static/tokenerror.html");
 			} catch (Exception e) {
 				_log.error("Token Extract error..", e);
 				// redirect to realm selection in case of token extractor error.
 				response = clearSliCookie(request, response);
-				response.sendRedirect(client.getLoginURL().toExternalForm());
+				response.sendRedirect("/sli-new-theme/static/tokenerror.html");
 			}
 		} else if (token == null) {
 			if (_log.isDebugEnabled()) {
