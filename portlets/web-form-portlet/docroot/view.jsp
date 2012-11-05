@@ -27,10 +27,18 @@ Calendar calendar =  Calendar.getInstance();
 String refererUrl = request.getHeader("Referer");
 %>
 
+<style type="text/css">
+    .dockbar{ display:none; }
+    html{ overflow:hidden }
+    .taglib-captcha .captcha{ padding-left: 150px; }
+    .portlet-content, .portlet-minimized .portlet-content-container { padding: 0 !important; }
+    .portlet-title { margin-left: 20px; }
+</style>
+
 <portlet:actionURL var="saveDataURL">
 	<portlet:param name="<%= ActionRequest.ACTION_NAME %>" value="saveData" />
 </portlet:actionURL>
- 
+
 <aui:form action="<%= saveDataURL %>" method="post" name="fm">
 <aui:input type="hidden" name="referUrl" value="<%= refererUrl%>" />
 <aui:input type="hidden" name="usrName" value="<%= themeDisplay.getUser().getFirstName()%>" />
@@ -157,8 +165,9 @@ String refererUrl = request.getHeader("Referer");
 			<liferay-ui:captcha url="<%= captchaURL %>" />
 		</c:if>
 
-		<div class="pop_btn_pnl">
-		<aui:button type="submit" value="Report a Problem" />
+        <div class="form-actions">
+		    <!--<aui:button type="submit" value="Report a Problem" />-->
+            <button type="submit" class="btn btn-primary pull-right">Report a Problem</button>
         </div>
 	</aui:fieldset>
 </aui:form>
@@ -291,17 +300,6 @@ String refererUrl = request.getHeader("Referer");
 </aui:script>
 </div>
 
-<style type="text/css">
-.dockbar{
-	display:none;
-}
-html{
-overflow:hidden
-}
-.taglib-captcha .captcha{
-	padding-left: 150px;
-}
 
-</style>
  
  
