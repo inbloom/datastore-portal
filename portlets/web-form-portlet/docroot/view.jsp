@@ -27,14 +27,6 @@ Calendar calendar =  Calendar.getInstance();
 String refererUrl = request.getHeader("Referer");
 %>
 
-<style type="text/css">
-    .dockbar{ display:none; }
-    html{ overflow:hidden }
-    .taglib-captcha .captcha{ padding-left: 150px; }
-    .portlet-content, .portlet-minimized .portlet-content-container { padding: 0 !important; }
-    .portlet-title { margin-left: 20px; }
-</style>
-
 <portlet:actionURL var="saveDataURL">
 	<portlet:param name="<%= ActionRequest.ACTION_NAME %>" value="saveData" />
 </portlet:actionURL>
@@ -101,8 +93,8 @@ String refererUrl = request.getHeader("Referer");
 					<aui:input cssClass='<%= fieldOptional ? "optional" : StringPool.BLANK %>' label="<%= HtmlUtil.escape(fieldLabel) %>" name="<%= fieldName %>" value="<%= HtmlUtil.escape(fieldValue) %>" />
 				</c:when>
 				<c:when test='<%= fieldType.equals("textarea") %>'>
-					<div style="margin-left:151px;margin-top:10px;">
-						Please describe your problem in as much detail as possible in the space below.  We already have logged the time and page location of this problem.<strong>  Do not include private student data or passwords in this field....</strong>
+					<div style="margin-left:151px;margin-top:10px;margin-right:20px;">
+						Please describe your problem in as much detail as possible in the space below.  We already have logged the time and page location of this problem.<strong>  Do not include private student data or passwords in this field.</strong>
 					</div>
 					<aui:input cssClass='<%= "lfr-textarea-container" + (fieldOptional ? "optional" : StringPool.BLANK) %>' label="<%= HtmlUtil.escape(fieldLabel) %>" name="<%= fieldName %>" type="textarea" value="<%= HtmlUtil.escape(fieldValue) %>" wrap="soft" style="resize : none; width : 315px; height : 75px;"/>
 				</c:when>

@@ -1,41 +1,21 @@
-.portlet-configuration .lfr-panel-content {
-  padding: 0 1em; }
+.dockbar {
+  display: none; }
 
-.portlet-configuration fieldset.rows-container {
-  border: none;
-  margin-top: 0; }
+html {
+  overflow: hidden; }
 
-.portlet-configuration .editing-disabled dt {
-  color: #999999;
-  float: left;
-  font-weight: bold;
-  width: 6em; }
+.taglib-captcha .captcha {
+  padding-left: 150px; }
 
-.portlet-configuration .lfr-form-row .aui-field {
-  margin-left: 2em; }
+.portlet-body {
+  margin-left: 15px; }
 
-.portlet-configuration .lfr-form-row .aui-field.optional-control {
-  margin: 1.3em; }
+.portlet-content, .portlet-minimized .portlet-content-container {
+  padding: 0 !important; }
 
-.portlet-configuration .lfr-form-row .aui-field.options, .portlet-configuration .lfr-form-row .validation .aui-field {
-  clear: both;
-  display: block; }
+.portlet-title {
+  margin-left: 20px; }
 
-.portlet-configuration .lfr-form-row .field-title {
-  color: #000;
-  font-size: 120%;
-  font-weight: bold;
-  padding: 3px; }
-
-.portlet-configuration .syntax-help {
-  margin: 2em 0 0 2em; }
-
-.portlet-configuration .validation {
-  clear: left; }
-
-.portlet-configuration .label-name .aui-field-wrapper-content {
-  margin-top: 0; }
-
-.portlet-configuration .label-name input, .portlet-configuration .options input {
-  width: 200px; }
+.innerModalPopupDiv .aui-field-label {
+  font-weight: normal; }
 

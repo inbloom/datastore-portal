@@ -1,8 +1,24 @@
 <style>
     .outerModalPopupDiv, .simplemodal-container{ width: 560px !important; padding: 0 !important; border: none !important;}
     #report-a-problem-div { width: 560px; text-align: right;  }
-    button.close { margin-right: 20px; }
+    button.close {
+        background: none;
+        border: 0 none;
+        cursor: pointer;
+        padding: 0;
+        margin-right: 20px;
+    }
+    .close {
+        color: #000000;
+        float: right;
+        font-size: 20px;
+        font-weight: bold;
+        line-height: 20px;
+        opacity: 0.2;
+        text-shadow: 0 1px 0 #FFFFFF;
+    }
     iframe { border:0; overflow-y: scroll; }
+
 </style>
 <script type='text/javascript' src='[$PORTAL_URL$]/sli-new-theme/js/jquery.simplemodal.1.4.2.min.js'>
 </script>
@@ -112,7 +128,13 @@ if(usrname=="demo"){
 
                                                 var src = "[$PORTAL_URL$]/portal/web/guest/report-a-problem";
 
-                                                $.modal('<div id="report-a-problem-div"></div><iframe onload="javascript:loadClose()" src="' + src + '" width="560" height="560"></iframe>');
+                                                $.modal('<div id="report-a-problem-div"></div><iframe onload="javascript:loadClose()" src="' + src + '" width="560" height="560"></iframe>', {
+                                                        closeHTML:"",
+                                                        containerCss:{
+                                                            backgroundColor:"#fff"
+                                                        },
+                                                        overlayClose:false
+                                                       });
 
                                 $(".simplemodal-wrap").css("overflow","hidden");
 hideDropDown();

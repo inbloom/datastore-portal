@@ -9,6 +9,7 @@
 		<instanceable>true</instanceable>
 		<private-session-attributes>false</private-session-attributes>
         <header-portlet-css>/css/bootstrap.min.css</header-portlet-css>
+        <header-portlet-css>/css/main.css</header-portlet-css>
         <css-class-wrapper>web-form-portlet</css-class-wrapper>
 	</portlet>
 	<role-mapper>
