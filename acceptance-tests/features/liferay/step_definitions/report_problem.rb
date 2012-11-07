@@ -33,5 +33,5 @@ Then /^I type "([^"]*)" in Problem Description$/ do |problemDesc|
 end
 
 Then /^I click on Report a Problem Button$/ do
-  @driver.find_element(:class, "pop_btn_pnl").find_element(:tag_name, "input").click
+  @driver.find_element(:class, "form-actions").find_element(:tag_name, "button").click
 end

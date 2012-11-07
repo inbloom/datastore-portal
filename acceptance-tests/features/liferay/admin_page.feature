@@ -8,7 +8,7 @@ When I navigate to the Portal home page
 
 @RALLY_US570 @RALLY_US576 @RALLY_US575 @RALLY_US1200
 Scenario:check admin user on admin page check 
-When I select "Shared Learning Infrastructure" and click go
+When I select "Shared Learning Collaborative" and click go
 And I was redirected to the "Simple" IDP Login page  
 When I submit the credentials "slcoperator" "slcoperator1234" for the "Simple" login page	 
 Then I should see Admin link
@@ -25,7 +25,7 @@ Then I should not see "Admin"
 
 @RALLY_US570 @RALLY_US576 @RALLY_US575 @RALLY_US1200@RALLY_US184
  Scenario: check district admin user on admin page check  
-When I select "Shared Learning Infrastructure" and click go
+When I select "Shared Learning Collaborative" and click go
 And I was redirected to the "Simple" IDP Login page 
 When I submit the credentials "sunsetrealmadmin" "sunsetrealmadmin1234" for the "Simple" login page
 Then I should see Admin link
