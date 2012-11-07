@@ -35,7 +35,7 @@ Then I follow all the wsrp links
 
 @RALLY_US570 @RALLY_US576 @RALLY_US575@RALLY_US1193@RALLY_US1200
 Scenario: check wsrp of admin user and go to admin page
-When I select "Shared Learning Infrastructure" and click go
+When I select "Shared Learning Collaborative" and click go
 And I was redirected to the "Simple" IDP Login page  
 When I submit the credentials "slcoperator" "slcoperator1234" for the "Simple" login page 
 Then I should be on the home page
@@ -46,7 +46,7 @@ Then I follow all the wsrp links
  
 @RALLY_US570 @RALLY_US576 @RALLY_US575 @RALLY_US1193 @RALLY_US1200
 Scenario:  check wsrp of admin user and go to admin page
-When I select "Shared Learning Infrastructure" and click go
+When I select "Shared Learning Collaborative" and click go
 And I was redirected to the "Simple" IDP Login page  
 When I submit the credentials "sunsetrealmadmin" "sunsetrealmadmin1234" for the "Simple" login page 
 Then I should be on the home page
