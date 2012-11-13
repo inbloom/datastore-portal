@@ -21,21 +21,22 @@
 <p>
 <b>Welcome</b>
 </p>
-<p> The Shared Learning Collaborative (SLC) provides access to tools and applications that help you monitor, manage, and improve student learning outcomes. Here you will find  student and course information integrated with powerful applications to deliver the insights you need.</p>
-<p> Applications available to you are listed on the right-hand side of this page.</p>
+<p> The SLC provides tools and applications to monitor, manage and boost student performance. As more applications become available, you will be better able to deliver top-notch instruction to kids through applications that provide valuable insights and also save you time.</p>
+<p> The applications that you can use are listed on the right side of the page.</p>
 <p>
-<b>Help Protect Student Privacy</b>
+<b>A Word About Student Privacy</b>
 </p>
-<p> This system contains personal data about students. You play an important role in protecting this data to maintain student privacy. Please follow these guidelines to help keep student data safe:</p>
+<p> The SLC contains personal data about students. This is sensitive stuff, and it's your role to keep this data safe. With that, here are some things to keep in mind:</p>
 <ul>
-<li> Only share student data with people who are authorized to see it (in accordance with federal and local policies and laws)</li>
-<li> Keep your password private</li>
-<li> Logout after each session. Click your name at the top of this page to logout.</li>
+<li> Only share student data with people who are authorized by federal and/or local law.</li>
+<li> Do not share your password.</li>
+<li> Update your password periodically.</li>
+<li> Log out each time you're done working. Click your name at the top of the page to logout.</li>
 </ul>
 <p>
-<b>We Value Your Input</b>
+<b>We're Listening</b>
 </p>
-<p> If you experience any problems or if you have a great idea for a new feature, please let us know. Click your name at the top of this page and choose "Report a Problem" to share feedback with the SLC.</p>
+<p> If you run into any issues or you have a good idea for a new feature, please contact us. Just click your name in the upper right, then click <a href="javascript: showpop();" class="modal">Report a problem</a></p>
 <p>  </p>
 
 <script src="<%=renderRequest.getContextPath()%>/js/libs/jquery-1.7.2.min.js" sync></script>

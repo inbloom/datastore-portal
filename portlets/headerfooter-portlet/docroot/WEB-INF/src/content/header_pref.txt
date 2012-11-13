@@ -1,3 +1,25 @@
+<style>
+    .outerModalPopupDiv, .simplemodal-container{ width: 560px !important; padding: 0 !important; border: none !important;}
+    #report-a-problem-div { width: 560px; text-align: right;  }
+    button.close {
+        background: none;
+        border: 0 none;
+        cursor: pointer;
+        padding: 0;
+        margin-right: 20px;
+    }
+    .close {
+        color: #000000;
+        float: right;
+        font-size: 20px;
+        font-weight: bold;
+        line-height: 20px;
+        opacity: 0.2;
+        text-shadow: 0 1px 0 #FFFFFF;
+    }
+    iframe { border:0; overflow-y: scroll; }
+
+</style>
 <script type='text/javascript' src='[$PORTAL_URL$]/sli-new-theme/js/jquery.simplemodal.1.4.2.min.js'>
 </script>
 <div class="menu_n">
@@ -94,7 +116,7 @@ if(usrname=="demo"){
 
     </script><script type="text/javascript">
 				function loadClose() {
-					$("#report-a-problem-div").html('<a style="background: none repeat scroll 0 0 #333333; border: medium none; color: #FFFFFF; cursor: pointer; font-weight: normal; overflow: visible; padding: 2px 10px; width: auto;" onClick="closePop()">Close</a>');
+					$("#report-a-problem-div").html('<button class="close" data-dismiss="modal" type="button" onclick="closePop();">x</button>');
 				}
 
                                 function closePop(){
@@ -106,30 +128,16 @@ if(usrname=="demo"){
 
                                                 var src = "[$PORTAL_URL$]/portal/web/guest/report-a-problem";
 
-                                                $.modal('<div style="width:700px; text-align: right" id="report-a-problem-div"></div><iframe onload="javascript:loadClose()" src="' + src + '" width="700" height="700" style="border:0;overflow:hidden"></iframe>', {
-
-                                                closeHTML:"",
-
-                                                containerCss:{
-
-                                                                borderColor:"#fff",
-
-                                                                padding:0
-
-                                                },
-
-                                                overlayClose:false
-
-                                });
+                                                $.modal('<div id="report-a-problem-div"></div><iframe onload="javascript:loadClose()" src="' + src + '" width="560" height="560"></iframe>', {
+                                                        closeHTML:"",
+                                                        containerCss:{
+                                                            backgroundColor:"#fff"
+                                                        },
+                                                        overlayClose:false
+                                                       });
 
                                 $(".simplemodal-wrap").css("overflow","hidden");
 hideDropDown();
                                 }
 
                 </script>
- <style type="text/css">
-.simplemodal-container{
-padding:20px!important;
- 
-}
- </style>
