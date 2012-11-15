@@ -31,7 +31,7 @@ When I submit the credentials "sunsetrealmadmin" "sunsetrealmadmin1234" for the 
 Then I should see Admin link
 Then I click on Admin
 Then I should be on the admin page
-And under System Tools, I see the following "Realm Management"
+And under System Tools, I see the following "Manage Realm"
 And I click on the SLC Logo
 And I should be on the home page
 

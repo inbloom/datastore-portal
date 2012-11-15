@@ -1,1 +1,9 @@
+.portlet-content a {
+  color: #0088CC !important;
+  text-decoration: none !important;
+  font-size: 14px !important; }
+
+.portlet-content a:hover {
+  color: #005580 !important;
+  text-decoration: underline !important; }
 
