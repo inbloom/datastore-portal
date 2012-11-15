@@ -32,7 +32,7 @@ function set_env() {
    PORTAL_TOMCAT=${OPT}/tomcat
    DEPLOY_DIR=${OPT}/deploy
    ENCRYPTION_DIR=${PORTAL_TOMCAT}/encryption
-   TOMCAT_VERSION=7.0.29
+   TOMCAT_VERSION=7.0.32
    TOMCAT_HOME=${OPT}/apache-tomcat-${TOMCAT_VERSION}
    USER=`whoami`
    CLIENT_ID="lY83c5HmTPX"
