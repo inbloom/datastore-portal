@@ -48,20 +48,20 @@ if(renderRequest.getAttribute("appList") != null){
 <c:choose>
 	
 	<c:when test='${fn:toLowerCase(app.behaviour) eq "iframe app" }'>
-		<a onClick="callIframe('<c:out value="${app.application_url}"></c:out>')" href='#' style="color: #000000;font-size: 14px;">
+		<a onClick="callIframe('<c:out value="${app.application_url}"></c:out>');return false;" href='<c:out value="${app.application_url}"></c:out>'>
 			<c:out value="${app.name}"></c:out>
 		</a>
 	</c:when>
 	
 	<c:when test='${fn:toLowerCase(app.behaviour) eq "wsrp app" }'>
-		<a onClick="callWsrp('<c:out value="${app.application_url}"></c:out>')"  href='#' style="color: #000000;font-size: 14px;">
+		<a onClick="callWsrp('<c:out value="${app.application_url}"></c:out>');return false;"  href='<c:out value="${app.application_url}"></c:out>'>
 			<c:out value="${app.name}"></c:out>
 		</a>
 	</c:when>
 	
 	<c:when test='${fn:toLowerCase(app.behaviour) eq "full window app" }'>
 	
-	<a href='<c:out value="${app.application_url}"></c:out>' style="color: #000000;font-size: 14px;">
+	<a href='<c:out value="${app.application_url}"></c:out>'>
 		<c:out value="${app.name}"></c:out>
 	</a>
 	</c:when>		
@@ -81,20 +81,20 @@ if(renderRequest.getAttribute("appList") != null){
 <c:choose>
 	
 	<c:when test='${app.behaviour eq "Iframe App" }'>
-		<a onClick="callIframe('<c:out value="${innerApp.url}"></c:out>')" href='#' style="color: #000000;font-size: 14px;">
+		<a onClick="callIframe('<c:out value="${innerApp.url}"></c:out>');return false;" href='<c:out value="${innerApp.url}"></c:out>'>
 			<c:out value="${innerApp.name}"></c:out>
 		</a>
 	</c:when>
 	
 	<c:when test='${app.behaviour eq "Wsrp App" }'>
-		<a onClick="callWsrp('<c:out value="${innerApp.url}"></c:out>')"  href='#' style="color: #000000;font-size: 14px;">
+		<a onClick="callWsrp('<c:out value="${innerApp.url}"></c:out>');return false;"  href='<c:out value="${innerApp.url}"></c:out>'>
 			<c:out value="${innerApp.name}"></c:out>
 		</a>
 	</c:when>
 	
 	<c:when test='${app.behaviour eq "Full Window App" }'>
 	
-	<a href='<c:out value="${innerApp.url}"></c:out>' style="color: #000000;font-size: 14px;">
+	<a href='<c:out value="${innerApp.url}"></c:out>'>
 		<c:out value="${innerApp.name}"></c:out>
 	</a>
 	</c:when>		
