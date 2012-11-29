@@ -50,20 +50,20 @@ if(renderRequest.getAttribute("appList") != null){
     <c:choose>
 	
 	<c:when test='${fn:toLowerCase(app.behaviour) eq "iframe app" }'>
-		<a onClick="callIframeOfConfApp('<c:out value="${app.admin_url}"></c:out>')" href='#' style="color: #000000;font-size: 14px;">
+		<a onClick="callIframeOfConfApp('<c:out value="${app.admin_url}"></c:out>')" href='#'>
 			<c:out value="${app.name}"></c:out>
 		</a>
 	</c:when>
 	
 	<c:when test='${fn:toLowerCase(app.behaviour) eq "wsrp app" }'>
-		<a onClick="callWsrpOfConfApp('<c:out value="${app.admin_url}"></c:out>')"  href='#' style="color: #000000;font-size: 14px;">
+		<a onClick="callWsrpOfConfApp('<c:out value="${app.admin_url}"></c:out>')"  href='#'>
 			<c:out value="${app.name}"></c:out>
 		</a>
 	</c:when>
 	
 	<c:when test='${fn:toLowerCase(app.behaviour) eq "full window app" }'>
 	
-	<a href='<c:out value="${app.admin_url}"></c:out>' style="color: #000000;font-size: 14px;">
+	<a href='<c:out value="${app.admin_url}"></c:out>'>
 		<c:out value="${app.name}"></c:out>
 	</a>
 	</c:when>		

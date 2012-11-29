@@ -36,13 +36,13 @@ body {
 }
 
 a {
-	color: #5B677D;
-	text-decoration: underline;
+	color: #0088CC;
+	text-decoration: none;
 }
 
 a:hover {
-	color: #06C;
-	text-decoration: none;
+	color: #005580;
+	text-decoration: underline;
 }
 
 hr, .separator {
@@ -331,8 +331,8 @@ body #sli_banner .logo a {
 }
 
 .portlet .portlet-content{
-	color:#666666;
-	font-size:13px;
+	color:#333;
+	font-size:14px;
 	padding-left:0;
 }
 
@@ -417,10 +417,6 @@ body #sli_banner .logo a {
 
 #sli_footer .sli_footer_wrap p{
 	margin:0;
-}
-
-#sli_footer a{
-	color:#CCCCCC;
 }
 /* ---------- Site breadcrumbs ---------- */
 
@@ -746,7 +742,7 @@ ul.menu_n ul li.last, ul.menu_n ul li.last_item{
 	font-size:26px;
 	font-weight: normal;
 	font-style: normal;
-	font-family: 'HelveticaNeueLT25UltLightRg';
+	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
 	color:#333333;	
 	margin-bottom:50px;
 }
