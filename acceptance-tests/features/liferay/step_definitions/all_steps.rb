@@ -36,7 +36,7 @@ Then /^I click on log out$/ do
   menuList = @driver.find_element(:class, "menu_n").find_element(:class, "first_item")
   menu = menuList.find_element(:id,"menulink")
   menu.click
-  menuList.find_element(:link_text, "Logout").click
+  menuList.find_element(:link_text, "Exit").click
   assertWithWait("User didn't log out properly") {@driver.current_url != PropLoader.getProps['portal_server_address'] + PropLoader.getProps['portal_app_suffix']}
 end
 
@@ -255,7 +255,7 @@ end
 And /^I see the EULA Page$/ do
   begin
     ele=@driver.find_element(:xpath, "//input[@value='Agree']")
-    ele2=@driver.find_element(:xpath, "//input[@value='Logout']")
+    ele2=@driver.find_element(:xpath, "//input[@value='Exit']")
     element=true
   rescue
     element=false
