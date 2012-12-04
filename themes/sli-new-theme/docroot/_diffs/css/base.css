@@ -105,6 +105,12 @@ p {
 	margin-bottom: 1em;
 }
 
+body p {
+	font-size: 14px;
+	color: #333;
+	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
 /* ---------- Links ---------- */
 
 a {
