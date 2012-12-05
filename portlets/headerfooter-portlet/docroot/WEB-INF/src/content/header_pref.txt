@@ -35,7 +35,7 @@
 
                 </script></li>
                     <li class="last">
-                        <a href="[$PORTAL_URL$]/portal/c/portal/logout">Exit</a></li>
+                        <a href="[$PORTAL_URL$]/portal/c/portal/logout">Logout</a></li>
                 </ul>
             </li>
             <li class="last_item" id="admin" style="display:none;">
