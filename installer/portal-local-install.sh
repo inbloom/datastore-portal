@@ -62,6 +62,7 @@ function set_env() {
    
       dialog --title "TOMCAT version" --backtitle "Portal Local Install: 5 of 10" --nocancel --inputbox "Enter Tomcat version you want to install" 8 80 ${TOMCAT_VERSION} 2>/tmp/portal-install.${PID}
       TOMCAT_VERSION=`cat /tmp/portal-install.${PID}`
+      TOMCAT_HOME=${OPT}/apache-tomcat-${TOMCAT_VERSION}
       rm -f /tmp/portal-install.${PID}
    
       dialog --title "client id" --backtitle "Portal Local Install: 6 of 10" --nocancel --inputbox "Enter your unecnrypted client id for Portal" 8 80 ${CLIENT_ID} 2>/tmp/portal-install.${PID}
