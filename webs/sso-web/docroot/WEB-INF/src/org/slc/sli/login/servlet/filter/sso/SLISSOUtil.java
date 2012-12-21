@@ -143,6 +143,7 @@ public class SLISSOUtil {
 			throws IOException {
 
 		boolean authenticated = false;
+		boolean bAdminUser = false;
 		String fullName = "";
 		String userId = "";
 		List<String> roles = new ArrayList<String>();
@@ -156,8 +157,11 @@ public class SLISSOUtil {
 				userId = (String) collection.get(0).getData().get("user_id");
 				authenticated = Boolean.valueOf((Boolean) collection.get(0)
 						.getData().get("authenticated"));
+				bAdminUser = Boolean.valueOf((Boolean) collection.get(0)
+						.getData().get("isAdminUser"));
 				roles = (List<String>) collection.get(0).getData()
 						.get("granted_authorities");
+				
 			}
 		} catch (URISyntaxException e) {
 			_log.error("Error occurred while calling session chek api..", e);

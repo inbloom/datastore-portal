@@ -25,21 +25,7 @@ public class SLIUtil {
 	 */
 
 	public static boolean isAdmin(UserData userdata) {
-		boolean isAdmin = false;
-		String[] SLI_ROLE_ADMINISTRATOR = PropsUtil
-				.getArray(PropsKeys.SLI_ROLE_ADMINISTRATOR);
-		if (Validator.isNotNull(userdata)) {
-			List<String> granted_authorities = userdata.getGranted_authorities();
-			for (String role : granted_authorities) {
-				for (String admin : SLI_ROLE_ADMINISTRATOR) {
-					if (role.equalsIgnoreCase(admin)) {
-						isAdmin = true;
-						break;
-					}
-				}
-			}
-		}
-		return isAdmin;
+		return userdata.isAdminUser();
 	}
 
 	public static boolean isLiferayAdmin(UserData userdata) {
