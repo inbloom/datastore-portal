@@ -30,7 +30,6 @@ if (referer.equals(themeDisplay.getPathMain() + "/portal/update_terms_of_use")) 
               <div class="portlet-layout">
                    <div class="portlet-column portlet-column-only" id="column-1">
                          <div class="sli_logo_main"> <a href="<%= themeDisplay.getURLHome() %>"> <img class="company-logo" src="<%= themeDisplay.getCompanyLogo() %>" width="<%= themeDisplay.getCompanyLogoWidth() %>" height="<%= themeDisplay.getCompanyLogoHeight() %>"/> </a> 
- <a href="<%= themeDisplay.getURLHome() %>"><span>SLC</span></a>
 </div>
                    </div>
               </div>

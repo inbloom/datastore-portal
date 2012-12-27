@@ -143,7 +143,7 @@ public class HeaderFooterLocalServiceImpl extends
 				headerData = headerData
 						.replace(
 								"[$SLI_LOGO$]",
-								"<img alt=\"\" class=\"company-logo\" height=\"17\" src=\"/sli-new-theme/images/custom/sli_logo_icn.png\" width=\"21\" />");
+								"<img alt=\"\" class=\"company-logo\" height=\"21\" src=\"/sli-new-theme/images/custom/inBloomBlack.png\" width=\"97\" />");
 
 				/*
 				 * if (currUrl.contains("web/guest/admin")) { headerData =

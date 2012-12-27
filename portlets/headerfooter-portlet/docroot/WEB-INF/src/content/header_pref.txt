@@ -24,7 +24,7 @@
 </script>
 <div class="menu_n">
     <h1 class="sli_logo_main">
-        <a href="[$PORTAL_URL$]/portal/web/guest/home">[$SLI_LOGO$]</a> <a href="[$PORTAL_URL$]/portal/web/guest/home" style="font-weight:normal;text-decoration:none"><span>SLC</span></a></h1>
+        <a href="[$PORTAL_URL$]/portal/web/guest/home">[$SLI_LOGO$]</a></h1>
     <div class="header_right">
         <ul class="menu_n">
             <li class="first_item">
