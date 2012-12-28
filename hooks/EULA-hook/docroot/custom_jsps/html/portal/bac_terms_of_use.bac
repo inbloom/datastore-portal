@@ -752,7 +752,7 @@ var ModalPopupsDefaults = {
      <div id="content_main" >
     <footer id="footer">
       <div class="footer_wrap">
-        <p>Proprietary information © 2012 SLC, LLC</p>
+        <p>Proprietary information © 2012 inBloom, LLC</p>
       </div>
     </footer>
     </div>
