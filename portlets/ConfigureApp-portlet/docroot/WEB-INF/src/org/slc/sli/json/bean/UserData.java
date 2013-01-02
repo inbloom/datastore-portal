@@ -46,7 +46,15 @@ public class UserData implements Serializable{
 	public void setGranted_authorities(String[] granted_authorities) {
 		this.granted_authorities = granted_authorities;
 	}
+	private boolean isAdminUser;
+	
+	public boolean isAdminUser() {
+		return isAdminUser;
+	}
 
+	public void setAdminUser(boolean isAdminUser) {
+		this.isAdminUser = isAdminUser;
+	}
 	public String getUser_id() {
 		return user_id;
 	}

@@ -24,6 +24,15 @@ public class UserData implements Serializable{
 	public void setAuthenticated(boolean authenticated) {
 		this.authenticated = authenticated;
 	}
+	private boolean isAdminUser;
+	
+	public boolean isAdminUser() {
+		return isAdminUser;
+	}
+
+	public void setAdminUser(boolean isAdminUser) {
+		this.isAdminUser = isAdminUser;
+	}
 
 	public String getFull_name() {
 		return full_name;
