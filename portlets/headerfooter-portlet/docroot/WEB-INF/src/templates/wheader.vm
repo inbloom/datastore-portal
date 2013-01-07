@@ -166,11 +166,11 @@ ul.menu_n .last_item{
 	border-left:#FFFFFF solid 1px;
 }
 ul.menu_n a.menulink{
-	background:url($arrow_w) no-repeat right center;
+	background:url($arrow) no-repeat right center;
 	line-height:14px;
 } 
 ul.menu_n a.show, ul.menu_n .menulink:hover{
-	background:url($arrow_w) no-repeat right center;
+	background:url($arrow) no-repeat right center;
 	color: #FFFFFF;
 } 
 ul.menu_n .first_item ul{

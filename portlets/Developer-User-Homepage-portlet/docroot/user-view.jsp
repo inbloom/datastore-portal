@@ -21,12 +21,12 @@
 <p>
 <b>Welcome</b>
 </p>
-<p> The inBloom provides tools and applications to monitor, manage and boost student performance. As more applications become available, you will be better able to deliver top-notch instruction to kids through applications that provide valuable insights and also save you time.</p>
+<p> inBloom provides tools and applications to monitor, manage and boost student performance. As more applications become available, you will be better able to deliver top-notch instruction to kids through applications that provide valuable insights and also save you time.</p>
 <p> The applications that you can use are listed on the right side of the page.</p>
 <p>
 <b>A Word About Student Privacy</b>
 </p>
-<p> The inBloom contains personal data about students. This is sensitive stuff, and it's your role to keep this data safe. With that, here are some things to keep in mind:</p>
+<p> inBloom contains personal data about students. This is sensitive stuff, and it's your role to keep this data safe. With that, here are some things to keep in mind:</p>
 <ul>
 <li> Only share student data with people who are authorized by federal and/or local law.</li>
 <li> Do not share your password.</li>
