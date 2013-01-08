@@ -6,7 +6,7 @@ When I navigate to the Portal home page
    
 @RALLY_US570 @RALLY_US1200
 Scenario: Normal User Login with wrong username and password
-When I select "Shared Learning Collaborative" and click go
+When I select "inBloom" and click go
 And I was redirected to the "Simple" IDP Login page
 When I submit the credentials "lkim" "lkim" for the "Simple" login page
 Then I should be on the authentication failed page
