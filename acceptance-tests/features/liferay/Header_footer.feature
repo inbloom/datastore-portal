@@ -30,7 +30,7 @@ And I should see username "SLC Operator"
 And I should see footer
 Then I click on Admin
 And I should see logo
-And under System Tools, I see the following "Approve Application Registration;Approve Account;Change Password"
+And under System Tools, I see the following "Approve Application Registration;Change Password"
 
 @RALLY_US570 @RALLY_US576 @RALLY_US575 @RALLY_US1200 @RALLY_US581
 Scenario:check sli logo and user name in header and footer for normal user 
