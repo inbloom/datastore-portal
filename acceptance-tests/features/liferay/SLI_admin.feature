@@ -3,7 +3,7 @@ Feature: Admin Login Tests
 Background:
 Given I have an open web browser
 When I navigate to the Portal home page
- When I select "Shared Learning Collaborative" and click go
+ When I select "inBloom" and click go
 And I was redirected to the "Simple" IDP Login page
  
 @RALLY_US570 @RALLY_US1200

@@ -76,9 +76,9 @@ When /^I click on Admin$/ do
 end
 
 And /^I should see logo$/ do 
-  logo = @driver.find_element(:class, "company-logo")
+  logo = @driver.find_element(:class, "company-logo").tag_name
   text = @driver.find_element(:class, "sli_logo_main").text
-  assert(text == "SLC", "Expected: SLC, Actual: {#text}")
+  assert(logo == "img", "Expected logo")
 end
 
 And /^I should see footer$/ do
@@ -138,7 +138,7 @@ end
 Then /^I click on the SLC Logo$/ do
   logo = @driver.find_element(:class, "sli_logo_main")
   links = logo.find_elements(:tag_name,"a")
-  links[1].click
+  links[0].click
 end
 
 def isIframePresent()
