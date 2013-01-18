@@ -81,7 +81,7 @@
 		<label class="checkbox">
             <input type="checkbox" class="action_checkbox" id="<%=HomePageController.DO_NOT_SHOW_CHECK_LIST%>"> Don't show this again.
 		</label>
-		<button type="submit" id="apply_button" class="hide btn btn-primary">Apply</button>
+		<button type="submit" id="apply_button" class="hide btn btn-info">Apply</button>
 	</form>
 	<%
 	    } else {

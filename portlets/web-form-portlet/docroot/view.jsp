@@ -159,7 +159,7 @@ String refererUrl = request.getHeader("Referer");
 
         <div class="form-actions">
 		    <!--<aui:button type="submit" value="Report a Problem" />-->
-            <button type="submit" class="btn btn-primary pull-right">Report a Problem</button>
+            <button type="submit" class="btn btn-info pull-right">Report a Problem</button>
         </div>
 	</aui:fieldset>
 </aui:form>

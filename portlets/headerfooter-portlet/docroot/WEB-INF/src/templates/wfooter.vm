@@ -2,19 +2,17 @@
 <style type="text/css">
 #sli_footer {
 	text-align: left;
-/*	background:#444545;
-	color:#FFFFFF;*/
-	padding-top:5px;
-	padding-bottom:0px;
+	background:#000;
+	color:#FFFFFF;
+	padding:10px 0;
 	position:relative;
 	width:100%;
 	bottom:0;
+	font-size: 14px;
 }
 #sli_footer .sli_footer_wrap{
 	width:96%;
 	margin:0 auto;
-	border-top:#E5E5E5 solid 2px;
-	background:#FFFFFF;
 }
 
 #sli_footer .sli_footer_wrap p{

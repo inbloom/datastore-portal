@@ -326,7 +326,7 @@ body #sli_banner .logo a {
 	background:url(../images/custom/header_bg.jpg) repeat-x #656565;*/
 	border-top: 2px solid #E5E5E5;
 	font-weight:bold;
-	font-family: Arial, Helvetica, sans-serif;
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 	
 }
 
@@ -400,23 +400,25 @@ body #sli_banner .logo a {
 
 #sli_footer {
 	text-align: left;
-/*	background:#444545;
-	color:#FFFFFF;*/
-	padding-top:5px;
-	padding-bottom:0px;
+	background:#000;
+	color:#FFFFFF;
+	padding:10px 0;
 	position:relative;
 	width:100%;
 	bottom:0;
+	font-size: 14px;
 }
 #sli_footer .sli_footer_wrap{
 	width:980px;
 	margin:0 auto;
-	border-top:#E5E5E5 solid 2px;
-	background:#FFFFFF;
 }
 
 #sli_footer .sli_footer_wrap p{
 	margin:0;
+}
+
+#sli_footer a {
+	color: #3E98D2;
 }
 /* ---------- Site breadcrumbs ---------- */
 
@@ -566,7 +568,7 @@ body #sli_banner .logo a {
 	list-style-type:none;
 	padding-left:60px;
 	height:50px;
-	font-family:"Myriad Pro";
+	font-family:"Helvetica Neue", Helvetica, Arial, sans-serif;
 	margin-bottom:15px;
 	color:#444444;
 }
@@ -742,7 +744,7 @@ ul.menu_n ul li.last, ul.menu_n ul li.last_item{
 	font-size:26px;
 	font-weight: normal;
 	font-style: normal;
-	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 	color:#333333;	
 	margin-bottom:50px;
 }
