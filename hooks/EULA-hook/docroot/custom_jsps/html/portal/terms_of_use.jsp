@@ -100,9 +100,9 @@ Please note:  No personally identifiable information under the Family Educationa
       <div class="sli_footer_wrap">
 	  <!-- US 2854- display footer text as per environment -->
         <%if(is_sandbox){ %>
-        <p>&copy; 2012 inBloom, Inc. and its affiliates <a target="_blank" href="http://www.inbloom.org/privacy-policy">Privacy Policy</a>  <a target="_blank"  href="http://www.inbloom.org/terms-of-use">Terms of Use</a> </p>
+        <p>&copy; 2013 inBloom, Inc. and its affiliates <a target="_blank" href="http://www.inbloom.org/privacy-policy">Privacy Policy</a>  <a target="_blank"  href="http://www.inbloom.org/terms-of-use">Terms of Use</a> </p>
       <%}else{ %>
-      <p>&copy; 2012 inBloom, Inc. and its affiliates  <a target="_blank" href="http://www.inbloom.org/privacy-policy">Privacy Policy</a> <a target="_blank" href="http://www.inbloom.org/terms-of-use">Terms of Use</a></p>
+      <p>&copy; 2013 inBloom, Inc. and its affiliates  <a target="_blank" href="http://www.inbloom.org/privacy-policy">Privacy Policy</a> <a target="_blank" href="http://www.inbloom.org/terms-of-use">Terms of Use</a></p>
       <%} %>
       </div>
     </footer>
