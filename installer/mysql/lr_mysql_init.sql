@@ -1,6 +1,3 @@
-CREATE Database lportal;
-use mysql;
-INSERT INTO user (Host,User,Password) VALUES('localhost','liferay',PASSWORD('liferaywgen'));
-flush privileges;
-grant all privileges on lportal.* to liferay@localhost;
-flush privileges;
+CREATE DATABASE lportal;
+CREATE USER 'liferay'@'localhost' IDENTIFIED BY 'liferaywgen';
+GRANT ALL PRIVILEGES ON lportal.* to liferay@localhost;
