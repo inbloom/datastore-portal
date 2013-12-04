@@ -25,103 +25,20 @@ function check_dependancy() {
 }
 
 function set_env() {
-    LIFERAY_HOME=/home/mbrush/Projects/inBloom/datastore_portal
-    SLI_HOME=/home/mbrush/Projects/inBloom/datastore/sli
-    OPT=/home/mbrush/Projects/inBloom/portal
-    PORTAL_TOMCAT=/home/mbrush/Projects/inBloom/portal/tomcat
-    DEPLOY_DIR=/home/mbrush/Projects/inBloom/portal/deploy
-    ENCRYPTION_DIR=/home/mbrush/Projects/inBloom/portal/tomcat/encryption
-    TOMCAT_VERSION=7.0.42
-    TOMCAT_HOME=/home/mbrush/Projects/inBloom/portal/apache-tomcat-7.0.42
-    USER=mbrush
-    CLIENT_ID=lY83c5HmTPX
-    CLIENT_SECRET=ghjZfyAXi7qwejklcxziuohiueqjknfdsip9cxzhiu13mnsX
-    API=http://local.slidev.org:8080/
-    PORTAL_PORT=7000
-
+    LIFERAY_HOME=~/datastore_portal
+    SLI_HOME=~/datastore/sli
+    OPT=~/opt
+    PORTAL_TOMCAT=${OPT}/tomcat
+    DEPLOY_DIR=${OPT}/deploy
+    ENCRYPTION_DIR=${PORTAL_TOMCAT}/encryption
+    TOMCAT_VERSION=7.0.47
+    TOMCAT_HOME=${OPT}/apache-tomcat-${TOMCAT_VERSION}
+    USER=`whoami`
+    CLIENT_ID="lY83c5HmTPX"
+    CLIENT_SECRET="ghjZfyAXi7qwejklcxziuohiueqjknfdsip9cxzhiu13mnsX"
+    API="http://local.slidev.org:8080/"
+    PORTAL_PORT="7000"
     return
-
-
-
-   LIFERAY_HOME=~/liferay
-   SLI_HOME=~/sli/sli
-   OPT=~/opt
-   PORTAL_TOMCAT=${OPT}/tomcat
-   DEPLOY_DIR=${OPT}/deploy
-   ENCRYPTION_DIR=${PORTAL_TOMCAT}/encryption
-   TOMCAT_VERSION=7.0.32
-   TOMCAT_HOME=${OPT}/apache-tomcat-${TOMCAT_VERSION}
-   USER=`whoami`
-   CLIENT_ID="lY83c5HmTPX"
-   CLIENT_SECRET="ghjZfyAXi7qwejklcxziuohiueqjknfdsip9cxzhiu13mnsX"
-   API="http://local.slidev.org:8080/"
-   PORTAL_PORT="7000"
-   #sourcing previous environment variables from the file
-   if [ -f ~/.portal-local-install.env ]; then
-      . ~/.portal-local-install.env
-   fi
-   if [ ${INTERACTIVE} == 1 ]; then
-      dialog --title "liferay git repo" --backtitle "Portal Local Install: 1 of 10" --nocancel --inputbox "Enter Location of Tomcat directory that contains Tomcat installation" 8 80 ${OPT} 2>/tmp/portal-install.${PID}
-      OPT=`cat /tmp/portal-install.${PID}`
-      rm -f /tmp/portal-install.${PID}
-
-      dialog --title "liferay git repo" --backtitle "Portal Local Install: 2 of 10" --nocancel --inputbox "Enter location of liferay git repository directory" 8 80 ${LIFERAY_HOME} 2>/tmp/portal-install.${PID}
-      LIFERAY_HOME=`cat /tmp/portal-install.${PID}`
-      rm -f /tmp/portal-install.${PID}
-   
-      dialog --title "sli git repo" --backtitle "Portal Local Install: 3 of 10" --nocancel --inputbox "Enter location of SLI git repository directory" 8 80 ${SLI_HOME} 2>/tmp/portal-install.${PID}
-      SLI_HOME=`cat /tmp/portal-install.${PID}`
-      rm -f /tmp/portal-install.${PID}
-
-      dialog --title "Encryption directory" --backtitle "Portal Local Install: 4 of 10" --nocancel --inputbox "Enter the directory to install ciEncryption in" 8 80 ${ENCRYPTION_DIR} 2>/tmp/portal-install.${PID}
-      ENCRYPTION_DIR=`cat /tmp/portal-install.${PID}`
-      rm -f /tmp/portal-install.${PID}
-   
-      dialog --title "TOMCAT version" --backtitle "Portal Local Install: 5 of 10" --nocancel --inputbox "Enter Tomcat version you want to install" 8 80 ${TOMCAT_VERSION} 2>/tmp/portal-install.${PID}
-      TOMCAT_VERSION=`cat /tmp/portal-install.${PID}`
-      TOMCAT_HOME=${OPT}/apache-tomcat-${TOMCAT_VERSION}
-      rm -f /tmp/portal-install.${PID}
-   
-      dialog --title "client id" --backtitle "Portal Local Install: 6 of 10" --nocancel --inputbox "Enter your unecnrypted client id for Portal" 8 80 ${CLIENT_ID} 2>/tmp/portal-install.${PID}
-      CLIENT_ID=`cat /tmp/portal-install.${PID}`
-      rm -f /tmp/portal-install.${PID}
-   
-      dialog --title "client secret" --backtitle "Portal Local Install: 7 of 10" --nocancel --inputbox "Enter your unencrypted client secret for Portal" 8 80 ${CLIENT_SECRET} 2>/tmp/portal-install.${PID}
-      CLIENT_SECRET=`cat /tmp/portal-install.${PID}`
-      rm -f /tmp/portal-install.${PID}
-   
-
-      dialog --title "Portal Server Port" --backtitle "Portal Local Install: 9 of 10" --nocancel --inputbox "Which port will Portal use for listening?" 8 80 ${PORTAL_PORT} 2>/tmp/portal-install.${PID}
-      PORTAL_PORT=`cat /tmp/portal-install.${PID}`
-      rm -f /tmp/portal-install.${PID}
-
-      if [ ${API_INSTALL} != 0 ]; then
-         API="http://local.slidev.org:${PORTAL_PORT}/"
-      else
-         API="http://local.slidev.org:8080/"
-      fi
-      dialog --title "API Server" --backtitle "Portal Local Install: 9 of 10" --nocancel --inputbox "Enter URL for API Server" 8 80 ${API} 2>/tmp/portal-install.${PID}
-      API=`cat /tmp/portal-install.${PID}`
-      rm -f /tmp/portal-install.${PID}
-
-      dialog --title "Portal Hot Deployment Directory" --backtitle "Portal Local Install: 10 of 10" --nocancel --inputbox "Enter Portal Hot Deployment Directory" 8 80 ${DEPLOY_DIR} 2>/tmp/portal-install.${PID}
-      DEPLOY_DIR=`cat /tmp/portal-install.${PID}`
-      rm -f /tmp/portal-install.${PID}
-   fi
-   #saving environment variable for future execution
-   echo "LIFERAY_HOME=${LIFERAY_HOME}
-SLI_HOME=${SLI_HOME}
-OPT=${OPT}
-PORTAL_TOMCAT=${PORTAL_TOMCAT}
-DEPLOY_DIR=${DEPLOY_DIR}
-ENCRYPTION_DIR=${ENCRYPTION_DIR}
-TOMCAT_VERSION=${TOMCAT_VERSION}
-TOMCAT_HOME=${TOMCAT_HOME}
-USER=${USER}
-CLIENT_ID=${CLIENT_ID}
-CLIENT_SECRET=${CLIENT_SECRET}
-API=${API}
-PORTAL_PORT=${PORTAL_PORT}"> ~/.portal-local-install.env
 }
 
 function database_init() {
@@ -393,8 +310,7 @@ app.server.dir=${TOMCAT_HOME}" > ${LIFERAY_HOME}/build.${USER}.properties
          echo 
          echo "Downloading portal.war from the Internet"
          echo 
-         # wget -O ${PORTAL_TOMCAT}/webapps/portal.war http://downloads.sourceforge.net/project/lportal/Liferay%20Portal/6.1.0%20GA1/liferay-portal-6.1.0-ce-ga1-20120106155615760.war
-         wget -O ${PORTAL_TOMCAT}/webapps/portal.war http://sourceforge.net/projects/lportal/files/Liferay%20Portal/6.1.2%20GA3/liferay-portal-6.1.2-ce-ga3-20130816114619181.war/download
+         wget -O ${PORTAL_TOMCAT}/webapps/portal.war http://downloads.sourceforge.net/project/lportal/Liferay%20Portal/6.1.0%20GA1/liferay-portal-6.1.0-ce-ga1-20120106155615760.war
          RET=$?
          if [ ${RET} != 0 ]; then
             echo "Failed to doanload Liferay.  Exiting out..."
